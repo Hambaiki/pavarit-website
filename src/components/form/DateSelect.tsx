@@ -3,13 +3,11 @@ import React, { useRef, useState } from "react";
 
 import { format } from "date-fns";
 
-import Icons from "@constants/icons";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
-import { useClickOutside } from "src/hooks/useClickOutside";
-
-import AbsoluteChildContainer from "../container/AbsoluteChildContainer";
 import Calendar from "./Calendar";
 import FadeInOutContainer from "../container/FadeInOutContainer";
+import { FaCalendar } from "react-icons/fa6";
 
 interface DateSelectProps {
   className?: string;
@@ -113,13 +111,7 @@ const DateSelect = ({
           </div>
         </FadeInOutContainer>
 
-        <Image
-          src={Icons.CalendarPrimaryBlue}
-          alt="calendar"
-          width={24}
-          height={24}
-          className="absolute right-3 top-1/2 -translate-y-1/2"
-        />
+        <FaCalendar className="absolute right-3 top-1/2 -translate-y-1/2" />
       </div>
 
       {error && <p className="text-sm text-red">{error}</p>}

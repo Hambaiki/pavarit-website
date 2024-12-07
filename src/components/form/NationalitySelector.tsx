@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { FlagImage } from "react-international-phone";
 import nationalities from "i18n-nationality";
-import Image from "next/image";
 
-import { useClickOutside } from "src/hooks/useClickOutside";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
-import Icons from "@constants/icons";
 import FadeInOutContainer from "../container/FadeInOutContainer";
+
+import { FaChevronDown, FaMagnifyingGlass } from "react-icons/fa6";
 
 nationalities.registerLocale(require("i18n-nationality/langs/en.json"));
 
@@ -103,13 +103,7 @@ const FormNationalitySelector = ({
           )}
         </button>
 
-        <Image
-          src={Icons.ChevronDownGreySubtext}
-          alt="chevron down"
-          width={12}
-          height={12}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3"
-        />
+        <FaChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3" />
 
         <FadeInOutContainer
           visible={dropdownOpen}
@@ -132,13 +126,7 @@ const FormNationalitySelector = ({
               onChange={handleSearchChange}
             />
 
-            <Image
-              src={Icons.SearchGreySubtext}
-              alt="search"
-              width={16}
-              height={16}
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
-            />
+            <FaMagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
           </div>
 
           {allNationalityOptions

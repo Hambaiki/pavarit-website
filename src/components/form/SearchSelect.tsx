@@ -1,10 +1,10 @@
-import Icons from "@constants/icons";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
-import { useClickOutside } from "src/hooks/useClickOutside";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 import FadeInOutContainer from "../container/FadeInOutContainer";
+
+import { FaMagnifyingGlass, FaXmark } from "react-icons/fa6";
 
 interface SearchSelectProps {
   label?: string;
@@ -89,13 +89,7 @@ const SearchSelect = ({
           `}
         />
 
-        <Image
-          src={Icons.SearchGreySubtext}
-          alt="search"
-          width={12}
-          height={12}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-        />
+        <FaMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" />
 
         {value && !disabled && (
           <button
@@ -103,7 +97,7 @@ const SearchSelect = ({
             onClick={() => onChange && onChange("")}
             className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4"
           >
-            <Image src={Icons.CloseBlack} alt="close" width={12} height={12} />
+            <FaXmark />
           </button>
         )}
 

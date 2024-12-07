@@ -1,9 +1,10 @@
-import Icons from "@constants/icons";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
-import { useClickOutside } from "src/hooks/useClickOutside";
-import FadeInOutContainer from "../container/FadeInOutContainer";
+import { useClickOutside } from "@/hooks/useClickOutside";
+
+import FadeInOutContainer from "@/components/container/FadeInOutContainer";
+
+import { FaChevronDown } from "react-icons/fa6";
 
 interface SelectProps {
   label?: string;
@@ -82,13 +83,7 @@ const Select = ({
           )}
         </button>
 
-        <Image
-          src={Icons.ChevronDownGreySubtext}
-          alt="chevron down"
-          width={12}
-          height={12}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3"
-        />
+        <FaChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3" />
 
         <FadeInOutContainer
           visible={dropdownOpen && options.length > 0}

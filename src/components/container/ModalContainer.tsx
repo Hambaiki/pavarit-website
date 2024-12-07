@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { useClickOutside } from "src/hooks/useClickOutside";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 interface ModalContainerProps {
   children: React.ReactNode;

@@ -1,9 +1,10 @@
-import Icons from "@constants/icons";
-import Image from "next/image";
 import { useRef, useState } from "react";
 
-import { useClickOutside } from "src/hooks/useClickOutside";
-import FadeInOutContainer from "../container/FadeInOutContainer";
+import { useClickOutside } from "@/hooks/useClickOutside";
+
+import FadeInOutContainer from "@/components/container/FadeInOutContainer";
+
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 interface SearchSelectProps {
   children?: React.ReactNode;
@@ -90,13 +91,7 @@ const SearchSelectButton = ({
                 onChange={handleSearchChange}
               />
 
-              <Image
-                src={Icons.SearchGreySubtext}
-                alt="search"
-                width={16}
-                height={16}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4"
-              />
+              <FaMagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
             </div>
           </div>
 

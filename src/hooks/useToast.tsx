@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion"; // Import framer-motion
-import Icons from "@constants/icons";
+
+import { FaCheck, FaXmark } from "react-icons/fa6";
 
 interface Toast {
   id: string;
@@ -51,23 +51,10 @@ export const useToast = () => {
                 }`}
               onClick={() => removeToast(toast.id)}
             >
-              {toast.type === "success" && (
-                <Image
-                  src={Icons.CompleteClipboard}
-                  alt="success"
-                  width={48}
-                  height={48}
-                />
-              )}
+              {toast.type === "success" && <FaCheck />}
 
-              {toast.type === "error" && (
-                <Image
-                  src={Icons.OTPError}
-                  alt="error"
-                  width={48}
-                  height={48}
-                />
-              )}
+              {toast.type === "error" && <FaXmark />}
+
               <span>{toast.message}</span>
             </button>
           </motion.div>

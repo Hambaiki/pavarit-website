@@ -27,8 +27,11 @@ export default function Navbar() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-row items-center justify-between max-w-4xl mx-auto p-8 space-x-8">
-        <h1 className="text-2xl font-bold text-suzuha-teal-500">Hambaiki</h1>
+      <div className="flex flex-row items-start justify-between max-w-4xl mx-auto p-8 space-x-8">
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
+          <hr className="border-2 border-suzuha-teal-500" />
+        </div>
 
         <nav className="hidden md:flex flex-row justify-center items-center space-x-4 w-full max-w-xl">
           {navItems.map((item, index) => {

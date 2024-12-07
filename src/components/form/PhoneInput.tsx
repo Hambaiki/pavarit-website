@@ -2,9 +2,8 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { defaultCountries, FlagImage } from "react-international-phone";
 
-import Icons from "@constants/icons";
-
-import { useClickOutside } from "src/hooks/useClickOutside";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { FaChevronDown } from "react-icons/fa6";
 
 interface PhoneInputProps {
   label?: string;
@@ -73,12 +72,7 @@ const PhoneInput = ({
             {selectedCountry && (
               <FlagImage iso2={selectedCountry.code} className="w-5 h-5" />
             )}
-            <Image
-              src={Icons.ChevronDownGreySubtext}
-              alt="chevron down"
-              width={12}
-              height={12}
-            />
+            <FaChevronDown />
           </button>
 
           <div className="flex items-center w-10 h-full text-xs">
