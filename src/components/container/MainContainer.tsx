@@ -6,11 +6,7 @@ function MainContainer({
   className?: string;
 }) {
   return (
-    <main
-      className={`w-full max-w-5xl mx-auto p-4 md:p-8 ${
-        className ?? ""
-      }`}
-    >
+    <main className={`w-full max-w-5xl mx-auto p-4 md:p-8 ${className ?? ""}`}>
       {children}
     </main>
   );

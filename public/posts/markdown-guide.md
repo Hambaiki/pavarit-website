@@ -2,11 +2,11 @@
 title: "Ultimate Guide to Markdown in Next.js"
 date: "2024-12-01"
 author: "Jane Doe"
-authorImage: "/images/placeholder/image-placeholder.jpg"
+authorImage: "/images/placeholder/placeholder-image.jpg"
 tags: ["nextjs", "markdown", "guide"]
 category: "Web Development"
 description: "Learn how to create blogs in Next.js using Markdown with optimized content and examples."
-image: "/images/placeholder/image-placeholder.jpg"
+image: "/images/placeholder/placeholder-image.jpg"
 keywords: ["nextjs markdown", "typescript blog", "seo nextjs blog"]
 canonicalUrl: "https://yourwebsite.com/blog/markdown-guide"
 ---
@@ -42,7 +42,7 @@ With these enhancements, your Markdown files will be well-optimized and highly f
 
 ## Adding Images
 
-![Markdown Logo](/images/placeholder/image-placeholder.jpg "Markdown Guide")
+![Markdown Logo](/images/placeholder/placeholder-image.jpg "Markdown Guide")
 
 Alt text: Text displayed if the image can't load (important for accessibility and SEO).
 path/to/image: Relative path to the image (e.g., in the /public/images directory).

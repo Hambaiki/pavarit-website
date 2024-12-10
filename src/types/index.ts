@@ -1,3 +1,3 @@
-import { BlogPost, BlogPostMetadata } from "./blog";
+import { BlogPost, BlogPostMetadata } from "./posts";
 
 export type { BlogPost, BlogPostMetadata };

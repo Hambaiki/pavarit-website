@@ -8,12 +8,12 @@ interface BreadcrumbsProps {
 
 function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
-    <div className="flex flex-row space-x-2 px-4 py-2 bg-neutral-900 rounded-xl">
+    <div className="flex flex-row flex-wrap px-4 py-2 bg-neutral-900 rounded-xl">
       {breadcrumbs.map((breadcrumb, index) => (
         <Link
           key={breadcrumb.href}
           href={breadcrumb.href}
-          className={`transition-colors ${
+          className={`transition-colors mr-2 ${
             index !== breadcrumbs.length - 1
               ? "text-neutral-300 hover:text-neutral-400"
               : "text-suzuha-teal-500"

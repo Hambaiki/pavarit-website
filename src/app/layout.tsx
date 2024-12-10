@@ -7,7 +7,10 @@ const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "Pavarit's Website",
-  description: "Discover more about Pavarit.",
+  description: "Discover more about Pavarit Wiriyakunakorn.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

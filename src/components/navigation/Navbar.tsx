@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 import { FaBars } from "react-icons/fa6";
 
+import { navItems } from "@/constants/common";
+
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 
 export default function Navbar() {
@@ -13,21 +15,13 @@ export default function Navbar() {
 
   const [stackOpen, setStackOpen] = useState(false);
 
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Projects", href: "/projects" },
-    { label: "Blog", href: "/blog" },
-    // { label: "Contact", href: "/contact" },
-  ];
-
   useEffect(() => {
     setStackOpen(false);
   }, [pathname]);
 
   return (
-    <div className="w-full">
-      <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-4 md:p-8 md:pb-4 space-x-8">
+    <div className="w-full bg-neutral-900">
+      <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-4 md:p-8 space-x-8">
         <div className="space-y-2">
           <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
           <hr className="border-2 border-suzuha-teal-500" />
@@ -71,7 +65,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="md:hidden max-w-4xl mx-auto bg-neutral-900">
+      <div className="md:hidden max-w-4xl mx-auto bg-neutral-950">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
             {navItems.map((item, index) => {

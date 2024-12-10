@@ -6,31 +6,13 @@ import { Metadata } from "next";
 
 import { getPostBySlug, getRecentPosts } from "@/lib/posts";
 
+import { FaCalendar, FaUser } from "react-icons/fa";
+
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostRenderer from "@/components/post/PostRenderer";
 import ShareOptions from "@/components/post/ShareOptions";
 import Link from "next/link";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const slug = (await params).slug;
-  const post = await getPostBySlug(slug);
-
-  return {
-    title: post.title,
-    description: post.description || "Blog",
-    keywords: post.keywords || "Blog",
-    openGraph: {
-      title: post.title,
-      description: post.description || "Blog",
-      images: [post.image || "/images/placeholder/image-placeholder.jpg"],
-    },
-  };
-}
 
 async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const slug = (await params).slug;
@@ -53,7 +35,7 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
 
         <div className="space-y-4 mt-8">
           <h1 className="text-4xl font-bold">{post.title}</h1>
-          <ul className="flex flex-row space-x-2">
+          <ul className="flex flex-row flex-wrap space-x-2">
             {post.tags.map((tag) => (
               <li
                 key={tag}
@@ -93,11 +75,12 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
             />
 
             <div className="text-sm space-y-2">
-              <p className="text-white not-italic">
-                <strong>Author:</strong>&nbsp;{post.author}
+              <p className="flex flex-row items-center text-white not-italic">
+                <FaUser className="mr-2" />
+                {post.author}
               </p>
-              <p className="text-white not-italic">
-                <strong>Published:</strong>&nbsp;
+              <p className="flex flex-row items-center text-white not-italic">
+                <FaCalendar className="mr-2" />
                 {format(new Date(post.date), "yyyy/MM/dd")}
               </p>
             </div>
@@ -142,6 +125,45 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
       </div>
     </MainContainer>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const slug = (await params).slug;
+  const post = await getPostBySlug(slug);
+
+  return {
+    title: post.title,
+    description: post.description || "Blog",
+    keywords: post.keywords || "Blog",
+    authors: [
+      {
+        name: post.author,
+        url: "/about",
+      },
+    ],
+    openGraph: {
+      title: post.title,
+      description: post.description || "Blog",
+      images: [
+        {
+          url: post.image || "/images/placeholder/placeholder-image.jpg",
+          width: 800,
+          height: 600,
+          alt: post.title,
+        },
+        {
+          url: post.authorImage || "/images/placeholder/placeholder-avatar.jpg",
+          width: 96,
+          height: 96,
+          alt: `${post.author}'s avatar`,
+        },
+      ],
+    },
+  };
 }
 
 export default BlogPostPage;
