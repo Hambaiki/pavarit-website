@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { format } from "date-fns";
 
-import { getAllPosts } from "@/lib/posts";
+import { getPosts } from "@/lib/posts";
 
 import { FaCalendar } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
@@ -13,10 +13,10 @@ import Paginator from "@/components/Paginator";
 import { Suspense } from "react";
 
 async function page({ params }: { params: Promise<{ page: string }> }) {
-  const perPage = 10;
+  const perPage = 5;
 
   const page = parseInt((await params).page || "1", 10);
-  const response = await getAllPosts({ page, perPage: perPage });
+  const response = await getPosts({ page, perPage: perPage });
 
   const maxPage = Math.ceil(response.total / perPage);
   const posts = response.posts;

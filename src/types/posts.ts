@@ -18,6 +18,7 @@ export interface BlogPost extends BlogPostMetadata {
 }
 
 export interface GetAllPostsOptions {
+  search?: string;
   page?: number;
   perPage?: number;
 }

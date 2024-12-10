@@ -11,15 +11,16 @@ import { GetAllPostsOptions, GetAllPostsResult } from "@/types/posts";
 const postsDirectory = path.join(process.cwd(), "public/posts");
 
 // Fetch all posts metadata
-export function getAllPosts(
-  { page = 1, perPage = 10 }: GetAllPostsOptions | undefined = {
+export function getPosts(
+  { search = "", page = 1, perPage = 10 }: GetAllPostsOptions | undefined = {
+    search: "",
     page: 1,
     perPage: 10,
   }
 ): GetAllPostsResult {
   const filenames = fs.readdirSync(postsDirectory);
 
-  const allPosts = filenames
+  let allPosts = filenames
     .map((filename) => {
       const filePath = path.join(postsDirectory, filename);
       const fileContents = fs.readFileSync(filePath, "utf8");
@@ -40,6 +41,19 @@ export function getAllPosts(
       } as BlogPostMetadata;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // Search
+  if (search) {
+    allPosts = allPosts.filter(
+      (post) =>
+        post.title.includes(search) ||
+        post.description.includes(search) ||
+        post.category.includes(search) ||
+        post.author.includes(search) ||
+        post.tags.some((tag) => tag.includes(search)) ||
+        post.keywords.some((keyword) => keyword.includes(search))
+    );
+  }
 
   // Pagination
   const startIndex = (page - 1) * perPage;
@@ -89,6 +103,6 @@ export function getAllPostSlugs() {
 
 // Fetch recent posts
 export function getRecentPosts(): BlogPostMetadata[] {
-  const posts = getAllPosts({ page: 1, perPage: 3 });
+  const posts = getPosts({ page: 1, perPage: 4 });
   return posts.posts;
 }

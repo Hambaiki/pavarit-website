@@ -1,20 +1,29 @@
 import Image from "next/image";
+import { Metadata } from "next";
 
-import { experiences } from "@/constants/about";
+import { education, experiences, tableOfContents } from "@/constants/about";
 
 import MainContainer from "@/components/container/MainContainer";
+import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 
 function About() {
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+  ];
+
   return (
     <MainContainer>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
+
       <div className="flex flex-col space-y-4 mt-8">
         <div className="flex flex-col sm:flex-row items-center space-y-4 space-x-0 sm:space-x-8 sm:space-y-0">
           <Image
-            src="/images/placeholder/placeholder-image.jpg"
+            src="/images/profile/pavarit.jpg"
             alt="About"
-            width={100}
-            height={100}
-            className="w-36 h-36 object-cover rounded-full"
+            width={500}
+            height={500}
+            className="w-48 h-48 object-cover rounded-full"
           />
           <div className="flex flex-col space-y-4">
             <h1 className="text-4xl font-bold">
@@ -28,7 +37,7 @@ function About() {
         </div>
       </div>
 
-      <div className="mt-8 p-4 bg-neutral-900 rounded-xl">
+      <div id="about" className="mt-8 p-4 bg-neutral-900 rounded-xl">
         <h2 className="text-2xl font-bold">About</h2>
         <p className="text-neutral-300 mt-2">
           {`With a keen interest technologies, I've spent the past few years
@@ -40,8 +49,24 @@ function About() {
         </p>
       </div>
 
-      <div className="mt-8 p-4 bg-neutral-900 rounded-xl">
-        <h2 className="text-2xl font-bold">Experience</h2>
+      {/* <div className="mt-8 p-4 bg-neutral-900 rounded-xl">
+        <h2 className="text-2xl font-bold">Contents</h2>
+        <ul className="mt-4 space-y-2">
+          {tableOfContents.map((item, index) => (
+            <li key={index}>
+              <a
+                href={item.href}
+                className="text-neutral-300 hover:text-white transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div> */}
+
+      <div id="experience" className="mt-8 p-4 bg-neutral-900 rounded-xl">
+        <h2 className="text-2xl font-bold">Work Experience</h2>
 
         <div className="flex flex-col mt-4 space-y-6">
           {experiences.map((experience, index) => (
@@ -85,8 +110,65 @@ function About() {
           ))}
         </div>
       </div>
+
+      <div id="education" className="mt-8 p-4 bg-neutral-900 rounded-xl">
+        <h2 className="text-2xl font-bold">Education</h2>
+
+        <div className="flex flex-col mt-4 space-y-6">
+          {education.map((education, index) => (
+            <div key={index} className="flex flex-col space-y-2">
+              <div>
+                <h3 className="text-xl font-bold">{education.title}</h3>
+              </div>
+
+              <div className="flex flex-row items-center space-x-2">
+                {education.image && (
+                  <Image
+                    src={education.image}
+                    alt={education.location}
+                    width={100}
+                    height={100}
+                    className="w-12 h-12 p-1 bg-neutral-800 rounded-full"
+                  />
+                )}
+                <p className="text-neutral-300">{education.location}</p>
+              </div>
+              <p className="text-neutral-300">{education.duration}</p>
+              <p className="text-neutral-300">{education.location}</p>
+
+              {/* {index !== experiences.length - 1 && (
+                <div className="w-1 h-12 bg-neutral-700" />
+              )} */}
+            </div>
+          ))}
+        </div>
+      </div>
     </MainContainer>
   );
 }
+
+export const metadata: Metadata = {
+  title: "About Pavarit (Guide) Wiriyakunakorn",
+  description: "Learn more about Pavarit",
+  keywords: ["Pavarit", "Guide", "Wiriyakunakorn", "Frontend Developer"],
+  openGraph: {
+    title: "About Pavarit (Guide) Wiriyakunakorn",
+    description: "Learn more about Pavarit",
+  },
+  twitter: {
+    title: "About Pavarit (Guide) Wiriyakunakorn",
+    description: "Learn more about Pavarit",
+  },
+  alternates: {
+    canonical: "/about",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 export default About;

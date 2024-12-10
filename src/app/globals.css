@@ -4,6 +4,7 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
+  --background-rgb: 34, 34, 34;
   --background-start-rgb: 34, 34, 34;
   --background-end-rgb: 34, 34, 34;
 }
@@ -24,12 +25,18 @@
 } 
 */
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  background: rgb(var(--background-rgb));
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }

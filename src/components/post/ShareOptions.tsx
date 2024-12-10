@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FaFacebook, FaTwitter, FaLink } from "react-icons/fa6";
+import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from "react-icons/fa6";
 
 function ShareOptions() {
   const options = [
@@ -21,6 +21,16 @@ function ShareOptions() {
       onShare: () => {
         window.open(
           `https://twitter.com/intent/tweet?url=${window.location.href}`,
+          "_blank"
+        );
+      },
+    },
+    {
+      title: "Share on LinkedIn",
+      icon: <FaLinkedin />,
+      onShare: () => {
+        window.open(
+          `https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}`,
           "_blank"
         );
       },

@@ -3,7 +3,7 @@ title: "My First Blog"
 date: "2024-12-01"
 author: "John Doe"
 authorImage: "/images/placeholder/placeholder-image.jpg"
-tags: ["nextjs", "markdown", "blog"]
+tags: ["nextjs", "development", "blog"]
 category: "Web Development"
 description: "Learn how to set up a Markdown-based blog in Next.js with TypeScript and optimize it for SEO."
 image: "/images/placeholder/placeholder-image.jpg"

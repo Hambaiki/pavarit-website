@@ -1,14 +1,14 @@
 ---
-title: "Ultimate Guide to Markdown in Next.js"
+title: "My Guide to Markdown in Next.js"
 date: "2024-12-01"
 author: "Jane Doe"
 authorImage: "/images/placeholder/placeholder-image.jpg"
-tags: ["nextjs", "markdown", "guide"]
+tags: ["nextjs", "development", "guide"]
 category: "Web Development"
 description: "Learn how to create blogs in Next.js using Markdown with optimized content and examples."
-image: "/images/placeholder/placeholder-image.jpg"
+image: "/images/posts/development/stelle-firefly.jpg"
 keywords: ["nextjs markdown", "typescript blog", "seo nextjs blog"]
-canonicalUrl: "https://yourwebsite.com/blog/markdown-guide"
+canonicalUrl: "https://pavarit.net/blog/markdown-guide"
 ---
 
 ## What is Markdown?
