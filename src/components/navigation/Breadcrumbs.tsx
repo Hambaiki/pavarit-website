@@ -13,7 +13,11 @@ function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
         <Link
           key={breadcrumb.href}
           href={breadcrumb.href}
-          className="text-neutral-300 hover:text-neutral-100 transition-colors"
+          className={`transition-colors ${
+            index !== breadcrumbs.length - 1
+              ? "text-neutral-300 hover:text-neutral-400"
+              : "text-suzuha-teal-500"
+          }`}
         >
           {breadcrumb.label}
           {index !== breadcrumbs.length - 1 && (

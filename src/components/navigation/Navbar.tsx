@@ -15,10 +15,10 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Blogs", href: "/blogs" },
     { label: "About", href: "/about" },
     { label: "Projects", href: "/projects" },
-    { label: "Contact", href: "/contact" },
+    { label: "Blog", href: "/blog" },
+    // { label: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {
@@ -27,13 +27,13 @@ export default function Navbar() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-row items-start justify-between max-w-4xl mx-auto p-8 space-x-8">
+      <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-4 md:p-8 md:pb-4 space-x-8">
         <div className="space-y-2">
           <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
           <hr className="border-2 border-suzuha-teal-500" />
         </div>
 
-        <nav className="hidden md:flex flex-row justify-center items-center space-x-4 w-full max-w-xl">
+        <nav className="hidden md:flex flex-row justify-end items-center space-x-4">
           {navItems.map((item, index) => {
             const current = pathname === `${item.href}`;
 
@@ -41,7 +41,7 @@ export default function Navbar() {
               <Link
                 key={index}
                 href={`${item.href}`}
-                className={`flex-1 px-4 py-2 rounded-full
+                className={`px-4 py-2 rounded-full w-28
                   transition-colors duration-300
                   text-center ${
                     current
@@ -73,7 +73,7 @@ export default function Navbar() {
 
       <div className="md:hidden max-w-4xl mx-auto bg-neutral-900">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
-          <div className="flex flex-col justify-center items-center space-y-4 p-8">
+          <div className="flex flex-col justify-center items-center space-y-2 p-4">
             {navItems.map((item, index) => {
               const current = pathname === `${item.href}`;
 

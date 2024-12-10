@@ -25,7 +25,7 @@ function Button({
     return (
       <Link
         href={href}
-        className={`${className} inline-block transition-colors 
+        className={`${className} flex transition-colors items-center justify-center text-center
           ${
             variant === "primary" &&
             "border border-suzuha-teal-500  bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"

@@ -1,9 +1,10 @@
 import Button from "@/components/Button";
+import MainContainer from "@/components/container/MainContainer";
 
 const Home = () => {
   return (
-    <main className="max-w-4xl mx-auto p-8">
-      <section>
+    <MainContainer>
+      <section className="">
         <div className="text-left mb-12">
           <h1 className="text-4xl font-bold">{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-2xl font-semibold text-suzuha-teal-500 mt-1">
@@ -22,14 +23,25 @@ const Home = () => {
             }
           </p>
 
-          <div className="text-center mt-4">
-            <Button className="w-32 h-12 rounded-lg" variant="secondary">
+          <div className="flex flex-row justify-end gap-4 mt-6">
+            <Button
+              href="/contact"
+              className="w-32 h-12 rounded-lg"
+              variant="secondary"
+            >
               Get in Touch
+            </Button>
+            <Button
+              href="/blog"
+              className="w-48 h-12 rounded-lg"
+              variant="primary"
+            >
+              Explore My Blog
             </Button>
           </div>
         </div>
       </section>
-    </main>
+    </MainContainer>
   );
 };
 
