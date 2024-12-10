@@ -134,7 +134,6 @@ function About() {
                 <p className="text-neutral-300">{education.location}</p>
               </div>
               <p className="text-neutral-300">{education.duration}</p>
-              <p className="text-neutral-300">{education.location}</p>
 
               {/* {index !== experiences.length - 1 && (
                 <div className="w-1 h-12 bg-neutral-700" />
