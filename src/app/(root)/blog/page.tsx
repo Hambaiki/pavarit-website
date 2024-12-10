@@ -11,6 +11,7 @@ import MainContainer from "@/components/container/MainContainer";
 
 import Paginator from "@/components/Paginator";
 import { Suspense } from "react";
+import Image from "next/image";
 
 async function page({ params }: { params: Promise<{ page: string }> }) {
   const perPage = 5;
@@ -45,36 +46,48 @@ async function page({ params }: { params: Promise<{ page: string }> }) {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="p-4 rounded-xl 
+            className="p-4 md:h-80 rounded-xl 
               bg-neutral-900 hover:bg-neutral-950 transition-colors"
           >
-            <article className="space-y-3">
-              <h2 className="text-2xl font-semibold">{post.title}</h2>
+            <article className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+              <Image
+                src={post.image || "/images/placeholder/placeholder-image.jpg"}
+                alt={post.title}
+                width={500}
+                height={500}
+                className="w-full h-48 md:h-full object-cover rounded-lg"
+              />
 
-              <address className="flex flex-row items-center space-x-4 text-sm">
-                <p className="flex flex-row items-center text-white not-italic">
-                  <FaUser className="mr-2" />
-                  {post.author}
-                </p>
-                <p className="flex flex-row items-center text-white not-italic">
-                  <FaCalendar className="mr-2" />
-                  {format(new Date(post.date), "yyyy/MM/dd")}
-                </p>
-              </address>
+              <div className="flex flex-col space-y-3">
+                <h2 className="text-2xl font-semibold">{post.title}</h2>
 
-              <ul className="flex flex-row flex-wrap space-x-2">
-                {post.tags.map((tag, index) => (
-                  <li
-                    key={index}
-                    className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
+                <address className="flex flex-row items-center space-x-4 text-sm">
+                  <p className="flex flex-row items-center text-white not-italic">
+                    <FaUser className="mr-2" />
+                    {post.author}
+                  </p>
+                  <p className="flex flex-row items-center text-white not-italic">
+                    <FaCalendar className="mr-2" />
+                    {format(new Date(post.date), "yyyy/MM/dd")}
+                  </p>
+                </address>
 
-              <div className="p-4 bg-neutral-800 rounded-xl">
-                <p className="text-neutral-300">{post.description}</p>
+                <ul className="flex flex-row flex-wrap gap-2">
+                  {post.tags.map((tag, index) => (
+                    <li
+                      key={index}
+                      className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex-1 p-4 bg-neutral-800 rounded-xl">
+                  <p className="text-neutral-300 line-clamp-4">
+                    {post.description}
+                  </p>
+                </div>
               </div>
             </article>
           </Link>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Metadata } from "next";
 
-import { education, experiences, tableOfContents } from "@/constants/about";
+import { education, experiences } from "@/constants/about";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
@@ -65,47 +65,75 @@ function About() {
         </ul>
       </div> */}
 
-      <div id="experience" className="mt-8 p-4 bg-neutral-900 rounded-xl">
+      <div id="experience" className="mt-8  rounded-xl">
         <h2 className="text-2xl font-bold">Work Experience</h2>
 
-        <div className="flex flex-col mt-4 space-y-6">
+        <div className="flex-1 flex flex-row overflow-x-auto pb-4 mt-4">
           {experiences.map((experience, index) => (
-            <div key={index} className="flex flex-col space-y-2">
-              <div>
-                <h3 className="text-xl font-bold">{experience.title}</h3>
-                <p className="text-neutral-300">{experience.type}</p>
-              </div>
+            <div key={index} className="flex flex-col ">
+              <div className="flex flex-col items-center mr-4">
+                <div className="flex flex-col space-y-2 w-[20rem] p-4 rounded-xl bg-black">
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-bold">{experience.title}</h3>
+                    <p className="text-neutral-300">
+                      {experience.type}&nbsp;|&nbsp;{experience.duration}
+                    </p>
+                  </div>
 
-              <div className="flex flex-row items-center space-x-2">
-                {experience.company.logo && (
-                  <Image
-                    src={experience.company.logo}
-                    alt={experience.company.name}
-                    width={100}
-                    height={100}
-                    className="w-12 h-12 object-cover rounded-full"
-                  />
-                )}
-                <p className="text-neutral-300">{experience.company.name}</p>
-              </div>
-              <p className="text-neutral-300">{experience.description}</p>
-              <p className="text-neutral-300">{experience.duration}</p>
-              <p className="text-neutral-300">{experience.location}</p>
+                  <div className="flex flex-row items-center space-x-4 p-2 bg-black rounded-full">
+                    {experience.company.logo && (
+                      <Image
+                        src={experience.company.logo}
+                        alt={experience.company.name}
+                        width={100}
+                        height={100}
+                        className="w-12 h-12 object-cover rounded-full"
+                      />
+                    )}
+                    <div className="flex flex-col">
+                      <p className="text-neutral-300">
+                        {experience.company.name}
+                      </p>
+                      <p className="text-neutral-500">{experience.location}</p>
+                    </div>
+                  </div>
 
-              <div className="flex flex-row flex-wrap items-center gap-2">
-                {experience.skills.map((skill, index) => (
-                  <p
-                    key={index}
-                    className="text-neutral-300 text-sm bg-black px-3 py-1 rounded-full"
-                  >
-                    {skill}
-                  </p>
-                ))}
-              </div>
+                  <p className="text-neutral-300">{experience.description}</p>
 
-              {/* {index !== experiences.length - 1 && (
+                  <div className="flex flex-row flex-wrap items-center gap-2">
+                    {experience.skills.map((skill, index) => (
+                      <p
+                        key={index}
+                        className="text-neutral-300 text-sm bg-neutral-800 px-3 py-1 rounded-full"
+                      >
+                        {skill}
+                      </p>
+                    ))}
+                  </div>
+
+                  {/* {index !== experiences.length - 1 && (
                 <div className="w-1 h-12 bg-neutral-700" />
               )} */}
+                </div>
+
+                <div className="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-black rotate-180" />
+              </div>
+
+              <div className="flex flex-row items-center mt-2">
+                <div
+                  className={`h-1 w-[9.45rem] ${
+                    index !== 0 ? "bg-suzuha-teal-700" : "bg-transparent"
+                  }`}
+                />
+                <div
+                  className={`w-5 h-5 rounded-full ${
+                    index === 0 ? "bg-suzuha-teal-400" : "bg-suzuha-teal-900"
+                  }`}
+                />
+                {index !== experiences.length - 1 && (
+                  <div className="flex-1 h-1 bg-suzuha-teal-700" />
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -121,7 +149,7 @@ function About() {
                 <h3 className="text-xl font-bold">{education.title}</h3>
               </div>
 
-              <div className="flex flex-row items-center space-x-2">
+              <div className="flex flex-row items-center space-x-4 p-2 bg-black rounded-full">
                 {education.image && (
                   <Image
                     src={education.image}
@@ -131,9 +159,11 @@ function About() {
                     className="w-12 h-12 p-1 bg-neutral-800 rounded-full"
                   />
                 )}
-                <p className="text-neutral-300">{education.location}</p>
+                <div className="flex flex-col">
+                  <p className="text-neutral-300">{education.location}</p>
+                  <p className="text-neutral-500">{education.duration}</p>
+                </div>
               </div>
-              <p className="text-neutral-300">{education.duration}</p>
 
               {/* {index !== experiences.length - 1 && (
                 <div className="w-1 h-12 bg-neutral-700" />

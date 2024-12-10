@@ -8,13 +8,13 @@ function Footer() {
       <div className="flex flex-col md:flex-row max-w-5xl w-full mx-auto p-4 md:p-8 space-y-4 space-x-0 md:space-y-0 md:space-x-8">
         <div className="flex-1 space-y-2">
           <div className="flex flex-row items-center space-x-2">
-            <Image
+            {/* <Image
               src="/images/logo/pw/pw-light.svg"
               alt="PAVARIT W."
               width={100}
               height={100}
-              className="w-10 h-10"
-            />
+              className="w-24 h-24"
+            /> */}
             <h2 className="text-lg font-semibold text-neutral-300">
               PAVARIT W.
             </h2>

@@ -46,7 +46,7 @@ export const experiences = [
 export const education = [
   {
     title: "Bachelor of Engineering in Information and Communication",
-    duration: "2020 - 2024",
+    duration: "2020 - 2023",
     location: "Chulalongkorn University",
     image: "/images/logo/school/chula-logo.png",
   },
@@ -82,19 +82,19 @@ export const education = [
   },
   {
     title: "Kindergarten (K3, Semester 2)",
-    duration: "2004-2006",
+    duration: "2006",
     location: "Panaya School Sukhumvit",
     image: "/images/logo/school/ppbs-logo.png",
   },
   {
     title: "Kindergarten (K3, Semester 1)",
-    duration: "2004-2006",
+    duration: "2006",
     location: "Saint Joseph Sriphetchabun School",
     image: "/images/logo/school/sjs-logo.png",
   },
   {
     title: "Kindergarten (K1 - K2)",
-    duration: "2004-2006",
+    duration: "2004-2005",
     location: "Panaya School Sukhumvit",
     image: "/images/logo/school/ppbs-logo.png",
   },
