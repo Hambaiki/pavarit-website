@@ -5,7 +5,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+function Layout({ children }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-[calc(100lvh)] w-full">
       <Navbar />

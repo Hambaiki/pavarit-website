@@ -1,10 +1,12 @@
+import Image from "next/image";
+
+import { introItems } from "@/constants/home";
+
 import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
 import RecentPosts from "@/components/post/RecentPosts";
-import { introItems } from "@/constants/home";
-import Image from "next/image";
 
-const Home = () => {
+function Home() {
   return (
     <>
       <div className="relative w-full overflow-hidden">
@@ -160,6 +162,6 @@ const Home = () => {
       </MainContainer>
     </>
   );
-};
+}
 
 export default Home;
