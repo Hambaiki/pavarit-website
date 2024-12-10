@@ -12,10 +12,15 @@ const postsDirectory = path.join(process.cwd(), "public/posts");
 
 // Fetch all posts metadata
 export function getPosts(
-  { search = "", page = 1, perPage = 10 }: GetAllPostsOptions | undefined = {
+  {
+    search = "",
+    page = 1,
+    tags = [],
+    perPage,
+  }: GetAllPostsOptions | undefined = {
     search: "",
     page: 1,
-    perPage: 10,
+    tags: [],
   }
 ): GetAllPostsResult {
   const filenames = fs.readdirSync(postsDirectory);
@@ -55,9 +60,15 @@ export function getPosts(
     );
   }
 
+  if (tags.length > 0) {
+    allPosts = allPosts.filter((post) =>
+      post.tags.some((tag) => tags.includes(tag))
+    );
+  }
+
   // Pagination
-  const startIndex = (page - 1) * perPage;
-  const endIndex = startIndex + perPage;
+  const startIndex = perPage ? (page - 1) * perPage : 0;
+  const endIndex = perPage ? startIndex + perPage : allPosts.length;
 
   // Return the paginated posts
   return {
@@ -105,4 +116,13 @@ export function getAllPostSlugs() {
 export function getRecentPosts(): BlogPostMetadata[] {
   const posts = getPosts({ page: 1, perPage: 4 });
   return posts.posts;
+}
+
+// Fetch all tags
+export function getAllTags(): string[] {
+  const response = getPosts();
+
+  return response.posts
+    .flatMap((post) => post.tags)
+    .filter((tag, index, self) => self.indexOf(tag) === index);
 }

@@ -1,6 +1,6 @@
 ---
 title: "My Journey Through Japan by Train"
-date: "2024-12-15"
+date: "2024-12-9"
 author: "John Doe"
 authorImage: "/images/placeholder/placeholder-image.jpg"
 tags: ["travel", "japan", "trains"]

@@ -13,7 +13,7 @@ canonicalUrl: "https://pavarit.net/blog/markdown-guide"
 
 ## What is Markdown?
 
-Markdown is a lightweight markup language...
+Markdown is a lightweight markup language.
 
 ## Features of Markdown
 

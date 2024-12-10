@@ -21,6 +21,7 @@ export interface GetAllPostsOptions {
   search?: string;
   page?: number;
   perPage?: number;
+  tags?: string[];
 }
 
 export interface GetAllPostsResult {

@@ -62,6 +62,7 @@ function Home() {
             and experiences for exploration and connection.`}
         </p>
       </section>
+
       <section className="mt-8">
         <h3 className="text-2xl font-semibold mb-4">
           Explore My Latest Articles

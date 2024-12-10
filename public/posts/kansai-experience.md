@@ -4,8 +4,8 @@ description: "A personal story about my first trip to Japan's Kansai region in 2
 date: "2024-12-10"
 author: "Pavarit Wiriyakunakorn"
 authorImage: "/images/profile/pavarit.jpg"
-tags: ["travel", "japan", "personal"]
-image: ""
+tags: ["travel", "japan", "personal", "kansai"]
+image: "/images/posts/kansai-experience/himeji-castle.jpg"
 ---
 
 Back in 2015, I was a 9th grade middle schooler. I have been intereseted in anime and manga for a couple of years, but did not really think much about it. Some of my friends has been to japan, and they have positive experiences. Still, I think nothing of it as I was not really interested in traveling to japan.
