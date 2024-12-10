@@ -64,15 +64,15 @@ const Home = () => {
             Welcome to My Corner of the Web!
           </h2>
           <p className="text-lg text-neutral-300 mt-4">
-            This is a space where I share my journey, ideas, and discoveries.
+            {`This is a space where I share my journey, ideas, and discoveries.
             Whether you're here to learn, be inspired, or simply explore, you're
-            in the right place.
+            in the right place.`}
           </p>
           <p className="text-lg text-neutral-300 mt-4">
-            Discover more about myself with a collection of topics ranging from
+            {`Discover more about myself with a collection of topics ranging from
             personal growth and creative projects to technical tutorials and
             deep thoughts about life. This is a place where I share my journey
-            and experiences for exploration and connection.
+            and experiences for exploration and connection.`}
           </p>
         </section>
 
