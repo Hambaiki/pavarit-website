@@ -1,17 +1,26 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { FaUser } from "react-icons/fa";
-import { useState } from "react";
-import FadeInOutContainer from "../container/FadeInOutContainer";
+
+import { useClickOutside } from "@/hooks/useClickOutside";
+
+import FadeInOutContainer from "@/components/container/FadeInOutContainer";
 
 function UserButton() {
+  const ref = useRef<HTMLDivElement>(null);
+
   const { user, isLoading } = useUser();
   const loggedIn = user && !isLoading;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useClickOutside(ref, () => {
+    setDropdownOpen(false);
+  });
 
   const dropdownItems = [
     { label: "Profile", href: "/profile" },
@@ -20,6 +29,7 @@ function UserButton() {
 
   return (
     <div
+      ref={ref}
       className="relative flex flex-row items-center"
       onMouseEnter={() => setDropdownOpen(true)}
       onMouseLeave={() => setDropdownOpen(false)}
