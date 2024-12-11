@@ -1,9 +1,32 @@
 export const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+  {
+    label: "Home",
+    href: "/",
+    subItems: [],
+  },
+  {
+    label: "About",
+    href: "/about",
+    subItems: [
+      { label: "Portfolio", href: "/about" },
+      { label: "Gaming", href: "/about/gaming" },
+      { label: "Hobbies", href: "/about/hobbies" },
+    ],
+  },
   // { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
-  { label: "Blog", href: "/blog" },
+  {
+    label: "Contact",
+    href: "/contact",
+    subItems: [],
+  },
+  {
+    label: "Blog",
+    href: "/blog",
+    subItems: [
+      { label: "All Posts", href: "/blog" },
+      { label: "Tags", href: "/blog/tag" },
+    ],
+  },
 ];
 
 export const contactItems = [

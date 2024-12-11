@@ -68,7 +68,7 @@ function About() {
       <div id="experience" className="mt-8  rounded-xl">
         <h2 className="text-2xl font-bold">Work Experience</h2>
 
-        <div className="flex-1 flex flex-row overflow-x-auto pb-4 mt-4">
+        <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-neutral-900 pb-4 mt-4">
           {experiences.map((experience, index) => (
             <div key={index} className="flex flex-col ">
               <div className="flex flex-col items-center mr-4">

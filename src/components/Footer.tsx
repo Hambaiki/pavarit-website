@@ -5,7 +5,7 @@ function Footer() {
     <div className="w-full bg-neutral-900 shadow-xl">
       <div className="flex flex-col md:flex-row max-w-5xl w-full mx-auto p-4 md:p-8 space-y-4 space-x-0 md:space-y-0 md:space-x-8">
         <div className="flex-1 space-y-2">
-          <div className="flex flex-row items-center space-x-2">
+          <div className="flex flex-col space-y-1">
             {/* <Image
               src="/images/logo/pw/pw-light.svg"
               alt="PAVARIT W."
@@ -16,6 +16,11 @@ function Footer() {
             <h2 className="text-2xl font-semibold text-neutral-300">
               PAVARIT W.
             </h2>
+            <p className="text-sm text-neutral-300">Developed by Pavarit W.</p>
+            <p className="text-sm text-neutral-500">
+              This website is under development. If you have any questions,
+              please contact me.
+            </p>
           </div>
         </div>
 

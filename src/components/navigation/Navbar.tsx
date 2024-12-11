@@ -4,11 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaUser } from "react-icons/fa6";
 
 import { navItems } from "@/constants/common";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
+import NavbarItem from "./NavbarItem";
+import Button from "../Button";
+import UserButton from "./UserButton";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -22,46 +25,30 @@ export default function Navbar() {
   return (
     <div className="w-full bg-neutral-900 shadow-xl">
       <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-4 md:p-8 space-x-8">
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
-          <hr className="border-2 border-suzuha-teal-500" />
+        <div className="flex flex-row items-center">
+          <div className="md:hidden mr-4 md:mr-0">
+            <button
+              onClick={() => setStackOpen(!stackOpen)}
+              className="p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition-colors"
+            >
+              <FaBars className="w-6 h-6" />
+            </button>
+          </div>
+
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
+            <hr className="border-2 border-suzuha-teal-500" />
+          </div>
         </div>
 
-        <nav className="hidden md:flex flex-row justify-end items-center space-x-4">
-          {navItems.map((item, index) => {
-            const current = pathname === `${item.href}`;
+        <div className="flex flex-row items-center space-x-4">
+          <nav className="hidden md:flex flex-row justify-end items-center space-x-2">
+            {navItems.map((item, index) => (
+              <NavbarItem key={index} item={item} />
+            ))}
+          </nav>
 
-            return (
-              <Link
-                key={index}
-                href={`${item.href}`}
-                className={`px-4 py-2 rounded-full w-28
-                  transition-colors duration-300
-                  text-center ${
-                    current
-                      ? "bg-neutral-700"
-                      : "hover:bg-neutral-800 text-suzuha-pink-500"
-                  }`}
-              >
-                <span
-                  className={`${
-                    current ? "text-suzuha-teal-500" : "text-neutral-100"
-                  }`}
-                >
-                  {item.label}
-                </span>
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="md:hidden">
-          <button
-            onClick={() => setStackOpen(!stackOpen)}
-            className="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
-          >
-            <FaBars className="w-6 h-6" />
-          </button>
+          <UserButton />
         </div>
       </div>
 
