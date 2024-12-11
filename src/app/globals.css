@@ -7,6 +7,7 @@
   --background-rgb: 34, 34, 34;
   --background-start-rgb: 34, 34, 34;
   --background-end-rgb: 34, 34, 34;
+  --border-color: 100, 100, 100;
 }
 
 /* html.dark {
@@ -39,4 +40,26 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
+}
+
+input {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  border-color: rgb(var(--border-color));
+}
+
+input:focus {
+  outline: none;
+  border-color: rgb(var(--border-color));
+}
+
+textarea {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  border-color: rgb(var(--border-color));
+}
+
+textarea:focus {
+  outline: none;
+  border-color: rgb(var(--border-color));
 }

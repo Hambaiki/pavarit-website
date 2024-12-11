@@ -50,13 +50,17 @@ async function page({ params }: { params: Promise<{ page: string }> }) {
               bg-neutral-900 hover:bg-neutral-950 transition-colors"
           >
             <article className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
-              <Image
-                src={post.image || "/images/placeholder/placeholder-image.jpg"}
-                alt={post.title}
-                width={500}
-                height={500}
-                className="w-full h-48 md:h-full object-cover rounded-lg"
-              />
+              <div className="overflow-hidden">
+                <Image
+                  src={
+                    post.image || "/images/placeholder/placeholder-image.jpg"
+                  }
+                  alt={post.title}
+                  width={500}
+                  height={500}
+                  className="w-full h-48 md:h-full object-cover rounded-lg"
+                />
+              </div>
 
               <div className="flex flex-col space-y-3">
                 <h2 className="text-2xl font-semibold">{post.title}</h2>
@@ -68,7 +72,7 @@ async function page({ params }: { params: Promise<{ page: string }> }) {
                   </p>
                   <p className="flex flex-row items-center text-white not-italic">
                     <FaCalendar className="mr-2" />
-                    {format(new Date(post.date), "yyyy/MM/dd")}
+                    {format(new Date(post.createDate), "yyyy/MM/dd")}
                   </p>
                 </address>
 
@@ -78,7 +82,7 @@ async function page({ params }: { params: Promise<{ page: string }> }) {
                       key={index}
                       className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
                     >
-                      {tag}
+                      {tag.name}
                     </li>
                   ))}
                 </ul>

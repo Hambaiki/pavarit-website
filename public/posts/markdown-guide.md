@@ -1,13 +1,39 @@
 ---
+# Core Metadata
 title: "My Guide to Markdown in Next.js"
+slug: "markdown-guide"
+description: "Learn how to create blogs in Next.js using Markdown with optimized content and examples."
+category: "Web Development"
+tags:
+  [
+    { name: "nextjs", slug: "nextjs" },
+    { name: "development", slug: "development" },
+    { name: "guide", slug: "guide" },
+  ]
+keywords: ["nextjs markdown", "typescript blog", "seo nextjs blog"]
+
+# Dates
 date: "2024-12-01"
+createDate: "2024-12-01"
+modifiedDate: "2024-12-01"
+
+# Author Details
 author: "Jane Doe"
 authorImage: "/images/placeholder/placeholder-image.jpg"
-tags: ["nextjs", "development", "guide"]
-category: "Web Development"
-description: "Learn how to create blogs in Next.js using Markdown with optimized content and examples."
+
+# Images
 image: "/images/posts/development/stelle-firefly.jpg"
-keywords: ["nextjs markdown", "typescript blog", "seo nextjs blog"]
+socialImage: "/images/posts/development/stelle-firefly.jpg"
+altText: "Markdown Guide"
+
+# Related Content
+relatedPosts: []
+
+# FAQs
+faq: []
+
+# Schema
+schemaType: "BlogPosting"
 canonicalUrl: "https://pavarit.net/blog/markdown-guide"
 ---
 

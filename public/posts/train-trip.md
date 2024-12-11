@@ -1,14 +1,45 @@
 ---
+# Core Metadata
 title: "My Journey Through Japan by Train"
+slug: "train-trip"
+description: "Experience the beauty of Japan through a scenic train journey, exploring cities and countryside alike."
+category: "Travel"
+tags:
+  [
+    { name: "travel", slug: "travel" },
+    { name: "japan", slug: "japan" },
+    { name: "trains", slug: "trains" },
+  ]
+keywords: ["japan travel", "train journey", "japanese railways", "travel blog"]
+
+# Dates
 date: "2024-12-9"
+createDate: "2024-12-9"
+modifiedDate: "2024-12-9"
+
+# Author Details
 author: "John Doe"
 authorImage: "/images/placeholder/placeholder-image.jpg"
-tags: ["travel", "japan", "trains"]
-category: "Travel"
-description: "Experience the beauty of Japan through a scenic train journey, exploring cities and countryside alike."
+
+# Images
 image: "/images/placeholder/placeholder-image.jpg"
-keywords: ["japan travel", "train journey", "japanese railways", "travel blog"]
-canonicalUrl: "https://yourwebsite.com/blog/train-trip"
+socialImage: "/images/placeholder/placeholder-image.jpg"
+altText: "My Journey Through Japan by Train"
+
+# Related Content
+relatedPosts: ["post-1", "post-2", "post-3"]
+
+# FAQs
+faq:
+  [
+    {
+      question: "What is the best time to visit Japan?",
+      answer: "The best time to visit Japan is from March to May, when the cherry blossoms bloom, or from September to November, when the autumn colors are at their peak.",
+    },
+  ]
+
+# Schema
+schemaType: "BlogPosting"
 ---
 
 # A Scenic Railway Adventure Through Japan

@@ -19,7 +19,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-row space-x-8 bg-neutral-800 p-4 rounded-xl">
+        {/* <div className="flex flex-row space-x-8 bg-neutral-800 p-4 rounded-xl">
           <div className="flex-1 flex flex-col space-y-2">
             <h3 className="text-lg font-semibold text-neutral-300">Links</h3>
             <ul className="grid grid-cols-1 gap-2 list-inside list-disc">
@@ -51,7 +51,7 @@ function Footer() {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

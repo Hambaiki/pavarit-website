@@ -38,7 +38,7 @@ async function RecentPosts() {
               </p>
               <p className="flex flex-row items-center text-white not-italic">
                 <FaCalendar className="mr-2" />
-                {format(new Date(recentPost.date), "yyyy/MM/dd")}
+                {format(new Date(recentPost.createDate), "yyyy/MM/dd")}
               </p>
             </div>
 
@@ -48,7 +48,7 @@ async function RecentPosts() {
                   key={index}
                   className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
                 >
-                  {tag}
+                  {tag.name}
                 </li>
               ))}
             </ul>

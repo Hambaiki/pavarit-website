@@ -34,13 +34,13 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
           <h1 className="text-4xl font-bold">{post.title}</h1>
           <ul className="flex flex-row flex-wrap space-x-2">
             {post.tags.map((tag, index) => (
-              <Link href={`/blog/tag/${tag}`} key={index}>
+              <Link href={`/blog/tag/${tag.slug}`} key={index}>
                 <li
-                  key={tag}
+                  key={index}
                   className="px-3 py-1 rounded-full 
                 text-sm text-neutral-300 bg-neutral-900"
                 >
-                  {tag}
+                  {tag.name}
                 </li>
               </Link>
             ))}
@@ -80,7 +80,7 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
               </p>
               <p className="flex flex-row items-center text-white not-italic">
                 <FaCalendar className="mr-2" />
-                {format(new Date(post.date), "yyyy/MM/dd")}
+                {format(new Date(post.createDate), "yyyy/MM/dd")}
               </p>
             </div>
           </address>

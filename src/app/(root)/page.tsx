@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
 import RecentPosts from "@/components/post/RecentPosts";
 
-function Home() {
+async function Home() {
   return (
     <MainContainer>
       <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
@@ -18,7 +18,7 @@ function Home() {
           className="h-64 w-64 md:h-96 md:w-96 rounded-full object-cover object-center"
         />
 
-        <div className="w-full max-w-5xl mx-auto p-4 md:p-8">
+        <div className="p-4 md:p-8">
           <h1 className="text-4xl font-bold">{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-2xl font-semibold text-suzuha-teal-500 mt-1">
             {"Glad to have you here!"}

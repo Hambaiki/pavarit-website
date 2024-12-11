@@ -1,11 +1,40 @@
 ---
+# Core Metadata
 title: "Kansai Experience - My first time in Japan (Part 1)"
+slug: "kansai-experience-part-1"
 description: "A personal story about my first trip to Japan's Kansai region in 2015, from initial hesitation to eye-opening experiences."
+category: "Travel"
+tags:
+  [
+    { name: "travel", slug: "travel" },
+    { name: "japan", slug: "japan" },
+    { name: "personal", slug: "personal" },
+    { name: "kansai", slug: "kansai" },
+  ]
+keywords: ["travel", "japan", "personal", "kansai"]
+
+# Dates
 date: "2024-12-10"
+createDate: "2024-12-10"
+modifiedDate: "2024-12-10"
+
+# Author Details
 author: "Pavarit Wiriyakunakorn"
 authorImage: "/images/profile/pavarit.jpg"
-tags: ["travel", "japan", "personal", "kansai"]
+
+# Images
 image: "/images/posts/kansai-experience/himeji-castle.jpg"
+socialImage: "/images/posts/kansai-experience/himeji-castle.jpg"
+altText: "Himeji Castle"
+
+# Related Content
+relatedPosts: []
+
+# FAQs
+faq: []
+
+# Schema
+schemaType: "BlogPosting"
 ---
 
 Back in 2015, I was a 9th grade middle schooler. I have been intereseted in anime and manga for a couple of years, but did not really think much about it. Some of my friends has been to japan, and they have positive experiences. Still, I think nothing of it as I was not really interested in traveling to japan.
