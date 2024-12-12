@@ -126,7 +126,7 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Title"
             value={metadata.title}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
           <input
             type="text"
@@ -134,7 +134,7 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Slug"
             value={metadata.slug}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
           <input
             type="text"
@@ -142,7 +142,7 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Author"
             value={metadata.author}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
           <input
             type="text"
@@ -150,7 +150,7 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Category"
             value={metadata.category}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
           <input
             type="text"
@@ -158,14 +158,14 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Tags (comma separated)"
             value={metadata.tags}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
           <input
             type="date"
             name="date"
             value={metadata.date}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
           <input
             type="text"
@@ -173,7 +173,7 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Featured Image URL"
             value={metadata.image}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border"
           />
         </div>
 
@@ -186,14 +186,14 @@ function PostEditor({ onSubmit }: PostEditorProps) {
             placeholder="Enter a short description for your post"
             value={metadata.description}
             onChange={handleMetadataChange}
-            className="w-full p-2 bg-neutral-800 rounded border border-neutral-700 h-24"
+            className="w-full p-2 bg-neutral-800 rounded border border-primary-gray-border h-24"
           />
         </div>
 
         {/* Editor Toolbar */}
         <div
           className="flex flex-wrap gap-2 p-2 mt-4 
-          bg-neutral-900 rounded-t border border-neutral-700"
+          bg-neutral-900 rounded-t border border-primary-gray-border"
         >
           <ToolbarButton
             onClick={() => editor.chain().focus().toggleBold().run()}
@@ -266,7 +266,7 @@ function PostEditor({ onSubmit }: PostEditorProps) {
         </div>
 
         {/* Editor Content */}
-        <div className="min-h-[400px] bg-neutral-900 rounded-b border border-t-0 border-neutral-700">
+        <div className="min-h-[400px] bg-neutral-900 rounded-b border border-t-0 border-primary-gray-border">
           <EditorContent editor={editor} />
         </div>
 

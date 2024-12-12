@@ -12,6 +12,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostRenderer from "@/components/post/PostRenderer";
 import ShareOptions from "@/components/post/ShareOptions";
 import RecentPosts from "@/components/post/RecentPosts";
+import PostImage from "@/components/post/PostImage";
 
 async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const slug = (await params).slug;
@@ -38,7 +39,8 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
                 <li
                   key={index}
                   className="px-3 py-1 rounded-full 
-                text-sm text-neutral-300 bg-neutral-900"
+                  text-sm text-neutral-300 bg-neutral-800 hover:bg-neutral-900 transition-colors
+                  border border-primary-gray-border"
                 >
                   {tag.name}
                 </li>

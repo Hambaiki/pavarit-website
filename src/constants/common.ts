@@ -8,7 +8,7 @@ export const navItems = [
     label: "About",
     href: "/about",
     subItems: [
-      { label: "Portfolio", href: "/about" },
+      { label: "About", href: "/about" },
       { label: "Gaming", href: "/about/gaming" },
       { label: "Hobbies", href: "/about/hobbies" },
     ],
@@ -23,7 +23,7 @@ export const navItems = [
     label: "Blog",
     href: "/blog",
     subItems: [
-      { label: "All Posts", href: "/blog" },
+      { label: "Posts", href: "/blog" },
       { label: "Tags", href: "/blog/tag" },
     ],
   },

@@ -37,7 +37,10 @@ function About() {
         </div>
       </div>
 
-      <div id="about" className="mt-8 p-4 bg-neutral-900 rounded-xl">
+      <div
+        id="about"
+        className="mt-8 p-4 bg-neutral-900 border border-primary-gray-border rounded-xl"
+      >
         <h2 className="text-2xl font-bold">About</h2>
         <p className="text-neutral-300 mt-2">
           {`With a keen interest technologies, I've spent the past few years
@@ -139,7 +142,10 @@ function About() {
         </div>
       </div>
 
-      <div id="education" className="mt-8 p-4 bg-neutral-900 rounded-xl">
+      <div
+        id="education"
+        className="mt-8 p-4 bg-neutral-900 border border-primary-gray-border rounded-xl"
+      >
         <h2 className="text-2xl font-bold">Education</h2>
 
         <div className="flex flex-col mt-4 space-y-6">

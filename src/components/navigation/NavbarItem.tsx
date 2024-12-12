@@ -47,14 +47,14 @@ function NavbarItem({ item }: NavbarItemProps) {
       </Link>
 
       <FadeInOutContainer visible={dropdownOpen}>
-        <div className="absolute top-[115%] left-0 w-full shadow-xl">
-          <div className="flex flex-col justify-center items-center rounded-xl overflow-hidden">
+        <div className="absolute top-[115%] right-1/2 translate-x-1/2">
+          <div className="flex flex-col justify-center items-center w-32 shadow-xl bg-black rounded-xl overflow-hidden">
             {item.subItems.map((subItem, subIndex) => {
               return (
                 <Link key={subIndex} href={`${subItem.href}`}>
                   <div
-                    className="px-4 py-2 w-28 transition-colors text-center 
-                      bg-black hover:bg-neutral-950"
+                    className="px-4 py-2 w-32 transition-colors text-center 
+                     hover:bg-neutral-950"
                   >
                     <span>{subItem.label}</span>
                   </div>

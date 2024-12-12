@@ -12,6 +12,7 @@ import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarItem from "./NavbarItem";
 import Button from "../Button";
 import UserButton from "./UserButton";
+import NavbarVerticalItem from "./NavbarVerticalItem";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -23,19 +24,19 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <div className="w-full bg-neutral-900 shadow-xl">
-      <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-4 md:p-8 space-x-8">
+    <div className="w-full bg-neutral-900 shadow-xl border-b border-primary-gray-border">
+      <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-6 md:p-8 space-x-8">
         <div className="flex flex-row items-center">
           <div className="md:hidden mr-4 md:mr-0">
             <button
               onClick={() => setStackOpen(!stackOpen)}
-              className="p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition-colors"
+              className="p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 border border-primary-gray-border transition-colors"
             >
               <FaBars className="w-6 h-6" />
             </button>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-1 md:space-y-2">
             <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
             <hr className="border-2 border-suzuha-teal-500" />
           </div>
@@ -54,32 +55,10 @@ export default function Navbar() {
 
       <div className="md:hidden max-w-4xl mx-auto bg-neutral-950">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
-          <div className="flex flex-col justify-center items-center space-y-2 p-4">
-            {navItems.map((item, index) => {
-              const current = pathname === `${item.href}`;
-
-              return (
-                <Link
-                  key={index}
-                  href={`${item.href}`}
-                  className={`flex-1 w-full px-4 py-2 rounded-full
-              transition-colors duration-300
-              text-center ${
-                current
-                  ? "bg-neutral-700"
-                  : "hover:bg-neutral-800 text-suzuha-pink-500"
-              }`}
-                >
-                  <span
-                    className={`${
-                      current ? "text-suzuha-teal-500" : "text-neutral-100"
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </Link>
-              );
-            })}
+          <div className="flex flex-col justify-center items-center space-y-2 p-6">
+            {navItems.map((item, index) => (
+              <NavbarVerticalItem key={index} item={item} />
+            ))}
           </div>
         </CollapsibleContainer>
       </div>

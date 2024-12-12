@@ -19,7 +19,7 @@ modifiedDate: "2024-12-01"
 
 # Author Details
 author: "Jane Doe"
-authorImage: "/images/placeholder/placeholder-image.jpg"
+authorImage: "/images/profile/jane-doe.webp"
 
 # Images
 image: "/images/posts/development/stelle-firefly.jpg"

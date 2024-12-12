@@ -18,8 +18,8 @@ createDate: "2024-12-01"
 modifiedDate: "2024-12-01"
 
 # Author Details
-author: "John Doe"
-authorImage: "/images/placeholder/placeholder-image.jpg"
+author: "Jane Doe"
+authorImage: "/images/profile/jane-doe.webp"
 
 # Images
 image: "/images/posts/development/penacony-popup.jpg"

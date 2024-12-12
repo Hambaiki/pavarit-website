@@ -10,15 +10,7 @@ async function Home() {
   return (
     <MainContainer>
       <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
-        <Image
-          src="/images/profile/pavarit.jpg"
-          alt="Profile"
-          width={1500}
-          height={1500}
-          className="h-64 w-64 md:h-96 md:w-96 rounded-full object-cover object-center"
-        />
-
-        <div className="p-4 md:p-8">
+        <div className="p-0">
           <h1 className="text-4xl font-bold">{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-2xl font-semibold text-suzuha-teal-500 mt-1">
             {"Glad to have you here!"}
@@ -44,9 +36,18 @@ async function Home() {
             </Button>
           </div>
         </div>
+
+        <Image
+          src="/images/profile/pavarit.jpg"
+          alt="Profile"
+          width={1500}
+          height={1500}
+          className="h-64 w-64 md:h-96 md:w-96 rounded-full object-cover object-center
+            border-4 border-suzuha-teal-500"
+        />
       </div>
 
-      <section className="p-4 bg-neutral-900 rounded-xl mt-8">
+      <section className="p-4 rounded-xl mt-8 bg-neutral-900 border border-primary-gray-border">
         <h2 className="text-3xl font-bold mt-1">
           Welcome to My Corner of the Web!
         </h2>
@@ -126,7 +127,7 @@ async function Home() {
           {introItems.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl"
+              className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl border border-primary-gray-border"
             >
               <div className="flex-1 flex flex-col space-y-2">
                 <h2 className="text-2xl font-semibold">{item.title}</h2>

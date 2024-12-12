@@ -30,12 +30,15 @@ function UserButton() {
   return (
     <div
       ref={ref}
-      className="relative flex flex-row items-center"
+      className="relative flex flex-row items-center cursor-pointer"
       onMouseEnter={() => setDropdownOpen(true)}
       onMouseLeave={() => setDropdownOpen(false)}
     >
       {loggedIn ? (
-        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-black hover:bg-neutral-950 transition-colors">
+        <div
+          className="w-10 h-10 flex items-center justify-center rounded-full 
+          bg-black hover:bg-neutral-950 border border-primary-gray-border transition-colors"
+        >
           {user.picture ? (
             <img
               src={user.picture}
@@ -48,18 +51,19 @@ function UserButton() {
           )}
         </div>
       ) : (
-        <Link href="/api/auth/login">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-black hover:bg-neutral-950 transition-colors">
-            <FaUser className="w-4 h-4" />
-          </div>
-        </Link>
+        <div
+          className="w-10 h-10 flex items-center justify-center rounded-full 
+          bg-black hover:bg-neutral-950 border border-primary-gray-border transition-colors"
+        >
+          <FaUser className="w-4 h-4" />
+        </div>
       )}
 
       <FadeInOutContainer visible={dropdownOpen}>
         <div className="absolute top-[115%] right-0 shadow-xl">
-          <div className="flex flex-col justify-center items-center rounded-xl bg-black overflow-hidden">
-            <div className="flex flex-row items-center justify-center space-x-4 p-4">
-              {loggedIn && (
+          <div className="flex flex-col justify-center items-center min-w-[12rem] rounded-xl bg-black overflow-hidden">
+            {loggedIn && (
+              <div className="flex flex-row items-center justify-center space-x-4 p-4">
                 <div className="w-10 h-10 flex items-center justify-center rounded-full bg-black hover:bg-neutral-950 transition-colors">
                   {user.picture ? (
                     <img
@@ -73,9 +77,7 @@ function UserButton() {
                     <FaUser className="w-4 h-4" />
                   )}
                 </div>
-              )}
 
-              {loggedIn ? (
                 <div className="flex flex-col justify-center space-y-1">
                   <span className="text-sm font-bold">
                     {user?.nickname || "no name"}
@@ -84,29 +86,34 @@ function UserButton() {
                     {user?.email || "no email"}
                   </span>
                 </div>
-              ) : (
-                <div className="flex flex-col justify-center items-center w-32">
-                  <span className="text-sm font-bold">Click to login</span>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
 
-            {loggedIn && (
-              <div className="flex flex-col justify-center w-full">
-                {dropdownItems.map((item, index) => {
+            <div className="flex flex-col justify-center w-full">
+              {loggedIn ? (
+                dropdownItems.map((item, index) => {
                   return (
                     <Link key={index} href={`${item.href}`}>
                       <div
                         className="px-4 py-2 transition-colors text-center 
-                      bg-black hover:bg-neutral-950"
+                        bg-black hover:bg-neutral-950"
                       >
                         <span>{item.label}</span>
                       </div>
                     </Link>
                   );
-                })}
-              </div>
-            )}
+                })
+              ) : (
+                <Link href="/api/auth/login?prompt=login">
+                  <div
+                    className="px-4 py-2 transition-colors text-center 
+                    bg-black hover:bg-neutral-950"
+                  >
+                    <span className="text-sm font-bold">Click to login</span>
+                  </div>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </FadeInOutContainer>
