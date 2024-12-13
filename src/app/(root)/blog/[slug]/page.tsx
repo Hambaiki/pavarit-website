@@ -120,8 +120,11 @@ export async function generateMetadata({
       },
     ],
     openGraph: {
+      type: "article",
       title: post.title,
       description: post.description || "Blog",
+      siteName: "Pavarit's Website",
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${post.slug}`,
       images: [
         {
           url: post.image || "/images/placeholder/placeholder-image.jpg",

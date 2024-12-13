@@ -153,7 +153,7 @@ async function Home() {
 export const metadata: Metadata = {
   title: "Pavarit (Guide) Wiriyakunakorn's Website",
   description:
-    "Welcome to Pavarit (Guide) Wiriyakunakorn's personal website. Explore projects, blogs, and insights from a passionate developer.",
+    "I am Pavarit Wiriyakunakorn, and this is a space where I share my journey, ideas, and discoveries.",
   keywords: [
     "Pavarit Wiriyakunakorn",
     "Guide Wiriyakunakorn",
@@ -174,9 +174,9 @@ export const metadata: Metadata = {
     type: "website",
     title: "Pavarit (Guide) Wiriyakunakorn's Website",
     description:
-      "Explore the portfolio and insights of Pavarit (Guide) Wiriyakunakorn.",
-    siteName: "Guide's Website",
-    url: process.env.NEXT_PUBLIC_BASE_URL,
+      "I am Pavarit Wiriyakunakorn, and this is a space where I share my journey, ideas, and discoveries.",
+    siteName: "Pavarit's Website",
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     images: [
       {
         url: "/images/profile/pavarit.jpg",
