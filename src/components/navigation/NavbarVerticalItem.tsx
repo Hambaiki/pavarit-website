@@ -38,7 +38,7 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
     <>
       <div
         ref={ref}
-        className={`flex-1 w-full h-12
+        className={`flex-1 w-full
           transition-colors rounded-xl overflow-hidden
           ${current ? "bg-neutral-700" : "hover:bg-neutral-800"}
           ${
