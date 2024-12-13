@@ -9,7 +9,7 @@ import RecentPosts from "@/components/post/RecentPosts";
 async function Home() {
   return (
     <MainContainer>
-      <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+      <div className="flex flex-col-reverse sm:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
         <div className="p-0">
           <h1 className="text-4xl font-bold">{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-2xl font-semibold text-suzuha-teal-500 mt-1">
@@ -47,7 +47,7 @@ async function Home() {
         />
       </div>
 
-      <section className="p-4 rounded-xl mt-8 bg-neutral-900 border border-primary-gray-border">
+      <section className="p-4 rounded-xl mt-8 bg-neutral-900 ">
         <h2 className="text-3xl font-bold mt-1">
           Welcome to My Corner of the Web!
         </h2>
@@ -127,7 +127,7 @@ async function Home() {
           {introItems.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl border border-primary-gray-border"
+              className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl "
             >
               <div className="flex-1 flex flex-col space-y-2">
                 <h2 className="text-2xl font-semibold">{item.title}</h2>

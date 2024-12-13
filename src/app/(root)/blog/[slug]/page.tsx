@@ -39,8 +39,7 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
                 <li
                   key={index}
                   className="px-3 py-1 rounded-full 
-                  text-sm text-neutral-300 bg-neutral-800 hover:bg-neutral-900 transition-colors
-                  border border-primary-gray-border"
+                    text-sm text-neutral-300 bg-neutral-800 hover:bg-neutral-900 transition-colors"
                 >
                   {tag.name}
                 </li>

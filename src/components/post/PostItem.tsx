@@ -27,8 +27,7 @@ function PostItem({
   return (
     <div
       className="p-4 md:h-80 rounded-xl 
-      bg-neutral-900 hover:bg-neutral-950 transition-colors
-      border border-primary-gray-border"
+      bg-neutral-900 hover:bg-neutral-950 transition-colors"
     >
       <article className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
         <div className="overflow-hidden">

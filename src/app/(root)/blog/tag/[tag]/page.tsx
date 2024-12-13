@@ -39,7 +39,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
               key={recentPost.slug}
               href={`/blog/${recentPost.slug}`}
               className="flex flex-col space-y-4 justify-between p-4 rounded-xl 
-          bg-neutral-900 hover:bg-neutral-950 transition-colors"
+              bg-neutral-900 hover:bg-neutral-950 transition-colors"
             >
               <Image
                 src={

@@ -37,7 +37,7 @@ function UserButton() {
       {loggedIn ? (
         <div
           className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-black hover:bg-neutral-950 border border-primary-gray-border transition-colors"
+          bg-black hover:bg-neutral-950 transition-colors"
         >
           {user.picture ? (
             <img
@@ -53,7 +53,7 @@ function UserButton() {
       ) : (
         <div
           className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-black hover:bg-neutral-950 border border-primary-gray-border transition-colors"
+          bg-black hover:bg-neutral-950 transition-colors"
         >
           <FaUser className="w-4 h-4" />
         </div>

@@ -28,7 +28,7 @@ function Button({
         className={`${className} flex transition-colors items-center justify-center text-center
           ${
             variant === "primary" &&
-            "border border-suzuha-teal-500  bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+            "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
           }
           ${
             variant === "secondary" &&
@@ -53,7 +53,7 @@ function Button({
       className={`${className} transition-colors 
         ${
           variant === "primary" &&
-          "border border-suzuha-teal-500  bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+          "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
         }
         ${
           variant === "secondary" &&

@@ -24,8 +24,7 @@ function PostItemAlt({
 }: PostItemAltProps) {
   return (
     <article
-      className={`flex flex-col w-full h-full space-y-4 justify-between p-4 rounded-xl 
-        border border-primary-gray-border
+      className={`flex flex-col w-full h-full space-y-4 justify-between p-4 rounded-xl
         ${
           disableHover
             ? "bg-neutral-900"
