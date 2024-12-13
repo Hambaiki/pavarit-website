@@ -61,4 +61,22 @@ async function page({ params }: { params: Promise<{ page: string }> }) {
   );
 }
 
+export async function generateMetadata() {
+  const postData = await getPosts();
+  const posts = postData.posts;
+
+  return {
+    title: `Discover variety of articles on Pavarit Wiriyakunakorn's website`,
+    description: `Explore article about various topics such as ${posts
+      .map((post) => post.title)
+      .slice(0, 2)
+      .join(", ")}, and more.`,
+    keywords: [posts.flatMap((post) => post.tags.map((tag) => tag.name))],
+    robots: "index, follow",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/blog`,
+    },
+  };
+}
+
 export default page;

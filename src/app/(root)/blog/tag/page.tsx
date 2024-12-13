@@ -46,4 +46,20 @@ async function TagPage() {
   );
 }
 
+export async function generateMetadata() {
+  const tags = await getAllTags();
+
+  return {
+    title: `View all article tags on Pavarit Wiriyakunakorn's website`,
+    description: `Explore article tags on Pavarit Wiriyakunakorn's website, including ${tags
+      .slice(0, 5)
+      .join(", ")}, and more.`,
+    keywords: [tags.map((tag) => tag)],
+    robots: "index, follow",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/tag`,
+    },
+  };
+}
+
 export default TagPage;

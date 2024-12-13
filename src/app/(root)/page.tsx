@@ -5,11 +5,12 @@ import { introItems } from "@/constants/home";
 import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
 import RecentPosts from "@/components/post/RecentPosts";
+import { Metadata } from "next";
 
 async function Home() {
   return (
     <MainContainer>
-      <div className="flex flex-col-reverse sm:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+      <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-4 md:gap-8">
         <div className="p-0">
           <h1 className="text-4xl font-bold">{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-2xl font-semibold text-suzuha-teal-500 mt-1">
@@ -148,5 +149,51 @@ async function Home() {
     </MainContainer>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Pavarit (Guide) Wiriyakunakorn's Website",
+  description:
+    "Welcome to Pavarit (Guide) Wiriyakunakorn's personal website. Explore projects, blogs, and insights from a passionate developer.",
+  keywords: [
+    "Pavarit Wiriyakunakorn",
+    "Guide Wiriyakunakorn",
+    "Developer Portfolio",
+    "Web Developer",
+    "Personal Blog",
+    "Projects",
+    "Tech Enthusiast",
+    "Software Engineering",
+    "Thailand",
+    "Bangkok",
+    "Chulalongkorn University",
+    "Information and Communication Engineering",
+    "Frontend Developer",
+  ],
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    title: "Pavarit (Guide) Wiriyakunakorn's Website",
+    description:
+      "Explore the portfolio and insights of Pavarit (Guide) Wiriyakunakorn.",
+    siteName: "Guide's Website",
+    url: process.env.NEXT_PUBLIC_BASE_URL,
+    images: [
+      {
+        url: "/images/profile/pavarit.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pavarit (Guide) Wiriyakunakorn's Website",
+      },
+    ],
+  },
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
+  },
+  // twitter: {
+  //   card: "summary_large_image",
+  //   site: "@yourTwitterHandle",
+  //   creator: "@yourTwitterHandle",
+  // },
+};
 
 export default Home;

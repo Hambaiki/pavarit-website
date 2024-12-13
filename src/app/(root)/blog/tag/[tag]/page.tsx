@@ -30,6 +30,13 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
             {tag.charAt(0).toUpperCase() + tag.slice(1)}
           </span>
         </h1>
+        <p className="text-lg text-neutral-400">
+          Explore articles tagged with{" "}
+          <span className="text-suzuha-teal-500">
+            {tag.charAt(0).toUpperCase() + tag.slice(1)}
+          </span>{" "}
+          on this website.
+        </p>
       </div>
 
       <section className="mt-8">
@@ -83,6 +90,30 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
       </section>
     </MainContainer>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}) {
+  const tag = (await params).tag;
+
+  return {
+    title: `Articles tagged with ${tag} on Pavarit Wiriyakunakorn's website`,
+    description: `Explore articles tagged with ${tag} on Pavarit Wiriyakunakorn's website.`,
+    keywords: `Tag: ${tag}`,
+    authors: [
+      {
+        name: "Pavarit (Guide) Wiriyakunakorn",
+        url: "/about",
+      },
+    ],
+    robots: "index, follow",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/tag/${tag}`,
+    },
+  };
 }
 
 export default TagPage;

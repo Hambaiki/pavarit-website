@@ -23,33 +23,16 @@ function About() {
             alt="About"
             width={500}
             height={500}
-            className="w-48 h-48 object-cover rounded-full"
+            className="w-48 h-48 object-cover rounded-full border-4 border-suzuha-teal-500"
           />
           <div className="flex flex-col space-y-4">
-            <h1 className="text-4xl font-bold">
-              Pavarit (Guide) Wiriyakunakorn
-            </h1>
+            <h1 className="text-4xl font-bold">Pavarit Wiriyakunakorn</h1>
             <p className="text-neutral-300">
-              I am a frontend developer. I am passionate about technology and
-              programming.
+              Frontend Developer | Information and Communication Engineering
+              Graduate
             </p>
           </div>
         </div>
-      </div>
-
-      <div
-        id="about"
-        className="mt-8 p-4 bg-neutral-900 rounded-xl"
-      >
-        <h2 className="text-2xl font-bold">About</h2>
-        <p className="text-neutral-300 mt-2">
-          {`With a keen interest technologies, I've spent the past few years
-          exploring the development of web applications with technologies such
-          as ReactJS, NextJS, TypeScript, AWS, etc. As for my work
-          methodologies, I thrive in the dynamic environment of Agile
-          methodologies as I can adapt swiftly to changes and collaborating
-          effectively within cross-functional teams.`}
-        </p>
       </div>
 
       {/* <div className="mt-8 p-4 bg-neutral-900 rounded-xl">
@@ -68,14 +51,27 @@ function About() {
         </ul>
       </div> */}
 
-      <div id="experience" className="mt-8  rounded-xl">
+      <div id="experience" className="mt-8 rounded-xl">
         <h2 className="text-2xl font-bold">Work Experience</h2>
+
+        <div id="about" className="mt-4 p-4 bg-neutral-900 rounded-xl">
+          <h2 className="text-xl font-bold">My work life</h2>
+
+          <p className="text-neutral-300 mt-2">
+            {`With a keen interest technologies, I've spent the past few years
+            exploring the development of web applications with technologies such
+            as ReactJS, NextJS, TypeScript, AWS, etc. As for my work
+            methodologies, I thrive in the dynamic environment of Agile
+            methodologies as I can adapt swiftly to changes and collaborating
+            effectively within cross-functional teams.`}
+          </p>
+        </div>
 
         <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-neutral-900 pb-4 mt-4">
           {experiences.map((experience, index) => (
             <div key={index} className="flex flex-col ">
               <div className="flex flex-col items-center mr-4">
-                <div className="flex flex-col space-y-2 w-[20rem] p-4 rounded-xl bg-black">
+                <div className="flex flex-col space-y-2 w-[20rem] p-4 rounded-xl bg-neutral-950">
                   <div className="space-y-1">
                     <h3 className="text-xl font-bold">{experience.title}</h3>
                     <p className="text-neutral-300">
@@ -83,7 +79,7 @@ function About() {
                     </p>
                   </div>
 
-                  <div className="flex flex-row items-center space-x-4 p-2 bg-black rounded-full">
+                  <div className="flex flex-row items-center space-x-4 p-2 bg-neutral-900 rounded-lg">
                     {experience.company.logo && (
                       <Image
                         src={experience.company.logo}
@@ -142,38 +138,57 @@ function About() {
         </div>
       </div>
 
-      <div
-        id="education"
-        className="mt-8 p-4 bg-neutral-900 rounded-xl"
-      >
+      <div id="education" className="mt-8">
         <h2 className="text-2xl font-bold">Education</h2>
 
-        <div className="flex flex-col mt-4 space-y-6">
-          {education.map((education, index) => (
-            <div key={index} className="flex flex-col space-y-2">
-              <div>
-                <h3 className="text-xl font-bold">{education.title}</h3>
-              </div>
+        <div id="about" className="mt-4 p-4 bg-neutral-900 rounded-xl">
+          <h2 className="text-xl font-bold">My Journey</h2>
 
-              <div className="flex flex-row items-center space-x-4 p-2 bg-black rounded-full">
-                {education.image && (
-                  <Image
-                    src={education.image}
-                    alt={education.location}
-                    width={100}
-                    height={100}
-                    className="w-12 h-12 p-1 bg-neutral-800 rounded-full"
-                  />
-                )}
-                <div className="flex flex-col">
-                  <p className="text-neutral-300">{education.location}</p>
-                  <p className="text-neutral-500">{education.duration}</p>
+          <p className="text-neutral-300 mt-2">
+            {`With a keen interest technologies, I've spent the past few years
+            exploring the development of web applications with technologies such
+            as ReactJS, NextJS, TypeScript, AWS, etc. As for my work
+            methodologies, I thrive in the dynamic environment of Agile
+            methodologies as I can adapt swiftly to changes and collaborating
+            effectively within cross-functional teams.`}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          {education.map((educationLevel, index) => (
+            <div
+              key={index}
+              className="p-4 space-y-4 bg-neutral-950 rounded-xl"
+            >
+              <h3 className="text-xl font-bold">{educationLevel.level}</h3>
+
+              {educationLevel.educations.map((education, index) => (
+                <div key={index} className="flex flex-col space-y-2">
+                  <div>
+                    <h3 className="text-base font-semibold">
+                      {education.title}
+                    </h3>
+                  </div>
+
+                  <div className="flex flex-row items-center space-x-4 p-2 bg-neutral-900 rounded-lg">
+                    {education.image && (
+                      <Image
+                        src={education.image}
+                        alt={education.location}
+                        width={100}
+                        height={100}
+                        className="w-12 h-12 p-1 shrink-0 bg-neutral-600 rounded-full"
+                      />
+                    )}
+                    <div className="flex flex-col">
+                      <p className="text-sm text-neutral-300">
+                        {education.location}
+                      </p>
+                      <p className="text-neutral-500">{education.duration}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              {/* {index !== experiences.length - 1 && (
-                <div className="w-1 h-12 bg-neutral-700" />
-              )} */}
+              ))}
             </div>
           ))}
         </div>
@@ -183,24 +198,33 @@ function About() {
 }
 
 export const metadata: Metadata = {
-  title: "About Pavarit (Guide) Wiriyakunakorn",
-  description: "Learn more about Pavarit",
-  keywords: ["Pavarit", "Guide", "Wiriyakunakorn", "Frontend Developer"],
+  title: "About Pavarit (Guide) Wiriyakunakorn's. Learn more about me.",
+  description:
+    "Learn more about Pavarit Wiriyakunakorn, a frontend developer with a passion for creating web applications.",
+  keywords: [
+    "Pavarit",
+    "Guide",
+    "Wiriyakunakorn",
+    "Frontend Developer",
+    "Information and Communication Engineering",
+    "Chulalongkorn University",
+    "Triam Udom Suksa Phatthanakarn School",
+    "Panaya Phatthanakarn School",
+    "Panaya Phatthanakarn Bilingual School",
+    "Portfolio",
+    "Profile",
+    "About",
+    "Thailand",
+    "Bangkok",
+  ],
   openGraph: {
     title: "About Pavarit (Guide) Wiriyakunakorn",
     description: "Learn more about Pavarit",
   },
-  twitter: {
-    title: "About Pavarit (Guide) Wiriyakunakorn",
-    description: "Learn more about Pavarit",
-  },
   alternates: {
-    canonical: "/about",
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: "index, follow",
   icons: {
     icon: "/favicon.ico",
   },

@@ -137,6 +137,10 @@ export async function generateMetadata({
         },
       ],
     },
+    robots: "index, follow",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${post.slug}`,
+    },
   };
 }
 
