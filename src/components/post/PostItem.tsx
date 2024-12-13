@@ -13,6 +13,7 @@ interface PostItemProps {
   tags?: string[];
   description?: string;
   hideDescription?: boolean;
+  className?: string;
 }
 
 function PostItem({
@@ -23,11 +24,11 @@ function PostItem({
   tags = [],
   description = "No description",
   hideDescription = false,
+  className,
 }: PostItemProps) {
   return (
     <div
-      className="p-4 md:h-80 rounded-xl 
-      bg-neutral-900 hover:bg-neutral-950 transition-colors"
+      className={`p-4 rounded-xl bg-neutral-900 hover:bg-neutral-950 transition-colors ${className}`}
     >
       <article className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
         <div className="overflow-hidden">

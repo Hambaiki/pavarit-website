@@ -80,7 +80,7 @@ function Paginator({ currentPage, maxPage }: PaginatorProps) {
                   }`}
         onClick={() => handleClick(currentPage - 1)}
       >
-        {currentPage == 1 ? <FaChevronLeft /> : <FaChevronRight />}
+        <FaChevronLeft />
       </button>
 
       {getPageNumbers().map((page, index) =>
@@ -119,7 +119,7 @@ function Paginator({ currentPage, maxPage }: PaginatorProps) {
                   }`}
         onClick={() => handleClick(currentPage + 1)}
       >
-        {currentPage == maxPage ? <FaChevronRight /> : <FaChevronRight />}
+        <FaChevronRight />
       </button>
     </div>
   );

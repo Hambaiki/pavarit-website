@@ -1,6 +1,9 @@
 "use client";
 
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { useState } from "react";
+import matter from "gray-matter";
+
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -17,18 +20,13 @@ import {
 } from "react-icons/fa6";
 
 import ToolbarButton from "@/components/post/editor/ToolbarButton";
-import ModalContainer from "@/components/container/ModalContainer";
-import matter from "gray-matter";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
 interface PostEditorProps {
   onSubmit?: () => void;
 }
 
 function PostEditor({ onSubmit }: PostEditorProps) {
   const { user, error, isLoading } = useUser();
-
-  console.log(user);
 
   const [clearing, setClearing] = useState(false);
 
@@ -94,21 +92,21 @@ function PostEditor({ onSubmit }: PostEditorProps) {
     // Save markdownContent to a file or send it to a server
     console.log("markdownContent", markdownContent);
 
-    if (content) {
-      const data = matter.stringify(content, {
-        title: metadata.title,
-        date: metadata.date,
-        author: metadata.author,
-        // authorImage: metadata.authorImage,
-        tags: metadata.tags,
-        category: metadata.category,
-        description: metadata.description,
-        image: metadata.image,
-        // keywords: metadata.keywords,
-      });
+    // if (content) {
+    //   const data = matter.stringify(content, {
+    //     title: metadata.title,
+    //     date: metadata.date,
+    //     author: metadata.author,
+    //     // authorImage: metadata.authorImage,
+    //     tags: metadata.tags,
+    //     category: metadata.category,
+    //     description: metadata.description,
+    //     image: metadata.image,
+    //     // keywords: metadata.keywords,
+    //   });
 
-      console.log(data);
-    }
+    //   console.log(data);
+    // }
   };
 
   if (!editor) {
