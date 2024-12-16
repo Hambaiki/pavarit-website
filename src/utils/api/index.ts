@@ -6,9 +6,9 @@ export async function fetchFromApi<T>(
   options: RequestInit = {}
 ): Promise<T | null> {
   // Get the host and protocol for constructing the absolute URL
-  const host = headers().get("host");
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const url = `${protocol}://${host}${endpoint}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const url = `${baseUrl}${endpoint}`;
 
   try {
     const response = await fetch(url, { method, ...options });
