@@ -8,7 +8,7 @@ export async function fetchFromApi<T>(
   // Get the host and protocol for constructing the absolute URL
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-  const url = `${baseUrl}${endpoint}`;
+  const url = `${endpoint}`;
 
   try {
     const response = await fetch(url, { method, ...options });
