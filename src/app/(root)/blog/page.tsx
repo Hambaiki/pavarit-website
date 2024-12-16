@@ -12,6 +12,12 @@ import { fetchFromApi } from "@/utils/api";
 import { SearchPostResponse } from "@/types/api/post";
 
 async function page() {
+  const response = await fetch(
+    `https://dev.pavarit.net/api/v1/posts/search?id=1`
+  );
+
+  console.log(response);
+
   const featuredPostsResponse = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search`,
     "POST",
@@ -75,7 +81,7 @@ async function page() {
 
           <div className="mt-6">
             <CarousalContainer autoScroll autoScrollInterval={5000}>
-              {featuredPosts.map((post: any) => (
+              {featuredPosts.map((post) => (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
@@ -85,7 +91,7 @@ async function page() {
                     image={post.image}
                     title={post.title}
                     author={post.author}
-                    createDate={post.create_date}
+                    createDate={post.created_at}
                     tags={post.tags}
                     description={post.description}
                     className="h-full md:h-80"
@@ -116,13 +122,13 @@ async function page() {
         </div>
 
         <div className="flex flex-col space-y-4 mt-6">
-          {latestPosts.map((post: any) => (
+          {latestPosts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <PostItem
                 image={post.image}
                 title={post.title}
                 author={post.author}
-                createDate={post.create_date}
+                createDate={post.created_at}
                 tags={post.tags}
                 description={post.description}
                 className="md:h-80"

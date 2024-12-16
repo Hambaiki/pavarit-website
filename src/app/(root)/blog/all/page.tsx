@@ -56,13 +56,13 @@ async function page({
 
       <Suspense>
         <div className="flex flex-col space-y-4 mt-8">
-          {posts.map((post: any) => (
+          {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <PostItem
                 image={post.image}
                 title={post.title}
                 author={post.author}
-                createDate={post.createDate}
+                createDate={post.created_at}
                 tags={post.tags}
                 description={post.description}
                 className="md:h-80"
