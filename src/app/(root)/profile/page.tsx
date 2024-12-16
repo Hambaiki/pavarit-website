@@ -41,32 +41,34 @@ function Profile() {
           emailVerified={user?.email_verified || false}
         />
 
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold">
-            Welcome, Administrator {user?.name}!
-          </h2>
+        {isAdmin && (
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold">
+              Welcome, Administrator {user?.name}!
+            </h2>
 
-          <div className="mt-4">
-            <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl ">
-              <div className="flex-1 flex flex-col space-y-2">
-                <h2 className="text-2xl font-semibold">CMS Access</h2>
-                <p className="text-neutral-300">
-                  Access the CMS to manage posts and categories.
-                </p>
-              </div>
+            <div className="mt-4">
+              <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl ">
+                <div className="flex-1 flex flex-col space-y-2">
+                  <h2 className="text-2xl font-semibold">CMS Access</h2>
+                  <p className="text-neutral-300">
+                    Access the CMS to manage posts and categories.
+                  </p>
+                </div>
 
-              <div className="flex justify-end">
-                <Button
-                  href={"/cms/posts"}
-                  className="w-full max-w-xs h-12 rounded-lg"
-                  variant="secondary"
-                >
-                  Start
-                </Button>
+                <div className="flex justify-end">
+                  <Button
+                    href={"/cms/posts"}
+                    className="w-full max-w-xs h-12 rounded-lg"
+                    variant="secondary"
+                  >
+                    Start
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-8">
           <h2 className="text-2xl font-bold">User Info</h2>
