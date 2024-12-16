@@ -9,6 +9,7 @@ tags:
     { name: "nextjs", slug: "nextjs" },
     { name: "development", slug: "development" },
     { name: "guide", slug: "guide" },
+    { name: "_featured", slug: "_featured" },
   ]
 keywords: ["nextjs markdown", "typescript blog", "seo nextjs blog"]
 

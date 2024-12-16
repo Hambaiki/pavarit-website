@@ -9,6 +9,7 @@ tags:
     { name: "travel", slug: "travel" },
     { name: "japan", slug: "japan" },
     { name: "trains", slug: "trains" },
+    { name: "_featured", slug: "_featured" },
   ]
 keywords: ["japan travel", "train journey", "japanese railways", "travel blog"]
 

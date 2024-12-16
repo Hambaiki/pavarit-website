@@ -8,9 +8,8 @@ export const navItems = [
     label: "About",
     href: "/about",
     subItems: [
-      { label: "About", href: "/about" },
-      { label: "Gaming", href: "/about/gaming" },
-      { label: "Hobbies", href: "/about/hobbies" },
+      { label: "About Me", href: "/about" },
+      { label: "Projects", href: "/projects" },
     ],
   },
   // { label: "Projects", href: "/projects" },

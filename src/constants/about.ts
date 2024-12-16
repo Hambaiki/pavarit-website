@@ -106,7 +106,7 @@ export const education = [
     level: "Elementary School",
     educations: [
       {
-        title: "Grade 2-6",
+        title: "Grade 3-6",
         duration: "2009 - 2012",
         location: "Panaya Phattanakarn Bilingual School",
         image: "/images/logo/school/ppbs-logo.png",

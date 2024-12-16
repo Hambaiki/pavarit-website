@@ -1,14 +1,17 @@
 import React from "react";
 import Link from "next/link";
 
-import { getAllTags } from "@/lib/posts";
-
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import RecentPosts from "@/components/post/RecentPosts";
 
+import { fetchFromApi } from "@/utils/api";
+import { TagResponse } from "@/types/api/post";
+
 async function TagPage() {
-  const tags = await getAllTags();
+  const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
+
+  const tags = response?.tags || [];
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -25,16 +28,18 @@ async function TagPage() {
       </div>
 
       <ul className="flex flex-wrap gap-2 mt-4">
-        {tags.map((tag, index) => (
-          <Link key={index} href={`/blog/tag/${tag}`}>
-            <li
-              className="text-base font-medium text-white px-4 py-1 rounded-full
+        {tags
+          .filter((tag) => !tag.includes("_"))
+          .map((tag, index) => (
+            <Link key={index} href={`/blog/tag/${tag}`}>
+              <li
+                className="text-base font-medium text-white px-4 py-1 rounded-full
                 bg-neutral-900 hover:bg-black transition-colors"
-            >
-              {tag.charAt(0).toUpperCase() + tag.slice(1)}
-            </li>
-          </Link>
-        ))}
+              >
+                {tag.charAt(0).toUpperCase() + tag.slice(1)}
+              </li>
+            </Link>
+          ))}
       </ul>
 
       <section className="mt-8">
@@ -47,7 +52,9 @@ async function TagPage() {
 }
 
 export async function generateMetadata() {
-  const tags = await getAllTags();
+  const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
+  
+  const tags = response?.tags || [];
 
   return {
     title: `View all article tags on Pavarit Wiriyakunakorn's website`,

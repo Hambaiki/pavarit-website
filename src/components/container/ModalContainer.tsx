@@ -36,25 +36,30 @@ const ModalContainer = ({
     setIsBrowser(true);
   }, []);
 
-  useEffect(() => {
-    if (visible) {
-      const hasVerticalScroll =
-        document.documentElement.scrollHeight >
-        document.documentElement.clientHeight;
-      document.documentElement.style.overflowY = hasVerticalScroll
-        ? "scroll"
-        : "hidden";
-      document.documentElement.style.position = "fixed";
-      document.documentElement.style.height = "100%";
-      document.documentElement.style.width = "100%";
-    }
-    return () => {
-      document.documentElement.style.overflowY = "";
-      document.documentElement.style.position = "";
-      document.documentElement.style.height = "";
-      document.documentElement.style.width = "";
-    };
-  }, [visible]);
+  // useEffect(() => {
+  //   if (visible) {
+  //     const scrollY = window.scrollY;
+  //     const hasVerticalScroll =
+  //       document.documentElement.scrollHeight >
+  //       document.documentElement.clientHeight;
+  //     document.documentElement.style.overflowY = hasVerticalScroll
+  //       ? "scroll"
+  //       : "hidden";
+  //     document.documentElement.style.position = "fixed";
+  //     document.documentElement.style.height = "100%";
+  //     document.documentElement.style.width = "100%";
+  //     document.documentElement.style.top = `-${scrollY}px`;
+  //   }
+  //   return () => {
+  //     const scrollY = document.documentElement.style.top;
+  //     document.documentElement.style.overflowY = "";
+  //     document.documentElement.style.position = "";
+  //     document.documentElement.style.height = "";
+  //     document.documentElement.style.width = "";
+  //     document.documentElement.style.top = "";
+  //     window.scrollTo(0, parseInt(scrollY || "0") * -1);
+  //   };
+  // }, [visible]);
 
   if (!isBrowser) {
     return null;

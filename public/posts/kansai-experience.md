@@ -10,6 +10,7 @@ tags:
     { name: "japan", slug: "japan" },
     { name: "personal", slug: "personal" },
     { name: "kansai", slug: "kansai" },
+    { name: "_featured", slug: "_featured"}
   ]
 keywords: ["travel", "japan", "personal", "kansai"]
 

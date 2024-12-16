@@ -1,11 +1,11 @@
 import Image from "next/image";
+import { Metadata } from "next";
 
 import { introItems } from "@/constants/home";
 
 import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
 import RecentPosts from "@/components/post/RecentPosts";
-import { Metadata } from "next";
 
 async function Home() {
   return (
@@ -47,7 +47,6 @@ async function Home() {
             border-4 border-suzuha-teal-500"
         />
       </div>
-
       <section className="p-4 rounded-xl mt-8 bg-neutral-900 ">
         <h2 className="text-3xl font-bold mt-1">
           Welcome to My Corner of the Web!
@@ -64,7 +63,6 @@ async function Home() {
             and experiences for exploration and connection.`}
         </p>
       </section>
-
       <section className="mt-8">
         <h3 className="text-2xl font-semibold mb-4">
           Explore My Latest Articles
@@ -72,7 +70,6 @@ async function Home() {
 
         <RecentPosts />
       </section>
-
       {/* <section className="mt-8 p-4 bg-neutral-900 rounded-xl">
           <h3 className="text-2xl font-semibold mb-4">
             What Will You Find Here?
@@ -120,7 +117,6 @@ async function Home() {
             with your thoughts, feedback, or just to say hi.
           </p>
         </section> */}
-
       <section className="mt-8">
         <h3 className="text-2xl font-semibold mb-4">More Content</h3>
 

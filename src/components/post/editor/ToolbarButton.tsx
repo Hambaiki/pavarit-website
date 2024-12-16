@@ -11,10 +11,14 @@ function ToolbarButton({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`flex items-center justify-center w-10 h-10 rounded ${
-        active ? "bg-neutral-700 text-white" : "bg-neutral-800 text-neutral-200"
-      } hover:bg-neutral-600`}
+      className={`flex items-center justify-center w-10 h-10 rounded 
+        ${
+          active
+            ? "bg-neutral-700 text-white"
+            : "bg-neutral-800 text-neutral-200"
+        } hover:bg-neutral-600 transition-colors`}
     >
       {children}
     </button>

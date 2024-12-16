@@ -45,6 +45,7 @@ function UserButton() {
               width={40}
               height={40}
               className="rounded-full"
+              referrerPolicy="no-referrer"
             />
           ) : (
             <FaUser className="w-4 h-4" />
@@ -72,6 +73,7 @@ function UserButton() {
                       width={40}
                       height={40}
                       className="rounded-full"
+                      referrerPolicy="no-referrer"
                     />
                   ) : (
                     <FaUser className="w-4 h-4" />

@@ -12,6 +12,7 @@ interface PostItemAltProps {
   createDate?: string;
   tags?: string[];
   disableHover?: boolean;
+  className?: string;
 }
 
 function PostItemAlt({
@@ -21,6 +22,7 @@ function PostItemAlt({
   createDate = "",
   tags = [],
   disableHover = false,
+  className,
 }: PostItemAltProps) {
   return (
     <article
@@ -29,7 +31,7 @@ function PostItemAlt({
           disableHover
             ? "bg-neutral-900"
             : "bg-neutral-900 hover:bg-neutral-950 transition-colors"
-        }`}
+        } ${className}`}
     >
       <Image
         src={image || "/images/placeholder/placeholder-image.jpg"}
@@ -54,14 +56,16 @@ function PostItemAlt({
         </address>
 
         <ul className="flex flex-row flex-wrap gap-2">
-          {tags.map((tag, index) => (
-            <li
-              key={index}
-              className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
-            >
-              {tag}
-            </li>
-          ))}
+          {tags
+            .filter((tag) => !tag.startsWith("_"))
+            .map((tag, index) => (
+              <li
+                key={index}
+                className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
+              >
+                {tag}
+              </li>
+            ))}
         </ul>
       </div>
     </article>

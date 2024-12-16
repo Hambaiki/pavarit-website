@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { getPosts } from "@/lib/posts";
-
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/container/MainContainer";
 
 import Paginator from "@/components/Paginator";
 import PostItem from "@/components/post/PostItem";
 import SearchBar from "@/components/post/SearchBar";
+import { SearchPostResponse } from "@/types/api/post";
+import { fetchFromApi } from "@/utils/api";
 
 async function page({
   searchParams,
@@ -20,10 +20,16 @@ async function page({
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
 
-  const response = await getPosts({ page, perPage: perPage, search });
+  const response = await fetchFromApi<SearchPostResponse>(
+    `/api/v1/posts/search/`,
+    "POST",
+    {
+      body: JSON.stringify({ page, per_page: perPage, search }),
+    }
+  );
 
-  const maxPage = Math.ceil(response.total / perPage);
-  const posts = response.posts;
+  const maxPage = Math.ceil((response?.total || 0) / perPage);
+  const posts = response?.posts || [];
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -50,14 +56,14 @@ async function page({
 
       <Suspense>
         <div className="flex flex-col space-y-4 mt-8">
-          {posts.map((post) => (
+          {posts.map((post: any) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <PostItem
                 image={post.image}
                 title={post.title}
                 author={post.author}
                 createDate={post.createDate}
-                tags={post.tags.map((tag) => tag.name)}
+                tags={post.tags}
                 description={post.description}
                 className="md:h-80"
               />

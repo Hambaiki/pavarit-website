@@ -1,8 +1,15 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+
 import { FaArrowRight, FaMagnifyingGlass } from "react-icons/fa6";
 
 import Button from "../Button";
 
 function SearchBar() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+
   return (
     <div className="flex flex-col p-4 bg-neutral-950 rounded-xl">
       <form className="flex items-center space-x-4 h-12">
@@ -10,6 +17,7 @@ function SearchBar() {
           <span className="sr-only">Search posts</span>
 
           <input
+            defaultValue={search || ""}
             type="text"
             name="search"
             id="search"

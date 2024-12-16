@@ -1,16 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { FaBars, FaUser } from "react-icons/fa6";
+import { FaBars } from "react-icons/fa6";
 
 import { navItems } from "@/constants/common";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarItem from "./NavbarItem";
-import Button from "../Button";
 import UserButton from "./UserButton";
 import NavbarVerticalItem from "./NavbarVerticalItem";
 
@@ -24,7 +22,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <div className="w-full bg-neutral-900">
+    <div className="w-full">
       <div className="flex flex-row items-start justify-between max-w-5xl mx-auto p-4 md:p-8 space-x-8">
         <div className="flex flex-row items-center">
           <div className="md:hidden mr-4 md:mr-0">

@@ -3,14 +3,28 @@ import Image from "next/image";
 import { FaCalendar, FaUser } from "react-icons/fa6";
 import { format } from "date-fns";
 
-import { getPosts } from "@/lib/posts";
+import { fetchFromApi } from "@/utils/api";
+import { SearchPostResponse } from "@/types/api/post";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 
+
 async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const tag = (await params).tag;
-  const { posts } = await getPosts({ tags: [tag] });
+  const response = await fetchFromApi<SearchPostResponse>(
+    `/api/v1/posts/search`,
+    "POST",
+    {
+      body: JSON.stringify({
+        page: 1,
+        per_page: 4,
+        tags: [tag],
+      }),
+    }
+  );
+
+  const posts = response?.posts || [];
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -69,7 +83,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
                   </p>
                   <p className="flex flex-row items-center text-white not-italic">
                     <FaCalendar className="mr-2" />
-                    {format(new Date(recentPost.createDate), "yyyy/MM/dd")}
+                    {format(new Date(recentPost.created_at), "yyyy/MM/dd")}
                   </p>
                 </div>
 
@@ -79,7 +93,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
                       key={index}
                       className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
                     >
-                      {tag.name}
+                      {tag}
                     </li>
                   ))}
                 </ul>

@@ -1,5 +1,7 @@
-import { getPosts } from "@/lib/posts";
+import { fetchFromApi } from "@/utils/api";
 import { MetadataRoute } from "next";
+
+import { SearchPostResponse, TagResponse } from "@/types/api/post";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Base URL from environment variable or hardcoded
@@ -14,22 +16,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Dynamic blog posts routes
-  const response = await getPosts();
-  const blogRoutes = response.posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.modifiedDate),
-    changeFrequency: "weekly" as const,
-    priority: 0.6,
-  }));
-
-  const tagRoutes = response.posts.flatMap((post) =>
-    post.tags.map((tag) => ({
-      url: `${baseUrl}/blog/tag/${tag}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    }))
+  const blogResponse = await fetchFromApi<SearchPostResponse>(
+    "/api/v1/posts/search"
   );
+
+  const blogRoutes = blogResponse
+    ? blogResponse?.posts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.created_at),
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+      }))
+    : [];
+
+  const tagResponse = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
+
+  const tagRoutes = tagResponse
+    ? tagResponse?.tags.map((tag) => ({
+        url: `${baseUrl}/blog/tag/${tag}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.4,
+      }))
+    : [];
 
   return [...routes, ...blogRoutes, ...tagRoutes];
 }

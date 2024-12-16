@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -21,8 +21,9 @@ const TextInput = ({
   return (
     <label htmlFor={name} className="flex flex-col space-y-2">
       {label && (
-        <p className="text-sm font-medium text-gray-700">
-          {label}{required && <span className="text-red">*</span>}
+        <p className="text-sm font-medium text-neutral-400">
+          {label}
+          {required && <span className="text-red-500">&nbsp;*</span>}
         </p>
       )}
 
@@ -30,15 +31,19 @@ const TextInput = ({
         id={name}
         name={name}
         disabled={disabled}
-        className={`h-12 w-full px-3 py-2 border rounded-md text-left text-sm outline-none transition-colors
-          placeholder:text-sm placeholder:text-grey_light
-          ${error ? "border-red" : "border-grey_light"} 
+        className={`w-full px-3 py-3 border rounded-md text-left text-sm outline-none transition-colors
+          placeholder:text-sm placeholder:text-neutral-400
+          ${error ? "border-red" : "border-primary-gray-border"} 
           ${
             error
               ? "focus:border-red"
-              : "focus:border-blue_primary focus:ring-1 focus:ring-blue_primary"
+              : "focus:border-blue_primary focus:ring-1 focus:ring-suzuha-teal-500"
           }
-          ${disabled ? "bg-grey_background" : "bg-white"}
+          ${
+            disabled
+              ? "bg-neutral-700 text-neutral-400 cursor-not-allowed"
+              : "bg-neutral-900"
+          }
           ${className}
         `}
         {...props}

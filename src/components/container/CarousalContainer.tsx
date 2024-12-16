@@ -1,14 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CarousalContainerProps {
   className?: string;
+  autoScroll?: boolean;
+  autoScrollInterval?: number;
   children: React.ReactNode[];
 }
 
-function CarousalContainer({ className, children }: CarousalContainerProps) {
+function CarousalContainer({
+  className,
+  children,
+  autoScroll = false,
+  autoScrollInterval = 3000,
+}: CarousalContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (autoScroll) {
+      const interval = setInterval(() => {
+        const nextIndex =
+          currentIndex === children.length - 1 ? 0 : currentIndex + 1;
+
+        scrollToProfile(nextIndex);
+      }, autoScrollInterval);
+
+      return () => clearInterval(interval);
+    }
+  }, [autoScroll, autoScrollInterval, currentIndex]);
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const container = event.target as HTMLElement;
@@ -51,7 +71,7 @@ function CarousalContainer({ className, children }: CarousalContainerProps) {
             <button
               key={index}
               className={`h-4 w-4 rounded-full shrink-0 ${
-                index === currentIndex ? "bg-neutral-500" : "bg-neutral-300"
+                index === currentIndex ? "bg-suzuha-teal-500" : "bg-neutral-500"
               }`}
               onClick={() => scrollToProfile(index)}
             />
@@ -60,6 +80,6 @@ function CarousalContainer({ className, children }: CarousalContainerProps) {
       )}
     </div>
   );
-};
+}
 
 export default CarousalContainer;

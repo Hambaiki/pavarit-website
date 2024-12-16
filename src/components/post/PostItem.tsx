@@ -51,20 +51,22 @@ function PostItem({
             </p>
             <p className="flex flex-row items-center text-white not-italic">
               <FaCalendar className="mr-2" />
-              {format(new Date(createDate || ""), "yyyy/MM/dd")}
+              {createDate && format(new Date(createDate), "yyyy/MM/dd")}
             </p>
           </address>
 
           {tags && (
             <ul className="flex flex-row flex-wrap gap-2">
-              {tags.map((tag, index) => (
-                <li
-                  key={index}
-                  className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
-                >
-                  {tag}
-                </li>
-              ))}
+              {tags
+                .filter((tag) => !tag.includes("_"))
+                .map((tag, index) => (
+                  <li
+                    key={index}
+                    className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
+                  >
+                    {tag}
+                  </li>
+                ))}
             </ul>
           )}
 

@@ -1,11 +1,19 @@
 import Link from "next/link";
 
-import { getRecentPosts } from "@/lib/posts";
-
 import PostItemAlt from "./PostItemAlt";
+import { PostData, SearchPostResponse } from "@/types/api/post";
+import { fetchFromApi } from "@/utils/api";
 
 async function RecentPosts() {
-  const posts = await getRecentPosts();
+  const response = await fetchFromApi<SearchPostResponse>(
+    `/api/v1/posts/search/`,
+    "POST",
+    {
+      body: JSON.stringify({ page: 1, per_page: 4 }),
+    }
+  );
+
+  const posts: PostData[] = response?.posts || [];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -15,8 +23,8 @@ async function RecentPosts() {
             image={recentPost.image}
             title={recentPost.title}
             author={recentPost.author}
-            createDate={recentPost.createDate}
-            tags={recentPost.tags.map((tag) => tag.name)}
+            createDate={recentPost.created_at}
+            tags={recentPost.tags}
           />
         </Link>
       ))}
