@@ -18,6 +18,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostRenderer from "@/components/post/PostRenderer";
 import ShareOptions from "@/components/post/ShareOptions";
 import PostItemAlt from "@/components/post/PostItemAlt";
+import PostTopicList from "@/components/post/PostTopicList";
 
 async function BlogPostPage({ params }: { params: { slug: string } }) {
   const slug = await params.slug;
@@ -76,7 +77,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
                   <li
                     key={index}
                     className="px-3 py-1 rounded-full 
-                    text-sm text-neutral-300 bg-neutral-800 hover:bg-neutral-900 transition-colors"
+                    text-sm text-neutral-300 bg-neutral-700 hover:bg-neutral-900 transition-colors"
                   >
                     {tag}
                   </li>
@@ -87,33 +88,61 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
       </header>
 
       <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
-        <div className="flex-1 my-8">
-          {post.image && (
-            <div className="relative flex justify-center items-center h-80 mb-8 rounded-xl overflow-hidden">
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={1000}
-                height={1000}
-                className="w-auto h-auto"
-              />
+        <div className="flex-1 mt-8 lg:my-8">
+          <div className="mb-8">
+            {post.image && (
+              <div className="relative flex justify-center items-center h-80 mb-6 rounded-xl overflow-hidden">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={1000}
+                  height={1000}
+                  className="w-auto h-auto"
+                />
 
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={1000}
-                height={1000}
-                className="absolute top-0 left-0 w-full h-full blur -z-10"
-              />
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={1000}
+                  height={1000}
+                  className="absolute top-0 left-0 w-full h-full blur-sm -z-10"
+                />
+              </div>
+            )}
+
+            <div className="block lg:hidden">
+              <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
+                {/* <Image
+                  src={post.authorImage}
+                  alt={post.author}
+                  width={200}
+                  height={200}
+                  className="w-16 h-16 rounded-full object-cover"
+                /> */}
+
+                <div className="text-sm space-y-2">
+                  <p className="flex flex-row items-center text-white not-italic">
+                    <FaUser className="mr-2" />
+                    {post.author}
+                  </p>
+                  <p className="flex flex-row items-center text-white not-italic">
+                    <FaCalendar className="mr-2" />
+                    {format(new Date(post.created_at), "yyyy/MM/dd")}
+                  </p>
+                </div>
+              </address>
+
+              <PostTopicList htmlContent={contentHtml} />
             </div>
-          )}
+          </div>
 
           <PostRenderer contentHtml={contentHtml} />
         </div>
 
         <div className="lg:sticky lg:top-0 lg:h-full lg:w-72 lg:py-8">
-          <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black">
-            {/* <Image
+          <div className="hidden lg:block mb-4">
+            <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
+              {/* <Image
               src={post.authorImage}
               alt={post.author}
               width={200}
@@ -121,26 +150,27 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
               className="w-16 h-16 rounded-full object-cover"
             /> */}
 
-            <div className="text-sm space-y-2">
-              <p className="flex flex-row items-center text-white not-italic">
-                <FaUser className="mr-2" />
-                {post.author}
-              </p>
-              <p className="flex flex-row items-center text-white not-italic">
-                <FaCalendar className="mr-2" />
-                {format(new Date(post.created_at), "yyyy/MM/dd")}
-              </p>
-            </div>
-          </address>
+              <div className="text-sm space-y-2">
+                <p className="flex flex-row items-center text-white not-italic">
+                  <FaUser className="mr-2" />
+                  {post.author}
+                </p>
+                <p className="flex flex-row items-center text-white not-italic">
+                  <FaCalendar className="mr-2" />
+                  {format(new Date(post.created_at), "yyyy/MM/dd")}
+                </p>
+              </div>
+            </address>
 
-          <div className="mt-4">
-            <ShareOptions />
+            <PostTopicList htmlContent={contentHtml} />
           </div>
+
+          <ShareOptions />
         </div>
       </div>
 
       {relatedPosts && relatedPosts.length > 0 && (
-        <div className="space-y-4 mt-12">
+        <div className="space-y-4 mt-8">
           <h2 className="text-2xl font-bold">Related Posts</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

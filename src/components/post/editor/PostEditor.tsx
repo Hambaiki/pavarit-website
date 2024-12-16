@@ -3,10 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
+import { Extension } from "@tiptap/core";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
+import { Level } from "@tiptap/extension-heading";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Button from "@/components/Button";
+import { Heading } from "@tiptap/extension-heading"; // Add Heading extension
+// import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
 
 import {
   FaBold,
@@ -25,6 +30,25 @@ import TextInput from "@/components/form/TextInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import GeneralModal from "@/components/common/GeneralModal";
 import Loading from "@/components/navigation/Loading";
+
+export function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
+}
+
+const HeadingWithId = Heading.extend({
+  renderHTML({ node, HTMLAttributes }) {
+    HTMLAttributes.id = slugify(node.textContent);
+    return ["h" + node.attrs.level, HTMLAttributes, 0];
+  },
+});
 
 interface PostEditorProps {
   postMetadata?: PostMetadata;
@@ -73,7 +97,8 @@ function PostEditor({
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({ heading: false }), // disable default heading
+      HeadingWithId.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       Image,
       Link.configure({
         openOnClick: false,
