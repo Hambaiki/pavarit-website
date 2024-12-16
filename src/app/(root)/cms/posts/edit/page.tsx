@@ -70,8 +70,6 @@ function Editor({ postId }: { postId: string }) {
       if (response.ok) {
         const data = await response.json();
 
-        console.log(data);
-
         setPostMetadata({
           title: data.post.title,
           slug: data.post.slug,

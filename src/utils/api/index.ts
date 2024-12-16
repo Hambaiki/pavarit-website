@@ -7,8 +7,8 @@ export async function fetchFromApi<T>(
 ): Promise<T | null> {
   // Get the host and protocol for constructing the absolute URL
   const host = headers().get("host");
-  // const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const url = `${host}${endpoint}`;
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const url = `${protocol}://${host}${endpoint}`;
 
   try {
     const response = await fetch(url, { method, ...options });
