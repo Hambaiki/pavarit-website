@@ -60,7 +60,7 @@ function UserButton() {
         </div>
       )}
 
-      <FadeInOutContainer visible={dropdownOpen}>
+      <FadeInOutContainer visible={dropdownOpen} className="z-10">
         <div className="absolute top-[115%] right-0 shadow-xl">
           <div className="flex flex-col justify-center items-center min-w-[12rem] rounded-xl bg-black overflow-hidden">
             {loggedIn && (

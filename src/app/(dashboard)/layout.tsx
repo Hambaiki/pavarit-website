@@ -1,9 +1,11 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
 
-import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 
 interface DashboardLayoutProps {
@@ -11,7 +13,13 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const pathname = usePathname();
+
   const [stackOpen, setStackOpen] = useState(false);
+
+  useEffect(() => {
+    setStackOpen(false);
+  }, [pathname]);
 
   const navItems = [
     { label: "Home", href: "/dashboard" },
