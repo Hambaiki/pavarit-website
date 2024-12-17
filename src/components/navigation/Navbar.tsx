@@ -1,11 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { FaBars } from "react-icons/fa6";
 
 import { navItems } from "@/constants/common";
+
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarItem from "./NavbarItem";
@@ -14,8 +16,13 @@ import NavbarVerticalItem from "./NavbarVerticalItem";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const ref = useRef<HTMLDivElement>(null);
 
   const [stackOpen, setStackOpen] = useState(false);
+
+  useClickOutside(ref, () => {
+    setStackOpen(false);
+  });
 
   useEffect(() => {
     setStackOpen(false);
@@ -51,7 +58,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="md:hidden max-w-4xl mx-auto bg-neutral-950">
+      <div ref={ref} className="md:hidden max-w-4xl mx-auto bg-neutral-950">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
             {navItems.map((item, index) => (

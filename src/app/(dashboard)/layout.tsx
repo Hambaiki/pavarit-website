@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
@@ -14,9 +14,14 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const [stackOpen, setStackOpen] = useState(false);
+
+  useClickOutside(ref, () => {
+    setStackOpen(false);
+  });
 
   useEffect(() => {
     setStackOpen(false);
@@ -74,7 +79,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           ))}
         </nav>
 
-        <div className="md:hidden max-w-4xl mx-auto bg-neutral-950">
+        <div ref={ref} className="md:hidden max-w-4xl mx-auto bg-neutral-950">
           <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
             <div className="flex flex-col justify-center items-center space-y-2 p-4">
               {navItems.map((item, index) => (
