@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const sql = neon(process.env.DATABASE_URL!);
 
-// export const revalidate = 0;
+export const revalidate = 0;
 
 export async function GET(
   _: Request,
