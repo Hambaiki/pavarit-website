@@ -3,10 +3,22 @@
 import { useState, useEffect } from "react";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
-import MainContainer from "@/components/container/MainContainer";
+import MainContainer from "@/components/dashboard/common/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import Switch from "@/components/form/Switch";
+import Button from "@/components/Button";
 
 export default function MaintenanceSettings() {
+  const [settingsChanged, setSettingsChanged] = useState(false);
+  const [initialSettings, setInitialSettings] = useState({
+    enabled: false,
+    scheduled: false,
+    startTime: null,
+    endTime: null,
+    message: "",
+    allowedIPs: "",
+  });
+
   const [settings, setSettings] = useState({
     enabled: false,
     scheduled: false,
@@ -17,37 +29,44 @@ export default function MaintenanceSettings() {
   });
 
   useEffect(() => {
-    // Fetch initial maintenance mode status
+    fetchSettings();
+  }, []);
+
+  useEffect(() => {
+    if (JSON.stringify(initialSettings) !== JSON.stringify(settings)) {
+      setSettingsChanged(true);
+    } else {
+      setSettingsChanged(false);
+    }
+  }, [initialSettings, settings]);
+
+  function fetchSettings() {
     fetch("/api/maintenance")
       .then((res) => res.json())
       .then((data) => {
-        setSettings({
+        const settings = {
           enabled: data.enabled,
           scheduled: data.scheduled,
           startTime: data.start_time,
           endTime: data.end_time,
           message: data.message,
           allowedIPs: data.allowed_ips,
-        });
-      });
-  }, []);
+        };
 
-  const handleChange = (
+        setInitialSettings(settings);
+        setSettings(settings);
+      });
+  }
+
+  function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  ) {
     const { name, value } = e.target;
     setSettings((prev) => ({ ...prev, [name]: value }));
-  };
+  }
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setSettings((prev) => ({ ...prev, [name]: checked }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    console.log(settings);
 
     try {
       const response = await fetch("/api/maintenance", {
@@ -59,7 +78,9 @@ export default function MaintenanceSettings() {
           endTime: settings.scheduled ? settings.endTime : null,
           message: settings.message,
           allowedIPs: settings.allowedIPs
-            ? String(settings.allowedIPs).split(",").map((ip) => ip.trim())
+            ? String(settings.allowedIPs)
+                .split(",")
+                .map((ip) => ip.trim())
             : [],
         }),
       });
@@ -69,7 +90,7 @@ export default function MaintenanceSettings() {
     } catch (error) {
       console.error("Error updating maintenance settings:", error);
     }
-  };
+  }
 
   const breadcrumbs = [
     { label: "Home", href: "/dashboard" },
@@ -89,37 +110,31 @@ export default function MaintenanceSettings() {
 
       <div className="mt-8">
         <h2 className="text-2xl font-bold">Maintenance Mode</h2>
+        <p className="text-neutral-300 mt-2">
+          Maintenance mode is a feature that allows you to put your website in
+          maintenance mode. This will disable the website for all users.
+        </p>
 
         <div className="mt-4 p-4 bg-neutral-900 rounded-xl">
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col space-y-2">
-              <label className="text-lg font-semibold">
-                Enable Maintenance Mode
-                <input
-                  type="checkbox"
-                  name="enabled"
-                  defaultChecked={settings.enabled}
-                  onChange={handleCheckboxChange}
-                  className="ml-2"
-                />
-              </label>
+            <div className="flex flex-row justify-between space-x-2">
+              <span className="text-base">Enable Maintenance Mode</span>
+              <Switch
+                on={settings.enabled}
+                onChange={(on) => setSettings({ ...settings, enabled: on })}
+              />
             </div>
 
-            <div className="flex flex-col space-y-2 mt-6">
-              <label className="text-lg font-semibold">
-                Schedule Maintenance
-                <input
-                  type="checkbox"
-                  name="scheduled"
-                  defaultChecked={settings.scheduled}
-                  onChange={handleCheckboxChange}
-                  className="ml-2"
-                />
-              </label>
+            <div className="flex flex-row justify-between space-x-2 mt-4">
+              <span className="text-base">Schedule Maintenance</span>
+              <Switch
+                on={settings.scheduled}
+                onChange={(on) => setSettings({ ...settings, scheduled: on })}
+              />
             </div>
 
             <CollapsibleContainer collapsed={!settings.scheduled}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <input
                   type="datetime-local"
                   name="startTime"
@@ -139,9 +154,7 @@ export default function MaintenanceSettings() {
 
             <div className="flex flex-col space-y-2 mt-6">
               <label>
-                <span className="text-lg font-semibold">
-                  Maintenance Message
-                </span>
+                <span className="text-base">Maintenance Message</span>
                 <textarea
                   value={settings.message}
                   name="message"
@@ -153,7 +166,7 @@ export default function MaintenanceSettings() {
 
             <div className="flex flex-col space-y-2 mt-6">
               <label>
-                <span className="text-lg font-semibold">Allowed IPs</span>
+                <span className="text-base">Allowed IPs</span>
                 <input
                   type="text"
                   value={settings.allowedIPs}
@@ -165,14 +178,16 @@ export default function MaintenanceSettings() {
               </label>
             </div>
 
-            <div className="flex flex-row justify-end mt-6">
-              <button
-                type="submit"
-                className="px-4 py-2 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 rounded"
-              >
-                Save Settings
-              </button>
-            </div>
+            <CollapsibleContainer collapsed={!settingsChanged}>
+              <div className="flex flex-row justify-end mt-6">
+                <Button
+                  type="submit"
+                  className="px-4 py-2 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 rounded-lg"
+                >
+                  Save Settings
+                </Button>
+              </div>
+            </CollapsibleContainer>
           </form>
         </div>
       </div>

@@ -28,7 +28,7 @@ function CarousalContainer({
 
       return () => clearInterval(interval);
     }
-  }, [autoScroll, autoScrollInterval, currentIndex]);
+  }, [autoScroll, autoScrollInterval, currentIndex, children.length]);
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const container = event.target as HTMLElement;

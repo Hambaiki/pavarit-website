@@ -49,15 +49,13 @@ function Profile() {
                   </p>
                 </div>
 
-                <div className="flex justify-end">
-                  <Button
-                    href={"/dashboard/posts"}
-                    className="w-full max-w-xs h-12 rounded-lg"
-                    variant="secondary"
-                  >
-                    Start
-                  </Button>
-                </div>
+                <Button
+                  href={"/dashboard/posts"}
+                  className="w-full h-12 rounded-lg"
+                  variant="secondary"
+                >
+                  Start
+                </Button>
               </div>
             </div>
           </div>

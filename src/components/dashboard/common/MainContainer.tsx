@@ -1,4 +1,4 @@
-import Loading from "../navigation/Loading";
+import Loading from "@/components/navigation/Loading";
 
 function MainContainer({
   children,
@@ -10,7 +10,7 @@ function MainContainer({
   loading?: boolean;
 }) {
   return (
-    <main className={`${className ?? ""} w-full max-w-5xl mx-auto p-4 md:p-8`}>
+    <main className={`${className ?? ""} w-full mx-auto p-4 md:p-8`}>
       {loading ? <Loading /> : children}
     </main>
   );

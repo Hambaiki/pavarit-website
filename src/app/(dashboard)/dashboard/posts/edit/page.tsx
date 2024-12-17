@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 
 import { PostMetadata } from "@/types/post";
 
-import MainContainer from "@/components/container/MainContainer";
+import MainContainer from "@/components/dashboard/common/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostEditor from "@/components/post/editor/PostEditor";
 import Loading from "@/components/navigation/Loading";
@@ -18,7 +18,6 @@ function CreatePage({ searchParams }: { searchParams: { id: string } }) {
 
   const breadcrumbs = [
     { label: "Home", href: "/dashboard" },
-    { label: "Dashboard", href: "/dashboard" },
     { label: "Posts", href: "/dashboard/posts" },
     { label: "Edit", href: "/dashboard/posts/edit" },
   ];

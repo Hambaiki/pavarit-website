@@ -7,6 +7,7 @@ import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
 
 import { FaBars } from "react-icons/fa";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -33,6 +34,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       ],
     },
     { label: "Settings", href: "/dashboard/settings" },
+    {
+      label: "Other",
+      href: "",
+      subItems: [
+        { label: "Back to Website", href: "/" },
+        { label: "Logout", href: "/api/auth/logout" },
+      ],
+    },
   ];
 
   return (
@@ -49,7 +58,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </button>
           </div>
 
-          <div className="space-y-1 md:space-y-2">
+          <div className="space-y-1 md:space-y-2 p-2 lg:p-4">
             <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
             <hr className="border-2 border-suzuha-teal-500" />
             <h1 className="text-lg font-extralight">Dashboard</h1>
@@ -57,7 +66,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
         <nav className="hidden md:flex flex-col gap-2 p-4">
           {navItems.map((item, index) => (
-            <NavbarVerticalItem key={index} item={item} />
+            <NavbarVerticalItem
+              key={index}
+              item={item}
+              onClickOutside={() => setStackOpen(false)}
+            />
           ))}
         </nav>
 

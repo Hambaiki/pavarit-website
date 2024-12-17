@@ -13,6 +13,7 @@ interface PostItemAltProps {
   tags?: string[];
   disableHover?: boolean;
   className?: string;
+  loading?: boolean;
 }
 
 function PostItemAlt({
@@ -23,6 +24,7 @@ function PostItemAlt({
   tags = [],
   disableHover = false,
   className,
+  loading = false,
 }: PostItemAltProps) {
   return (
     <article

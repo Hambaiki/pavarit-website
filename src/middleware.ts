@@ -88,7 +88,9 @@ export async function middleware(request: NextRequest) {
       protectionLevel === ROUTE_PROTECTION.ADMIN
     ) {
       if (!session) {
-        return NextResponse.redirect(new URL("/api/auth/login", request.url));
+        const loginUrl = new URL("/api/auth/login", request.url);
+        loginUrl.searchParams.set("returnTo", request.url);
+        return NextResponse.redirect(loginUrl);
       }
     }
 

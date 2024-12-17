@@ -1,52 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-import MainContainer from "@/components/container/MainContainer";
+import MainContainer from "@/components/dashboard/common/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import UserInfo from "@/components/profile/UserInfo";
 
-import Loading from "@/components/navigation/Loading";
 import Button from "@/components/Button";
 
 function Profile() {
   const { user, isLoading } = useUser();
-
-  const [isMaintenanceMode, setIsMaintenanceMode] = useState(false);
 
   const breadcrumbs = [
     { label: "Home", href: "/dashboard" },
     { label: "Profile", href: "/dashboard/profile" },
   ];
 
-  useEffect(() => {
-    // Fetch initial maintenance mode status
-    fetch("/api/maintenance")
-      .then((res) => res.json())
-      .then((data) => setIsMaintenanceMode(data.maintenanceMode));
-  }, []);
-
-  const toggleMaintenanceMode = async () => {
-    try {
-      const res = await fetch("/api/maintenance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ enabled: !isMaintenanceMode }),
-      });
-      const data = await res.json();
-      setIsMaintenanceMode(data.maintenanceMode);
-    } catch (error) {
-      console.error("Failed to toggle maintenance mode:", error);
-    }
-  };
-
-  const roles = user?.["http://localhost:3000/roles"] as string[];
-  const isAdmin = roles?.includes("admin");
-
   return (
-    <MainContainer>
+    <MainContainer loading={isLoading}>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
       <div className="flex flex-col mt-8">
@@ -57,32 +28,60 @@ function Profile() {
           emailVerified={user?.email_verified || false}
         />
 
-        {isAdmin && (
-          <div className="mt-8">
-            <h2 className="text-2xl font-bold">Administrator Controls</h2>
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold">Administrator Controls</h2>
 
-            <div className="mt-4">
-              <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl ">
-                <div className="flex-1 flex flex-col space-y-2">
-                  <h2 className="text-2xl font-semibold">CMS Access</h2>
-                  <p className="text-neutral-300">
-                    Access the CMS to manage posts and categories.
-                  </p>
-                </div>
-
-                <div className="flex justify-end">
-                  <Button
-                    href={"/dashboard/posts"}
-                    className="w-full max-w-xs h-12 rounded-lg"
-                    variant="secondary"
-                  >
-                    Start
-                  </Button>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl">
+              <div className="flex-1 flex flex-col space-y-2">
+                <h2 className="text-2xl font-semibold">CMS Access</h2>
+                <p className="text-neutral-300">
+                  Access the CMS to manage posts and categories.
+                </p>
               </div>
+
+              <Button
+                href={"/dashboard/posts"}
+                className="w-full h-12 rounded-lg"
+                variant="secondary"
+              >
+                Start
+              </Button>
+            </div>
+
+            <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl">
+              <div className="flex-1 flex flex-col space-y-2">
+                <h2 className="text-2xl font-semibold">Website Settings</h2>
+                <p className="text-neutral-300">Manage website settings.</p>
+              </div>
+
+              <Button
+                href={"/dashboard/posts"}
+                className="w-full h-12 rounded-lg"
+                variant="secondary"
+              >
+                View settings
+              </Button>
+            </div>
+
+            <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl">
+              <div className="flex-1 flex flex-col space-y-2">
+                <h2 className="text-2xl font-semibold">Back to Website</h2>
+                <p className="text-neutral-300">
+                  Go back to the website.
+                </p>
+              </div>
+
+              <Button
+                href={"/dashboard/posts"}
+                className="w-full h-12 rounded-lg"
+                variant="secondary"
+              >
+                Go to Website
+              </Button>
             </div>
           </div>
-        )}
+        </div>
 
         {/* {isAdmin && (
           <div className="mt-8">

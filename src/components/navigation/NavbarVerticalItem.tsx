@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 import CollapsibleContainer from "../container/CollapsibleContainer";
 import Link from "next/link";
@@ -13,9 +13,10 @@ interface NavbarVerticalItemProps {
     href: string;
     subItems?: { label: string; href: string }[];
   };
+  onClickOutside?: () => void;
 }
 
-function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
+function NavbarVerticalItem({ item, onClickOutside }: NavbarVerticalItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -24,7 +25,13 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useClickOutside(ref, () => setDropdownOpen(false));
+  useClickOutside(ref, () => {
+    setDropdownOpen(false);
+  });
+
+  useEffect(() => {
+    setDropdownOpen(false);
+  }, [pathname]);
 
   const handleClick = () => {
     if (item.subItems && item.subItems.length > 0) {

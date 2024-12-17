@@ -1,17 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import imageCompression from "browser-image-compression";
+import { Heading } from "@tiptap/extension-heading";
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
-import { Extension } from "@tiptap/core";
-import { Plugin, PluginKey } from "@tiptap/pm/state";
-import { Level } from "@tiptap/extension-heading";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
-import Button from "@/components/Button";
-import { Heading } from "@tiptap/extension-heading"; // Add Heading extension
-// import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
 
 import {
   FaBold,
@@ -24,31 +20,14 @@ import {
 } from "react-icons/fa6";
 
 import { PostMetadata } from "@/types/post";
+import { slugify } from "@/utils/slugify";
 
+import Button from "@/components/Button";
 import ToolbarButton from "@/components/post/editor/ToolbarButton";
 import TextInput from "@/components/form/TextInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
 import GeneralModal from "@/components/common/GeneralModal";
 import Loading from "@/components/navigation/Loading";
-
-export function slugify(text: string): string {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-    .replace(/\-\-+/g, "-") // Replace multiple - with single -
-    .replace(/^-+/, "") // Trim - from start of text
-    .replace(/-+$/, ""); // Trim - from end of text
-}
-
-const HeadingWithId = Heading.extend({
-  renderHTML({ node, HTMLAttributes }) {
-    HTMLAttributes.id = slugify(node.textContent);
-    return ["h" + node.attrs.level, HTMLAttributes, 0];
-  },
-});
 
 interface PostEditorProps {
   postMetadata?: PostMetadata;
@@ -71,6 +50,8 @@ function PostEditor({
   onSuccess,
   onError,
 }: PostEditorProps) {
+  const router = useRouter();
+
   const [url, setUrl] = useState("");
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
 
@@ -81,7 +62,7 @@ function PostEditor({
   const [isUploadingImageError, setIsUploadingImageError] = useState(false);
 
   const [isUploadingImage, setIsUploadingImage] = useState(false);
-  const [clearing, setClearing] = useState(false);
+  const [discarding, setDiscarding] = useState(false);
 
   const [metadata, setMetadata] = useState({
     title: "",
@@ -132,7 +113,7 @@ function PostEditor({
     if (editor) {
       editor.commands.setContent(postContent || "");
     }
-  }, [postContent]);
+  }, [postContent, editor]);
 
   const handleMetadataChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -447,21 +428,23 @@ function PostEditor({
             <div className="min-h-[20rem] bg-neutral-900 rounded-b-md border border-t-0 border-primary-gray-border">
               <EditorContent
                 editor={editor}
-                className="prose max-w-none prose-img:rounded-xl prose-hr:border-neutral-600"
+                className="prose max-w-none 
+                  prose-img:rounded-xl prose-img:mx-auto prose-img:max-w-lg prose-img:w-full 
+                  prose-hr:border-neutral-600"
               />
             </div>
           </div>
 
           <div className="flex flex-row items-center justify-center gap-4 mt-8">
-            {/* <Button
+            <Button
               type="button"
               variant="secondary"
-              onClick={() => setClearing(true)}
-              className="w-full p-3 rounded-full"
+              onClick={() => setDiscarding(true)}
+              className="flex-1 p-3 rounded-full"
             >
-              Clear
-            </Button> */}
-            <Button type="submit" className="w-full max-w-sm p-3 rounded-full">
+              Discard Changes
+            </Button>
+            <Button type="submit" className="flex-1 p-3 rounded-full">
               Save Post
             </Button>
           </div>
@@ -530,16 +513,13 @@ function PostEditor({
         </GeneralModal>
 
         <GeneralModal
-          visible={clearing}
-          title="Clearing Editor"
-          message="Are you sure you want to clear the editor?"
-          primaryButtonText="Clear"
-          onClickPrimary={() => {
-            editor.commands.clearContent();
-            setClearing(false);
-          }}
+          visible={discarding}
+          title="Discard Changes"
+          message="Are you sure you want to discard the changes?"
+          primaryButtonText="Discard"
+          onClickPrimary={() => router.back()}
           secondaryButtonText="Cancel"
-          onClickSecondary={() => setClearing(false)}
+          onClickSecondary={() => setDiscarding(false)}
         />
 
         <GeneralModal
@@ -559,5 +539,12 @@ function PostEditor({
     </>
   );
 }
+
+const HeadingWithId = Heading.extend({
+  renderHTML({ node, HTMLAttributes }) {
+    HTMLAttributes.id = slugify(node.textContent);
+    return ["h" + node.attrs.level, HTMLAttributes, 0];
+  },
+});
 
 export default PostEditor;

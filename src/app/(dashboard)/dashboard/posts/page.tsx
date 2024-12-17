@@ -4,7 +4,7 @@ import { Suspense, useEffect } from "react";
 import { useState } from "react";
 
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
-import MainContainer from "@/components/container/MainContainer";
+import MainContainer from "@/components/dashboard/common/MainContainer";
 import Paginator from "@/components/Paginator";
 import Loading from "@/components/navigation/Loading";
 import PostItem from "@/components/dashboard/PostItem";
@@ -89,7 +89,6 @@ function PostsPage({
 
   const breadcrumbs = [
     { label: "Home", href: "/dashboard" },
-    { label: "Dashboard", href: "/dashboard" },
     { label: "Posts", href: "/dashboard/posts" },
   ];
 
