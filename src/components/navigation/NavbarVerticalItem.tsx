@@ -11,7 +11,7 @@ interface NavbarVerticalItemProps {
   item: {
     label: string;
     href: string;
-    subItems: { label: string; href: string }[];
+    subItems?: { label: string; href: string }[];
   };
 }
 
@@ -27,7 +27,7 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
   useClickOutside(ref, () => setDropdownOpen(false));
 
   const handleClick = () => {
-    if (item.subItems.length > 0) {
+    if (item.subItems && item.subItems.length > 0) {
       setDropdownOpen(!dropdownOpen);
     } else {
       router.push(item.href);
@@ -59,7 +59,7 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
             {item.label}
           </span>
 
-          {item.subItems.length > 0 && (
+          {item.subItems && item.subItems.length > 0 && (
             <FaChevronDown
               className={`w-4 h-4 ${dropdownOpen ? "rotate-180" : "rotate-0"}`}
             />
@@ -71,17 +71,18 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
           collapsed={!dropdownOpen}
           className="w-full"
         >
-          {item.subItems.map((subItem, index) => (
-            <Link key={index} href={subItem.href}>
-              <div
-                className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
+          {item.subItems &&
+            item.subItems.map((subItem, index) => (
+              <Link key={index} href={subItem.href}>
+                <div
+                  className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
                   transition-colors text-neutral-300
                   ${current ? "hover:bg-neutral-800" : "hover:bg-neutral-700"}`}
-              >
-                {subItem.label}
-              </div>
-            </Link>
-          ))}
+                >
+                  {subItem.label}
+                </div>
+              </Link>
+            ))}
         </CollapsibleContainer>
       </div>
     </>

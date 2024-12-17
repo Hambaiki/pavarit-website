@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/container/MainContainer";
 import Paginator from "@/components/Paginator";
 import Loading from "@/components/navigation/Loading";
-import PostItem from "@/components/post/cms/PostItem";
+import PostItem from "@/components/dashboard/PostItem";
 
 import { Post } from "@/types/post";
 import { PostData } from "@/types/api/post";
@@ -88,9 +88,9 @@ function PostsPage({
   }
 
   const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "CMS", href: "/cms" },
-    { label: "Posts", href: "/cms/posts" },
+    { label: "Home", href: "/dashboard" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Posts", href: "/dashboard/posts" },
   ];
 
   return (
@@ -117,7 +117,7 @@ function PostsPage({
           <div className="flex items-center justify-between mt-8">
             <h2 className="text-2xl font-bold">All Posts</h2>
             <Button
-              href="/cms/posts/create"
+              href="/dashboard/posts/create"
               variant="secondary"
               className="flex items-center px-4 py-2 h-full rounded-lg"
             >

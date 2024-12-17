@@ -17,10 +17,10 @@ function CreatePage({ searchParams }: { searchParams: { id: string } }) {
   }
 
   const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "CMS", href: "/cms" },
-    { label: "Posts", href: "/cms/posts" },
-    { label: "Edit", href: "/cms/posts/edit" },
+    { label: "Home", href: "/dashboard" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Posts", href: "/dashboard/posts" },
+    { label: "Edit", href: "/dashboard/posts/edit" },
   ];
 
   return (

@@ -11,8 +11,6 @@ export async function POST(request: Request) {
     const isSlugUnique =
       await sql`SELECT COUNT(*) FROM posts WHERE slug = ${slug}`;
 
-    console.log(isSlugUnique);
-
     return NextResponse.json({
       unique: parseInt(isSlugUnique[0].count) === 0,
     });

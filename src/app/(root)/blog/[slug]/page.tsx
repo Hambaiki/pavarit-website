@@ -26,10 +26,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
   // Fetch the post data using the reusable function
   const postData = await fetchFromApi<GetPostResponse>(
     `/api/v1/posts/search/${slug}`,
-    "GET",
-    {
-      cache: "no-store",
-    }
+    "GET"
   );
 
   const relatedPostData = await fetchFromApi<SearchPostResponse>(
@@ -41,18 +38,18 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
         page: 1,
         per_page: 3,
       }),
-      cache: "no-store",
     }
   );
 
   const post = postData?.post;
-  const relatedPosts = relatedPostData?.posts.filter(
-    (post) => post.id !== postData?.post?.id
-  );
 
   if (!post) {
     return notFound();
   }
+
+  const relatedPosts = relatedPostData?.posts.filter(
+    (post) => post.id !== postData.post.id
+  );
 
   const contentHtml = post.content || "";
 

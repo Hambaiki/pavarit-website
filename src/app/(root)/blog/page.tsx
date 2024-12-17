@@ -1,49 +1,21 @@
 import Link from "next/link";
 import { neon } from "@neondatabase/serverless";
+import { Suspense } from "react";
 
-import { FaList, FaThumbtack } from "react-icons/fa6";
-
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
-import MainContainer from "@/components/container/MainContainer";
-import PostItem from "@/components/post/PostItem";
-import CarousalContainer from "@/components/container/CarousalContainer";
-import Button from "@/components/Button";
 import { fetchFromApi } from "@/utils/api";
 import { SearchPostResponse } from "@/types/api/post";
 
+import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import MainContainer from "@/components/container/MainContainer";
+import Button from "@/components/Button";
+import LatestPosts, {
+  FallbackLatestPosts,
+} from "@/components/post/LatestPosts";
+import FeaturedPosts, {
+  FallbackFeaturedPosts,
+} from "@/components/post/FeaturedPosts";
+
 async function page() {
-  const response = await fetch(
-    `https://dev.pavarit.net/api/v1/posts/search?id=1`
-  );
-
-  console.log(response);
-
-  const featuredPostsResponse = await fetchFromApi<SearchPostResponse>(
-    `/api/v1/posts/search`,
-    "POST",
-    {
-      body: JSON.stringify({
-        page: 1,
-        per_page: 4,
-        tags: ["_featured"],
-      }),
-    }
-  );
-
-  const latestPostsResponse = await fetchFromApi<SearchPostResponse>(
-    `/api/v1/posts/search`,
-    "POST",
-    {
-      body: JSON.stringify({
-        page: 1,
-        per_page: 4,
-      }),
-    }
-  );
-
-  const featuredPosts = featuredPostsResponse?.posts || [];
-  const latestPosts = latestPostsResponse?.posts || [];
-
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
@@ -72,84 +44,28 @@ async function page() {
         </div>
       </header>
 
-      {featuredPosts.length > 0 && (
+      <Suspense fallback={<FallbackFeaturedPosts className="mt-12" />}>
+        <FeaturedPosts className="mt-12" />
+      </Suspense>
+
+      <Suspense fallback={<FallbackLatestPosts className="mt-12" />}>
         <div className="mt-12">
-          <div className="flex items-center space-x-2">
-            <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
-            <h2 className="text-2xl font-bold">Featured Posts</h2>
-          </div>
-
-          <div className="mt-6">
-            <CarousalContainer autoScroll autoScrollInterval={5000}>
-              {featuredPosts.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="w-full h-full bg-green-500"
-                >
-                  <PostItem
-                    image={post.image}
-                    title={post.title}
-                    author={post.author}
-                    createDate={post.created_at}
-                    tags={post.tags}
-                    description={post.description}
-                    className="h-full md:h-80"
-                  />
-                </Link>
-              ))}
-            </CarousalContainer>
-          </div>
+          <LatestPosts />
         </div>
-      )}
+      </Suspense>
 
-      <div className="mt-12">
-        <div className="flex flex-row justify-between items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <FaList className="h-6 w-6 text-suzuha-teal-500" />
-            <h2 className="text-2xl font-bold">Latest Posts</h2>
-          </div>
-
-          <div className="flex justify-center">
-            <Button
-              href="/blog/all"
-              variant="secondary"
-              className="px-3 py-2 rounded-full text-sm"
-            >
-              View More Posts
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex flex-col space-y-4 mt-6">
-          {latestPosts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
-              <PostItem
-                image={post.image}
-                title={post.title}
-                author={post.author}
-                createDate={post.created_at}
-                tags={post.tags}
-                description={post.description}
-                className="md:h-80"
-              />
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-neutral-950 rounded-xl">
-          <p className="text-center md:text-left text-neutral-300">
-            Interested in my other posts?
-            <strong> Check out other posts here!</strong>
-          </p>
-          <Button
-            href="/blog/all"
-            variant="primary"
-            className="px-4 py-2 rounded-full"
-          >
-            View More Posts
-          </Button>
-        </div>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-neutral-950 rounded-xl">
+        <p className="text-center md:text-left text-neutral-300">
+          Interested in my other posts?
+          <strong> Check out other posts here!</strong>
+        </p>
+        <Button
+          href="/blog/all"
+          variant="primary"
+          className="px-4 py-2 rounded-full"
+        >
+          View More Posts
+        </Button>
       </div>
     </MainContainer>
   );

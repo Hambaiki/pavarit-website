@@ -152,7 +152,7 @@ function PostItem({
           <button
             className="flex flex-row items-center space-x-2 px-4 py-2 rounded-lg 
               border border-suzuha-teal-500 hover:bg-suzuha-teal-500/20 transition-colors"
-            onClick={() => router.push(`/cms/posts/edit?id=${id}`)}
+            onClick={() => router.push(`/dashboard/posts/edit?id=${id}`)}
           >
             <FaPencil className="text-suzuha-teal-500" />
             <span className="hidden md:block text-sm text-suzuha-teal-500">

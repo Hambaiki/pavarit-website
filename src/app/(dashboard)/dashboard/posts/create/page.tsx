@@ -14,10 +14,10 @@ function CreatePage() {
   const router = useRouter();
 
   const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "CMS", href: "/cms" },
-    { label: "Posts", href: "/cms/posts" },
-    { label: "Create", href: "/cms/posts/create" },
+    { label: "Home", href: "/dashboard" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Posts", href: "/dashboard/posts" },
+    { label: "Create", href: "/dashboard/posts/create" },
   ];
 
   const [slug, setSlug] = useState<string | undefined>(undefined);

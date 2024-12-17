@@ -1,8 +1,9 @@
 import Link from "next/link";
 
-import PostItemAlt from "./PostItemAlt";
 import { PostData, SearchPostResponse } from "@/types/api/post";
 import { fetchFromApi } from "@/utils/api";
+
+import PostItemAlt from "./PostItemAlt";
 
 async function RecentPosts() {
   const response = await fetchFromApi<SearchPostResponse>(
