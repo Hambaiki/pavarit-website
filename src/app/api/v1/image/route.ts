@@ -16,7 +16,8 @@ export async function POST(request: Request) {
     // Upload to R2
     await uploadFileToR2(r2_key, file);
 
-    return NextResponse.json({ key: r2_key });
+    const url = `${process.env.NEXT_PUBLIC_BUCKET_URL}/${r2_key}`;
+    return NextResponse.json({ url });
   } catch (error) {
     console.error("Error uploading image:", error);
     return NextResponse.json(

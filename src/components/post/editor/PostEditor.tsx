@@ -213,8 +213,8 @@ function PostEditor({
 
       const data = await response.json();
 
-      if (data.key) {
-        return `${process.env.NEXT_PUBLIC_BUCKET_URL}/${data.key}`;
+      if (data.url) {
+        return data.url;
       }
     } catch (error) {
       console.error("Error uploading image:", error);
