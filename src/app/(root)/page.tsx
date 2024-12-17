@@ -70,6 +70,7 @@ async function Home() {
 
         <RecentPosts />
       </section>
+      
       {/* <section className="mt-8 p-4 bg-neutral-900 rounded-xl">
           <h3 className="text-2xl font-semibold mb-4">
             What Will You Find Here?
@@ -117,6 +118,7 @@ async function Home() {
             with your thoughts, feedback, or just to say hi.
           </p>
         </section> */}
+
       <section className="mt-8">
         <h3 className="text-2xl font-semibold mb-4">More Content</h3>
 
