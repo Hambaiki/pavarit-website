@@ -63,6 +63,7 @@ const config: Config = {
           900: "#171717",
           950: "#0a0a0a",
           border: "#333333",
+          background: "#222222",
         },
       },
       backgroundImage: {

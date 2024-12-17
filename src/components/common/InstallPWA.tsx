@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import Button from "../Button";
+import { FaPlus } from "react-icons/fa6";
 
 export default function InstallPWA() {
   const [supportsPWA, setSupportsPWA] = useState(false);
@@ -36,17 +38,19 @@ export default function InstallPWA() {
     setPromptInstall(null);
   };
 
-  if (!supportsPWA) {
-    return null;
-  }
-
   return (
-    <Button
-      onClick={handleInstallClick}
-      variant="secondary"
-      className="w-32 h-12 rounded-lg"
-    >
-      Install App
-    </Button>
+    supportsPWA && (
+      <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-4 mt-2">
+        <p>Try out this web application on your phone! </p>
+        <Button
+          onClick={handleInstallClick}
+          variant="secondary"
+          className="px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <FaPlus />
+          <span>Add to Home Screen</span>
+        </Button>
+      </div>
+    )
   );
 }

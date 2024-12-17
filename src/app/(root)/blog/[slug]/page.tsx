@@ -136,7 +136,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           <PostRenderer contentHtml={contentHtml} />
         </div>
 
-        <div className="lg:sticky lg:top-0 lg:h-full lg:w-72 lg:py-8">
+        <div className="lg:sticky lg:top-28 lg:h-full lg:w-72 lg:py-8">
           <div className="hidden lg:block mb-4">
             <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
               {/* <Image
@@ -171,7 +171,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           <h2 className="text-2xl font-bold">Related Posts</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {relatedPostData?.posts.map((post, index) => (
+            {relatedPosts.map((post, index) => (
               <Link href={`/blog/${post.slug}`} key={index}>
                 <PostItemAlt
                   key={index}

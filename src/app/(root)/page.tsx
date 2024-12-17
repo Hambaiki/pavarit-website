@@ -12,6 +12,7 @@ import FeaturedPosts, {
   FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
 import { Suspense } from "react";
+import InstallPWA from "@/components/common/InstallPWA";
 
 async function Home() {
   return (
@@ -54,8 +55,8 @@ async function Home() {
         />
       </section>
 
-      <section className="mt-14">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-4 bg-neutral-900 rounded-xl p-2">
+      <section className="mt-14 bg-neutral-900 rounded-xl p-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {introItems.map((item, index) => (
             <Link
               href={item.href}
@@ -70,6 +71,15 @@ async function Home() {
               <FaChevronRight className="text-suzuha-teal-500" />
             </Link>
           ))}
+        </div>
+
+        <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-4 mt-2">
+          <p className="text-center">
+            This website is a progressive web application.&nbsp;
+            <span className="text-suzuha-teal-500">
+              Try adding to home screen!
+            </span>
+          </p>
         </div>
       </section>
 
@@ -105,13 +115,13 @@ async function Home() {
         </p>
       </section>
 
-      <section className="mt-14 space-y-6">
+      {/* <section className="mt-14 space-y-6">
         <h2 className="text-2xl font-bold">Explore My Featured Articles</h2>
 
         <Suspense fallback={<FeaturedPostsSkeleton />}>
           <FeaturedPosts />
         </Suspense>
-      </section>
+      </section> */}
 
       {/* <section className="mt-8 p-4 bg-neutral-900 rounded-xl">
           <h3 className="text-2xl font-semibold mb-4">

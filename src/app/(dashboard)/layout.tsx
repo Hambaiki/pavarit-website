@@ -52,7 +52,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="flex flex-col md:flex-row min-h-[calc(100dvh)]">
       {/* Sidebar */}
-      <div className="sticky top-0 md:fixed md:inset-y-0 md:left-0 md:w-64 md:h-full z-10 bg-neutral-900 text-white">
+      <div
+        ref={ref}
+        className="fixed inset-0 md:left-0 md:w-64 h-32 md:h-full z-10 bg-neutral-900 text-white"
+      >
         <div className="flex flex-row items-center p-4">
           <div className="md:hidden mr-4 md:mr-0">
             <button
@@ -79,7 +82,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           ))}
         </nav>
 
-        <div ref={ref} className="md:hidden max-w-4xl mx-auto bg-neutral-950">
+        <div className="md:hidden max-w-4xl mx-auto bg-neutral-950">
           <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
             <div className="flex flex-col justify-center items-center space-y-2 p-4">
               {navItems.map((item, index) => (
@@ -91,7 +94,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col md:ml-64">
+      <div className="flex-1 flex flex-col mt-32 md:mt-0 md:ml-64">
         {/* Page content */}
         <main className="flex-1">{children}</main>
       </div>
