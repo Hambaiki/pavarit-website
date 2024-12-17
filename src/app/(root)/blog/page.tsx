@@ -9,10 +9,12 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/container/MainContainer";
 import Button from "@/components/Button";
 import LatestPosts, {
-  FallbackLatestPosts,
+  LatestPostsHeader,
+  LatestPostsSkeleton,
 } from "@/components/post/LatestPosts";
 import FeaturedPosts, {
-  FallbackFeaturedPosts,
+  FeaturedPostsHeader,
+  FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
 
 async function page() {
@@ -44,15 +46,21 @@ async function page() {
         </div>
       </header>
 
-      <Suspense fallback={<FallbackFeaturedPosts className="mt-12" />}>
-        <FeaturedPosts className="mt-12" />
-      </Suspense>
+      <section className="mt-12 space-y-6">
+        <FeaturedPostsHeader />
 
-      <Suspense fallback={<FallbackLatestPosts className="mt-12" />}>
-        <div className="mt-12">
+        <Suspense fallback={<FeaturedPostsSkeleton />}>
+          <FeaturedPosts />
+        </Suspense>
+      </section>
+
+      <section className="mt-12 space-y-6">
+        <LatestPostsHeader />
+
+        <Suspense fallback={<LatestPostsSkeleton />}>
           <LatestPosts />
-        </div>
-      </Suspense>
+        </Suspense>
+      </section>
 
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-neutral-950 rounded-xl">
         <p className="text-center md:text-left text-neutral-300">

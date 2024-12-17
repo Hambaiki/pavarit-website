@@ -41,8 +41,6 @@ async function FeaturedPosts({
 
   return (
     <div className={`space-y-6 ${className}`}>
-      <FeaturedPostsHeader />
-
       <CarousalContainer autoScroll autoScrollInterval={5000}>
         {featuredPosts.map((post) => (
           <Link
@@ -66,7 +64,7 @@ async function FeaturedPosts({
   );
 }
 
-function FeaturedPostsHeader() {
+export function FeaturedPostsHeader() {
   return (
     <div className="flex items-center space-x-2">
       <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
@@ -75,14 +73,12 @@ function FeaturedPostsHeader() {
   );
 }
 
-export function FallbackFeaturedPosts({
+export function FeaturedPostsSkeleton({
   className,
   count = 4,
 }: FeaturedPostsProps) {
   return (
     <div className={`space-y-6 ${className}`}>
-      <FeaturedPostsHeader />
-
       <CarousalContainer>
         {[...Array(count)].map((_, index) => (
           <PostItem className="h-full md:h-80" loading key={index} />

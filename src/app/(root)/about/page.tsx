@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Metadata } from "next";
 
-import { education, experiences } from "@/constants/about";
+import { education, experiences, tableOfContents } from "@/constants/about";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
@@ -36,13 +36,14 @@ function About() {
       </div>
 
       {/* <div className="mt-8 p-4 bg-neutral-900 rounded-xl">
-        <h2 className="text-2xl font-bold">Contents</h2>
-        <ul className="mt-4 space-y-2">
+        <h2 className="text-2xl font-bold">Quickly Jumps To:</h2>
+        <ul className="flex flex-row flex-wrap gap-2 mt-4">
           {tableOfContents.map((item, index) => (
             <li key={index}>
               <a
                 href={item.href}
-                className="text-neutral-300 hover:text-white transition-colors"
+                className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-full
+                text-neutral-300 hover:text-white transition-colors "
               >
                 {item.label}
               </a>
@@ -51,19 +52,43 @@ function About() {
         </ul>
       </div> */}
 
+      {/* <div id="introduction" className="mt-8 rounded-xl">
+        <h2 className="text-2xl font-bold">Introduction</h2>
+
+        <div id="about" className="mt-4 p-4 bg-neutral-900 rounded-xl">
+          <h2 className="text-xl font-bold">About Me</h2>
+        </div>
+      </div> */}
+
       <div id="experience" className="mt-8 rounded-xl">
         <h2 className="text-2xl font-bold">Work Experience</h2>
 
         <div id="about" className="mt-4 p-4 bg-neutral-900 rounded-xl">
-          <h2 className="text-xl font-bold">My work life</h2>
+          <h2 className="text-xl font-bold">My Journey</h2>
 
           <p className="text-neutral-300 mt-2">
-            {`With a keen interest technologies, I've spent the past few years
-            exploring the development of web applications with technologies such
-            as ReactJS, NextJS, TypeScript, AWS, etc. As for my work
-            methodologies, I thrive in the dynamic environment of Agile
-            methodologies as I can adapt swiftly to changes and collaborating
-            effectively within cross-functional teams.`}
+            Throughout my journey, I have gained hands-on experience in both
+            professional and academic settings, contributing to my growth as a
+            Frontend Developer and beyond. I am currently working as a Junior
+            Frontend Developer at Agnos Health Co., Ltd., where I focus on
+            developing and maintaining modern web applications using tools like
+            ReactJS, NextJS, and TypeScript.
+          </p>
+
+          <p className="text-neutral-300 mt-2">
+            Previously, I honed my technical and teamwork skills as a Frontend
+            Developer Intern at the same company, handling key projects and
+            gaining expertise in Web application development. My passion for
+            technology and communication led me to serve as a Teaching Assistant
+            for Chulalongkorn University, where I supported students in
+            mastering Principles of Telecommunication, including concepts like
+            networking and encryption.
+          </p>
+
+          <p className="text-neutral-300 mt-2">
+            These diverse experiences have strengthened my technical abilities,
+            problem-solving mindset, and collaborative approach, empowering me
+            to take on challenging projects and deliver impactful results.
           </p>
         </div>
 
@@ -142,15 +167,40 @@ function About() {
         <h2 className="text-2xl font-bold">Education</h2>
 
         <div id="about" className="mt-4 p-4 bg-neutral-900 rounded-xl">
-          <h2 className="text-xl font-bold">My Journey</h2>
+          <h2 className="text-xl font-bold">Summary</h2>
 
           <p className="text-neutral-300 mt-2">
-            {`With a keen interest technologies, I've spent the past few years
-            exploring the development of web applications with technologies such
-            as ReactJS, NextJS, TypeScript, AWS, etc. As for my work
-            methodologies, I thrive in the dynamic environment of Agile
-            methodologies as I can adapt swiftly to changes and collaborating
-            effectively within cross-functional teams.`}
+            {`My academic path has been shaped by experiences across various esteemed institutions, 
+            each contributing to my growth and knowledge.`}
+          </p>
+          <p className="text-neutral-300 mt-2">
+            {`The foundation of my education began with kindergarten at Panaya School Sukhumvit 
+            (K1–K2 from 2004–2005), followed by Saint Joseph Sriphetchabun School for K3, Semester 
+            1 in 2006, and Panaya School Sukhumvit again for K3, Semester 2 later that year.`}
+          </p>
+          <p className="text-neutral-300 mt-2">
+            {`My secondary education began at Triam Udom Suksa Phatthanakarn
+            School, where I studied Grade 10 in 2016 and completed Grades 7–9
+            (2013–2015) during middle school. My elementary years were spent at
+            Panaya Phattanakarn Bilingual School (Grades 3–6 from 2009–2012) and
+            Panaya Phattanakarn School (Grades 1–2 from 2007–2008).`}
+          </p>
+          <p className="text-neutral-300 mt-2">
+            {`I completed my high school education at Santirat Wittayalai School
+            (2018–2019), covering Grade 11, Semester 2 to Grade 12. Earlier in
+            2018, I attended Armed Forces Academies Preparatory School (AFAPS)
+            for Year 1, Semester 1.`}
+          </p>
+          <p className="text-neutral-300 mt-2">
+            {`I earned my Bachelor's Degree in Information and Communication
+            Engineering from Chulalongkorn University (2020–2023), where I honed
+            my technical skills and passion for innovation.`}
+          </p>
+
+          <p className="text-neutral-300 mt-2">
+            {`Each step of my educational journey has shaped who I am today,
+            fostering my love for learning and inspiring me to pursue excellence
+            in everything I do.`}
           </p>
         </div>
 

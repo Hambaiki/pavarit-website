@@ -40,8 +40,6 @@ async function LatestPosts({
 
   return (
     <div className={`space-y-6 ${className}`}>
-      <LatestPostsHeader />
-
       <div className="flex flex-col space-y-4 mt-6">
         {latestPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
@@ -61,7 +59,7 @@ async function LatestPosts({
   );
 }
 
-function LatestPostsHeader() {
+export function LatestPostsHeader() {
   return (
     <div className="flex flex-row justify-between items-center space-x-4">
       <div className="flex items-center space-x-2">
@@ -82,14 +80,12 @@ function LatestPostsHeader() {
   );
 }
 
-export function FallbackLatestPosts({
+export function LatestPostsSkeleton({
   className,
   count = 4,
 }: LatestPostsProps) {
   return (
     <div className={`space-y-6 ${className}`}>
-      <LatestPostsHeader />
-
       <div className="flex flex-col space-y-4 mt-6">
         {[...Array(count)].map((_, index) => (
           <PostItem className="h-full md:h-80" loading key={index} />

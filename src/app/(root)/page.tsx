@@ -1,16 +1,22 @@
 import Image from "next/image";
 import { Metadata } from "next";
+import Link from "next/link";
 
 import { introItems } from "@/constants/home";
 
 import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
 import RecentPosts from "@/components/post/RecentPosts";
+import { FaChevronRight } from "react-icons/fa";
+import FeaturedPosts, {
+  FeaturedPostsSkeleton,
+} from "@/components/post/FeaturedPosts";
+import { Suspense } from "react";
 
 async function Home() {
   return (
     <MainContainer>
-      <div className="flex flex-col-reverse sm:flex-row justify-center items-center gap-4 md:gap-8">
+      <section className="flex flex-col-reverse sm:flex-row justify-center items-center gap-6 md:gap-8">
         <div className="p-0">
           <h1 className="text-4xl font-bold">{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-2xl font-semibold text-suzuha-teal-500 mt-1">
@@ -46,31 +52,67 @@ async function Home() {
           className="h-64 w-64 md:h-96 md:w-96 rounded-full object-cover object-center
             border-4 border-suzuha-teal-500"
         />
-      </div>
-      <section className="p-4 rounded-xl mt-8 bg-neutral-900 ">
-        <h2 className="text-3xl font-bold mt-1">
-          Welcome to My Corner of the Web!
+      </section>
+
+      <section className="mt-14">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-4 bg-neutral-900 rounded-xl p-2">
+          {introItems.map((item, index) => (
+            <Link
+              href={item.href}
+              key={index}
+              className="flex flex-row items-center space-x-4 p-3 bg-neutral-800 hover:bg-neutral-700 transition-colors rounded-lg"
+            >
+              <div className="flex-1 flex flex-col">
+                <h2 className="text-base font-semibold">{item.title}</h2>
+                <p className="text-sm text-neutral-300">{item.description}</p>
+              </div>
+
+              <FaChevronRight className="text-suzuha-teal-500" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-4 p-4 bg-neutral-900 rounded-xl">
+        <h2 className="text-2xl font-bold">
+          {`This is a space where I share my journey, ideas, and discoveries.`}
         </h2>
-        <p className="text-lg text-neutral-300 mt-4">
+        {/* <p className="text-lg text-neutral-300 mt-4">
           {`This is a space where I share my journey, ideas, and discoveries.
             Whether you're here to learn, be inspired, or simply explore, you're
             in the right place.`}
-        </p>
-        <p className="text-lg text-neutral-300 mt-4">
+        </p> */}
+
+        {/* <p className="text-lg text-neutral-300 mt-4">
+          {`Discover more about myself with a collection of topics ranging from
+            personal growth and creative projects to technical tutorials and
+            deep thoughts about life. This is a place where I share my journey
+            and experiences for exploration and connection.`}
+        </p> */}
+
+        {/* <p className="text-neutral-300 mt-2">
+          {`I’m Pavarit Wiriyakunakorn, and this is a space where I share my
+          journey, ideas, and discoveries. I’m a curious Frontend Developer and
+          a lifelong learner who loves turning ideas into intuitive, responsive
+          web experiences.`}
+        </p> */}
+
+        <p className="text-neutral-300 mt-2">
           {`Discover more about myself with a collection of topics ranging from
             personal growth and creative projects to technical tutorials and
             deep thoughts about life. This is a place where I share my journey
             and experiences for exploration and connection.`}
         </p>
       </section>
-      <section className="mt-8">
-        <h3 className="text-2xl font-semibold mb-4">
-          Explore My Latest Articles
-        </h3>
 
-        <RecentPosts />
+      <section className="mt-14 space-y-6">
+        <h2 className="text-2xl font-bold">Explore My Featured Articles</h2>
+
+        <Suspense fallback={<FeaturedPostsSkeleton />}>
+          <FeaturedPosts />
+        </Suspense>
       </section>
-      
+
       {/* <section className="mt-8 p-4 bg-neutral-900 rounded-xl">
           <h3 className="text-2xl font-semibold mb-4">
             What Will You Find Here?
@@ -118,32 +160,6 @@ async function Home() {
             with your thoughts, feedback, or just to say hi.
           </p>
         </section> */}
-
-      <section className="mt-8">
-        <h3 className="text-2xl font-semibold mb-4">More Content</h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-          {introItems.map((item, index) => (
-            <div
-              key={index}
-              className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl "
-            >
-              <div className="flex-1 flex flex-col space-y-2">
-                <h2 className="text-2xl font-semibold">{item.title}</h2>
-                <p className="text-neutral-300">{item.description}</p>
-              </div>
-
-              <Button
-                href={item.href}
-                className="w-full h-12 rounded-lg"
-                variant="secondary"
-              >
-                Learn More
-              </Button>
-            </div>
-          ))}
-        </div>
-      </section>
     </MainContainer>
   );
 }
