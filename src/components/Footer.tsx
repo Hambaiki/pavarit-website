@@ -3,7 +3,7 @@ import { contactItems, navItems } from "@/constants/common";
 function Footer() {
   return (
     <div className="w-full">
-      <div className="flex flex-col md:flex-row max-w-5xl w-full mx-auto p-4 md:p-8 space-y-4 space-x-0 md:space-y-0 md:space-x-8">
+      <div className="flex flex-col md:flex-row max-w-5xl w-full mx-auto p-4 py-6 md:p-8 md:py-12 space-y-4 space-x-0 md:space-y-0 md:space-x-8">
         <div className="flex-1 space-y-2">
           <div className="flex flex-col space-y-1">
             {/* <Image
