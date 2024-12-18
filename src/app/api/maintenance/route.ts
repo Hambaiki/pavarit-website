@@ -38,8 +38,8 @@ export async function POST(request: Request) {
     // Validate the request body
     const settings = {
       enabled: Boolean(body.enabled),
-      start_time: body.startTime ? new Date(body.startTime) : null,
-      end_time: body.endTime ? new Date(body.endTime) : null,
+      start_time: body.startTime ? body.startTime : null,
+      end_time: body.endTime ? body.endTime : null,
       message: body.message || null,
       allowed_ips: body.allowedIPs || [],
     };

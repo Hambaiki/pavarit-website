@@ -3,11 +3,12 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { FaBars } from "react-icons/fa";
+
+import { useClickOutside } from "@/hooks/useClickOutside";
+
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
-
-import { FaBars } from "react-icons/fa";
-import { useClickOutside } from "@/hooks/useClickOutside";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -50,11 +51,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-[calc(100dvh)]">
+    <div className="flex flex-col md:flex-row min-h-[calc(100dvh)] w-full">
       {/* Sidebar */}
       <div
         ref={ref}
-        className="fixed inset-0 md:left-0 md:w-64 h-32 md:h-full z-10 bg-neutral-900 text-white"
+        className="fixed inset-0 md:left-0 md:w-64 h-28 md:h-full z-10 text-white bg-neutral-900/90 backdrop-blur"
       >
         <div className="flex flex-row items-center p-4">
           <div className="md:hidden mr-4 md:mr-0">
@@ -66,13 +67,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </button>
           </div>
 
-          <div className="space-y-1 md:space-y-2 p-2 lg:p-4">
+          <div className="space-y-1 md:space-y-2 px-2 lg:p-4">
             <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
             <hr className="border-2 border-suzuha-teal-500" />
             <h1 className="text-lg font-extralight">Dashboard</h1>
           </div>
         </div>
-        <nav className="hidden md:flex flex-col gap-2 p-4">
+
+        <nav className="hidden md:flex flex-col gap-2 p-4 m-4 bg-neutral-950 rounded-2xl">
           {navItems.map((item, index) => (
             <NavbarVerticalItem
               key={index}
@@ -94,7 +96,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col mt-32 md:mt-0 md:ml-64">
+      <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-64 overflow-x-auto">
         {/* Page content */}
         <main className="flex-1">{children}</main>
       </div>

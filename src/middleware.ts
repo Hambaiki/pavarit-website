@@ -12,6 +12,8 @@ const BYPASS_ROUTES = [
   "/images",
 ];
 
+// const MAINTENANCE_BYPASS_ROUTES = ["/api", "/maintenance", "/dashboard"];
+
 // Define protection levels for auth
 const ROUTE_PROTECTION = {
   PUBLIC: "public",
@@ -41,6 +43,7 @@ export async function middleware(request: NextRequest) {
   // 1. Check Maintenance Mode First
   try {
     const maintenance = await getMaintenanceStatus();
+
     if (maintenance?.enabled) {
       const now = new Date();
       if (maintenance.start_time && maintenance.end_time) {

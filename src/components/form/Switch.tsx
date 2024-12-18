@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface SwitchProps {
   on?: boolean;
@@ -7,6 +7,10 @@ interface SwitchProps {
 
 function Switch({ on, onChange }: SwitchProps) {
   const [isOn, setIsOn] = useState(on || false);
+
+  useEffect(() => {
+    setIsOn(on || false);
+  }, [on]);
 
   function handleChange() {
     setIsOn(!isOn);

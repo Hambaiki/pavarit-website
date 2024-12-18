@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { MaintenanceSettings } from "@/lib/db/maintenance";
+import { MaintenanceSettingsData } from "@/lib/db/maintenance";
 
 export function useMaintenanceMode() {
-  const [settings, setSettings] = useState<MaintenanceSettings | null>(null);
+  const [settings, setSettings] = useState<MaintenanceSettingsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -21,7 +21,7 @@ export function useMaintenanceMode() {
     }
   };
 
-  const updateStatus = async (newSettings: Partial<MaintenanceSettings>) => {
+  const updateStatus = async (newSettings: Partial<MaintenanceSettingsData>) => {
     try {
       const response = await fetch('/api/maintenance', {
         method: 'POST',

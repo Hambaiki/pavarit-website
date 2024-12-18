@@ -66,6 +66,7 @@ export async function getPostById(id: string) {
 
 export async function getPostBySlug(slug: string) {
   try {
+    // const post = await sql`SELECT * FROM posts WHERE deleted_at IS NULL AND slug = ${slug}`;
     const post = await sql`SELECT * FROM posts WHERE slug = ${slug}`;
 
     return post[0];
