@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
   disabled?: boolean;
@@ -13,6 +13,7 @@ interface ButtonProps {
 }
 
 function Button({
+  id,
   children,
   className = "",
   disabled = false,
@@ -47,6 +48,7 @@ function Button({
 
   return (
     <button
+      id={id}
       type={type}
       onClick={onClick}
       disabled={disabled}

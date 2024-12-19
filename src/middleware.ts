@@ -4,6 +4,21 @@ import { getSession } from "@auth0/nextjs-auth0/edge";
 
 // Routes that bypass all middleware checks
 const BYPASS_ROUTES = [
+  "/api", // all API routes
+  "/_next",
+  "/images",
+];
+
+const MAINTENANCE_BYPASS_ROUTES = [
+  "/api",
+  "/login",
+  "/logout",
+  "/maintenance",
+  "/dashboard",
+  "/profile",
+];
+
+const AUTH0_BYPASS_ROUTES = [
   "/api/maintenance",
   "/api/v1", // All API v1 routes
   "/api/auth", // Auth routes
@@ -11,8 +26,6 @@ const BYPASS_ROUTES = [
   "/_next",
   "/images",
 ];
-
-// const MAINTENANCE_BYPASS_ROUTES = ["/api", "/maintenance", "/dashboard"];
 
 // Define protection levels for auth
 const ROUTE_PROTECTION = {
@@ -23,13 +36,12 @@ const ROUTE_PROTECTION = {
 
 // Route protection mapping
 const routeProtectionLevels: Record<string, string> = {
-  "/blog/create": ROUTE_PROTECTION.ADMIN,
   "/profile": ROUTE_PROTECTION.AUTHENTICATED,
   "/dashboard/posts": ROUTE_PROTECTION.ADMIN,
   "/dashboard/posts/create": ROUTE_PROTECTION.ADMIN,
   "/dashboard/posts/edit": ROUTE_PROTECTION.ADMIN,
   "/dashboard": ROUTE_PROTECTION.ADMIN,
-  // Add more routes as needed
+  "/dashboard/settings": ROUTE_PROTECTION.ADMIN,
 };
 
 export async function middleware(request: NextRequest) {
@@ -40,7 +52,42 @@ export async function middleware(request: NextRequest) {
   const shouldBypass = BYPASS_ROUTES.some((route) => path.startsWith(route));
   if (shouldBypass) return res;
 
-  // 1. Check Maintenance Mode First
+  // 2.1 Check Auth0 Bypass Routes
+  const shouldBypassAuth0 = AUTH0_BYPASS_ROUTES.some((route) =>
+    path.startsWith(route)
+  );
+  if (shouldBypassAuth0) return res;
+
+  // 2.2 Check Auth0 Protection
+  const protectionLevel = routeProtectionLevels[path];
+  if (protectionLevel) {
+    const session = await getSession(request, res);
+    const roleNamespace = process.env.AUTH0_AUDIENCE;
+    const isAdmin = session?.user[`${roleNamespace}/roles`]?.includes("admin");
+
+    if (
+      protectionLevel === ROUTE_PROTECTION.AUTHENTICATED ||
+      protectionLevel === ROUTE_PROTECTION.ADMIN
+    ) {
+      if (!session) {
+        const loginUrl = new URL("/api/auth/login", request.url);
+        loginUrl.searchParams.set("returnTo", request.url);
+        return NextResponse.redirect(loginUrl);
+      }
+    }
+
+    if (protectionLevel === ROUTE_PROTECTION.ADMIN && !isAdmin) {
+      return NextResponse.redirect(new URL("/unauthorized", request.url));
+    }
+  }
+
+  // 1.1 Check Maintenance Bypass Routes
+  const shouldBypassMaintenance = MAINTENANCE_BYPASS_ROUTES.some((route) =>
+    path.startsWith(route)
+  );
+  if (shouldBypassMaintenance) return res;
+
+  // 1.2 Check Maintenance Mode
   try {
     const maintenance = await getMaintenanceStatus();
 
@@ -77,29 +124,6 @@ export async function middleware(request: NextRequest) {
     }
   } catch (error) {
     console.error("Failed to fetch maintenance status:", error);
-  }
-
-  // 2. Then Check Auth Protection
-  const protectionLevel = routeProtectionLevels[path];
-  if (protectionLevel) {
-    const session = await getSession(request, res);
-    const roleNamespace = process.env.AUTH0_AUDIENCE;
-    const isAdmin = session?.user[`${roleNamespace}/roles`]?.includes("admin");
-
-    if (
-      protectionLevel === ROUTE_PROTECTION.AUTHENTICATED ||
-      protectionLevel === ROUTE_PROTECTION.ADMIN
-    ) {
-      if (!session) {
-        const loginUrl = new URL("/api/auth/login", request.url);
-        loginUrl.searchParams.set("returnTo", request.url);
-        return NextResponse.redirect(loginUrl);
-      }
-    }
-
-    if (protectionLevel === ROUTE_PROTECTION.ADMIN && !isAdmin) {
-      return NextResponse.redirect(new URL("/unauthorized", request.url));
-    }
   }
 
   return res;

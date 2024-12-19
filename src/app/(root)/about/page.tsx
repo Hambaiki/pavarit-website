@@ -74,22 +74,6 @@ function About() {
             developing and maintaining modern web applications using tools like
             ReactJS, NextJS, and TypeScript.
           </p>
-
-          <p className="text-neutral-300 mt-2">
-            Previously, I honed my technical and teamwork skills as a Frontend
-            Developer Intern at the same company, handling key projects and
-            gaining expertise in Web application development. My passion for
-            technology and communication led me to serve as a Teaching Assistant
-            for Chulalongkorn University, where I supported students in
-            mastering Principles of Telecommunication, including concepts like
-            networking and encryption.
-          </p>
-
-          <p className="text-neutral-300 mt-2">
-            These diverse experiences have strengthened my technical abilities,
-            problem-solving mindset, and collaborative approach, empowering me
-            to take on challenging projects and deliver impactful results.
-          </p>
         </div>
 
         <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-neutral-900 pb-4 mt-4">
@@ -161,6 +145,25 @@ function About() {
             </div>
           ))}
         </div>
+
+        <div id="about" className="mt-4 p-4 bg-neutral-900 rounded-xl">
+          {/* <h2 className="text-xl font-bold">My Journey</h2> */}
+          <p className="text-neutral-300">
+            Previously, I honed my technical and teamwork skills as a Frontend
+            Developer Intern at the same company, handling key projects and
+            gaining expertise in Web application development. My passion for
+            technology and communication led me to serve as a Teaching Assistant
+            for Chulalongkorn University, where I supported students in
+            mastering Principles of Telecommunication, including concepts like
+            networking and encryption.
+          </p>
+
+          <p className="text-neutral-300 mt-4">
+            These diverse experiences have strengthened my technical abilities,
+            problem-solving mindset, and collaborative approach, allowing me
+            to take on challenging projects and deliver results.
+          </p>
+        </div>
       </div>
 
       <div id="education" className="mt-8">
@@ -170,37 +173,8 @@ function About() {
           <h2 className="text-xl font-bold">Summary</h2>
 
           <p className="text-neutral-300 mt-2">
-            {`My academic path has been shaped by experiences across various esteemed institutions, 
-            each contributing to my growth and knowledge.`}
-          </p>
-          <p className="text-neutral-300 mt-2">
-            {`The foundation of my education began with kindergarten at Panaya School Sukhumvit 
-            (K1–K2 from 2004–2005), followed by Saint Joseph Sriphetchabun School for K3, Semester 
-            1 in 2006, and Panaya School Sukhumvit again for K3, Semester 2 later that year.`}
-          </p>
-          <p className="text-neutral-300 mt-2">
-            {`My secondary education began at Triam Udom Suksa Phatthanakarn
-            School, where I studied Grade 10 in 2016 and completed Grades 7–9
-            (2013–2015) during middle school. My elementary years were spent at
-            Panaya Phattanakarn Bilingual School (Grades 3–6 from 2009–2012) and
-            Panaya Phattanakarn School (Grades 1–2 from 2007–2008).`}
-          </p>
-          <p className="text-neutral-300 mt-2">
-            {`I completed my high school education at Santirat Wittayalai School
-            (2018–2019), covering Grade 11, Semester 2 to Grade 12. Earlier in
-            2018, I attended Armed Forces Academies Preparatory School (AFAPS)
-            for Year 1, Semester 1.`}
-          </p>
-          <p className="text-neutral-300 mt-2">
-            {`I earned my Bachelor's Degree in Information and Communication
-            Engineering from Chulalongkorn University (2020–2023), where I honed
-            my technical skills and passion for innovation.`}
-          </p>
-
-          <p className="text-neutral-300 mt-2">
-            {`Each step of my educational journey has shaped who I am today,
-            fostering my love for learning and inspiring me to pursue excellence
-            in everything I do.`}
+            {`My academic path has been shaped by experiences across various institutions, 
+            each contributing to my growth and knowledge, each step of my educational journey has shaped who I am today`}
           </p>
         </div>
 

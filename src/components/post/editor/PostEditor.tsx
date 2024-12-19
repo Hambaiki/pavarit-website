@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import NextImage from "next/image";
 import imageCompression from "browser-image-compression";
 import { Heading } from "@tiptap/extension-heading";
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
@@ -319,10 +320,13 @@ function PostEditor({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-950 rounded-xl">
               <div className="w-full h-72 rounded-lg overflow-hidden">
                 {metadata.image ? (
-                  <img
+                  <NextImage
                     src={metadata.image}
                     alt={metadata.altText}
+                    width={1024}
+                    height={1024}
                     className="w-full h-full object-cover"
+                    priority
                   />
                 ) : (
                   <div className="w-full h-full bg-neutral-800 flex items-center justify-center">

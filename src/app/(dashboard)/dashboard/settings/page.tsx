@@ -1,7 +1,7 @@
 import MainContainer from "@/components/dashboard/common/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MaintenanceModeModule from "@/components/dashboard/settings/MaintenanceModeModule";
-import MaintenanceEntry from "@/components/dashboard/settings/MaintenanceEntry";
+import MaintenanceEntries from "@/components/dashboard/settings/MaintenanceEntries";
 
 export default function MaintenanceSettings() {
   const breadcrumbs = [
@@ -22,7 +22,7 @@ export default function MaintenanceSettings() {
 
       <MaintenanceModeModule className="mt-8" />
 
-      <MaintenanceEntry className="mt-8" />
+      <MaintenanceEntries className="mt-8" />
     </MainContainer>
   );
 }

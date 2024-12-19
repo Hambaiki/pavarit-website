@@ -9,6 +9,9 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
+import Footer from "@/components/dashboard/common/Footer";
+import Button from "@/components/Button";
+import { FaChevronLeft } from "react-icons/fa6";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -55,9 +58,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Sidebar */}
       <div
         ref={ref}
-        className="fixed inset-0 md:left-0 md:w-64 h-28 md:h-full z-10 text-white bg-neutral-900/90 backdrop-blur"
+        className="fixed top-0 md:left-0 w-full md:w-64 h-28 md:h-full z-10 text-white bg-neutral-900/90 backdrop-blur"
       >
-        <div className="flex flex-row items-center p-4">
+        <div className="flex flex-row items-center p-4 h-full md:h-auto">
           <div className="md:hidden mr-4 md:mr-0">
             <button
               onClick={() => setStackOpen(!stackOpen)}
@@ -74,7 +77,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </div>
 
-        <nav className="hidden md:flex flex-col gap-2 p-4 m-4 bg-neutral-950 rounded-2xl">
+        <nav className="hidden md:flex flex-col gap-2 p-4 rounded-2xl">
           {navItems.map((item, index) => (
             <NavbarVerticalItem
               key={index}
@@ -97,8 +100,19 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-64 overflow-x-auto">
+        {/* <div className="fixed flex flex-row justify-start items-center w-full p-4 px-8 h-16 z-10 bg-black/90 backdrop-blur ">
+          <Button
+            variant="secondary"
+            className="flex flex-row items-center gap-2 px-3 py-2 rounded-lg"
+          >
+            <FaChevronLeft className="w-4 h-4" />
+            Back
+          </Button>
+        </div> */}
         {/* Page content */}
         <main className="flex-1">{children}</main>
+
+        <Footer />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ function SearchBar() {
   const search = searchParams.get("search");
 
   return (
-    <div className="flex flex-col p-4 bg-neutral-950 rounded-xl">
+    <div className="flex flex-col p-4 bg-neutral-900 rounded-xl">
       <form className="flex items-center space-x-4 h-12">
         <label className="relative w-full">
           <span className="sr-only">Search posts</span>
@@ -24,7 +24,7 @@ function SearchBar() {
             autoComplete="off"
             placeholder="Search posts"
             className="w-full px-4 py-3 pl-12 rounded-lg
-            bg-neutral-900 text-neutral-300
+            bg-neutral-800 text-neutral-300
             focus:outline-none focus:ring-0 focus:border-neutral-300"
           />
 

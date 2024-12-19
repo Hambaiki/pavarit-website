@@ -84,7 +84,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
         </div>
       </header>
 
-      <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
+      <div className="flex flex-col lg:flex-row space-y-8 space-x-0 lg:space-y-0 lg:space-x-4">
         <div className="flex-1 mt-8 lg:my-8">
           <div className="mb-8">
             {post.image && (
@@ -136,7 +136,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           <PostRenderer contentHtml={contentHtml} />
         </div>
 
-        <div className="lg:sticky lg:top-28 lg:h-full lg:w-72 lg:py-8">
+        <div className="lg:sticky lg:top-24 lg:h-full lg:w-72 lg:py-8">
           <div className="hidden lg:block mb-4">
             <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
               {/* <Image

@@ -80,11 +80,13 @@ async function Home() {
               Try adding to home screen!
             </span>
           </p>
+
+          {/* <InstallPWA /> */}
         </div>
       </section>
 
-      <section className="mt-4 p-4 bg-neutral-900 rounded-xl">
-        <h2 className="text-2xl font-bold">
+      <section className="hidden mt-4 p-4 bg-neutral-900 rounded-xl">
+        <h2 className="text-xl font-bold">
           {`This is a space where I share my journey, ideas, and discoveries.`}
         </h2>
         {/* <p className="text-lg text-neutral-300 mt-4">
@@ -115,13 +117,21 @@ async function Home() {
         </p>
       </section>
 
-      {/* <section className="mt-14 space-y-6">
-        <h2 className="text-2xl font-bold">Explore My Featured Articles</h2>
+      <section className="mt-14">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold">Explore My Featured Articles</h2>
+          <p className="text-neutral-300 mt-2">
+            {`Discover more about myself with a collection of topics ranging from
+            personal growth and creative projects to technical tutorials and
+            deep thoughts about life. This is a place where I share my journey
+            and experiences for exploration and connection.`}
+          </p>
+        </div>
 
         <Suspense fallback={<FeaturedPostsSkeleton />}>
           <FeaturedPosts />
         </Suspense>
-      </section> */}
+      </section>
 
       {/* <section className="mt-8 p-4 bg-neutral-900 rounded-xl">
           <h3 className="text-2xl font-semibold mb-4">

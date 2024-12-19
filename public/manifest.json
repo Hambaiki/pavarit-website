@@ -1,7 +1,7 @@
 {
     "name": "Pavarit's Website",
     "short_name": "Pavarit W.",
-    "theme_color": "#222222",
+    "theme_color": "#000000",
     "background_color": "#222222",
     "display": "standalone",
     "scope": "/",
@@ -9,7 +9,7 @@
     "description": "Pavarit Wiriyakunakorn's Website",
     "icons": [
         {
-            "src": "/icon-512x512.png",
+            "src": "images/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }

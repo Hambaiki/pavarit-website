@@ -1,10 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function NotFound() {
-  const router = useRouter();
-
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100dvh)] bg-neutral-800 text-white">
       <h1 className="text-center text-4xl lg:text-6xl font-bold mb-4">
@@ -14,7 +10,7 @@ export default function NotFound() {
         Sorry, something must have gone wrong. Please try again later.
       </p>
       <button
-        onClick={() => router.refresh()}
+        onClick={() => window.location.reload()}
         className="text-center text-lg lg:text-2xl text-suzuha-teal-500"
       >
         Refresh

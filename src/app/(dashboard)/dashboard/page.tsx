@@ -29,7 +29,7 @@ function Profile() {
         />
 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold">Administrator Controls</h2>
+          <h2 className="text-2xl font-bold">Administrator Menu</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl">
@@ -56,7 +56,7 @@ function Profile() {
               </div>
 
               <Button
-                href={"/dashboard/posts"}
+                href={"/dashboard/settings"}
                 className="w-full h-12 rounded-lg"
                 variant="secondary"
               >
@@ -73,7 +73,7 @@ function Profile() {
               </div>
 
               <Button
-                href={"/dashboard/posts"}
+                href={"/"}
                 className="w-full h-12 rounded-lg"
                 variant="secondary"
               >

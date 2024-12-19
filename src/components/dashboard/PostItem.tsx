@@ -83,7 +83,7 @@ function PostItem({
 
         <div className="flex-1 flex flex-col space-y-3 truncate">
           <div className="flex-1 flex flex-col space-y-2">
-            <h2 className="text-2xl font-semibold truncate">{title || "-"}</h2>
+            <h2 className="text-lg font-semibold truncate">{title || "-"}</h2>
 
             <address className="flex flex-row items-center space-x-4 text-sm">
               {/* <p className="flex flex-row items-center text-white not-italic">

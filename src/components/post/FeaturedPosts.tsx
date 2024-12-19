@@ -19,7 +19,7 @@ async function FeaturedPosts({
   className,
   count = 4,
 }: FeaturedPostsProps) {
-  await new Promise((resolve) => setTimeout(resolve, delay)); // Delay for testing
+  // await new Promise((resolve) => setTimeout(resolve, delay)); // Delay for testing
 
   const featuredPostsResponse = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search`,

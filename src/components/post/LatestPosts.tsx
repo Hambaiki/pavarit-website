@@ -19,7 +19,7 @@ async function LatestPosts({
   className,
   count = 4,
 }: LatestPostsProps) {
-  await new Promise((resolve) => setTimeout(resolve, delay)); // Delay for testing
+  // await new Promise((resolve) => setTimeout(resolve, delay)); // Delay for testing
 
   const latestPostsResponse = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search`,

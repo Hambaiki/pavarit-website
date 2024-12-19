@@ -8,6 +8,7 @@ import UserInfo from "@/components/profile/UserInfo";
 
 import Loading from "@/components/navigation/Loading";
 import Button from "@/components/Button";
+import { FaWaveSquare, FaWrench } from "react-icons/fa6";
 
 function Profile() {
   const { user, isLoading } = useUser();
@@ -38,10 +39,10 @@ function Profile() {
 
         {isAdmin && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold">Administration</h2>
+            <h2 className="text-2xl font-bold">Administrator Menu</h2>
 
-            <div className="mt-4">
-              <div className="flex flex-col space-y-4 p-4 bg-neutral-900 rounded-xl ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+              <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
                 <div className="flex-1 flex flex-col space-y-2">
                   <h2 className="text-2xl font-semibold">CMS Access</h2>
                   <p className="text-neutral-300">
@@ -57,11 +58,53 @@ function Profile() {
                   Start
                 </Button>
               </div>
+
+              <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
+                <div className="flex-1 flex flex-col space-y-2">
+                  <h2 className="text-2xl font-semibold">Website Settings</h2>
+                  <p className="text-neutral-300">Manage website settings.</p>
+                </div>
+
+                <Button
+                  href={"/dashboard/settings"}
+                  className="w-full h-12 rounded-lg"
+                  variant="secondary"
+                >
+                  View settings
+                </Button>
+              </div>
+
+              <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
+                <div className="flex-1 flex flex-col space-y-2">
+                  <h2 className="text-2xl font-semibold">Go to Dashboard</h2>
+                  <p className="text-neutral-300">
+                    View the dashboard to manage the website.
+                  </p>
+                </div>
+
+                <Button
+                  href={"/dashboard"}
+                  className="w-full h-12 rounded-lg"
+                  variant="secondary"
+                >
+                  Go to Dashboard
+                </Button>
+              </div>
             </div>
           </div>
         )}
 
         <div className="mt-8">
+          {/* <h2 className="text-2xl font-bold">User Info</h2> */}
+          <div className="flex flex-col items-center justify-center space-y-4 p-4 bg-neutral-900 rounded-xl min-h-[30rem]">
+            <FaWrench className="text-suzuha-teal-500 w-12 h-12" />
+            <p className="text-neutral-300 text-center">
+              Nothing to see here yet!
+            </p>
+          </div>
+        </div>
+
+        {/* <div className="mt-8">
           <h2 className="text-2xl font-bold">User Info</h2>
           <pre
             className="p-4 mt-4 rounded-xl whitespace-pre-wrap break-all
@@ -69,7 +112,7 @@ function Profile() {
           >
             {JSON.stringify(user, null, 2)}
           </pre>
-        </div>
+        </div> */}
 
         {/* <div className="mt-8">
           <h2 className="text-2xl font-bold">Decoded Access Token</h2>

@@ -24,9 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scrollbar scrollbar-thumb-neutral-700 scrollbar-track-neutral-800">
       <UserProvider>
-        <body className={`${montserrat.className} transition-colors`}>
+        <body
+          className={`${montserrat.className} transition-colors`}
+        >
           {children}
         </body>
       </UserProvider>

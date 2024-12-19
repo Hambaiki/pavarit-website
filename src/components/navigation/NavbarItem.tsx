@@ -33,7 +33,7 @@ function NavbarItem({ item }: NavbarItemProps) {
               text-center ${
                 current
                   ? "bg-neutral-700 hover:bg-neutral-800"
-                  : "hover:bg-neutral-800"
+                  : "hover:bg-neutral-900"
               } `}
         >
           <span

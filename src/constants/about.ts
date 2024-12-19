@@ -125,7 +125,7 @@ export const education = [
       {
         title: "K3, Semester 2",
         duration: "2006",
-        location: "Panaya School Sukhumvit",
+        location: "Panaya Phattanakarn Kindergarten School",
         image: "/images/logo/school/ppbs-logo.png",
       },
       {
