@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { FaList } from "react-icons/fa";
 
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
 
 import PostItem from "./PostItem";
@@ -27,7 +27,7 @@ async function LatestPosts({
     {
       body: JSON.stringify({
         page: 1,
-        per_page: count,
+        limit: count,
       }),
     }
   );

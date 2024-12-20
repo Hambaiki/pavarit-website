@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Switch from "@/components/form/Switch";
 import Button from "@/components/Button";
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
-import Spinner from "@/components/navigation/Spinner";
 
 interface MaintenanceModeModuleProps {
   className?: string;
@@ -67,7 +66,9 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/maintenance");
+      const response = await fetch("/api/v1/settings/maintenance", {
+        method: "GET",
+      });
       const data = await response.json();
 
       const settings = {
@@ -172,7 +173,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
       <div className="mt-4 p-4 bg-neutral-950 rounded-xl">
         <div className="flex flex-row justify-between space-x-2">
           <div className="flex flex-col">
-            <h3 className="text-xl text-orange-500 font-bold">
+            <h3 className="text-xl text-suzuha-teal-500 font-bold">
               Enabled Maintenance Mode
             </h3>
             <p className="text-neutral-300 mt-2">

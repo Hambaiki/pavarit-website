@@ -14,6 +14,7 @@ import {
   FaBold,
   FaDivide,
   FaImage,
+  FaImages,
   FaItalic,
   FaLink,
   FaListOl,
@@ -261,7 +262,6 @@ function PostEditor({
                 onChange={handleMetadataChange}
               />
               <TextInput
-                disabled={Boolean(postMetadata)}
                 label="Slug"
                 type="text"
                 name="slug"

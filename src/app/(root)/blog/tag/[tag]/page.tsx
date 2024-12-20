@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FaCalendar, FaUser } from "react-icons/fa6";
 import { format } from "date-fns";
 
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
 
 import MainContainer from "@/components/container/MainContainer";
@@ -18,7 +18,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
     {
       body: JSON.stringify({
         page: 1,
-        per_page: 4,
+        limit: 4,
         tags: [tag],
       }),
     }

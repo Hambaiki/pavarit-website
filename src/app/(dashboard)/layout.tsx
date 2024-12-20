@@ -87,7 +87,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           ))}
         </nav>
 
-        <div className="md:hidden max-w-4xl mx-auto bg-neutral-950">
+        <div className="md:hidden max-w-4xl mx-auto bg-neutral-900">
           <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
             <div className="flex flex-col justify-center items-center space-y-2 p-4">
               {navItems.map((item, index) => (
@@ -100,15 +100,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-64 overflow-x-auto">
-        {/* <div className="fixed flex flex-row justify-start items-center w-full p-4 px-8 h-16 z-10 bg-black/90 backdrop-blur ">
-          <Button
-            variant="secondary"
-            className="flex flex-row items-center gap-2 px-3 py-2 rounded-lg"
-          >
-            <FaChevronLeft className="w-4 h-4" />
-            Back
-          </Button>
-        </div> */}
         {/* Page content */}
         <main className="flex-1">{children}</main>
 

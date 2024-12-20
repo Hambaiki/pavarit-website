@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { PostMetadata } from "@/types/post";
+import { createPost } from "@/lib/api/posts";
 
 import MainContainer from "@/components/dashboard/common/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
@@ -19,67 +20,34 @@ function CreatePage() {
     { label: "Create", href: "/dashboard/posts/create" },
   ];
 
-  const [slug, setSlug] = useState<string | undefined>(undefined);
-  const [createPostError, setCreatePostError] = useState(false);
-  const [createPostSuccess, setCreatePostSuccess] = useState(false);
+  const [createPostError, setCreatePostError] = useState<string | undefined>(
+    undefined
+  );
+  const [createPostSuccess, setCreatePostSuccess] = useState<
+    string | undefined
+  >(undefined);
 
-  function handlePostCreationSuccess() {
-    setCreatePostSuccess(true);
+  function handlePostCreationSuccess(message?: string) {
+    setCreatePostSuccess(message || "Post created successfully");
   }
 
-  function handlePostCreationError() {
-    setCreatePostError(true);
+  function handlePostCreationError(message?: string) {
+    setCreatePostError(message || "Error creating post");
   }
 
-  async function createPost({
+  function handlePostCreation({
     metadata,
     content,
   }: {
     metadata: PostMetadata;
     content: string;
   }) {
-    try {
-      const processedSlug = metadata.slug
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/--+/g, "-");
-
-      const response = await fetch("/api/v1/posts/create", {
-        method: "POST",
-        body: JSON.stringify({
-          title: metadata.title,
-          slug: processedSlug,
-          description: metadata.description,
-          category: metadata.category,
-          tags: metadata.tags
-            ? metadata.tags
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter((tag) => tag !== "")
-            : [],
-          keywords: metadata.keywords
-            ? metadata.keywords
-                .split(",")
-                .map((keyword) => keyword.trim())
-                .filter((keyword) => keyword !== "")
-            : [],
-          author: metadata.author,
-          image: metadata.image,
-          alt_text: metadata.altText,
-          content: content,
-        }),
-      });
-
-      if (response.ok) {
-        setSlug(processedSlug);
-        handlePostCreationSuccess();
-      } else {
-        handlePostCreationError();
-      }
-    } catch (error) {
-      console.error("Error creating post:", error);
-      handlePostCreationError();
-    }
+    createPost({
+      metadata,
+      content,
+      onError: handlePostCreationError,
+      onSuccess: handlePostCreationSuccess,
+    });
   }
 
   return (
@@ -97,7 +65,7 @@ function CreatePage() {
         <Suspense fallback={<div>Loading...</div>}>
           <div className="mt-8">
             <PostEditor
-              onSubmit={createPost}
+              onSubmit={handlePostCreation}
               onSuccess={handlePostCreationSuccess}
               onError={handlePostCreationError}
             />
@@ -106,19 +74,19 @@ function CreatePage() {
       </MainContainer>
 
       <GeneralModal
-        visible={createPostSuccess}
+        visible={createPostSuccess !== undefined}
         title="Post Created"
-        message="Your post has been created successfully."
+        message={createPostSuccess || "Post created successfully"}
         primaryButtonText="Understood"
-        onClickPrimary={() => router.push(`/blog/${slug}`)}
+        onClickPrimary={() => router.push(`/dashboard/posts`)}
       />
 
       <GeneralModal
-        visible={createPostError}
+        visible={createPostError !== undefined}
         title="Error"
-        message="There was an error creating your post."
+        message={createPostError || "Error creating post"}
         primaryButtonText="Understood"
-        onClickPrimary={() => setCreatePostError(false)}
+        onClickPrimary={() => setCreatePostError(undefined)}
       />
     </>
   );

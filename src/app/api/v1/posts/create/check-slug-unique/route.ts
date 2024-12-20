@@ -1,19 +1,20 @@
-import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 
-const sql = neon(process.env.DATABASE_URL!);
+import { checkSlugUnique } from "@/lib/db/posts";
+import { CheckSlugUniqueResponse } from "@/types/api/post";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const slug = body.slug;
 
-    const isSlugUnique =
-      await sql`SELECT COUNT(*) FROM posts WHERE slug = ${slug}`;
+    if (!slug) {
+      return NextResponse.json({ error: "Slug is required" }, { status: 400 });
+    }
 
-    return NextResponse.json({
-      unique: parseInt(isSlugUnique[0].count) === 0,
-    });
+    const unique = await checkSlugUnique(slug);
+
+    return NextResponse.json({ unique } as CheckSlugUniqueResponse);
   } catch (error) {
     console.error(error);
     return NextResponse.json(

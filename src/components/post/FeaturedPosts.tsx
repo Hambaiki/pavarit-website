@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { FaThumbtack } from "react-icons/fa";
 
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
 
 import CarousalContainer from "../container/CarousalContainer";
@@ -27,7 +27,7 @@ async function FeaturedPosts({
     {
       body: JSON.stringify({
         page: 1,
-        per_page: count,
+        limit: count,
         tags: ["_featured"],
       }),
     }

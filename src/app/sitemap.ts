@@ -1,4 +1,4 @@
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 import { MetadataRoute } from "next";
 
 import { SearchPostResponse, TagResponse } from "@/types/api/post";

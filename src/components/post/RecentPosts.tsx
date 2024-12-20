@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { PostData, SearchPostResponse } from "@/types/api/post";
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 
 import PostItemAlt from "./PostItemAlt";
 
@@ -10,7 +10,7 @@ async function RecentPosts() {
     `/api/v1/posts/search/`,
     "POST",
     {
-      body: JSON.stringify({ page: 1, per_page: 4 }),
+      body: JSON.stringify({ page: 1, limit: 4 }),
     }
   );
 

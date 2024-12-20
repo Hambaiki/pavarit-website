@@ -11,7 +11,6 @@ export interface Post {
   altText: string;
   createdAt: string;
   updatedAt: string;
-  views: number;
   content: string;
 }
 
