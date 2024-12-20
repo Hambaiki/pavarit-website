@@ -9,7 +9,7 @@ import {
   GetPostResponse,
   SearchPostResponse,
 } from "@/types/api/post";
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 
 import { FaCalendar, FaUser } from "react-icons/fa";
 
@@ -36,7 +36,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
       body: JSON.stringify({
         tags: postData?.post?.tags,
         page: 1,
-        per_page: 3,
+        limit: 3,
       }),
     }
   );
@@ -65,7 +65,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className="space-y-4 mt-8">
-          <h1 className="text-4xl font-bold">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold">{post.title}</h1>
           <ul className="flex flex-row flex-wrap space-x-2">
             {post.tags
               .filter((tag) => !tag.includes("_"))
@@ -88,13 +88,13 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
         <div className="flex-1 mt-8 lg:my-8">
           <div className="mb-8">
             {post.image && (
-              <div className="relative flex justify-center items-center h-80 mb-6 rounded-xl overflow-hidden">
+              <div className="relative flex justify-center items-center h-64 sm:h-80 md:h-96 mb-6 rounded-xl overflow-hidden">
                 <Image
                   src={post.image}
                   alt={post.title}
                   width={1000}
                   height={1000}
-                  className="w-auto h-auto"
+                  className="w-full h-full object-contain"
                 />
 
                 <Image
@@ -102,7 +102,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
                   alt={post.title}
                   width={1000}
                   height={1000}
-                  className="absolute top-0 left-0 w-full h-full blur-sm -z-10"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full blur-sm -z-10"
                 />
               </div>
             )}
@@ -136,7 +136,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           <PostRenderer contentHtml={contentHtml} />
         </div>
 
-        <div className="lg:sticky lg:top-24 lg:h-full lg:w-72 lg:py-8">
+        <div className="lg:sticky lg:top-24 lg:h-full lg:w-80 lg:py-8">
           <div className="hidden lg:block mb-4">
             <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
               {/* <Image

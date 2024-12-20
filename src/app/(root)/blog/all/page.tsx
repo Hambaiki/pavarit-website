@@ -8,14 +8,14 @@ import Paginator from "@/components/Paginator";
 import PostItem from "@/components/post/PostItem";
 import SearchBar from "@/components/post/SearchBar";
 import { SearchPostResponse } from "@/types/api/post";
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 
 async function page({
   searchParams,
 }: {
   searchParams: { page?: string; search?: string };
 }) {
-  const perPage = 4;
+  const limit = 4;
 
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
@@ -24,11 +24,11 @@ async function page({
     `/api/v1/posts/search/`,
     "POST",
     {
-      body: JSON.stringify({ page, per_page: perPage, search }),
+      body: JSON.stringify({ page, limit: limit, search }),
     }
   );
 
-  const maxPage = Math.ceil((response?.total || 0) / perPage);
+  const maxPage = Math.ceil((response?.total || 0) / limit);
   const posts = response?.posts || [];
 
   const breadcrumbs = [

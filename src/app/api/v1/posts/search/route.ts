@@ -1,8 +1,7 @@
-// import { withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 
-const sql = neon(process.env.DATABASE_URL!);
+import { getPostById, getPosts, getPostTotal } from "@/lib/db/posts";
+import { GetPostResponse, SearchPostResponse } from "@/types/api/post";
 
 export async function GET(request: Request) {
   try {
@@ -13,9 +12,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
 
-    const post = await sql`SELECT * FROM posts WHERE id = ${id}`;
+    const post = await getPostById(id);
 
-    return NextResponse.json({ post: post.length > 0 ? post[0] : null });
+    return NextResponse.json({ post } as GetPostResponse);
   } catch (error) {
     console.error("Search error:", error);
     return NextResponse.json(
@@ -28,43 +27,17 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { search = "", page = 1, per_page = 10, tags = [] } = body;
+    const { search = "", page = 1, limit = 10, tags = [] } = body;
 
-    const offset = (page - 1) * per_page;
-
-    const result = await sql`
-      SELECT *
-      FROM posts
-      WHERE 
-        (title ILIKE ${"%" + search + "%"} OR
-        description ILIKE ${"%" + search + "%"} OR
-        category ILIKE ${"%" + search + "%"} OR
-        author ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(tags, ',') ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
-        AND (${tags.length === 0} OR tags && ${tags})
-        ORDER BY created_at DESC
-      LIMIT ${per_page} OFFSET ${offset};
-    `;
-
-    const total = await sql`
-      SELECT COUNT(*)::int AS count
-      FROM posts
-      WHERE
-        (title ILIKE ${"%" + search + "%"} OR
-        description ILIKE ${"%" + search + "%"} OR
-        category ILIKE ${"%" + search + "%"} OR
-        author ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(tags, ',') ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
-        AND (${tags.length === 0} OR tags && ${tags})
-    `;
+    const posts = await getPosts({ search, page, tags, limit });
+    const total = await getPostTotal({ search, tags });
 
     return NextResponse.json({
       page,
-      total: total[0].count,
-      posts: result,
-    });
+      limit,
+      total,
+      posts,
+    } as SearchPostResponse);
   } catch (error) {
     console.error("Search error:", error);
     return NextResponse.json(
@@ -73,5 +46,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
-// export const POST = withApiAuthRequired(POST);

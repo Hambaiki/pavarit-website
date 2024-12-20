@@ -5,7 +5,7 @@ import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import RecentPosts from "@/components/post/RecentPosts";
 
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 import { TagResponse } from "@/types/api/post";
 
 async function TagPage() {
@@ -53,7 +53,7 @@ async function TagPage() {
 
 export async function generateMetadata() {
   const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
-  
+
   const tags = response?.tags || [];
 
   return {

@@ -1,13 +1,18 @@
 import { sql } from "./neon";
 
-export async function getPosts(
-  search: string,
-  tags: string[],
-  page: number,
-  per_page: number
-) {
+export async function getPosts({
+  search,
+  tags,
+  page,
+  limit,
+}: {
+  search: string;
+  tags: string[];
+  page: number;
+  limit: number;
+}) {
   try {
-    const offset = (page - 1) * per_page;
+    const offset = (page - 1) * limit;
 
     const result = await sql`
       SELECT *
@@ -21,7 +26,7 @@ export async function getPosts(
       ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
       AND (${tags.length === 0} OR tags && ${tags})
         ORDER BY created_at DESC
-        LIMIT ${per_page} OFFSET ${offset};
+        LIMIT ${limit} OFFSET ${offset};
       `;
 
     return result;
@@ -31,7 +36,13 @@ export async function getPosts(
   }
 }
 
-export async function getPostTotal(search: string, tags: string[]) {
+export async function getPostTotal({
+  search,
+  tags,
+}: {
+  search: string;
+  tags: string[];
+}) {
   try {
     const total = await sql`
       SELECT COUNT(*)::int AS count
@@ -46,7 +57,7 @@ export async function getPostTotal(search: string, tags: string[]) {
         AND (${tags.length === 0} OR tags && ${tags})
     `;
 
-    return total[0].count;
+    return total[0].count || 0;
   } catch (error) {
     console.error("Error getting post total:", error);
     return 0;
@@ -81,22 +92,12 @@ export async function getPostTags() {
     const tags =
       await sql`SELECT DISTINCT UNNEST(tags) as tag FROM posts ORDER BY tag`;
 
-    return tags.map((tag) => tag.tag);
+    const flatTags = tags.map((r) => r.tag);
+
+    return flatTags;
   } catch (error) {
     console.error("Error getting post tags:", error);
     return [];
-  }
-}
-
-export async function updatePostViews(id: string) {
-  try {
-    const result =
-      await sql`UPDATE posts SET views = views + 1 WHERE id = ${id}`;
-
-    return result;
-  } catch (error) {
-    console.error("Error updating post views:", error);
-    return null;
   }
 }
 
@@ -128,55 +129,97 @@ export async function updatePost(
 ) {
   try {
     const result = await sql`
-    INSERT INTO posts (
-      id,
-      slug,
-      title,
-      description,
-      category,
-      tags,
-      keywords,
-      author,
-      image,
-      alt_text,
-      views,
-      created_at,
-      updated_at,
-      content
-    ) VALUES (
-      ${id},
-      ${slug},
-      ${title},
-      ${description},
-      ${category},
-      ${tags},
-      ${keywords},
-      ${author},
-      ${image},
-      ${alt_text},
-      0,
-      NOW(),
-      NOW(),
-      ${content}
-    )
-    ON CONFLICT (id) DO UPDATE SET
-      slug = EXCLUDED.slug,
-      title = EXCLUDED.title,
-      description = EXCLUDED.description,
-      category = EXCLUDED.category,
-      tags = EXCLUDED.tags,
-      keywords = EXCLUDED.keywords,
-      author = EXCLUDED.author,
-      image = EXCLUDED.image,
-      alt_text = EXCLUDED.alt_text,
-      updated_at = NOW(),
-      content = EXCLUDED.content
-    RETURNING *;
-  `;
+      UPDATE posts 
+      SET
+        slug = ${slug},
+        title = ${title},
+        description = ${description},
+        category = ${category},
+        tags = ${tags},
+        keywords = ${keywords},
+        author = ${author},
+        image = ${image},
+        alt_text = ${alt_text},
+        content = ${content},
+        updated_at = NOW()
+      WHERE id = ${id}
+      RETURNING *
+    `;
 
     return result;
   } catch (error) {
     console.error("Error updating post:", error);
+    return null;
+  }
+}
+
+export async function createPost({
+  slug,
+  title,
+  description,
+  category,
+  tags,
+  keywords,
+  author,
+  image,
+  alt_text,
+  content,
+}: {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  keywords: string[];
+  author: string;
+  image: string;
+  alt_text: string;
+  content: string;
+}) {
+  try {
+    // Check if slug already exists
+    const existingPost = await sql`
+      SELECT slug FROM posts WHERE slug = ${slug}
+    `;
+
+    if (existingPost.length > 0) {
+      throw new Error("Slug must be unique");
+    }
+
+    const result = await sql`
+      INSERT INTO posts (
+        slug,
+        title,
+        description,
+        category,
+        tags,
+        keywords,
+        author,
+        image,
+        alt_text,
+        content,
+        created_at,
+        updated_at
+      ) VALUES (
+        ${slug},
+        ${title},
+        ${description},
+        ${category},
+        ${tags},
+        ${keywords},
+        ${author},
+        ${image},
+        ${alt_text},
+        ${content},
+        NOW(),
+        NOW()
+      )
+      RETURNING *
+    `;
+
+    return result;
+  } catch (error) {
+    console.error("Error creating post:", error);
     return null;
   }
 }

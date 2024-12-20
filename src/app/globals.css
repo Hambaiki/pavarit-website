@@ -5,9 +5,10 @@
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-rgb: 34, 34, 34;
-  /* --background-rgb: 30, 30, 30; */
+  /* --foreground-rgb: 34, 34, 34;
+  --background-rgb: 255, 255, 255; */
   --background-start-rgb: 34, 34, 34;
-  --background-end-rgb: 34, 34, 34;
+  --background-end-rgb: 28, 28, 28;
   --border-color: 100, 100, 100;
 }
 
@@ -29,7 +30,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 2rem;
+  scroll-padding-top: 6rem;
 }
 
 body {

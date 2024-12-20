@@ -1,7 +1,7 @@
-import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 
-const sql = neon(process.env.DATABASE_URL!);
+import { getPostMetadata } from "@/lib/db/posts";
+import { GetPostMetadataResponse } from "@/types/api/post";
 
 export async function POST(request: Request) {
   const { slug } = await request.json();
@@ -12,17 +12,13 @@ export async function POST(request: Request) {
 
   try {
     // Fetch the post metadata
-    const post = await sql`
-      SELECT id, title, slug, description, category, tags, keywords, 
-             author, image, alt_text, created_at, updated_at
-      FROM posts 
-      WHERE slug = ${slug}`;
+    const post = await getPostMetadata(slug);
 
-    if (post.length === 0) {
+    if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ metadata: post.length > 0 ? post[0] : null });
+    return NextResponse.json({ metadata: post } as GetPostMetadataResponse);
   } catch (error) {
     console.error("Error fetching post:", error);
     return NextResponse.json(

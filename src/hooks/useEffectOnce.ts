@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 const useEffectOnce = (
   effect: React.EffectCallback,
-  deps: React.DependencyList
+  deps?: React.DependencyList
 ) => {
   const hasRun = useRef(false);
 

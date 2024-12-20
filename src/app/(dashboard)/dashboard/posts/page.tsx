@@ -3,24 +3,25 @@
 import { Suspense, useEffect } from "react";
 import { useState } from "react";
 
+import { Post } from "@/types/post";
+import { PostData } from "@/types/api/post";
+
+import { FaPlus } from "react-icons/fa6";
+
+import SearchBar from "@/components/post/SearchBar";
+import Button from "@/components/Button";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/dashboard/common/MainContainer";
 import Paginator from "@/components/Paginator";
 import Loading from "@/components/navigation/Loading";
 import PostItem from "@/components/dashboard/PostItem";
 
-import { Post } from "@/types/post";
-import { PostData } from "@/types/api/post";
-import SearchBar from "@/components/post/SearchBar";
-import Button from "@/components/Button";
-import { FaArrowRight, FaPlus } from "react-icons/fa6";
-
 function PostsPage({
   searchParams,
 }: {
   searchParams: { page?: string; search?: string };
 }) {
-  const perPage = 8;
+  const limit = 8;
 
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
@@ -53,13 +54,13 @@ function PostsPage({
       body: JSON.stringify({
         search: search,
         page: page,
-        per_page: perPage,
+        limit: limit,
       }),
     });
 
     const data = await response.json();
 
-    const maxPage = Math.ceil(data.total / perPage);
+    const maxPage = Math.ceil(data.total / limit);
     const posts = data.posts;
 
     return {
@@ -138,7 +139,6 @@ function PostsPage({
                 updatedAt={post.updatedAt}
                 tags={post.tags}
                 description={post.description}
-                views={post.views}
                 onDelete={deletePost}
               />
             ))}

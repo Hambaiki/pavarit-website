@@ -2,7 +2,7 @@ import Link from "next/link";
 import { neon } from "@neondatabase/serverless";
 import { Suspense } from "react";
 
-import { fetchFromApi } from "@/utils/api";
+import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
 
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
@@ -86,7 +86,7 @@ export async function generateMetadata() {
     {
       body: JSON.stringify({
         page: 1,
-        per_page: 4,
+        limit: 4,
         tags: ["_featured"],
       }),
     }

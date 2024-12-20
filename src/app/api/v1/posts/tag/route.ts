@@ -1,17 +1,13 @@
-import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 
-const sql = neon(process.env.DATABASE_URL!);
+import { getPostTags } from "@/lib/db/posts";
+import { TagResponse } from "@/types/api/post";
 
 export async function GET(_: Request) {
   try {
-    const result = await sql`
-      SELECT DISTINCT UNNEST(tags) as tag
-      FROM posts
-      ORDER BY tag;
-    `;
+    const tags = await getPostTags();
 
-    return NextResponse.json({ tags: result.map((r) => r.tag) });
+    return NextResponse.json({ tags } as TagResponse);
   } catch (error) {
     console.error("Error fetching post:", error);
     return NextResponse.json(

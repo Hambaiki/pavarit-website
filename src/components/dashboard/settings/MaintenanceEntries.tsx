@@ -20,7 +20,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1");
 
-  const perPage = 10;
+  const limit = 10;
 
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -38,7 +38,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
     try {
       const request = {
         page: page,
-        limit: perPage,
+        limit: limit,
         settings: {},
       };
 
@@ -87,10 +87,10 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
           <tbody className="text-center text-neutral-300 text-sm divide-y divide-neutral-800">
             {!loading &&
               maintenanceStatuses.length > 0 &&
-              (maintenanceStatuses.length < perPage
+              (maintenanceStatuses.length < limit
                 ? [
                     ...maintenanceStatuses,
-                    ...Array(perPage - maintenanceStatuses.length).fill(
+                    ...Array(limit - maintenanceStatuses.length).fill(
                       undefined
                     ),
                   ]
@@ -177,7 +177,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
             {(loading || maintenanceStatuses.length === 0) && (
               <tr
                 className={`w-full bg-neutral-900 rounded-xl`}
-                style={{ height: `${4 * perPage}rem` }}
+                style={{ height: `${4 * limit}rem` }}
               >
                 <td colSpan={7} className="text-center">
                   <div className="flex flex-col items-center justify-center space-y-4">
@@ -206,10 +206,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
       </div>
 
       <div className="flex justify-center mt-4">
-        <Paginator
-          currentPage={page}
-          maxPage={Math.ceil(total / perPage) || 1}
-        />
+        <Paginator currentPage={page} maxPage={Math.ceil(total / limit) || 1} />
       </div>
     </div>
   );

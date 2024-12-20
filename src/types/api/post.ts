@@ -14,7 +14,6 @@ export interface PostMetadata {
 }
 
 export interface PostData extends PostMetadata {
-  views: number;
   content: string;
 }
 
@@ -37,12 +36,13 @@ export interface GetPostMetadataResponse {
 export interface SearchPostRequest {
   search: string;
   page: number;
-  per_page: number;
+  limit: number;
   tags: string[];
 }
 
 export interface SearchPostResponse {
   page: number;
+  limit: number;
   total: number;
   posts: PostData[];
 }
@@ -59,10 +59,13 @@ export interface CreatePostRequest {
   alt_text: string;
   created_at: string;
   updated_at: string;
-  views: number;
   content: string;
 }
 
 export interface CreatePostResponse {
   post: PostData;
+}
+
+export interface CheckSlugUniqueResponse {
+  unique: boolean;
 }
