@@ -2,7 +2,7 @@ import { contactItems, navItems } from "@/constants/common";
 
 function Footer() {
   return (
-    <div className="w-full border-t border-primary-gray-border">
+    <div className="w-full">
       <div
         className="flex flex-col md:flex-row max-w-6xl w-full mx-auto p-4 py-6 md:p-8 md:py-10 
           space-y-4 space-x-0 md:space-y-0 md:space-x-8"

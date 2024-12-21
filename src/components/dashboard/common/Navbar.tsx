@@ -56,8 +56,7 @@ function Navbar() {
     <div
       ref={ref}
       className="fixed top-0 md:left-0 w-full md:w-64 h-28 md:h-full z-10 
-        text-white bg-primary-gray-background/80 backdrop-blur
-        border-b md:border-r md:border-b-0 border-primary-gray-border"
+        text-white bg-primary-gray-background/90 backdrop-blur"
     >
       <div className="flex flex-row items-center p-4 h-full md:h-auto">
         <div className="md:hidden mr-4 md:mr-0">
