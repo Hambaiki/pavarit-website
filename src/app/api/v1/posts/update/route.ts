@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { updatePost } from "@/lib/db/posts";
+import { CommonResponse } from "@/types/api/post";
 
 export async function POST(request: Request) {
   try {
@@ -23,7 +24,10 @@ export async function POST(request: Request) {
     // Validate required fields
     if (!id || !title) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        {
+          success: false,
+          message: "Missing required fields",
+        } as CommonResponse,
         { status: 400 }
       );
     }
@@ -42,10 +46,16 @@ export async function POST(request: Request) {
       content,
     });
 
-    return NextResponse.json({ message: "Post updated successfully" });
+    return NextResponse.json({
+      success: true,
+      message: "Post updated successfully",
+    } as CommonResponse);
   } catch (error) {
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      {
+        success: false,
+        message: "Internal Server Error",
+      } as CommonResponse,
       { status: 500 }
     );
   }

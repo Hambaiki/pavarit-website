@@ -1,13 +1,19 @@
 import { NextResponse } from "next/server";
 
 import { getPostMetadata } from "@/lib/db/posts";
-import { GetPostMetadataResponse } from "@/types/api/post";
+import { CommonResponse, GetPostMetadataResponse } from "@/types/api/post";
 
 export async function POST(request: Request) {
   const { slug } = await request.json();
 
   if (!slug) {
-    return NextResponse.json({ error: "Slug is required" }, { status: 400 });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Slug is required",
+      } as CommonResponse,
+      { status: 400 }
+    );
   }
 
   try {
@@ -15,14 +21,27 @@ export async function POST(request: Request) {
     const post = await getPostMetadata(slug);
 
     if (!post) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Post not found",
+        } as CommonResponse,
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ metadata: post } as GetPostMetadataResponse);
+    return NextResponse.json({
+      success: true,
+      message: "Post metadata fetched",
+      metadata: post,
+    } as GetPostMetadataResponse);
   } catch (error) {
     console.error("Error fetching post:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      {
+        success: false,
+        message: "Internal Server Error",
+      } as CommonResponse,
       { status: 500 }
     );
   }

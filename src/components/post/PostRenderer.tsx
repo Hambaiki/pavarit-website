@@ -6,7 +6,6 @@ function PostRenderer({ contentHtml }: PostRendererProps) {
   return (
     <article
       className="
-        p-4 bg-neutral-900 rounded-xl
         prose
         max-w-none
         prose-div:w-full
