@@ -14,11 +14,19 @@ export async function POST(request: Request) {
 
     const unique = await checkSlugUnique(slug);
 
-    return NextResponse.json({ unique } as CheckSlugUniqueResponse);
+    return NextResponse.json({
+      success: true,
+      message: "Slug checked",
+      unique,
+    } as CheckSlugUniqueResponse);
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      {
+        success: false,
+        message: "Internal Server Error",
+        unique: false,
+      } as CheckSlugUniqueResponse,
       { status: 500 }
     );
   }

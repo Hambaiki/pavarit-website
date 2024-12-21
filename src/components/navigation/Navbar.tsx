@@ -30,6 +30,12 @@ export default function Navbar({ className }: NavbarProps) {
 
   useEffect(() => {
     setStackOpen(false);
+
+    if (!window) return;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [pathname]);
 
   return (

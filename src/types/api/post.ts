@@ -1,3 +1,8 @@
+export interface CommonResponse {
+  success: boolean;
+  message: string;
+}
+
 export interface PostMetadata {
   id: number;
   title: string;
@@ -17,7 +22,7 @@ export interface PostData extends PostMetadata {
   content: string;
 }
 
-export interface TagResponse {
+export interface TagResponse extends CommonResponse {
   tags: string[];
 }
 
@@ -25,11 +30,11 @@ export interface GetPostByIdRequest {
   id: number;
 }
 
-export interface GetPostResponse {
+export interface GetPostResponse extends CommonResponse {
   post: PostData;
 }
 
-export interface GetPostMetadataResponse {
+export interface GetPostMetadataResponse extends CommonResponse {
   metadata: PostMetadata;
 }
 
@@ -40,7 +45,7 @@ export interface SearchPostRequest {
   tags: string[];
 }
 
-export interface SearchPostResponse {
+export interface SearchPostResponse extends CommonResponse {
   page: number;
   limit: number;
   total: number;
@@ -62,10 +67,10 @@ export interface CreatePostRequest {
   content: string;
 }
 
-export interface CreatePostResponse {
+export interface CreatePostResponse extends CommonResponse {
   post: PostData;
 }
 
-export interface CheckSlugUniqueResponse {
+export interface CheckSlugUniqueResponse extends CommonResponse {
   unique: boolean;
 }

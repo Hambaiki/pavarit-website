@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { getPostById, getPosts, getPostTotal } from "@/lib/db/posts";
-import { GetPostResponse, SearchPostResponse } from "@/types/api/post";
+import {
+  CommonResponse,
+  GetPostResponse,
+  SearchPostResponse,
+} from "@/types/api/post";
 
 export async function GET(request: Request) {
   try {
@@ -9,16 +13,29 @@ export async function GET(request: Request) {
     const id = searchParams.get("id");
 
     if (!id) {
-      return NextResponse.json({ error: "ID is required" }, { status: 400 });
+      return NextResponse.json(
+        {
+          success: false,
+          message: "ID is required",
+        } as CommonResponse,
+        { status: 400 }
+      );
     }
 
     const post = await getPostById(id);
 
-    return NextResponse.json({ post } as GetPostResponse);
+    return NextResponse.json({
+      success: true,
+      message: "Post fetched",
+      post,
+    } as GetPostResponse);
   } catch (error) {
     console.error("Search error:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      {
+        success: false,
+        message: "Internal Server Error",
+      } as CommonResponse,
       { status: 500 }
     );
   }
@@ -33,6 +50,8 @@ export async function POST(request: Request) {
     const total = await getPostTotal({ search, tags });
 
     return NextResponse.json({
+      success: true,
+      message: "Posts fetched",
       page,
       limit,
       total,
@@ -41,7 +60,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Search error:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      {
+        success: false,
+        message: "Internal Server Error",
+      } as CommonResponse,
       { status: 500 }
     );
   }
