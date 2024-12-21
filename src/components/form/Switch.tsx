@@ -19,7 +19,7 @@ function Switch({ on, onChange }: SwitchProps) {
 
   return (
     <div
-      className={`w-14 h-8 rounded-full p-1 cursor-pointer transition-colors duration-200 ease-in-out ${
+      className={`w-14 h-8 shrink-0 rounded-full p-1 cursor-pointer transition-colors duration-200 ease-in-out ${
         isOn ? "bg-suzuha-teal-500" : "bg-neutral-400"
       }`}
       onClick={handleChange}

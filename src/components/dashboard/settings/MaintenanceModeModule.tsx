@@ -52,10 +52,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
   function init() {
     setLoading(true);
 
-    const promiseAll = Promise.all([
-      fetchSettings(),
-      fetchAllMaintenanceStatuses(),
-    ]);
+    const promiseAll = Promise.all([fetchSettings()]);
 
     promiseAll.finally(() => {
       setLoading(false);
@@ -80,8 +77,6 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
         allowedIPs: data.allowed_ips ? data.allowed_ips.join(",") : "",
       };
 
-      console.log(settings);
-
       setInitialSettings(settings);
       setSettings(settings);
     } catch (error) {
@@ -91,32 +86,16 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
     }
   }
 
-  async function fetchAllMaintenanceStatuses() {
-    try {
-      const response = await fetch("/api/v1/settings/maintenance", {
-        method: "POST",
-        body: JSON.stringify({
-          page: 1,
-          limit: 10,
-          settings: {},
-        }),
-      });
-      const data = await response.json();
-    } catch (error) {
-      console.error("Error fetching all maintenance statuses:", error);
-    }
-  }
-
   async function handleToggleMaintenanceMode(enabled: boolean) {
-    const response = await fetch("/api/maintenance", {
-      method: "POST",
+    const response = await fetch("/api/v1/settings/maintenance", {
+      method: "PATCH",
       body: JSON.stringify({ enabled }),
     });
 
     // const data = await response.json();
 
     if (response.ok) {
-      fetchAllMaintenanceStatuses();
+      fetchSettings();
     } else {
       throw new Error("Failed to toggle maintenance mode");
     }
