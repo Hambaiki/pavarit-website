@@ -19,7 +19,7 @@ import PostRenderer from "@/components/post/PostRenderer";
 import ShareOptions from "@/components/post/ShareOptions";
 import PostItemAlt from "@/components/post/PostItemAlt";
 import PostTopicList from "@/components/post/PostTopicList";
-import Comments from "@/components/post/Comments";
+import CommentSection from "@/components/post/comment/CommentSection";
 
 async function BlogPostPage({ params }: { params: { slug: string } }) {
   const slug = await params.slug;
@@ -135,6 +135,10 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
 
           <PostRenderer contentHtml={contentHtml} />
+
+          <div className="mt-8">
+            <CommentSection postId={post.id} />
+          </div>
         </div>
 
         <div className="lg:sticky lg:top-24 lg:h-full lg:w-80 lg:py-8">
@@ -165,14 +169,6 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
 
           <ShareOptions />
         </div>
-      </div>
-
-      <div className="mt-8 hidden">
-        <div className="flex flex-col gap-2 mb-4">
-          <h2 className="text-2xl font-bold">Comments</h2>
-        </div>
-
-        <Comments />
       </div>
 
       {relatedPosts && relatedPosts.length > 0 && (

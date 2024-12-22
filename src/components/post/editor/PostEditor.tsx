@@ -21,7 +21,7 @@ import {
   FaListUl,
 } from "react-icons/fa6";
 
-import { PostMetadata } from "@/types/post";
+import { PostMetadata } from "@/types/posts";
 import { slugify } from "@/utils/slugify";
 
 import Button from "@/components/Button";

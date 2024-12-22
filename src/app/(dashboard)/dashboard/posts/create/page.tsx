@@ -3,7 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { PostMetadata } from "@/types/post";
+import { PostMetadata } from "@/types/posts";
 import { createPost } from "@/lib/api/posts";
 
 import MainContainer from "@/components/dashboard/common/MainContainer";

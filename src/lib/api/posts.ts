@@ -1,4 +1,4 @@
-import { PostMetadata } from "@/types/post";
+import { PostMetadata } from "@/types/posts";
 
 export async function createPost({
   metadata,

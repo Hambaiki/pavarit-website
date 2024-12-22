@@ -3,7 +3,7 @@
 import { Suspense, useEffect } from "react";
 import { useState } from "react";
 
-import { Post } from "@/types/post";
+import { Post } from "@/types/posts";
 import { PostData } from "@/types/api/post";
 
 import { FaPlus } from "react-icons/fa6";

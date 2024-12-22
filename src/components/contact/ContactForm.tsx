@@ -52,6 +52,8 @@ function ContactForm() {
 
       if (response.ok) {
         setSuccess(true);
+      } else if (response.status === 429) {
+        setError("Too many submissions, please try again later.");
       } else {
         setError(
           "An error occurred while sending the message. Please try again."
@@ -128,20 +130,17 @@ function ContactForm() {
             required
           />
 
-          <Button type="submit" className="px-4 py-2 rounded-lg">
-            Send a message
-          </Button>
+          <div className="flex justify-end">
+            <Button
+              disabled={!formValid}
+              type="submit"
+              className="px-4 py-2 rounded-lg"
+            >
+              Send a message
+            </Button>
+          </div>
         </div>
       </form>
-
-      <GeneralModal
-        visible={success}
-        title="Message Sent"
-        message="Your message has been sent successfully. I will get back to you as soon as possible."
-        primaryButtonText="Understood"
-        onClickOutside={() => setSuccess(false)}
-        onClickPrimary={() => setSuccess(false)}
-      />
 
       <GeneralModal
         visible={error !== undefined}
@@ -155,7 +154,7 @@ function ContactForm() {
       <GeneralModal
         visible={success}
         title="Message Sent"
-        message="Your message has been sent successfully. I will get back to you as soon as possible."
+        message="Your message has been sent successfully. Thank you for your interest."
         primaryButtonText="Understood"
         onClickOutside={() => setSuccess(false)}
         onClickPrimary={() => setSuccess(false)}

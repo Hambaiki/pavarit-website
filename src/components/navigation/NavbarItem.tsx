@@ -32,7 +32,7 @@ function NavbarItem({ item }: NavbarItemProps) {
               transition-colors duration-300
               text-center ${
                 current
-                  ? "bg-neutral-700 hover:bg-neutral-800"
+                  ? "bg-neutral-700 hover:bg-neutral-900"
                   : "hover:bg-neutral-900"
               } `}
         >

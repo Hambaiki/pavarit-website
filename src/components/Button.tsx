@@ -26,18 +26,18 @@ function Button({
     return (
       <Link
         href={href}
-        className={`${className} flex transition-colors items-center justify-center text-center
+        className={`${className} flex transition-colors items-center justify-center text-center disabled:cursor-not-allowed
           ${
             variant === "primary" &&
-            "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+            "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-neutral-500 disabled:text-neutral-300 disabled:border-neutral-500 text-white"
           }
           ${
             variant === "secondary" &&
-            "border border-suzuha-teal-500 bg-transparent hover:bg-suzuha-teal-500/10 text-suzuha-teal-500"
+            "border border-suzuha-teal-500 bg-transparent hover:bg-suzuha-teal-500/10 disabled:text-neutral-300 disabled:border-neutral-500 text-suzuha-teal-500"
           }
           ${
             variant === "tertiary" &&
-            "underline underline-offset-1 text-suzuha-teal-500"
+            "underline underline-offset-1 text-suzuha-teal-500 disabled:text-neutral-300"
           }
       `}
       >
@@ -52,18 +52,18 @@ function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${className} transition-colors 
+      className={`${className} transition-colors disabled:cursor-not-allowed
         ${
           variant === "primary" &&
-          "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+          "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-neutral-500 disabled:text-neutral-300 disabled:border-neutral-500 text-white"
         }
         ${
           variant === "secondary" &&
-          "border border-suzuha-teal-500 bg-transparent hover:bg-suzuha-teal-500/10 text-suzuha-teal-500"
+          "border border-suzuha-teal-500 bg-transparent hover:bg-suzuha-teal-500/10 disabled:text-neutral-300 disabled:border-neutral-500 text-suzuha-teal-500"
         }
         ${
           variant === "tertiary" &&
-          "underline underline-offset-1 text-suzuha-teal-500"
+          "underline underline-offset-1 text-suzuha-teal-500 disabled:text-neutral-300"
         }
       `}
     >

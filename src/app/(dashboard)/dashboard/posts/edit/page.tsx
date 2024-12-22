@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 
-import { PostMetadata } from "@/types/post";
+import { PostMetadata } from "@/types/posts";
 
 import MainContainer from "@/components/dashboard/common/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";

@@ -1,5 +1,3 @@
-import { contactItems, navItems } from "@/constants/common";
-
 function Footer() {
   return (
     <div className="w-full">
