@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { PostMetadata } from "@/types/post";
+import { PostMetadata } from "@/types/posts";
 
 import Loading from "../navigation/Loading";
 import TextInput from "../form/TextInput";

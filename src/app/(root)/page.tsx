@@ -1,20 +1,19 @@
 import Image from "next/image";
-import { Metadata } from "next";
 import Link from "next/link";
+import { Metadata } from "next";
+import { Suspense } from "react";
+
+import { FaChevronRight } from "react-icons/fa";
 
 import { introItems } from "@/constants/home";
 
 import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
-import RecentPosts from "@/components/post/RecentPosts";
-import { FaChevronRight } from "react-icons/fa";
 import FeaturedPosts, {
   FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
-import { Suspense } from "react";
-import InstallPWA from "@/components/common/InstallPWA";
 
-async function Home() {
+async function HomePage() {
   return (
     <MainContainer>
       <section className="flex flex-col-reverse sm:flex-row justify-center items-center gap-6 md:gap-8">
@@ -55,8 +54,8 @@ async function Home() {
         />
       </section>
 
-      <section className="mt-14 bg-neutral-900 rounded-xl p-2">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+      <section className="mt-14 bg-neutral-900 rounded-xl p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {introItems.map((item, index) => (
             <Link
               href={item.href}
@@ -230,4 +229,4 @@ export const metadata: Metadata = {
   // },
 };
 
-export default Home;
+export default HomePage;

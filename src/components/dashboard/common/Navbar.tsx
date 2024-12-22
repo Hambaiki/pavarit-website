@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 import { FaBars } from "react-icons/fa";
 
+import { dashboardNavItems } from "@/constants/navigation";
+
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
@@ -30,28 +32,6 @@ function Navbar() {
     });
   }, [pathname]);
 
-  const navItems = [
-    { label: "Home", href: "/dashboard" },
-    {
-      label: "Posts",
-      href: "/dashboard/posts",
-      subItems: [
-        { label: "All Posts", href: "/dashboard/posts" },
-        { label: "Create Post", href: "/dashboard/posts/create" },
-        // { label: "Post Settings", href: "/dashboard/posts/settings" },
-      ],
-    },
-    { label: "Settings", href: "/dashboard/settings" },
-    {
-      label: "Other",
-      href: "",
-      subItems: [
-        { label: "Back to Website", href: "/" },
-        { label: "Logout", href: "/api/auth/logout" },
-      ],
-    },
-  ];
-
   return (
     <div
       ref={ref}
@@ -76,19 +56,15 @@ function Navbar() {
       </div>
 
       <nav className="hidden md:flex flex-col gap-2 p-4 rounded-2xl">
-        {navItems.map((item, index) => (
-          <NavbarVerticalItem
-            key={index}
-            item={item}
-            onClickOutside={() => setStackOpen(false)}
-          />
+        {dashboardNavItems.map((item, index) => (
+          <NavbarVerticalItem key={index} item={item} />
         ))}
       </nav>
 
       <div className="md:hidden max-w-4xl mx-auto bg-neutral-900">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
-            {navItems.map((item, index) => (
+            {dashboardNavItems.map((item, index) => (
               <NavbarVerticalItem key={index} item={item} />
             ))}
           </div>

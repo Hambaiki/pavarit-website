@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import {
   FaEnvelope,
   FaLinkedin,
-  FaFacebook,
+  FaFacebookF,
   FaInstagram,
   FaPhone,
   FaTwitter,
@@ -22,7 +22,7 @@ function Contact() {
     {
       label: "Facebook",
       value: process.env.NEXT_PUBLIC_FACEBOOK_URL,
-      icon: FaFacebook,
+      icon: FaFacebookF,
     },
     {
       label: "Instagram",
@@ -82,10 +82,10 @@ function Contact() {
                     key={index}
                     href={item.value}
                     target="_blank"
-                    className="flex flex-row items-center justify-center 
+                    className="group flex flex-row items-center justify-center 
                       w-10 h-10 rounded-full bg-neutral-700 hover:bg-neutral-600 transition-colors"
                   >
-                    <item.icon className="w-5 h-5" />
+                    <item.icon className="w-5 h-5 group-hover:text-suzuha-teal-500 transition-colors" />
                   </a>
                 ))}
             </div>

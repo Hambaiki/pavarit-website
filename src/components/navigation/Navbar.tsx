@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { FaBars } from "react-icons/fa6";
 
-import { navItems } from "@/constants/common";
+import { navItems } from "@/constants/navigation";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
 

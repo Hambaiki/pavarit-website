@@ -10,19 +10,6 @@ export interface MaintenanceSettingsData {
   created_at: string;
 }
 
-// SQL to create the table (run this in your database)
-/*
-CREATE TABLE maintenance_settings (
-  id SERIAL PRIMARY KEY,
-  enabled BOOLEAN DEFAULT FALSE,
-  start_time TIMESTAMP WITH TIME ZONE,
-  end_time TIMESTAMP WITH TIME ZONE,
-  message TEXT,
-  allowed_ips TEXT[],
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-*/
-
 export async function getMaintenanceStatus(): Promise<MaintenanceSettingsData> {
   try {
     const result = await sql`

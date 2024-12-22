@@ -2,10 +2,13 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FaChevronDown } from "react-icons/fa6";
-import CollapsibleContainer from "../container/CollapsibleContainer";
 import Link from "next/link";
+
+import { FaChevronDown } from "react-icons/fa6";
+
 import { useClickOutside } from "@/hooks/useClickOutside";
+
+import CollapsibleContainer from "../container/CollapsibleContainer";
 
 interface NavbarVerticalItemProps {
   item: {
@@ -13,15 +16,17 @@ interface NavbarVerticalItemProps {
     href: string;
     subItems?: { label: string; href: string }[];
   };
-  onClickOutside?: () => void;
 }
 
-function NavbarVerticalItem({ item, onClickOutside }: NavbarVerticalItemProps) {
+function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const pathname = usePathname();
-  const current = pathname === `${item.href}`;
+  const current =
+    pathname === item.href ||
+    (item.subItems &&
+      item.subItems.some((subItem) => pathname === subItem.href));
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
