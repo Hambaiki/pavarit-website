@@ -75,6 +75,7 @@ function ContactForm() {
               label="Name"
               name="name"
               placeholder="Your Name"
+              autoComplete="name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -85,6 +86,7 @@ function ContactForm() {
               label="Email"
               name="email"
               placeholder="Your Email"
+              autoComplete="email"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -95,6 +97,7 @@ function ContactForm() {
               label="Phone Number (Optional)"
               name="phone"
               placeholder="Your Phone Number"
+              autoComplete="tel"
               value={formData.phone}
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
@@ -104,6 +107,7 @@ function ContactForm() {
               label="Subject (Optional)"
               name="subject"
               placeholder="Subject e.g. Job Inquiry"
+              autoComplete="off"
               value={formData.subject}
               onChange={(e) =>
                 setFormData({ ...formData, subject: e.target.value })
@@ -115,6 +119,7 @@ function ContactForm() {
             label="Message"
             name="message"
             placeholder="Your Message"
+            autoComplete="off"
             value={formData.message}
             onChange={(e) =>
               setFormData({ ...formData, message: e.target.value })

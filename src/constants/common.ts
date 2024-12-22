@@ -1,33 +1,3 @@
-export const navItems = [
-  {
-    label: "Home",
-    href: "/",
-    subItems: [],
-  },
-  {
-    label: "About",
-    href: "/about",
-    subItems: [
-      { label: "About Me", href: "/about" },
-      { label: "Projects", href: "/projects" },
-    ],
-  },
-  // { label: "Projects", href: "/projects" },
-  {
-    label: "Contact",
-    href: "/contact",
-    subItems: [],
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-    subItems: [
-      { label: "Posts", href: "/blog" },
-      { label: "Tags", href: "/blog/tag" },
-    ],
-  },
-];
-
 export const contactItems = [
   { label: "LinkedIn", href: process.env.NEXT_PUBLIC_LINKEDIN_URL },
   { label: "Github", href: process.env.NEXT_PUBLIC_GITHUB_URL },
