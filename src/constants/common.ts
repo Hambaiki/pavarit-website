@@ -1,8 +1,33 @@
+import {
+  FaEnvelope,
+  FaLinkedin,
+  FaFacebookF,
+  FaInstagram,
+  FaPhone,
+  FaTwitter,
+} from "react-icons/fa6";
+
 export const contactItems = [
-  { label: "LinkedIn", href: process.env.NEXT_PUBLIC_LINKEDIN_URL },
-  { label: "Github", href: process.env.NEXT_PUBLIC_GITHUB_URL },
-  { label: "Email", href: `mailto:${process.env.NEXT_PUBLIC_EMAIL}` },
-  // { label: "Facebook", href: process.env.NEXT_PUBLIC_FACEBOOK_URL },
-  // { label: "Twitter", href: process.env.NEXT_PUBLIC_TWITTER_URL },
-  // { label: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM_URL },
+  { label: "Email", value: process.env.NEXT_PUBLIC_EMAIL, icon: FaEnvelope },
+  { label: "Phone", value: process.env.NEXT_PUBLIC_PHONE, icon: FaPhone },
+  {
+    label: "Facebook",
+    value: process.env.NEXT_PUBLIC_FACEBOOK_URL,
+    icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    value: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
+    icon: FaInstagram,
+  },
+  {
+    label: "Twitter",
+    value: process.env.NEXT_PUBLIC_TWITTER_URL,
+    icon: FaTwitter,
+  },
+  {
+    label: "LinkedIn",
+    value: process.env.NEXT_PUBLIC_LINKEDIN_URL,
+    icon: FaLinkedin,
+  },
 ];

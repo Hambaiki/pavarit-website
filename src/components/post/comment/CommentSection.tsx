@@ -65,15 +65,15 @@ function Comments({ postId }: CommentsProps) {
   return (
     <>
       <div className="mb-4">
-        <div className="p-4 bg-neutral-950 rounded-t-xl">
-          <p className=" font-bold text-neutral-300">
+        <div className="p-4 bg-gray-900 rounded-t-xl">
+          <p className=" font-bold text-gray-300">
             Comments ({comments.length})
           </p>
         </div>
 
         <div
           ref={ref}
-          className="max-h-[20rem] overflow-y-scroll bg-neutral-900 divide-y divide-neutral-800 rounded-b-xl"
+          className="max-h-[20rem] overflow-y-scroll bg-gray-900 divide-y divide-gray-800 rounded-b-xl"
         >
           {loading ? (
             Array.from({ length: 5 }).map((_, index) => (
@@ -91,8 +91,8 @@ function Comments({ postId }: CommentsProps) {
             ))
           ) : (
             <div className="flex flex-col justify-center items-center min-h-[20rem]">
-              <FaComment className="w-10 h-10 text-neutral-300 mb-2" />
-              <p className="text-neutral-300">No comments yet</p>
+              <FaComment className="w-10 h-10 text-gray-300 mb-2" />
+              <p className="text-gray-300">No comments yet</p>
             </div>
           )}
         </div>
@@ -139,7 +139,7 @@ function CommentItem({
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <FaUser />
-          <p className="text-sm text-neutral-300">
+          <p className="text-sm text-gray-300">
             <strong>
               {username.slice(0, 1) +
                 "*".repeat(username.length - 1).slice(0, 10)}
@@ -149,9 +149,9 @@ function CommentItem({
 
         <div className="flex items-center space-x-1">
           <FaClock />
-          <p className="text-sm text-neutral-300">
+          <p className="text-sm text-gray-300">
             &nbsp;{new Date(createdAt).toLocaleDateString()}
-            {edited && <span className="text-neutral-400"> (edited)</span>}
+            {edited && <span className="text-gray-400"> (edited)</span>}
           </p>
         </div>
       </div>
@@ -163,8 +163,8 @@ function CommentItem({
 function CommentItemSkeleton() {
   return (
     <div className="flex flex-col space-y-4 p-4">
-      <div className="h-5 w-1/2 rounded-full bg-neutral-800 animate-pulse" />
-      <div className="h-5 w-3/4 rounded-full bg-neutral-800 animate-pulse" />
+      <div className="h-5 w-1/2 rounded-full bg-gray-800 animate-pulse" />
+      <div className="h-5 w-3/4 rounded-full bg-gray-800 animate-pulse" />
     </div>
   );
 }

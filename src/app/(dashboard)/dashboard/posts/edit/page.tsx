@@ -29,8 +29,8 @@ function CreatePage({ searchParams }: { searchParams: { id: string } }) {
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
           <div className="space-y-4 mt-8">
-            <h1 className="text-4xl font-bold">Edit Post</h1>
-            <p className="text-neutral-300">
+            <h1>Edit Post</h1>
+            <p>
               Edit post information and content.
             </p>
           </div>

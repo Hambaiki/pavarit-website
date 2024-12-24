@@ -1,8 +1,8 @@
 {
     "name": "Pavarit's Website",
-    "short_name": "Pavarit W.",
-    "theme_color": "#222222",
-    "background_color": "#222222",
+    "short_name": "Pavarit",
+    "theme_color": "#0f0f0f",
+    "background_color": "#0f0f0f",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",

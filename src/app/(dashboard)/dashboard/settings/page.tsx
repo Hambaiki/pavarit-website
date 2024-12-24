@@ -15,8 +15,8 @@ export default function MaintenanceSettings() {
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className="space-y-4 mt-8">
-          <h1 className="text-4xl font-bold">Settings</h1>
-          <p className="text-neutral-300">Manage website settings.</p>
+          <h1>Settings</h1>
+          <p>Manage website settings.</p>
         </div>
       </header>
 

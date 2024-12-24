@@ -1,44 +1,13 @@
+import { contactItems } from "@/constants/common";
+
 import ContactForm from "@/components/contact/ContactForm";
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
-import {
-  FaEnvelope,
-  FaLinkedin,
-  FaFacebookF,
-  FaInstagram,
-  FaPhone,
-  FaTwitter,
-} from "react-icons/fa6";
 
 function Contact() {
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Contact", href: "/contact" },
-  ];
-
-  const contactItems = [
-    { label: "Email", value: process.env.NEXT_PUBLIC_EMAIL, icon: FaEnvelope },
-    { label: "Phone", value: process.env.NEXT_PUBLIC_PHONE, icon: FaPhone },
-    {
-      label: "Facebook",
-      value: process.env.NEXT_PUBLIC_FACEBOOK_URL,
-      icon: FaFacebookF,
-    },
-    {
-      label: "Instagram",
-      value: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
-      icon: FaInstagram,
-    },
-    {
-      label: "Twitter",
-      value: process.env.NEXT_PUBLIC_TWITTER_URL,
-      icon: FaTwitter,
-    },
-    {
-      label: "LinkedIn",
-      value: process.env.NEXT_PUBLIC_LINKEDIN_URL,
-      icon: FaLinkedin,
-    },
   ];
 
   return (
@@ -47,8 +16,8 @@ function Contact() {
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className="space-y-4 mt-8">
-          <h1 className="text-4xl font-bold">Contact</h1>
-          <p className="text-neutral-300">
+          <h1>Contact</h1>
+          <p>
             If you have any questions or comments, please fill out the form
             below.
           </p>
@@ -61,18 +30,16 @@ function Contact() {
         </div>
 
         <div className="col-span-1">
-          <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
+          <h2 className="mb-4">Contact Information</h2>
 
-          <div className="bg-neutral-900 p-4 rounded-xl space-y-4 text-center">
+          <div className="bg-gray-900 p-4 rounded-xl space-y-4 text-center">
             <p className="text-lg">
               pavarit.wir@gmail.com
               <br />
-              <span className="text-neutral-300">(+66) 84-682-2428</span>
+              (+66) 84-682-2428
             </p>
 
-            <p className="text-base">
-              <span className="text-neutral-300">Bangkok, Thailand</span>
-            </p>
+            <p className="text-base">Bangkok, Thailand</p>
 
             <div className="flex flex-row flex-wrap gap-3 justify-center">
               {contactItems
@@ -83,7 +50,7 @@ function Contact() {
                     href={item.value}
                     target="_blank"
                     className="group flex flex-row items-center justify-center 
-                      w-10 h-10 rounded-full bg-neutral-700 hover:bg-neutral-600 transition-colors"
+                      w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
                   >
                     <item.icon className="w-5 h-5 group-hover:text-suzuha-teal-500 transition-colors" />
                   </a>

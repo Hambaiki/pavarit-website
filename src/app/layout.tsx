@@ -1,11 +1,12 @@
 import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Sarabun, Prompt } from "next/font/google";
+import { Bai_Jamjuree } from "next/font/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 
-const montserrat = Montserrat({
+const baiJamjuree = Bai_Jamjuree({
   subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -31,10 +32,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scrollbar scrollbar-thumb-neutral-700 scrollbar-track-neutral-800"
+      className="scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-900"
     >
       <UserProvider>
-        <body className={`${montserrat.className}`}>{children}</body>
+        <body className={`${baiJamjuree.className}`}>{children}</body>
       </UserProvider>
     </html>
   );

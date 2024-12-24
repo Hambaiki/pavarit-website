@@ -143,7 +143,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
 
   return (
     <div className={`${className}`}>
-      <h2 className="text-2xl font-bold">Maintenance Mode</h2>
+      <h2>Maintenance Mode</h2>
       <p className="text-neutral-300 mt-2">
         Maintenance mode is a feature that allows you to put your website in
         maintenance mode. This will disable the website for all users.
@@ -152,7 +152,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
       <div className="mt-4 p-4 bg-neutral-950 rounded-xl">
         <div className="flex flex-row justify-between space-x-2">
           <div className="flex flex-col">
-            <h3 className="text-xl text-suzuha-teal-500 font-bold">
+            <h3 className="text-suzuha-teal-500">
               Enabled Maintenance Mode
             </h3>
             <p className="text-neutral-300 mt-2">

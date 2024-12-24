@@ -21,7 +21,7 @@ const TextInput = ({
   return (
     <label htmlFor={name} className="flex flex-col space-y-2">
       {label && (
-        <p className="text-sm font-medium text-neutral-400">
+        <p className="text-sm font-medium text-gray-400">
           {label}
           {required && <span className="text-red-500">&nbsp;*</span>}
         </p>
@@ -32,7 +32,7 @@ const TextInput = ({
         name={name}
         disabled={disabled}
         className={`w-full px-3 py-3 border rounded-md text-left text-sm outline-none transition-colors
-          placeholder:text-sm placeholder:text-neutral-400
+          placeholder:text-sm placeholder:text-gray-400
           ${error ? "border-red" : "border-primary-gray-border"} 
           ${
             error
@@ -41,8 +41,8 @@ const TextInput = ({
           }
           ${
             disabled
-              ? "bg-neutral-700 text-neutral-400 cursor-not-allowed"
-              : "bg-neutral-900"
+              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+              : "bg-gray-800"
           }
           ${className}
         `}

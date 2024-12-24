@@ -250,9 +250,9 @@ function PostEditor({
         <form onSubmit={handleSubmit}>
           {/* Metadata Fields */}
           <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Post Details</h2>
+            <h2 className="mb-4">Post Details</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-950 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-900 rounded-xl">
               <TextInput
                 label="Title"
                 type="text"
@@ -315,9 +315,9 @@ function PostEditor({
           </div>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Featured Image</h2>
+            <h2 className="mb-4">Featured Image</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-950 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-900 rounded-xl">
               <div className="w-full h-72 rounded-lg overflow-hidden">
                 {metadata.image ? (
                   <NextImage
@@ -360,11 +360,11 @@ function PostEditor({
           </div>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-4">Post Details</h2>
+            <h2 className="mb-4">Post Details</h2>
             {/* Editor Toolbar */}
             <div
               className="flex flex-wrap gap-2 p-2 mt-4 
-            bg-neutral-900 rounded-t-md border border-primary-gray-border"
+            bg-neutral-900 rounded-t-md border border-gray-border"
             >
               <ToolbarButton
                 onClick={() => editor.chain().focus().toggleBold().run()}
@@ -429,7 +429,7 @@ function PostEditor({
             </div>
 
             {/* Editor Content */}
-            <div className="min-h-[20rem] bg-neutral-900 rounded-b-md border border-t-0 border-primary-gray-border">
+            <div className="min-h-[20rem] bg-neutral-900 rounded-b-md border border-t-0 border-gray-border">
               <EditorContent
                 editor={editor}
                 className="prose max-w-none 

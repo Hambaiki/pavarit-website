@@ -26,7 +26,7 @@ export default async function MaintenancePage({
   return (
     <div className="min-h-screen flex items-center justify-center bg-neutral-900">
       <div className="max-w-2xl mx-auto p-8 text-center">
-        <h1 className="text-4xl font-bold mb-8">Site Maintenance</h1>
+        <h1 className="mb-8">Site Maintenance</h1>
 
         <div className="bg-neutral-800 p-6 rounded-lg shadow-lg">
           <div className="animate-pulse mb-6">

@@ -20,6 +20,7 @@ import ShareOptions from "@/components/post/ShareOptions";
 import PostItemAlt from "@/components/post/PostItemAlt";
 import PostTopicList from "@/components/post/PostTopicList";
 import CommentSection from "@/components/post/comment/CommentSection";
+import AuthorItem from "@/components/post/AuthorItem";
 
 async function BlogPostPage({ params }: { params: { slug: string } }) {
   const slug = await params.slug;
@@ -66,7 +67,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className="space-y-4 mt-8">
-          <h1 className="text-3xl md:text-4xl font-bold">{post.title}</h1>
+          <h1>{post.title}</h1>
           <ul className="flex flex-row flex-wrap space-x-2">
             {post.tags
               .filter((tag) => !tag.includes("_"))
@@ -75,7 +76,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
                   <li
                     key={index}
                     className="px-3 py-1 rounded-full 
-                    text-sm text-neutral-300 bg-neutral-700 hover:bg-neutral-900 transition-colors"
+                      bg-gray-800 hover:bg-gray-700 transition-colors"
                   >
                     {tag}
                   </li>
@@ -109,26 +110,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
             )}
 
             <div className="block lg:hidden">
-              <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
-                {/* <Image
-                  src={post.authorImage}
-                  alt={post.author}
-                  width={200}
-                  height={200}
-                  className="w-16 h-16 rounded-full object-cover"
-                /> */}
-
-                <div className="text-sm space-y-2">
-                  <p className="flex flex-row items-center text-white not-italic">
-                    <FaUser className="mr-2" />
-                    {post.author}
-                  </p>
-                  <p className="flex flex-row items-center text-white not-italic">
-                    <FaCalendar className="mr-2" />
-                    {format(new Date(post.created_at), "yyyy/MM/dd")}
-                  </p>
-                </div>
-              </address>
+              <AuthorItem author={post.author} createdAt={post.created_at} />
 
               <PostTopicList htmlContent={contentHtml} />
             </div>
@@ -143,26 +125,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <div className="lg:sticky lg:top-24 lg:h-full lg:w-80 lg:py-8">
           <div className="hidden lg:block mb-4">
-            <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-black mb-4">
-              {/* <Image
-              src={post.authorImage}
-              alt={post.author}
-              width={200}
-              height={200}
-              className="w-16 h-16 rounded-full object-cover"
-            /> */}
-
-              <div className="text-sm space-y-2">
-                <p className="flex flex-row items-center text-white not-italic">
-                  <FaUser className="mr-2" />
-                  {post.author}
-                </p>
-                <p className="flex flex-row items-center text-white not-italic">
-                  <FaCalendar className="mr-2" />
-                  {format(new Date(post.created_at), "yyyy/MM/dd")}
-                </p>
-              </div>
-            </address>
+            <AuthorItem author={post.author} createdAt={post.created_at} />
 
             <PostTopicList htmlContent={contentHtml} />
           </div>
@@ -173,7 +136,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
 
       {relatedPosts && relatedPosts.length > 0 && (
         <div className="space-y-4 mt-8">
-          <h2 className="text-2xl font-bold">Related Posts</h2>
+          <h2>Related Posts</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {relatedPosts.map((post, index) => (

@@ -48,52 +48,50 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
 
   const topics = extractTopics(contentHtml);
 
-  const renderTopics = () => {
-    return topics.map((topic, index) => {
-      if (topic.level === 2) {
-        const subTopics = topics.filter((t) => t.parentId === topic.id);
-        return (
-          <li key={index}>
-            <Link href={`#${topic.id}`}>
-              <h2>
-                &#8226;
-                <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-500">
-                  {topic.content}
-                </span>
-              </h2>
-            </Link>
-            {subTopics.length > 0 && (
-              <ul className="ml-6 mt-2 flex flex-col gap-2">
-                {subTopics.map((subTopic, subIndex) => (
-                  <li key={`${index}-${subIndex}`}>
-                    <Link href={`#${subTopic.id}`}>
-                      <h3>
-                        &#8226;
-                        <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-600">
-                          {subTopic.content}
-                        </span>
-                      </h3>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        );
-      }
-      return null;
-    });
-  };
-
   return (
     <div
       className={`${
         !(topics.length > 0) && "hidden"
-      } rounded-xl p-4 bg-neutral-900`}
+      } rounded-xl p-4 bg-gray-900`}
     >
       <p className="font-semibold mb-4">Topics</p>
 
-      <ul className="flex flex-col gap-2">{renderTopics()}</ul>
+      <ul className="flex flex-col gap-2">
+        {topics.map((topic, index) => {
+          if (topic.level === 2) {
+            const subTopics = topics.filter((t) => t.parentId === topic.id);
+            return (
+              <li key={index}>
+                <Link href={`#${topic.id}`}>
+                  <p>
+                    &#8226;
+                    <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-500">
+                      {topic.content}
+                    </span>
+                  </p>
+                </Link>
+                {subTopics.length > 0 && (
+                  <ul className="ml-6 mt-2 flex flex-col gap-2">
+                    {subTopics.map((subTopic, subIndex) => (
+                      <li key={`${index}-${subIndex}`}>
+                        <Link href={`#${subTopic.id}`}>
+                          <p>
+                            &#8226;
+                            <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-600">
+                              {subTopic.content}
+                            </span>
+                          </p>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          }
+          return null;
+        })}
+      </ul>
     </div>
   );
 };

@@ -44,12 +44,12 @@ function ShareOptions() {
     },
   ];
   return (
-    <div className="space-y-3 bg-neutral-900 rounded-xl p-4">
-      <p className="text-sm text-neutral-300">Like this post?</p>
+    <div className="space-y-3 bg-gray-900 rounded-xl p-4">
+      <p className="text-sm">Like this post?</p>
       {options.map((option) => (
         <button
           key={option.title}
-          className="flex flex-row items-center space-x-2 hover:text-suzuha-teal-400 transition-colors"
+          className="flex flex-row items-center space-x-2 hover:text-suzuha-teal-500 transition-colors"
           onClick={option.onShare}
         >
           <option.icon className="w-4 h-4" />

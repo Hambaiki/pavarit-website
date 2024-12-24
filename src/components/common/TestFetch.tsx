@@ -64,7 +64,7 @@ function TestFetch() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold">Development</h1>
+      <h1>Development</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <TextInput

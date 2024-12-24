@@ -52,10 +52,10 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
         ref={ref}
         className={`flex-1 w-full
           transition-colors rounded-xl overflow-hidden
-          ${current ? "bg-neutral-700" : "hover:bg-neutral-800"}
+          ${current ? "bg-gray-900" : "hover:bg-gray-800"}
           ${
             dropdownOpen && !current
-              ? "bg-neutral-800 hover:bg-neutral-800"
+              ? "bg-gray-900"
               : ""
           }`}
       >
@@ -65,7 +65,7 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
         >
           <span
             className={`${
-              current ? "text-suzuha-teal-500" : "text-neutral-100"
+              current ? "text-suzuha-teal-500" : ""
             }`}
           >
             {item.label}
@@ -88,8 +88,8 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
               <Link key={index} href={subItem.href}>
                 <div
                   className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
-                  transition-colors text-neutral-300
-                  ${current ? "hover:bg-neutral-800" : "hover:bg-neutral-700"}`}
+                  transition-colors
+                  ${current ? "hover:bg-gray-800" : "hover:bg-gray-900"}`}
                 >
                   {subItem.label}
                 </div>

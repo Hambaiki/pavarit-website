@@ -39,8 +39,8 @@ async function LatestPosts({
   }
 
   return (
-    <div className={`space-y-6 ${className}`}>
-      <div className="flex flex-col space-y-4 mt-6">
+    <div className={`${className}`}>
+      <div className="flex flex-col space-y-8">
         {latestPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <PostItem
@@ -64,7 +64,7 @@ export function LatestPostsHeader() {
     <div className="flex flex-row justify-between items-center space-x-4">
       <div className="flex items-center space-x-2">
         <FaList className="h-6 w-6 text-suzuha-teal-500" />
-        <h2 className="text-2xl font-bold">Latest Posts</h2>
+        <h2>Latest Posts</h2>
       </div>
 
       <div className="flex justify-center">

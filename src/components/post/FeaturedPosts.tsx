@@ -40,7 +40,7 @@ async function FeaturedPosts({
   }
 
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={`${className}`}>
       <CarousalContainer autoScroll autoScrollInterval={5000}>
         {featuredPosts.map((post) => (
           <Link
@@ -68,7 +68,7 @@ export function FeaturedPostsHeader() {
   return (
     <div className="flex items-center space-x-2">
       <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
-      <h2 className="text-2xl font-bold">Featured Posts</h2>
+      <h2>Featured Posts</h2>
     </div>
   );
 }

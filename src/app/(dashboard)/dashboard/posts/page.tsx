@@ -99,8 +99,8 @@ function PostsPage({
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className="space-y-4 mt-8">
-          <h1 className="text-4xl font-bold">Manage Posts</h1>
-          <p className="text-neutral-300">
+          <h1>Manage Posts</h1>
+          <p>
             Manage your posts and their content.
           </p>
         </div>
@@ -115,7 +115,7 @@ function PostsPage({
       ) : (
         <Suspense>
           <div className="flex items-center justify-between mt-8">
-            <h2 className="text-2xl font-bold">All Posts</h2>
+            <h2>All Posts</h2>
             <Button
               href="/dashboard/posts/create"
               variant="secondary"

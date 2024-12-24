@@ -23,14 +23,14 @@ async function page() {
     { label: "Blog", href: "/blog" },
   ];
 
-  async function create(formData: FormData) {
-    "use server";
-    // Connect to the Neon database
-    const sql = neon(`${process.env.DATABASE_URL}`);
-    const comment = formData.get("comment");
-    // Insert the comment from the form into the Postgres database
-    await sql("INSERT INTO comments (comment) VALUES ($1)", [comment]);
-  }
+  // async function create(formData: FormData) {
+  //   "use server";
+  //   // Connect to the Neon database
+  //   const sql = neon(`${process.env.DATABASE_URL}`);
+  //   const comment = formData.get("comment");
+  //   // Insert the comment from the form into the Postgres database
+  //   await sql("INSERT INTO comments (comment) VALUES ($1)", [comment]);
+  // }
 
   return (
     <MainContainer>
@@ -38,23 +38,27 @@ async function page() {
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         <div className="space-y-4 mt-8">
-          <h1 className="text-4xl font-bold">Blog</h1>
-          <p className="text-neutral-300">
-            Here are some of my blogs. I write about my experiences and thoughts
-            about technology, life, and other things.
+          <h1>Blog</h1>
+          <p className="mt-4">
+            {`Discover more about myself with a collection of topics ranging from
+            personal growth and creative projects to technical tutorials and
+            deep thoughts about life. This is a place where I share my journey
+            and experiences for exploration and connection.`}
           </p>
         </div>
       </header>
 
-      <section className="mt-12 space-y-6">
+      <section className="mt-16">
         <FeaturedPostsHeader />
 
-        <Suspense fallback={<FeaturedPostsSkeleton />}>
-          <FeaturedPosts />
-        </Suspense>
+        <div className="mt-8">
+          <Suspense fallback={<FeaturedPostsSkeleton />}>
+            <FeaturedPosts />
+          </Suspense>
+        </div>
       </section>
 
-      <section className="mt-12 space-y-6">
+      <section className="mt-16 space-y-8">
         <LatestPostsHeader />
 
         <Suspense fallback={<LatestPostsSkeleton />}>
@@ -62,8 +66,8 @@ async function page() {
         </Suspense>
       </section>
 
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-neutral-950 rounded-xl">
-        <p className="text-center md:text-left text-neutral-300">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-gray-900 rounded-xl">
+        <p className="text-center md:text-left">
           Interested in my other posts?
           <strong> Check out other posts here!</strong>
         </p>

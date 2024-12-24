@@ -24,7 +24,7 @@ async function TagPage() {
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
       <div className="flex flex-col space-y-4 mt-8">
-        <h1 className="text-4xl font-bold">All Tags</h1>
+        <h1>All Tags</h1>
       </div>
 
       <ul className="flex flex-wrap gap-2 mt-4">
@@ -43,7 +43,7 @@ async function TagPage() {
       </ul>
 
       <section className="mt-8">
-        <h3 className="text-2xl font-semibold mb-4">Latest Articles</h3>
+        <h3 className="mb-4">Latest Articles</h3>
 
         <RecentPosts />
       </section>

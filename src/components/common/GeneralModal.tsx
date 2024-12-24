@@ -28,16 +28,18 @@ function GeneralModal({
   onClickOutside,
 }: GeneralModalProps) {
   return (
-    <ModalContainer visible={visible} onClickOutside={onClickOutside} className="p-4">
+    <ModalContainer
+      visible={visible}
+      onClickOutside={onClickOutside}
+      className="p-4"
+    >
       <div
         className="flex flex-col gap-6 p-4 rounded-xl w-full max-w-md
-        bg-neutral-800 border border-primary-gray-border"
+        bg-neutral-800 border border-gray-border"
       >
         <div className="flex flex-col gap-2">
-          {title && <h2 className="text-2xl font-bold">{title}</h2>}
-          {message && (
-            <p className="text-sm text-neutral-400">{message}</p>
-          )}
+          {title && <h2>{title}</h2>}
+          {message && <p className="text-sm text-neutral-400">{message}</p>}
         </div>
 
         {children}

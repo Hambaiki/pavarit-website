@@ -48,6 +48,7 @@ function CommentForm({
 
       if (response.ok) {
         onSuccess("Comment submitted successfully");
+        setFormData({ comment: "" });
       } else if (response.status === 429) {
         onError("Too many submissions, please try again later.");
       } else {
@@ -59,14 +60,14 @@ function CommentForm({
   };
 
   return (
-    <div className="flex flex-col p-4 bg-neutral-950 rounded-xl">
+    <div className="flex flex-col rounded-xl">
       {isLoading ? (
         <div className="flex justify-center items-center h-32">
           <Spinner />
         </div>
       ) : user ? (
         <form onSubmit={handleSubmit}>
-          <p className="text-sm text-neutral-300 mb-4">
+          <p className="mb-4">
             <FaPen className="mr-2 inline-block" />
             Leave a comment below and share your thoughts.
           </p>
@@ -91,7 +92,7 @@ function CommentForm({
         </form>
       ) : (
         <div className="flex flex-col items-center justify-center p-4 min-h-[6rem] bg-neutral-950 rounded-lg">
-          <p className="text-neutral-300">
+          <p>
             Please&nbsp;
             <Link
               href={`/api/auth/login?returnTo=${pathname}`}

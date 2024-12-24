@@ -31,16 +31,10 @@ function NavbarItem({ item }: NavbarItemProps) {
           className={`w-full h-full px-4 py-2 rounded-full
               transition-colors duration-300
               text-center ${
-                current
-                  ? "bg-neutral-700 hover:bg-neutral-900"
-                  : "hover:bg-neutral-900"
+                current ? "bg-gray-900 hover:bg-gray-800" : "hover:bg-gray-900"
               } `}
         >
-          <span
-            className={`${
-              current ? "text-suzuha-teal-500" : "text-neutral-100"
-            }`}
-          >
+          <span className={`${current ? "text-suzuha-teal-500" : ""}`}>
             {item.label}
           </span>
         </div>
@@ -49,13 +43,13 @@ function NavbarItem({ item }: NavbarItemProps) {
       {item.subItems && (
         <FadeInOutContainer visible={dropdownOpen}>
           <div className="absolute top-[115%] right-1/2 translate-x-1/2">
-            <div className="flex flex-col justify-center items-center w-32 shadow-xl bg-black rounded-xl overflow-hidden">
+            <div className="flex flex-col justify-center items-center w-32 shadow-xl bg-gray-900 rounded-xl overflow-hidden">
               {item.subItems.map((subItem, subIndex) => {
                 return (
                   <Link key={subIndex} href={`${subItem.href}`}>
                     <div
                       className="px-4 py-2 w-32 transition-colors text-center 
-                     hover:bg-neutral-950"
+                     hover:bg-gray-800"
                     >
                       <span>{subItem.label}</span>
                     </div>

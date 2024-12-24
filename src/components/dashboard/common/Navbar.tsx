@@ -3,14 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { FaBars } from "react-icons/fa";
-
 import { dashboardNavItems } from "@/constants/navigation";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
+import StackButton from "@/components/common/StackButton";
 
 function Navbar() {
   const [stackOpen, setStackOpen] = useState(false);
@@ -35,23 +34,17 @@ function Navbar() {
   return (
     <div
       ref={ref}
-      className="fixed top-0 md:left-0 w-full md:w-64 h-28 md:h-full z-10 
-        text-white bg-primary-gray-background/90 backdrop-blur"
+      className="fixed top-0 md:left-0 w-full md:w-64 h-28 md:h-full z-10 md:border-r border-gray-900 bg-background-dark/90 backdrop-blur"
     >
       <div className="flex flex-row items-center p-4 h-full md:h-auto">
         <div className="md:hidden mr-4 md:mr-0">
-          <button
-            onClick={() => setStackOpen(!stackOpen)}
-            className="p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition-colors"
-          >
-            <FaBars className="w-6 h-6" />
-          </button>
+          <StackButton onClick={() => setStackOpen(!stackOpen)} />
         </div>
 
-        <div className="space-y-1 md:space-y-2 px-2 lg:p-4">
-          <h1 className="text-2xl font-bold text-white">PAVARIT W.</h1>
+        <div className="px-2 lg:p-4">
+          <h1 className="text-3xl font-bold">PAVARIT W.</h1>
           <hr className="border-2 border-suzuha-teal-500" />
-          <h1 className="text-lg font-extralight">Dashboard</h1>
+          <span className="text-lg font-extralight">Dashboard</span>
         </div>
       </div>
 

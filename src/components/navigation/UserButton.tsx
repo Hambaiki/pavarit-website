@@ -36,8 +36,7 @@ function UserButton() {
     >
       {loggedIn ? (
         <div
-          className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-black hover:bg-neutral-950 transition-colors"
+          className="w-10 h-10 flex items-center justify-center rounded-full transition-colors"
         >
           {user.picture ? (
             <img
@@ -54,18 +53,18 @@ function UserButton() {
       ) : (
         <div
           className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-black hover:bg-neutral-950 transition-colors"
+          bg-neutral-900 hover:bg-neutral-800 transition-colors"
         >
           <FaUser className="w-4 h-4" />
         </div>
       )}
 
       <FadeInOutContainer visible={dropdownOpen} className="z-10">
-        <div className="absolute top-[115%] right-0 shadow-xl">
-          <div className="flex flex-col justify-center items-center min-w-[12rem] rounded-xl bg-black overflow-hidden">
+        <div className="absolute top-[115%] right-0 shadow-xl bg-neutral-900 rounded-xl">
+          <div className="flex flex-col justify-center items-center min-w-[12rem] rounded-xl">
             {loggedIn && (
               <div className="flex flex-row items-center justify-center space-x-4 p-4">
-                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-black hover:bg-neutral-950 transition-colors">
+                <div className="w-10 h-10 flex items-center justify-center rounded-full transition-colors">
                   {user.picture ? (
                     <img
                       src={user.picture}
@@ -96,10 +95,7 @@ function UserButton() {
                 dropdownItems.map((item, index) => {
                   return (
                     <Link key={index} href={`${item.href}`}>
-                      <div
-                        className="px-4 py-2 transition-colors text-center 
-                        bg-black hover:bg-neutral-950"
-                      >
+                      <div className="px-4 py-2 transition-colors text-center ">
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -107,10 +103,7 @@ function UserButton() {
                 })
               ) : (
                 <Link href="/api/auth/login?prompt=login">
-                  <div
-                    className="px-4 py-2 transition-colors text-center 
-                    bg-black hover:bg-neutral-950"
-                  >
+                  <div className="px-4 py-2 transition-colors text-center">
                     <span className="text-sm font-bold">Click to login</span>
                   </div>
                 </Link>

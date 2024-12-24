@@ -1,3 +1,5 @@
+import { contactItems } from "@/constants/common";
+
 function Footer() {
   return (
     <div className="w-full">
@@ -5,59 +7,41 @@ function Footer() {
         className="flex flex-col md:flex-row max-w-6xl w-full mx-auto p-4 py-6 md:p-8 md:py-10 
           space-y-4 space-x-0 md:space-y-0 md:space-x-8"
       >
-        <div className="flex-1 space-y-2">
-          <div className="flex flex-col space-y-1">
-            {/* <Image
+        <div className="flex flex-col w-full md:flex-row gap-6 justify-between items-center">
+          {/* <Image
               src="/images/logo/pw/pw-light.svg"
               alt="PAVARIT W."
               width={100}
               height={100}
               className="w-24 h-24"
             /> */}
-            <h2 className="text-2xl font-semibold text-neutral-300">
-              PAVARIT W.
-            </h2>
-            <p className="text-sm text-neutral-300">Developed by Pavarit W.</p>
-            <p className="text-sm text-neutral-500">
+          {/* <h3>PAVARIT</h3> */}
+          <div className="flex flex-col space-y-1 text-center md:text-left">
+            <h4>Developed by Pavarit W.</h4>
+            <p>Built with Next.js, Tailwind CSS, Vercel, and Neon.</p>
+          </div>
+
+          <div className="flex flex-row flex-wrap gap-3 justify-center">
+            {contactItems
+              .filter((item) => item.value)
+              .map((item, index) => (
+                <a
+                  key={index}
+                  href={item.value}
+                  target="_blank"
+                  className="group flex flex-row items-center justify-center 
+                      w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
+                >
+                  <item.icon className="w-5 h-5 group-hover:text-suzuha-teal-500 transition-colors" />
+                </a>
+              ))}
+          </div>
+
+          {/* <p>
               This website is under development. If you have any questions,
               please contact me.
-            </p>
-          </div>
+            </p> */}
         </div>
-
-        {/* <div className="flex flex-row space-x-8 bg-neutral-800 p-4 rounded-xl">
-          <div className="flex-1 flex flex-col space-y-2">
-            <h3 className="text-lg font-semibold text-neutral-300">Links</h3>
-            <ul className="grid grid-cols-1 gap-2 list-inside list-disc">
-              {navItems.map((item, index) => (
-                <li key={index}>
-                  <a
-                    href={item.href}
-                    className="text-base text-neutral-400 hover:text-suzuha-teal-500 transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex-1 flex flex-col space-y-2">
-            <h3 className="text-lg font-semibold text-neutral-300">Contact</h3>
-            <ul className="grid grid-cols-1 gap-2 list-inside list-disc">
-              {contactItems.map((item, index) => (
-                <li key={index}>
-                  <a
-                    href={item.href}
-                    className="text-base text-neutral-400 hover:text-suzuha-teal-500 transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div> */}
       </div>
     </div>
   );

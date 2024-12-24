@@ -28,47 +28,44 @@ function PostItemAlt({
 }: PostItemAltProps) {
   return (
     <article
-      className={`flex flex-col w-full h-full space-y-4 justify-between p-4 rounded-xl
-        ${
-          disableHover
-            ? "bg-neutral-900"
-            : "bg-neutral-900 hover:bg-neutral-950 transition-colors"
-        } ${className}`}
+      className={`flex flex-col w-full h-full justify-between ${className}`}
     >
       <Image
         src={image || "/images/placeholder/placeholder-image.jpg"}
         alt={title || "no-title"}
         width={500}
         height={500}
-        className="w-full h-48 object-cover rounded-lg"
+        className="w-full h-48 object-cover rounded-t-xl"
       />
 
-      <h2 className="text-xl font-semibold">{title}</h2>
+      <div className="p-4 rounded-b-xl space-y-2 bg-gray-900">
+        <h3>{title}</h3>
 
-      <div className="flex flex-col space-y-3 text-sm">
-        <address className="flex flex-col space-y-2">
-          <p className="flex flex-row items-center text-white not-italic">
-            <FaUser className="mr-2" />
-            {author}
-          </p>
-          <p className="flex flex-row items-center text-white not-italic">
-            <FaCalendar className="mr-2" />
-            {format(new Date(createDate), "yyyy/MM/dd")}
-          </p>
-        </address>
+        <div className="flex flex-col space-y-3 text-sm">
+          <address className="flex flex-row items-center space-x-2">
+            <p className="flex flex-row items-center not-italic">
+              <FaUser className="mr-2" />
+              {author}
+            </p>
+            <p className="flex flex-row items-center not-italic">
+              <FaCalendar className="mr-2" />
+              {format(new Date(createDate), "yyyy/MM/dd")}
+            </p>
+          </address>
 
-        <ul className="flex flex-row flex-wrap gap-2">
-          {tags
-            .filter((tag) => !tag.startsWith("_"))
-            .map((tag, index) => (
-              <li
-                key={index}
-                className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
-              >
-                {tag}
-              </li>
-            ))}
-        </ul>
+          <ul className="flex flex-row flex-wrap gap-2">
+            {tags
+              .filter((tag) => !tag.startsWith("_"))
+              .map((tag, index) => (
+                <li
+                  key={index}
+                  className="rounded-full px-3 py-1 bg-gray-800"
+                >
+                  {tag}
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </article>
   );

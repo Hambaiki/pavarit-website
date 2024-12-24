@@ -9,6 +9,141 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: "none",
+            div: {
+              width: "100%",
+            },
+            h1: {
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "2.25rem",
+              marginBottom: "1rem",
+            },
+            h2: {
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "1.875rem",
+              marginBottom: "1rem",
+            },
+            h3: {
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "1.5rem",
+              marginBottom: "1rem",
+            },
+            h4: {
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "1.25rem",
+              marginBottom: "1rem",
+            },
+            h5: {
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "1.125rem",
+              marginBottom: "1rem",
+            },
+            h6: {
+              color: "#fff",
+              fontWeight: "700",
+              fontSize: "1rem",
+              marginBottom: "1rem",
+            },
+            p: {
+              marginBottom: "1rem",
+            },
+            strong: {
+              color: "#fff",
+            },
+            em: {
+              color: "#fff",
+            },
+            ul: {
+              listStyleType: "disc",
+              marginLeft: "1rem",
+              marginBottom: "1rem",
+            },
+            ol: {
+              listStyleType: "decimal",
+              marginLeft: "1rem",
+              marginBottom: "1rem",
+            },
+            li: {
+              marginBottom: "0.5rem",
+              fontWeight: "400",
+            },
+            blockquote: {
+              fontWeight: "400",
+              marginBottom: "1rem",
+            },
+            code: {
+              fontFamily: "monospace",
+              backgroundColor: "#171717",
+              padding: "0.25rem 0.25rem",
+              borderRadius: "0.375rem",
+              marginBottom: "0.5rem",
+            },
+            pre: {
+              backgroundColor: "#171717",
+              padding: "1rem",
+              borderRadius: "0.375rem",
+              marginBottom: "1rem",
+            },
+            table: {
+              backgroundColor: "#171717",
+              marginBottom: "1rem",
+            },
+            thead: {
+              backgroundColor: "#262626",
+
+              fontWeight: "700",
+            },
+            tbody: {
+              backgroundColor: "#171717",
+
+              fontWeight: "400",
+            },
+            tr: {
+              borderBottomWidth: "1px",
+              borderColor: "#262626",
+            },
+            th: {
+              fontWeight: "700",
+              padding: "0.5rem",
+              textAlign: "left",
+            },
+            td: {
+              padding: "0.5rem",
+              textAlign: "left",
+            },
+            img: {
+              borderRadius: "0.75rem",
+              marginBottom: "1rem",
+              width: "100%",
+              maxWidth: "32rem",
+              height: "auto",
+              marginLeft: "auto",
+              marginRight: "auto",
+            },
+            a: {
+              textDecorationLine: "underline",
+              color: "#0CB8AB",
+              textDecorationColor: "#0CB8AB",
+              textUnderlineOffset: "4px",
+              textDecorationThickness: "2px",
+              transitionProperty: "all",
+              transitionDuration: "300ms",
+              transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+              "&:hover": {
+                color: "#0BA69A",
+              },
+            },
+          },
+        },
+      },
       colors: {
         "suzuha-teal": {
           DEFAULT: "#0CB8AB",
@@ -49,8 +184,8 @@ const config: Config = {
           800: "#73203E",
           900: "#4D1529",
         },
-        "primary-gray": {
-          DEFAULT: "#fafafa",
+        "gray": {
+          DEFAULT: "#737373",
           50: "#fafafa",
           100: "#f5f5f5",
           200: "#e5e5e5",
@@ -64,7 +199,10 @@ const config: Config = {
           950: "#0a0a0a",
           border: "#333333",
           background: "#222222",
-          "background-secondary": "#222222",
+        },
+        background: {
+          light: "#f0f0f0",
+          dark: "#0f0f0f",
         },
       },
       backgroundImage: {

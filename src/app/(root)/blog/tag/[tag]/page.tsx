@@ -9,7 +9,6 @@ import { SearchPostResponse } from "@/types/api/post";
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 
-
 async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const tag = (await params).tag;
   const response = await fetchFromApi<SearchPostResponse>(
@@ -38,7 +37,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
       <div className="flex flex-col space-y-4 mt-8">
-        <h1 className="text-4xl font-bold">
+        <h1>
           Tag:{" "}
           <span className="text-suzuha-teal-500">
             {tag.charAt(0).toUpperCase() + tag.slice(1)}
@@ -73,7 +72,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
                 className="w-full h-48 object-cover rounded-lg"
               />
 
-              <h2 className="text-xl font-semibold">{recentPost.title}</h2>
+              <h2>{recentPost.title}</h2>
 
               <div className="flex flex-col space-y-3 text-sm">
                 <div className="flex flex-col space-y-2">

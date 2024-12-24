@@ -57,8 +57,8 @@ function CreatePage() {
           <Breadcrumbs breadcrumbs={breadcrumbs} />
 
           <div className="space-y-4 mt-8">
-            <h1 className="text-4xl font-bold">Create Post</h1>
-            <p className="text-neutral-300">Create a new post.</p>
+            <h1>Create Post</h1>
+            <p>Create a new post.</p>
           </div>
         </header>
 
