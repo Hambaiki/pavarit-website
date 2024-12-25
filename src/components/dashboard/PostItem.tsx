@@ -68,7 +68,7 @@ function PostItem({
     <div
       ref={ref}
       onClick={() => setMenuCollapsed(!menuCollapsed)}
-      className={`p-3 rounded-xl bg-neutral-900 transition-colors cursor-pointer ${className}`}
+      className={`p-3 rounded-xl bg-gray-850 transition-colors cursor-pointer ${className}`}
     >
       <div className="flex flex-row gap-4 h-32">
         <div className="md:block hidden w-36 overflow-hidden">
@@ -110,13 +110,13 @@ function PostItem({
               {tags.slice(0, 1).map((tag, index) => (
                 <li
                   key={index}
-                  className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
+                  className="text-sm text-gray-300 rounded-full px-3 py-1 bg-gray-800"
                 >
                   {tag}
                 </li>
               ))}
               {tags.length > 1 && (
-                <li className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800">
+                <li className="text-sm text-gray-300 rounded-full px-3 py-1 bg-gray-800">
                   + {tags.length - 1}
                 </li>
               )}
@@ -132,14 +132,14 @@ function PostItem({
         </div>
 
         {/* {!hideDescription && (
-          <div className="flex-1 p-4 bg-neutral-800 rounded-xl">
-            <p className="text-neutral-300 line-clamp-4">{description}</p>
+          <div className="flex-1 p-4 bg-gray-800 rounded-xl">
+            <p className="text-gray-300 line-clamp-4">{description}</p>
           </div>
         )} */}
       </div>
 
       <CollapsibleContainer collapsed={menuCollapsed}>
-        <div className="flex flex-row justify-end space-x-2 p-2 mt-2 bg-neutral-950 rounded-lg">
+        <div className="flex flex-row justify-end space-x-2 p-2 mt-3 bg-gray-900 rounded-lg">
           <button
             className="flex flex-row items-center space-x-2 px-4 py-2 rounded-lg 
               border border-red-500 hover:bg-red-500/20 transition-colors"

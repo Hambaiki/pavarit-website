@@ -38,7 +38,7 @@ function PostItemAlt({
         className="w-full h-48 object-cover rounded-t-xl"
       />
 
-      <div className="p-4 rounded-b-xl space-y-2 bg-gray-900">
+      <div className="flex-1 p-4 rounded-b-xl space-y-2 bg-gray-850">
         <h3>{title}</h3>
 
         <div className="flex flex-col space-y-3 text-sm">

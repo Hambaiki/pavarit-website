@@ -52,10 +52,10 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
         ref={ref}
         className={`flex-1 w-full
           transition-colors rounded-xl overflow-hidden
-          ${current ? "bg-gray-900" : "hover:bg-gray-800"}
+          ${current ? "bg-gray-850" : "hover:bg-gray-800"}
           ${
             dropdownOpen && !current
-              ? "bg-gray-900"
+              ? "bg-gray-850"
               : ""
           }`}
       >
@@ -89,7 +89,7 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
                 <div
                   className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
                   transition-colors
-                  ${current ? "hover:bg-gray-800" : "hover:bg-gray-900"}`}
+                  ${current ? "hover:bg-gray-800" : "hover:bg-gray-850"}`}
                 >
                   {subItem.label}
                 </div>

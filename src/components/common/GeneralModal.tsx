@@ -35,11 +35,11 @@ function GeneralModal({
     >
       <div
         className="flex flex-col gap-6 p-4 rounded-xl w-full max-w-md
-        bg-neutral-800 border border-gray-border"
+        bg-gray-800 border border-gray-border"
       >
         <div className="flex flex-col gap-2">
           {title && <h2>{title}</h2>}
-          {message && <p className="text-sm text-neutral-400">{message}</p>}
+          {message && <p className="text-sm text-gray-400">{message}</p>}
         </div>
 
         {children}

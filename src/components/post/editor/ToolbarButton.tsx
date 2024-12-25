@@ -16,9 +16,9 @@ function ToolbarButton({
       className={`flex items-center justify-center w-10 h-10 rounded 
         ${
           active
-            ? "bg-neutral-700 text-white"
-            : "bg-neutral-800 text-neutral-200"
-        } hover:bg-neutral-600 transition-colors`}
+            ? "bg-gray-700 text-white"
+            : "bg-gray-800 text-gray-200"
+        } hover:bg-gray-600 transition-colors`}
     >
       {children}
     </button>

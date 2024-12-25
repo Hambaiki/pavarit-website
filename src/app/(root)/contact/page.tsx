@@ -32,7 +32,7 @@ function Contact() {
         <div className="col-span-1">
           <h2 className="mb-4">Contact Information</h2>
 
-          <div className="bg-gray-900 p-4 rounded-xl space-y-4 text-center">
+          <div className="bg-gray-850 p-4 rounded-xl space-y-4 text-center">
             <p className="text-lg">
               pavarit.wir@gmail.com
               <br />

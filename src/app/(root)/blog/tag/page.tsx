@@ -34,7 +34,7 @@ async function TagPage() {
             <Link key={index} href={`/blog/tag/${tag}`}>
               <li
                 className="text-base font-medium text-white px-4 py-1 rounded-full
-                bg-neutral-900 hover:bg-black transition-colors"
+                bg-gray-800 hover:bg-gray-700 transition-colors"
               >
                 {tag.charAt(0).toUpperCase() + tag.slice(1)}
               </li>

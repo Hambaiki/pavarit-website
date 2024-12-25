@@ -8,7 +8,7 @@ interface BreadcrumbsProps {
 
 function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
-    <div className="flex flex-row flex-wrap bg-gray-900 rounded-xl px-4 py-2">
+    <div className="flex flex-row flex-wrap bg-gray-850 rounded-xl px-4 py-2">
       {breadcrumbs.map((breadcrumb, index) => (
         <Link
           key={breadcrumb.href}

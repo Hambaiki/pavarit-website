@@ -144,18 +144,18 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
   return (
     <div className={`${className}`}>
       <h2>Maintenance Mode</h2>
-      <p className="text-neutral-300 mt-2">
+      <p className="text-gray-300 mt-2">
         Maintenance mode is a feature that allows you to put your website in
         maintenance mode. This will disable the website for all users.
       </p>
 
-      <div className="mt-4 p-4 bg-neutral-950 rounded-xl">
+      <div className="mt-4 p-4 bg-gray-900 rounded-xl">
         <div className="flex flex-row justify-between space-x-2">
           <div className="flex flex-col">
             <h3 className="text-suzuha-teal-500">
               Enabled Maintenance Mode
             </h3>
-            <p className="text-neutral-300 mt-2">
+            <p className="text-gray-300 mt-2">
               Toggle the maintenance mode on or off.
             </p>
           </div>
@@ -167,7 +167,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
         </div>
       </div>
 
-      <div className="mt-4 p-4 bg-neutral-900 rounded-xl">
+      <div className="mt-4 p-4 bg-gray-850 rounded-xl">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-row justify-between space-x-2">
             <span className="text-base">Schedule Maintenance</span>
@@ -184,14 +184,14 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 name="startTime"
                 value={settings.startTime || ""}
                 onChange={handleChange}
-                className="w-full px-4 py-2 rounded bg-neutral-950"
+                className="w-full px-4 py-2 rounded bg-gray-950"
               />
               <input
                 type="datetime-local"
                 name="endTime"
                 value={settings.endTime || ""}
                 onChange={handleChange}
-                className="w-full px-4 py-2 rounded bg-neutral-950"
+                className="w-full px-4 py-2 rounded bg-gray-950"
               />
             </div>
           </CollapsibleContainer>
@@ -204,7 +204,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 value={settings.message || ""}
                 name="message"
                 onChange={handleChange}
-                className="w-full mt-2 p-4 min-h-[10rem] bg-neutral-950 placeholder:text-neutral-500 rounded-lg"
+                className="w-full mt-2 p-4 min-h-[10rem] bg-gray-950 placeholder:text-gray-500 rounded-lg"
               />
             </label>
           </div>
@@ -217,7 +217,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 value={settings.allowedIPs}
                 onChange={handleChange}
                 name="allowedIPs"
-                className="w-full mt-2 p-2 rounded bg-neutral-950"
+                className="w-full mt-2 p-2 rounded bg-gray-950"
                 placeholder="127.0.0.1, 192.168.1.1,..."
               />
             </label>

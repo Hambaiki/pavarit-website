@@ -13,12 +13,12 @@ export default function ThemeSwitcher() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 h-10 w-auto rounded-full hover:bg-neutral-800 transition-colors"
+      className="p-2 h-10 w-auto rounded-full hover:bg-gray-800 transition-colors"
     >
       {theme === "dark" ? (
-        <FaSun className="w-5 h-5 text-neutral-100" suppressHydrationWarning />
+        <FaSun className="w-5 h-5 text-gray-100" suppressHydrationWarning />
       ) : (
-        <FaMoon className="w-5 h-5 text-neutral-100" suppressHydrationWarning />
+        <FaMoon className="w-5 h-5 text-gray-100" suppressHydrationWarning />
       )}
     </button>
   );

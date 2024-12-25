@@ -20,6 +20,8 @@ function CommentForm({
   onSuccess: (message: string) => void;
   onError: (message: string) => void;
 }) {
+  const maxLength = 300;
+
   const { user, isLoading } = useUser();
   const pathname = usePathname();
 
@@ -28,13 +30,18 @@ function CommentForm({
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData({ comment: e.target.value });
+    setFormData({ comment: e.target.value.slice(0, maxLength) });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
+    if (formData.comment.length === 0 || formData.comment.length > maxLength) {
+      onError(`Comment must be between 1 and ${maxLength} characters.`);
+      return;
+    }
+
+    try {
       if (!user) return;
 
       const response = await fetch(`/api/v1/posts/comments`, {
@@ -60,7 +67,7 @@ function CommentForm({
   };
 
   return (
-    <div className="flex flex-col rounded-xl">
+    <div className="flex flex-col rounded-xl bg-gray-850 p-4">
       {isLoading ? (
         <div className="flex justify-center items-center h-32">
           <Spinner />
@@ -72,12 +79,16 @@ function CommentForm({
             Leave a comment below and share your thoughts.
           </p>
 
+          <p className="mb-2 text-sm text-gray-500">
+            Maximum {maxLength} characters.
+          </p>
+
           <TextAreaInput
             name="comment"
             value={formData.comment}
             onChange={handleChange}
             placeholder="Write your comment here..."
-            className="w-full min-h-[5rem]"
+            className="w-full min-h-[5rem] max-h-[10rem]"
           />
 
           <div className="flex justify-end">
@@ -91,7 +102,7 @@ function CommentForm({
           </div>
         </form>
       ) : (
-        <div className="flex flex-col items-center justify-center p-4 min-h-[6rem] bg-neutral-950 rounded-lg">
+        <div className="flex flex-col items-center justify-center min-h-[6rem] rounded-lg">
           <p>
             Please&nbsp;
             <Link

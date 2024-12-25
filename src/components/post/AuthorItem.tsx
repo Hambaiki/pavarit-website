@@ -9,7 +9,7 @@ interface AuthorItemProps {
 
 function AuthorItem({ author, createdAt }: AuthorItemProps) {
   return (
-    <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-gray-900 mb-4">
+    <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-gray-850 mb-4">
       <div className="text-sm space-y-2">
         <p className="flex flex-row items-center not-italic">
           <FaUser className="mr-2" />

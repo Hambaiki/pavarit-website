@@ -34,7 +34,7 @@ function Navbar() {
   return (
     <div
       ref={ref}
-      className="fixed top-0 md:left-0 w-full md:w-64 h-28 md:h-full z-10 md:border-r border-gray-900 bg-background-dark/90 backdrop-blur"
+      className="fixed top-0 md:left-0 w-full md:w-64 h-24 md:h-full z-10 md:border-r border-gray-850 bg-background-dark/90 backdrop-blur"
     >
       <div className="flex flex-row items-center p-4 h-full md:h-auto">
         <div className="md:hidden mr-4 md:mr-0">
@@ -42,7 +42,7 @@ function Navbar() {
         </div>
 
         <div className="px-2 lg:p-4">
-          <h1 className="text-3xl font-bold">PAVARIT W.</h1>
+          <h1 className="text-3xl font-bold">PAVARIT</h1>
           <hr className="border-2 border-suzuha-teal-500" />
           <span className="text-lg font-extralight">Dashboard</span>
         </div>
@@ -54,7 +54,7 @@ function Navbar() {
         ))}
       </nav>
 
-      <div className="md:hidden max-w-4xl mx-auto bg-neutral-900">
+      <div className="md:hidden max-w-4xl mx-auto bg-gray-850">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
             {dashboardNavItems.map((item, index) => (

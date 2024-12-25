@@ -29,7 +29,7 @@ function UserInfo({ name, picture, email, emailVerified }: UserInfoProps) {
 
         <div className="flex flex-col space-y-1">
           <p>{email}</p>
-          <div className="text-neutral-500">
+          <div className="text-gray-500">
             {emailVerified ? (
               <div className="flex items-center space-x-2">
                 <FaCircleCheck className="w-4 h-4 text-green-500" />

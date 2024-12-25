@@ -81,10 +81,17 @@ const config: Config = {
             },
             code: {
               fontFamily: "monospace",
-              backgroundColor: "#171717",
+              backgroundColor: "#0f0f0f",
               padding: "0.25rem 0.25rem",
               borderRadius: "0.375rem",
               marginBottom: "0.5rem",
+            },
+            codeBlock: {
+              fontFamily: "monospace",
+              backgroundColor: "#0f0f0f",
+              padding: "1rem",
+              borderRadius: "0.375rem",
+              marginBottom: "1rem",
             },
             pre: {
               backgroundColor: "#171717",
@@ -93,31 +100,37 @@ const config: Config = {
               marginBottom: "1rem",
             },
             table: {
+              width: "100%",
+              borderCollapse: "collapse",
               backgroundColor: "#171717",
-              marginBottom: "1rem",
+              marginBottom: "1.5rem",
+              // borderRadius: "0.5rem",
+              overflow: "hidden",
+              border: "1px solid #262626",
             },
             thead: {
               backgroundColor: "#262626",
-
               fontWeight: "700",
+              borderBottom: "2px solid #363636",
             },
             tbody: {
-              backgroundColor: "#171717",
-
+              backgroundColor: "#0f0f0f",
               fontWeight: "400",
             },
             tr: {
-              borderBottomWidth: "1px",
-              borderColor: "#262626",
+              borderBottom: "1px solid #262626",
+              transition: "background-color 0.2s ease",
             },
             th: {
               fontWeight: "700",
-              padding: "0.5rem",
+              padding: "0.75rem 1rem",
               textAlign: "left",
+              color: "#ffffff",
             },
             td: {
-              padding: "0.5rem",
+              padding: "0.75rem 1rem",
               textAlign: "left",
+              verticalAlign: "middle",
             },
             img: {
               borderRadius: "0.75rem",
@@ -184,7 +197,7 @@ const config: Config = {
           800: "#73203E",
           900: "#4D1529",
         },
-        "gray": {
+        gray: {
           DEFAULT: "#737373",
           50: "#fafafa",
           100: "#f5f5f5",
@@ -195,6 +208,7 @@ const config: Config = {
           600: "#525252",
           700: "#404040",
           800: "#262626",
+          850: "#1d1d1d",
           900: "#171717",
           950: "#0a0a0a",
           border: "#333333",
@@ -202,7 +216,7 @@ const config: Config = {
         },
         background: {
           light: "#f0f0f0",
-          dark: "#0f0f0f",
+          dark: "#0d0d0d",
         },
       },
       backgroundImage: {

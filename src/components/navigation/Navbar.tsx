@@ -42,14 +42,14 @@ export default function Navbar({ className }: NavbarProps) {
       ref={ref}
       className={`${className} fixed top-0 bg-background-dark/90 backdrop-blur z-10 w-full`}
     >
-      <div className="flex flex-row items-center justify-between max-w-6xl mx-auto px-4 md:px-8 space-x-8 h-20 md:h-28">
+      <div className="flex flex-row items-center justify-between max-w-6xl mx-auto px-4 md:px-8 space-x-8 h-20 md:h-24">
         <div className="flex flex-row items-center">
           <div className="md:hidden mr-4 md:mr-0">
             <StackButton onClick={() => setStackOpen(!stackOpen)} />
           </div>
 
           <div className="space-y-0">
-            <span className="text-xl md:text-2xl font-bold">PAVARIT W.</span>
+            <span className="text-xl md:text-2xl font-bold">PAVARIT</span>
             <hr className="border-2 border-suzuha-teal-500" />
           </div>
         </div>

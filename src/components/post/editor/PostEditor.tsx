@@ -9,9 +9,14 @@ import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
 
 import {
   FaBold,
+  FaCode,
   FaDivide,
   FaImage,
   FaImages,
@@ -19,6 +24,9 @@ import {
   FaLink,
   FaListOl,
   FaListUl,
+  FaQuoteLeft,
+  FaQuoteRight,
+  FaTable,
 } from "react-icons/fa6";
 
 import { PostMetadata } from "@/types/posts";
@@ -86,6 +94,12 @@ function PostEditor({
       Link.configure({
         openOnClick: false,
       }),
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableCell,
+      TableHeader,
     ],
     content: postContent,
     editorProps: {
@@ -252,7 +266,7 @@ function PostEditor({
           <div className="mt-8">
             <h2 className="mb-4">Post Details</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-900 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-900 rounded-xl">
               <TextInput
                 label="Title"
                 type="text"
@@ -317,7 +331,7 @@ function PostEditor({
           <div className="mt-8">
             <h2 className="mb-4">Featured Image</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-900 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-900 rounded-xl">
               <div className="w-full h-72 rounded-lg overflow-hidden">
                 {metadata.image ? (
                   <NextImage
@@ -329,8 +343,8 @@ function PostEditor({
                     priority
                   />
                 ) : (
-                  <div className="w-full h-full bg-neutral-800 flex items-center justify-center">
-                    <FaImage className="text-neutral-400 w-10 h-10" />
+                  <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                    <FaImage className="text-gray-400 w-10 h-10" />
                   </div>
                 )}
               </div>
@@ -364,7 +378,7 @@ function PostEditor({
             {/* Editor Toolbar */}
             <div
               className="flex flex-wrap gap-2 p-2 mt-4 
-            bg-neutral-900 rounded-t-md border border-gray-border"
+              bg-gray-900 rounded-t-md border border-gray-border"
             >
               <ToolbarButton
                 onClick={() => editor.chain().focus().toggleBold().run()}
@@ -409,6 +423,18 @@ function PostEditor({
                 <FaDivide />
               </ToolbarButton>
               <ToolbarButton
+                onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                active={editor.isActive("blockquote")}
+              >
+                <FaQuoteLeft />
+              </ToolbarButton>
+              <ToolbarButton
+                onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+                active={editor.isActive("codeBlock")}
+              >
+                <FaCode />
+              </ToolbarButton>
+              <ToolbarButton
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 active={editor.isActive("bulletList")}
               >
@@ -428,13 +454,132 @@ function PostEditor({
               </ToolbarButton>
             </div>
 
+            <div className="flex flex-row gap-2 hidden">
+              <button
+                type="button"
+                onClick={() =>
+                  editor
+                    .chain()
+                    .focus()
+                    .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+                    .run()
+                }
+              >
+                Insert table
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addColumnBefore().run()}
+              >
+                Add column before
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addColumnAfter().run()}
+              >
+                Add column after
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().deleteColumn().run()}
+              >
+                Delete column
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addRowBefore().run()}
+              >
+                Add row before
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().addRowAfter().run()}
+              >
+                Add row after
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().deleteRow().run()}
+              >
+                Delete row
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().deleteTable().run()}
+              >
+                Delete table
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().mergeCells().run()}
+              >
+                Merge cells
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().splitCell().run()}
+              >
+                Split cell
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  editor.chain().focus().toggleHeaderColumn().run()
+                }
+              >
+                Toggle header column
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+              >
+                Toggle header row
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().toggleHeaderCell().run()}
+              >
+                Toggle header cell
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().mergeOrSplit().run()}
+              >
+                Merge or split
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  editor.chain().focus().setCellAttribute("colspan", 2).run()
+                }
+              >
+                Set cell attribute
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().fixTables().run()}
+              >
+                Fix tables
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().goToNextCell().run()}
+              >
+                Go to next cell
+              </button>
+              <button
+                type="button"
+                onClick={() => editor.chain().focus().goToPreviousCell().run()}
+              >
+                Go to previous cell
+              </button>
+            </div>
+
             {/* Editor Content */}
-            <div className="min-h-[20rem] bg-neutral-900 rounded-b-md border border-t-0 border-gray-border">
+            <div className="min-h-[20rem] bg-gray-900 rounded-b-md border border-t-0 border-gray-border">
               <EditorContent
                 editor={editor}
-                className="prose max-w-none 
-                  prose-img:rounded-xl prose-img:mx-auto prose-img:max-w-lg prose-img:w-full 
-                  prose-hr:border-neutral-600"
+                className="prose"
               />
             </div>
           </div>

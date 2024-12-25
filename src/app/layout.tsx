@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-900"
+      className="scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-850"
     >
       <UserProvider>
         <body className={`${baiJamjuree.className}`}>{children}</body>

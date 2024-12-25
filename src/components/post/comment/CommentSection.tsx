@@ -73,7 +73,7 @@ function Comments({ postId }: CommentsProps) {
 
         <div
           ref={ref}
-          className="max-h-[20rem] overflow-y-scroll bg-gray-900 divide-y divide-gray-800 rounded-b-xl"
+          className="max-h-[20rem] overflow-y-scroll bg-gray-850 divide-y divide-gray-800 rounded-b-xl"
         >
           {loading ? (
             Array.from({ length: 5 }).map((_, index) => (

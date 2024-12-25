@@ -8,6 +8,7 @@ import { SearchPostResponse } from "@/types/api/post";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import PostItemAlt from "@/components/post/PostItemAlt";
 
 async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const tag = (await params).tag;
@@ -54,49 +55,16 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
 
       <section className="mt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {posts.map((recentPost) => (
-            <Link
-              key={recentPost.slug}
-              href={`/blog/${recentPost.slug}`}
-              className="flex flex-col space-y-4 justify-between p-4 rounded-xl 
-              bg-neutral-900 hover:bg-neutral-950 transition-colors"
-            >
-              <Image
-                src={
-                  recentPost.image ||
-                  "/images/placeholder/placeholder-image.jpg"
-                }
-                alt={recentPost.title}
-                width={500}
-                height={500}
-                className="w-full h-48 object-cover rounded-lg"
+          {posts.map((post, index) => (
+            <Link href={`/blog/${post.slug}`} key={index}>
+              <PostItemAlt
+                key={index}
+                title={post.title}
+                image={post.image}
+                author={post.author}
+                createDate={post.created_at}
+                tags={post.tags}
               />
-
-              <h2>{recentPost.title}</h2>
-
-              <div className="flex flex-col space-y-3 text-sm">
-                <div className="flex flex-col space-y-2">
-                  <p className="flex flex-row items-center text-white not-italic">
-                    <FaUser className="mr-2" />
-                    {recentPost.author}
-                  </p>
-                  <p className="flex flex-row items-center text-white not-italic">
-                    <FaCalendar className="mr-2" />
-                    {format(new Date(recentPost.created_at), "yyyy/MM/dd")}
-                  </p>
-                </div>
-
-                <ul className="flex flex-row flex-wrap gap-2">
-                  {recentPost.tags.map((tag, index) => (
-                    <li
-                      key={index}
-                      className="text-sm text-neutral-300 rounded-full px-3 py-1 bg-neutral-800"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </Link>
           ))}
         </div>

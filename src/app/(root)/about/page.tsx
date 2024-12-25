@@ -35,7 +35,7 @@ function About() {
         </div>
       </div>
 
-      {/* <div className="mt-8 p-4 bg-gray-900 rounded-xl">
+      {/* <div className="mt-8 p-4 bg-gray-850 rounded-xl">
         <h2>Quickly Jumps To:</h2>
         <ul className="flex flex-row flex-wrap gap-2 mt-4">
           {tableOfContents.map((item, index) => (
@@ -55,7 +55,7 @@ function About() {
       <div id="experience" className="mt-12 rounded-xl">
         <h2>Work Experience</h2>
 
-        <div id="about" className="mt-4 p-4 bg-gray-900 rounded-xl">
+        <div id="about" className="mt-4 p-4 bg-gray-850 rounded-xl">
           <h3>My Journey</h3>
 
           <p className="mt-2">
@@ -68,11 +68,11 @@ function About() {
           </p>
         </div>
 
-        <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 pb-4 mt-4">
+        <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-850 pb-4 mt-4">
           {experiences.map((experience, index) => (
             <div key={index} className="flex flex-col ">
               <div className="flex flex-col items-center mr-4">
-                <div className="flex flex-col space-y-2 w-[20rem] p-4 rounded-xl bg-gray-900">
+                <div className="flex flex-col space-y-2 w-[20rem] p-4 rounded-xl bg-gray-850">
                   <div className="space-y-1">
                     <h3 className="text-xl font-bold">{experience.title}</h3>
                     <p>
@@ -108,13 +108,9 @@ function About() {
                       </p>
                     ))}
                   </div>
-
-                  {/* {index !== experiences.length - 1 && (
-                <div className="w-1 h-12 bg-gray-700" />
-              )} */}
                 </div>
 
-                <div className="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-gray-900 rotate-180" />
+                <div className="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-gray-850 rotate-180" />
               </div>
 
               <div className="flex flex-row items-center mt-2">
@@ -136,7 +132,7 @@ function About() {
           ))}
         </div>
 
-        <div id="about" className="mt-4 p-4 bg-gray-900 rounded-xl">
+        <div id="about" className="mt-4 p-4 bg-gray-850 rounded-xl">
           <p>
             Previously, I honed my technical and teamwork skills as a Frontend
             Developer Intern at the same company, handling key projects and
@@ -158,7 +154,7 @@ function About() {
       <div id="education" className="mt-12">
         <h2>Education</h2>
 
-        <div id="about" className="mt-4 p-4 bg-gray-900 rounded-xl">
+        <div id="about" className="mt-4 p-4 bg-gray-850 rounded-xl">
           <h3>Summary</h3>
 
           <p className="mt-2">
@@ -169,7 +165,7 @@ function About() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           {education.map((educationLevel, index) => (
-            <div key={index} className="p-4 space-y-4 bg-gray-900 rounded-xl">
+            <div key={index} className="p-4 space-y-4 bg-gray-850 rounded-xl">
               <h3>{educationLevel.level}</h3>
 
               {educationLevel.educations.map((education, index) => (

@@ -71,10 +71,10 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
         </Button>
       </div>
 
-      <div className="mt-4 rounded-xl overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-neutral-900">
-        <table className="w-full rounded-xl overflow-hidden bg-neutral-900">
+      <div className="mt-4 rounded-xl overflow-x-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-850">
+        <table className="w-full rounded-xl overflow-hidden bg-gray-850">
           <thead>
-            <tr className="text-center text-neutral-300 text-sm bg-neutral-950">
+            <tr className="text-center text-gray-300 text-sm bg-gray-950">
               <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Enabled</th>
               <th className="px-4 py-2 min-w-[8rem]">Created At</th>
@@ -84,7 +84,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
               <th className="px-4 py-2">Allowed IPs</th>
             </tr>
           </thead>
-          <tbody className="text-center text-neutral-300 text-sm divide-y divide-neutral-800">
+          <tbody className="text-center text-gray-300 text-sm divide-y divide-gray-800">
             {!loading &&
               maintenanceStatuses.length > 0 &&
               (maintenanceStatuses.length < limit
@@ -176,7 +176,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
 
             {(loading || maintenanceStatuses.length === 0) && (
               <tr
-                className={`w-full bg-neutral-900 rounded-xl`}
+                className={`w-full bg-gray-850 rounded-xl`}
                 style={{ height: `${4 * limit}rem` }}
               >
                 <td colSpan={7} className="text-center">
@@ -185,8 +185,8 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
                       <Spinner />
                     ) : (
                       <>
-                        <FaQuestionCircle className="w-20 h-20 text-neutral-300" />
-                        <p className="text-xl text-neutral-300">No data</p>
+                        <FaQuestionCircle className="w-20 h-20 text-gray-300" />
+                        <p className="text-xl text-gray-300">No data</p>
                         <Button
                           variant="secondary"
                           onClick={() => fetchAllMaintenanceStatuses(page)}

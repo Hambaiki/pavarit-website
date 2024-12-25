@@ -16,7 +16,7 @@ import FeaturedPosts, {
 async function HomePage() {
   return (
     <MainContainer>
-      <section className="flex flex-col-reverse sm:flex-row justify-between items-center gap-6 md:gap-8 rounded-xl p-8 md:p-12 bg-gray-900">
+      <section className="flex flex-col-reverse sm:flex-row justify-between items-center gap-6 md:gap-8 rounded-xl p-8 md:p-12 bg-gray-850">
         <div className="p-0">
           <h1>{"Hi! I'm Pavarit"}</h1>
           <h2 className="text-suzuha-teal-500 mt-1">
@@ -54,7 +54,7 @@ async function HomePage() {
         />
       </section>
 
-      <section className="mt-4 bg-gray-900 rounded-xl p-4">
+      <section className="mt-4 bg-gray-850 rounded-xl p-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {introItems.map((item, index) => (
             <Link

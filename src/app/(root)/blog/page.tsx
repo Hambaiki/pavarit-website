@@ -66,7 +66,7 @@ async function page() {
         </Suspense>
       </section>
 
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-gray-900 rounded-xl">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-gray-850 rounded-xl">
         <p className="text-center md:text-left">
           Interested in my other posts?
           <strong> Check out other posts here!</strong>

@@ -33,7 +33,7 @@ function PostItem({
       <article className="grid grid-cols-1 md:grid-cols-2 h-full">
         <div className="overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-tr-none">
           {loading ? (
-            <div className="w-full h-48 md:h-full bg-gray-900 rounded-lg animate-pulse" />
+            <div className="w-full h-48 md:h-full bg-gray-850 rounded-lg animate-pulse" />
           ) : (
             <Image
               src={image || "/images/placeholder/placeholder-image.jpg"}
@@ -45,7 +45,7 @@ function PostItem({
           )}
         </div>
 
-        <div className="flex flex-col justify-between p-4 bg-gray-900 rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
+        <div className="flex flex-col justify-between p-4 bg-gray-850 rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
           {!loading ? (
             <div className="flex-1 flex flex-col space-y-3">
               <h3>{title || "-"}</h3>
@@ -88,8 +88,8 @@ function PostItem({
             </div>
           ) : (
             <div className="flex-1 flex flex-col space-y-3">
-              <div className="h-8 w-full rounded-full animate-pulse bg-gray-900" />
-              <div className="h-8 w-1/2 rounded-full animate-pulse bg-gray-900" />
+              <div className="h-8 w-full rounded-full animate-pulse bg-gray-850" />
+              <div className="h-8 w-1/2 rounded-full animate-pulse bg-gray-850" />
             </div>
           )}
         </div>

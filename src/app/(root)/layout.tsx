@@ -10,7 +10,7 @@ async function Layout({ children }: LayoutProps) {
     <div className="flex flex-col min-h-[calc(100lvh)] w-full">
       <Navbar />
 
-      <div className="flex-1 flex flex-col mt-20 md:mt-28">{children}</div>
+      <div className="flex-1 flex flex-col mt-20 md:mt-24">{children}</div>
 
       <Footer />
     </div>

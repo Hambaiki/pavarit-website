@@ -52,7 +52,7 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
     <div
       className={`${
         !(topics.length > 0) && "hidden"
-      } rounded-xl p-4 bg-gray-900`}
+      } rounded-xl p-4 bg-gray-850`}
     >
       <p className="font-semibold mb-4">Topics</p>
 
@@ -76,7 +76,7 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
                       <li key={`${index}-${subIndex}`}>
                         <Link href={`#${subTopic.id}`}>
                           <p>
-                            &#8226;
+                            &#8224;
                             <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-600">
                               {subTopic.content}
                             </span>

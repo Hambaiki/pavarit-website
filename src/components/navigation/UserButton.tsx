@@ -35,9 +35,7 @@ function UserButton() {
       onMouseLeave={() => setDropdownOpen(false)}
     >
       {loggedIn ? (
-        <div
-          className="w-10 h-10 flex items-center justify-center rounded-full transition-colors"
-        >
+        <div className="w-10 h-10 flex items-center justify-center rounded-full transition-colors">
           {user.picture ? (
             <img
               src={user.picture}
@@ -51,16 +49,17 @@ function UserButton() {
           )}
         </div>
       ) : (
-        <div
+        <Link
+          href="/api/auth/login"
           className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-neutral-900 hover:bg-neutral-800 transition-colors"
+          bg-gray-850 hover:bg-gray-800 transition-colors"
         >
           <FaUser className="w-4 h-4" />
-        </div>
+        </Link>
       )}
 
       <FadeInOutContainer visible={dropdownOpen} className="z-10">
-        <div className="absolute top-[115%] right-0 shadow-xl bg-neutral-900 rounded-xl">
+        <div className="absolute top-[115%] right-0 shadow-xl bg-gray-850 rounded-xl">
           <div className="flex flex-col justify-center items-center min-w-[12rem] rounded-xl">
             {loggedIn && (
               <div className="flex flex-row items-center justify-center space-x-4 p-4">
@@ -83,7 +82,7 @@ function UserButton() {
                   <span className="text-sm font-bold">
                     {user?.nickname || "no name"}
                   </span>
-                  <span className="text-xs text-neutral-500">
+                  <span className="text-xs text-gray-500">
                     {user?.email || "no email"}
                   </span>
                 </div>
@@ -91,7 +90,7 @@ function UserButton() {
             )}
 
             <div className="flex flex-col justify-center w-full">
-              {loggedIn ? (
+              {loggedIn &&
                 dropdownItems.map((item, index) => {
                   return (
                     <Link key={index} href={`${item.href}`}>
@@ -100,14 +99,7 @@ function UserButton() {
                       </div>
                     </Link>
                   );
-                })
-              ) : (
-                <Link href="/api/auth/login?prompt=login">
-                  <div className="px-4 py-2 transition-colors text-center">
-                    <span className="text-sm font-bold">Click to login</span>
-                  </div>
-                </Link>
-              )}
+                })}
             </div>
           </div>
         </div>

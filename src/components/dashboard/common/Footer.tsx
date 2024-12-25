@@ -12,8 +12,8 @@ function Footer() {
               className="w-24 h-24"
             /> */}
             <h2>PAVARIT W.</h2>
-            <p className="text-sm text-neutral-300">Developed by Pavarit W.</p>
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-gray-300">Developed by Pavarit W.</p>
+            <p className="text-sm text-gray-500">
               This website is under development. If you have any questions,
               please contact me.
             </p>

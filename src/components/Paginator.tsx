@@ -75,7 +75,7 @@ function Paginator({ currentPage, maxPage }: PaginatorProps) {
         className={`flex justify-center items-center h-10 w-10 rounded-lg transition-colors 
                   ${
                     currentPage == 1
-                      ? "bg-neutral-700 text-neutral-300"
+                      ? "bg-gray-700 text-gray-300"
                       : "bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
                   }`}
         onClick={() => handleClick(currentPage - 1)}
@@ -100,7 +100,7 @@ function Paginator({ currentPage, maxPage }: PaginatorProps) {
               ${
                 currentPage == page
                   ? "text-white hover:text-white"
-                  : "text-neutral-300 hover:text-white"
+                  : "text-gray-300 hover:text-white"
               }`}
             onClick={() => handleClick(Number(page))}
           >
@@ -114,7 +114,7 @@ function Paginator({ currentPage, maxPage }: PaginatorProps) {
         className={`flex justify-center items-center h-10 w-10 rounded-lg transition-colors 
                   ${
                     currentPage == maxPage
-                      ? "bg-neutral-700 text-neutral-300"
+                      ? "bg-gray-700 text-gray-300"
                       : "bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
                   }`}
         onClick={() => handleClick(currentPage + 1)}

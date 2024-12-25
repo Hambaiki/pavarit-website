@@ -21,12 +21,12 @@ function PostRenderer({ contentHtml }: PostRendererProps) {
     //     prose-ol:list-decimal prose-ol:ml-4 prose-ol:mb-4
     //     prose-li:mb-2 prose-li:text-white prose-li:font-normal
     //     prose-blockquote:text-white prose-blockquote:font-normal prose-blockquote:mb-4
-    //     prose-code:text-white prose-code:font-mono prose-code:bg-neutral-900 prose-code:px-1 prose-code:py-0.5 prose-code:rounded-md prose-code:mb-2
-    //     prose-pre:bg-neutral-900 prose-pre:p-4 prose-pre:rounded-md prose-pre:mb-4
-    //     prose-table:text-white prose-table:bg-neutral-900 prose-table:mb-4
-    //     prose-thead:bg-neutral-800 prose-thead:text-white prose-thead:font-bold
-    //     prose-tbody:bg-neutral-900 prose-tbody:text-white prose-tbody:font-normal
-    //     prose-tr:border-b prose-tr:border-neutral-800
+    //     prose-code:text-white prose-code:font-mono prose-code:bg-gray-850 prose-code:px-1 prose-code:py-0.5 prose-code:rounded-md prose-code:mb-2
+    //     prose-pre:bg-gray-850 prose-pre:p-4 prose-pre:rounded-md prose-pre:mb-4
+    //     prose-table:text-white prose-table:bg-gray-850 prose-table:mb-4
+    //     prose-thead:bg-gray-800 prose-thead:text-white prose-thead:font-bold
+    //     prose-tbody:bg-gray-850 prose-tbody:text-white prose-tbody:font-normal
+    //     prose-tr:border-b prose-tr:border-gray-800
     //     prose-th:text-white prose-th:font-bold prose-th:p-2 prose-th:text-left
     //     prose-td:text-white prose-td:p-2 prose-td:text-left
     //     prose-img:rounded-xl prose-img:mb-4 prose-img:w-full prose-img:max-w-lg prose-img:h-auto prose-img:mx-auto

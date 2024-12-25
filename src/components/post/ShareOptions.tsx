@@ -44,7 +44,7 @@ function ShareOptions() {
     },
   ];
   return (
-    <div className="space-y-3 bg-gray-900 rounded-xl p-4">
+    <div className="space-y-3 bg-gray-850 rounded-xl p-4">
       <p className="text-sm">Like this post?</p>
       {options.map((option) => (
         <button

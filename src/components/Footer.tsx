@@ -17,8 +17,12 @@ function Footer() {
             /> */}
           {/* <h3>PAVARIT</h3> */}
           <div className="flex flex-col space-y-1 text-center md:text-left">
-            <h4>Developed by Pavarit W.</h4>
-            <p>Built with Next.js, Tailwind CSS, Vercel, and Neon.</p>
+            <p className="font-bold text-lg text-gray-200">
+              Developed by Pavarit W.
+            </p>
+            <p className="text-sm text-gray-400">
+              Built with Next.js, Tailwind CSS, Vercel, and Neon.
+            </p>
           </div>
 
           <div className="flex flex-row flex-wrap gap-3 justify-center">

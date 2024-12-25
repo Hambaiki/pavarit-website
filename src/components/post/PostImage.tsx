@@ -25,7 +25,7 @@ const PostImage = ({
       {/* Loading State */}
       {isLoading && (
         <div
-          className={`absolute inset-0 flex items-center justify-center bg-neutral-950 animate-pulse`}
+          className={`absolute inset-0 flex items-center justify-center bg-gray-950 animate-pulse`}
         />
       )}
 
