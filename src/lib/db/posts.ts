@@ -250,7 +250,7 @@ export async function checkSlugUnique(slug: string) {
   try {
     const result = await sql`SELECT COUNT(*) FROM posts WHERE slug = ${slug}`;
 
-    return result[0].count === 0;
+    return result[0].count === "0";
   } catch (error) {
     console.error("Error checking slug uniqueness:", error);
     return false;

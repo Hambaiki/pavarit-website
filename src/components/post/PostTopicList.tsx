@@ -76,7 +76,7 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
                       <li key={`${index}-${subIndex}`}>
                         <Link href={`#${subTopic.id}`}>
                           <p>
-                            &#8224;
+                            &#8226;
                             <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-600">
                               {subTopic.content}
                             </span>
