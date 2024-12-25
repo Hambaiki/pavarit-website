@@ -54,7 +54,7 @@ function Navbar() {
         ))}
       </nav>
 
-      <div className="md:hidden max-w-4xl mx-auto bg-gray-850">
+      <div className="md:hidden max-w-4xl mx-auto bg-gray-950">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
             {dashboardNavItems.map((item, index) => (
