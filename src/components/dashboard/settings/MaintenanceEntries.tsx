@@ -74,7 +74,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
       <div className="mt-4 rounded-xl overflow-x-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-850">
         <table className="w-full rounded-xl overflow-hidden bg-gray-850">
           <thead>
-            <tr className="text-center text-gray-300 text-sm bg-gray-950">
+            <tr className="text-center text-gray-300 text-sm bg-gray-900">
               <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Enabled</th>
               <th className="px-4 py-2 min-w-[8rem]">Created At</th>

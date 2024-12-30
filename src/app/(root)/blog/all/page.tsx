@@ -55,7 +55,7 @@ async function page({
       </div>
 
       <Suspense>
-        <div className="flex flex-col space-y-4 mt-8">
+        <div className="flex flex-col space-y-8 mt-8">
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <PostItem

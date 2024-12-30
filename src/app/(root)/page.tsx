@@ -54,18 +54,26 @@ async function HomePage() {
         />
       </section>
 
-      <section className="mt-4 bg-gray-850 rounded-xl p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <section className="mt-14">
+        <h2>Get Started</h2>
+        <p className="mt-4">
+          {`Explore my website to learn more about me and my journey. You can
+            find my personal blog, projects, and more.`}
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
           {introItems.map((item, index) => (
             <Link
               href={item.href}
               key={index}
-              className="flex flex-row items-center space-x-4 p-3 rounded-lg
-                bg-gray-800 hover:bg-gray-700 transition-colors"
+              className="flex flex-row items-center space-x-4 p-4 rounded-lg
+                bg-gray-850 hover:bg-gray-800 transition-colors"
             >
+              <item.icon className="text-suzuha-teal-500 w-5 h-5" />
+
               <div className="flex-1 flex flex-col">
-                <h2 className="text-base font-semibold">{item.title}</h2>
-                <p className="text-sm">{item.description}</p>
+                <h2 className="text-lg font-semibold">{item.title}</h2>
+                <p className="text-base">{item.description}</p>
               </div>
 
               <FaChevronRight className="text-suzuha-teal-500" />
@@ -73,7 +81,7 @@ async function HomePage() {
           ))}
         </div>
 
-        <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-4 mt-2">
+        <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-4 mt-4 bg-gray-900 rounded-xl">
           <p className="text-center">
             This website is a progressive web application.&nbsp;
             <span className="text-suzuha-teal-500">
@@ -84,7 +92,7 @@ async function HomePage() {
       </section>
 
       <section className="mt-14">
-        <h2>Explore My Featured Articles</h2>
+        <h2>Featured Articles</h2>
         <p className="mt-4">
           {`Discover more about myself with a collection of topics ranging from
             personal growth and creative projects to technical tutorials and

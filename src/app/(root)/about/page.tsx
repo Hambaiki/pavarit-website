@@ -16,7 +16,7 @@ function About() {
     <MainContainer>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-      <div className="flex flex-col space-y-4 mt-8">
+      <div className="flex flex-col space-y-4 mt-8 p-4 md:p-8 bg-gray-850 rounded-xl">
         <div className="flex flex-col sm:flex-row items-center space-y-4 space-x-0 sm:space-x-8 sm:space-y-0">
           <Image
             src="/images/profile/pavarit.jpg"
@@ -55,20 +55,16 @@ function About() {
       <div id="experience" className="mt-12 rounded-xl">
         <h2>Work Experience</h2>
 
-        <div id="about" className="mt-4 p-4 bg-gray-850 rounded-xl">
-          <h3>My Journey</h3>
+        <p className="mt-4">
+          Throughout my journey, I have gained hands-on experience in both
+          professional and academic settings, contributing to my growth as a
+          Frontend Developer and beyond. I am currently working as a Junior
+          Frontend Developer at Agnos Health Co., Ltd., where I focus on
+          developing and maintaining modern web applications using tools like
+          ReactJS, NextJS, and TypeScript.
+        </p>
 
-          <p className="mt-2">
-            Throughout my journey, I have gained hands-on experience in both
-            professional and academic settings, contributing to my growth as a
-            Frontend Developer and beyond. I am currently working as a Junior
-            Frontend Developer at Agnos Health Co., Ltd., where I focus on
-            developing and maintaining modern web applications using tools like
-            ReactJS, NextJS, and TypeScript.
-          </p>
-        </div>
-
-        <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-850 pb-4 mt-4">
+        <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-850 pb-4 mt-8">
           {experiences.map((experience, index) => (
             <div key={index} className="flex flex-col ">
               <div className="flex flex-col items-center mr-4">
@@ -132,38 +128,32 @@ function About() {
           ))}
         </div>
 
-        <div id="about" className="mt-4 p-4 bg-gray-850 rounded-xl">
-          <p>
-            Previously, I honed my technical and teamwork skills as a Frontend
-            Developer Intern at the same company, handling key projects and
-            gaining expertise in Web application development. My passion for
-            technology and communication led me to serve as a Teaching Assistant
-            for Chulalongkorn University, where I supported students in
-            mastering Principles of Telecommunication, including concepts like
-            networking and encryption.
-          </p>
+        <p className="mt-8">
+          Previously, I honed my technical and teamwork skills as a Frontend
+          Developer Intern at the same company, handling key projects and
+          gaining expertise in Web application development. My passion for
+          technology and communication led me to serve as a Teaching Assistant
+          for Chulalongkorn University, where I supported students in mastering
+          Principles of Telecommunication, including concepts like networking
+          and encryption.
+        </p>
 
-          <p className="mt-4">
-            These diverse experiences have strengthened my technical abilities,
-            problem-solving mindset, and collaborative approach, allowing me to
-            take on challenging projects and deliver results.
-          </p>
-        </div>
+        <p className="mt-4">
+          These diverse experiences have strengthened my technical abilities,
+          problem-solving mindset, and collaborative approach, allowing me to
+          take on challenging projects and deliver results.
+        </p>
       </div>
 
       <div id="education" className="mt-12">
         <h2>Education</h2>
 
-        <div id="about" className="mt-4 p-4 bg-gray-850 rounded-xl">
-          <h3>Summary</h3>
-
-          <p className="mt-2">
-            {`My academic path has been shaped by experiences across various institutions, 
+        <p className="mt-4">
+          {`My academic path has been shaped by experiences across various institutions, 
             each contributing to my growth and knowledge, each step of my educational journey has shaped who I am today`}
-          </p>
-        </div>
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
           {education.map((educationLevel, index) => (
             <div key={index} className="p-4 space-y-4 bg-gray-850 rounded-xl">
               <h3>{educationLevel.level}</h3>

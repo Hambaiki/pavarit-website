@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { getPostTags } from "@/lib/db/posts";
 import { CommonResponse, TagResponse } from "@/types/api/post";
 
+export const revalidate = 0;
+
 export async function GET(_: Request) {
   try {
     const tags = await getPostTags();

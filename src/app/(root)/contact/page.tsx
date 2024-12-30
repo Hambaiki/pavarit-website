@@ -15,22 +15,24 @@ function Contact() {
       <header>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-        <div className="space-y-4 mt-8">
+        <div className="flex flex-col space-y-4 mt-8">
           <h1>Contact</h1>
           <p>
-            If you have any questions or comments, please fill out the form
-            below.
+            Get in touch with me through the form below or by using the contact
+            information provided.
           </p>
         </div>
       </header>
 
-      <section className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="col-span-2">
+      <section className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
+        <div className="col-span-1 lg:col-span-2">
+          <h2 className="mb-4">Online Inquiry</h2>
+
           <ContactForm />
         </div>
 
         <div className="col-span-1">
-          <h2 className="mb-4">Contact Information</h2>
+          <h2 className="mb-4">Information</h2>
 
           <div className="bg-gray-850 p-4 rounded-xl space-y-4 text-center">
             <p className="text-lg">

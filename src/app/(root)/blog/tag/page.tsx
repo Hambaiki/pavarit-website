@@ -21,29 +21,43 @@ async function TagPage() {
 
   return (
     <MainContainer>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
+      <header>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-      <div className="flex flex-col space-y-4 mt-8">
-        <h1>All Tags</h1>
-      </div>
+        <div className="flex flex-col space-y-4 mt-8">
+          <h1>Tags</h1>
+          <p>
+            {`Explore all the tags on this website, including
+          ${tags.slice(0, 5).join(", ")}, and more.`}
+          </p>
+        </div>
+      </header>
 
-      <ul className="flex flex-wrap gap-2 mt-4">
-        {tags
-          .filter((tag) => !tag.includes("_"))
-          .map((tag, index) => (
-            <Link key={index} href={`/blog/tag/${tag}`}>
-              <li
-                className="text-base font-medium text-white px-4 py-1 rounded-full
+      <section className="mt-10">
+        <h2>
+          All Tags{" "}
+          <span className="font-normal text-suzuha-teal-500">
+            ({tags.length})
+          </span>
+        </h2>
+        <ul className="flex flex-wrap gap-2 mt-4">
+          {tags
+            .filter((tag) => !tag.includes("_"))
+            .map((tag, index) => (
+              <Link key={index} href={`/blog/tag/${tag}`}>
+                <li
+                  className="text-base font-medium text-white px-4 py-1 rounded-full
                 bg-gray-800 hover:bg-gray-700 transition-colors"
-              >
-                {tag.charAt(0).toUpperCase() + tag.slice(1)}
-              </li>
-            </Link>
-          ))}
-      </ul>
+                >
+                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                </li>
+              </Link>
+            ))}
+        </ul>
+      </section>
 
-      <section className="mt-8">
-        <h3 className="mb-4">Latest Articles</h3>
+      <section className="mt-10">
+        <h2 className="mb-4">Latest Articles</h2>
 
         <RecentPosts />
       </section>

@@ -27,82 +27,80 @@ function Profile() {
 
   return (
     <MainContainer>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
+      <header>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-      <div className="flex flex-col mt-8">
-        <UserInfo
-          name={user?.name || ""}
-          picture={user?.picture || ""}
-          email={user?.email || ""}
-          emailVerified={user?.email_verified || false}
-        />
+        <div className="flex flex-col space-y-4 mt-8">
+          <UserInfo
+            name={user?.name || ""}
+            picture={user?.picture || ""}
+            email={user?.email || ""}
+            emailVerified={user?.email_verified || false}
+          />
+        </div>
+      </header>
 
-        {isAdmin && (
-          <div className="mt-8">
-            <h2>Administrator Menu</h2>
+      {isAdmin && (
+        <section className="mt-8">
+          <h2>Administrator Menu</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-              <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
-                <div className="flex-1 flex flex-col space-y-2">
-                  <h2>CMS Access</h2>
-                  <p>
-                    Access the CMS to manage posts and categories.
-                  </p>
-                </div>
-
-                <Button
-                  href={"/dashboard/posts"}
-                  className="w-full h-12 rounded-lg"
-                  variant="secondary"
-                >
-                  Start
-                </Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
+              <div className="flex-1 flex flex-col space-y-2">
+                <h3>CMS Access</h3>
+                <p>Access the CMS to manage posts and categories.</p>
               </div>
 
-              <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
-                <div className="flex-1 flex flex-col space-y-2">
-                  <h2>Website Settings</h2>
-                  <p>Manage website settings.</p>
-                </div>
+              <Button
+                href={"/dashboard/posts"}
+                className="w-full h-12 rounded-lg"
+                variant="secondary"
+              >
+                Start
+              </Button>
+            </div>
 
-                <Button
-                  href={"/dashboard/settings"}
-                  className="w-full h-12 rounded-lg"
-                  variant="secondary"
-                >
-                  View settings
-                </Button>
+            <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
+              <div className="flex-1 flex flex-col space-y-2">
+                <h3>Website Settings</h3>
+                <p>Manage website settings.</p>
               </div>
 
-              <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
-                <div className="flex-1 flex flex-col space-y-2">
-                  <h2>Go to Dashboard</h2>
-                  <p>
-                    View the dashboard to manage the website.
-                  </p>
-                </div>
+              <Button
+                href={"/dashboard/settings"}
+                className="w-full h-12 rounded-lg"
+                variant="secondary"
+              >
+                View settings
+              </Button>
+            </div>
 
-                <Button
-                  href={"/dashboard"}
-                  className="w-full h-12 rounded-lg"
-                  variant="secondary"
-                >
-                  Go to Dashboard
-                </Button>
+            <div className="flex flex-col space-y-8 p-4 bg-neutral-900 rounded-xl">
+              <div className="flex-1 flex flex-col space-y-2">
+                <h3>Go to Dashboard</h3>
+                <p>View the dashboard to manage the website.</p>
               </div>
+
+              <Button
+                href={"/dashboard"}
+                className="w-full h-12 rounded-lg"
+                variant="secondary"
+              >
+                Go to Dashboard
+              </Button>
             </div>
           </div>
-        )}
+        </section>
+      )}
 
-        <div className="mt-8">
-          <div className="flex flex-col items-center justify-center space-y-4 p-4 bg-neutral-900 rounded-xl min-h-[30rem]">
-            <FaWrench className="text-suzuha-teal-500 w-12 h-12" />
-            <p className="text-neutral-300 text-center">
-              Nothing to see here yet!
-            </p>
-          </div>
+      <section className="mt-8">
+        <div className="flex flex-col items-center justify-center space-y-4 p-4 bg-neutral-900 rounded-xl min-h-[30rem]">
+          <FaWrench className="text-suzuha-teal-500 w-12 h-12" />
+          <p className="text-neutral-300 text-center">
+            Nothing to see here yet!
+          </p>
         </div>
-      </div>
+      </section>
     </MainContainer>
   );
 }

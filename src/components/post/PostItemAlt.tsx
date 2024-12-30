@@ -26,6 +26,8 @@ function PostItemAlt({
   className,
   loading = false,
 }: PostItemAltProps) {
+  const filteredTags = tags.filter((tag) => !tag.includes("_"));
+
   return (
     <article
       className={`flex flex-col w-full h-full justify-between ${className}`}
@@ -57,10 +59,7 @@ function PostItemAlt({
             {tags
               .filter((tag) => !tag.startsWith("_"))
               .map((tag, index) => (
-                <li
-                  key={index}
-                  className="rounded-full px-3 py-1 bg-gray-800"
-                >
+                <li key={index} className="rounded-full px-3 py-1 bg-gray-800">
                   {tag}
                 </li>
               ))}

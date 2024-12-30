@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaCalendar, FaUser } from "react-icons/fa6";
+import { FaBookOpen, FaCalendar, FaUser } from "react-icons/fa6";
 import { format } from "date-fns";
 
 import { fetchFromApi } from "@/lib/api";
@@ -35,25 +35,38 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
 
   return (
     <MainContainer>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
+      <header>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-      <div className="flex flex-col space-y-4 mt-8">
-        <h1>
-          Tag:{" "}
-          <span className="text-suzuha-teal-500">
-            {tag.charAt(0).toUpperCase() + tag.slice(1)}
-          </span>
-        </h1>
-        <p className="text-lg text-neutral-400">
-          Explore articles tagged with{" "}
-          <span className="text-suzuha-teal-500">
-            {tag.charAt(0).toUpperCase() + tag.slice(1)}
-          </span>{" "}
-          on this website.
-        </p>
-      </div>
+        <div className="flex flex-col space-y-4 mt-8">
+          <h1>
+            Tag:&nbsp;
+            <span className="text-suzuha-teal-500">
+              {tag.charAt(0).toUpperCase() + tag.slice(1)}
+            </span>
+          </h1>
+          <p className="text-lg text-neutral-400">
+            Explore articles tagged with&nbsp;
+            <span className="text-suzuha-teal-500">
+              {tag.charAt(0).toUpperCase() + tag.slice(1)}
+            </span>
+            &nbsp; on this website.
+          </p>
+        </div>
+      </header>
 
-      <section className="mt-8">
+      <section className="mt-10">
+        <h2 className="mb-4">All Articles</h2>
+
+        {posts.length === 0 && (
+          <div className="flex flex-col justify-center items-center h-[20rem]">
+            <FaBookOpen className="text-neutral-500 text-5xl mb-4" />
+            <p className="text-center text-xl text-neutral-500">
+              No articles found.
+            </p>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {posts.map((post, index) => (
             <Link href={`/blog/${post.slug}`} key={index}>

@@ -29,7 +29,7 @@ function Button({
         className={`${className} flex transition-colors items-center justify-center text-center disabled:cursor-not-allowed
           ${
             variant === "primary" &&
-            "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-gray-500 disabled:text-gray-300 disabled:border-gray-500 text-white"
+            "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-gray-700 disabled:text-gray-300 disabled:border-gray-700 text-white"
           }
           ${
             variant === "secondary" &&
@@ -55,7 +55,7 @@ function Button({
       className={`${className} transition-colors disabled:cursor-not-allowed
         ${
           variant === "primary" &&
-          "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-gray-500 disabled:text-gray-300 disabled:border-gray-500 text-white"
+          "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-gray-700 disabled:text-gray-300 disabled:border-gray-700 text-white"
         }
         ${
           variant === "secondary" &&

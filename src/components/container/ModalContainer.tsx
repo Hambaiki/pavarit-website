@@ -73,7 +73,7 @@ const ModalContainer = ({
     <AnimatePresence>
       {visible && (
         <motion.div
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/25`}
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/25 ${className}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

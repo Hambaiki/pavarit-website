@@ -69,8 +69,6 @@ function ContactForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2 className="mb-4">Online Inquiry</h2>
-
         <div className="flex flex-col space-y-4 rounded-xl bg-gray-850 p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput

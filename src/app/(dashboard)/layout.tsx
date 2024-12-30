@@ -1,4 +1,3 @@
-import Footer from "@/components/dashboard/common/Footer";
 import Navbar from "@/components/dashboard/common/Navbar";
 
 interface DashboardLayoutProps {
@@ -12,11 +11,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <Navbar />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-64 overflow-x-auto">
+      <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-72 overflow-x-auto">
         {/* Page content */}
         <main className="flex-1">{children}</main>
-
-        <Footer />
       </div>
     </div>
   );

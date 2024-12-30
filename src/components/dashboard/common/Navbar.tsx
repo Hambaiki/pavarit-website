@@ -34,9 +34,9 @@ function Navbar() {
   return (
     <div
       ref={ref}
-      className="fixed top-0 md:left-0 w-full md:w-64 h-24 md:h-full z-10 md:border-r border-gray-850 bg-background-dark/90 backdrop-blur"
+      className="fixed top-0 md:left-0 w-full md:w-72 h-24 md:h-full z-10 md:border-r border-gray-850 bg-background-dark/90 backdrop-blur"
     >
-      <div className="flex flex-row items-center p-4 h-full md:h-auto">
+      <div className="flex flex-row items-center py-4 px-8 h-full md:h-auto">
         <div className="md:hidden mr-4 md:mr-0">
           <StackButton onClick={() => setStackOpen(!stackOpen)} />
         </div>
@@ -48,7 +48,7 @@ function Navbar() {
         </div>
       </div>
 
-      <nav className="hidden md:flex flex-col gap-2 p-4 rounded-2xl">
+      <nav className="hidden md:flex flex-col gap-2 px-8 rounded-2xl">
         {dashboardNavItems.map((item, index) => (
           <NavbarVerticalItem key={index} item={item} />
         ))}

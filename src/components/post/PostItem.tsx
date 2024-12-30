@@ -28,12 +28,15 @@ function PostItem({
   className,
   loading = false,
 }: PostItemProps) {
+  const tagsLimit = 3;
+  const filteredTags = tags.filter((tag) => !tag.includes("_"));
+
   return (
     <div className={`rounded-xl transition-colors ${className}`}>
-      <article className="grid grid-cols-1 md:grid-cols-2 h-full">
+      <article className="flex flex-col md:grid md:grid-cols-2 h-full">
         <div className="overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-tr-none">
           {loading ? (
-            <div className="w-full h-48 md:h-full bg-gray-850 rounded-lg animate-pulse" />
+            <div className="w-full h-48 md:h-full bg-gray-850 rounded-md animate-pulse" />
           ) : (
             <Image
               src={image || "/images/placeholder/placeholder-image.jpg"}
@@ -45,10 +48,10 @@ function PostItem({
           )}
         </div>
 
-        <div className="flex flex-col justify-between p-4 bg-gray-850 rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
+        <div className="flex-1 flex flex-col justify-between p-4 bg-gray-850 rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
           {!loading ? (
             <div className="flex-1 flex flex-col space-y-3">
-              <h3>{title || "-"}</h3>
+              <h3 className="line-clamp-3">{title || "-"}</h3>
 
               <address className="flex flex-row items-center space-x-4 text-sm">
                 <p className="flex flex-row items-center not-italic">
@@ -63,24 +66,26 @@ function PostItem({
                 </p>
               </address>
 
-              {tags && (
+              {filteredTags.length > 0 && (
                 <ul className="flex flex-row flex-wrap gap-2">
-                  {tags
-                    .filter((tag) => !tag.includes("_"))
-                    .map((tag, index) => (
-                      <li
-                        key={index}
-                        className="text-sm rounded-full px-3 py-1 bg-gray-800"
-                      >
-                        {tag}
-                      </li>
-                    ))}
+                  {filteredTags.slice(0, tagsLimit).map((tag, index) => (
+                    <li
+                      key={index}
+                      className="text-sm rounded-full px-3 py-1 bg-gray-800"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                  {filteredTags.length > tagsLimit && (
+                    <li className="text-sm rounded-full px-3 py-1 bg-gray-800">
+                      +{filteredTags.length - tagsLimit}
+                    </li>
+                  )}
                 </ul>
               )}
-
               {!hideDescription && (
                 <div className="flex-1 rounded-xl">
-                  <p className="line-clamp-4">
+                  <p className="line-clamp-3">
                     {description || "No description"}
                   </p>
                 </div>

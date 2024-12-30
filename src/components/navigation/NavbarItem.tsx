@@ -16,7 +16,9 @@ interface NavbarItemProps {
 function NavbarItem({ item }: NavbarItemProps) {
   const pathname = usePathname();
 
-  const current = pathname === `${item.href}`;
+  const current =
+    pathname === item.href ||
+    item.subItems?.some((subItem) => pathname === subItem.href);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -39,7 +41,6 @@ function NavbarItem({ item }: NavbarItemProps) {
           </span>
         </div>
       </Link>
-
       {item.subItems && (
         <FadeInOutContainer visible={dropdownOpen}>
           <div className="absolute top-[115%] right-1/2 translate-x-1/2">

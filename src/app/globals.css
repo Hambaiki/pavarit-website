@@ -6,7 +6,7 @@
   /* --foreground-rgb: #0d0d0d;
   --background-rgb: #f0f0f0; */
   --foreground-rgb: #f0f0f0;
-  --background-rgb: #0d0d0d;
+  --background-rgb: #0e0e0e;
   /* --background-start-rgb: #ffffff;
   --background-end-rgb: #ffffff; */
   --border-color: #1f1f1f;
@@ -73,7 +73,7 @@ p {
   @apply text-base text-gray-300;
 }
 
-input {
+/* input {
   color: var(--foreground-rgb);
   background: var(--background-rgb);
   border-color: var(--border-color);
@@ -82,9 +82,9 @@ input {
 input:focus {
   outline: none;
   border-color: var(--border-color);
-}
+} */
 
-textarea {
+/* textarea {
   color: var(--foreground-rgb);
   background: var(--background-rgb);
   border-color: var(--border-color);
@@ -93,4 +93,4 @@ textarea {
 textarea:focus {
   outline: none;
   border-color: var(--border-color);
-}
+} */

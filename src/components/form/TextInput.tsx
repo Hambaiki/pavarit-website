@@ -31,19 +31,10 @@ const TextInput = ({
         id={name}
         name={name}
         disabled={disabled}
-        className={`w-full px-3 py-3 border rounded-md text-left text-sm outline-none transition-colors
-          placeholder:text-sm placeholder:text-gray-400
-          ${error ? "border-red" : "border-primary-gray-border"} 
-          ${
-            error
-              ? "focus:border-red"
-              : "focus:border-blue_primary focus:ring-1 focus:ring-suzuha-teal-500"
-          }
-          ${
-            disabled
-              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-              : "bg-gray-800"
-          }
+        className={`w-full px-3 py-3 rounded-md text-left text-sm outline-none transition-colors
+          placeholder:text-sm placeholder:text-gray-400 bg-gray-800 ring-0
+          ${error ? "focus:border-red" : "focus:ring-1 focus:ring-transparent"}
+          ${disabled ? "text-gray-400 cursor-not-allowed" : ""}
           ${className}
         `}
         {...props}

@@ -1,9 +1,12 @@
 import Link from "next/link";
-import { neon } from "@neondatabase/serverless";
 import { Suspense } from "react";
+
+import { FaChevronRight, FaList } from "react-icons/fa6";
 
 import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
+
+import { blogItems } from "@/constants/blog";
 
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/container/MainContainer";
@@ -34,10 +37,10 @@ async function page() {
 
   return (
     <MainContainer>
-      <header className="flex flex-col">
+      <header>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-        <div className="space-y-4 mt-8">
+        <div className="flex flex-col space-y-4 mt-8">
           <h1>Blog</h1>
           <p className="mt-4">
             {`Discover more about myself with a collection of topics ranging from
@@ -48,7 +51,7 @@ async function page() {
         </div>
       </header>
 
-      <section className="mt-16">
+      <section className="mt-10">
         <FeaturedPostsHeader />
 
         <div className="mt-8">
@@ -58,7 +61,38 @@ async function page() {
         </div>
       </section>
 
-      <section className="mt-16 space-y-8">
+      <section className="mt-10 lg:mt-20">
+        <div className="flex items-center space-x-2">
+          <FaList className="h-6 w-6 text-suzuha-teal-500" />
+          <h2>Categories</h2>
+        </div>
+        <p className="mt-4">
+          {`Explore a wide range of topics and categories on my blog. Each category
+            represents a different aspect of my interests and experiences.`}
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
+          {blogItems.map((item, index) => (
+            <Link
+              href={item.href}
+              key={index}
+              className="flex flex-row items-center space-x-4 p-4 rounded-lg
+                bg-gray-850 hover:bg-gray-800 transition-colors"
+            >
+              <item.icon className="text-suzuha-teal-500 w-5 h-5" />
+
+              <div className="flex-1 flex flex-col">
+                <h2 className="text-lg font-semibold">{item.title}</h2>
+                <p className="text-base">{item.description}</p>
+              </div>
+
+              <FaChevronRight className="text-suzuha-teal-500" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10 lg:mt-20 space-y-8">
         <LatestPostsHeader />
 
         <Suspense fallback={<LatestPostsSkeleton />}>
@@ -66,19 +100,21 @@ async function page() {
         </Suspense>
       </section>
 
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 p-4 bg-gray-850 rounded-xl">
-        <p className="text-center md:text-left">
-          Interested in my other posts?
-          <strong> Check out other posts here!</strong>
-        </p>
-        <Button
-          href="/blog/all"
-          variant="primary"
-          className="px-4 py-2 rounded-full"
-        >
-          View More Posts
-        </Button>
-      </div>
+      <section className="mt-10 lg:mt-20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-gray-850 rounded-xl">
+          <p className="text-center md:text-left">
+            Interested in my other posts?
+            <strong> Check out other posts here!</strong>
+          </p>
+          <Button
+            href="/blog/all"
+            variant="primary"
+            className="px-4 py-2 rounded-full"
+          >
+            View More Posts
+          </Button>
+        </div>
+      </section>
     </MainContainer>
   );
 }

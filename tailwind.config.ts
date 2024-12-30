@@ -208,7 +208,7 @@ const config: Config = {
           600: "#525252",
           700: "#404040",
           800: "#262626",
-          850: "#1d1d1d",
+          850: "#1a1a1a",
           900: "#171717",
           950: "#0a0a0a",
           border: "#333333",
@@ -216,7 +216,7 @@ const config: Config = {
         },
         background: {
           light: "#f0f0f0",
-          dark: "#0d0d0d",
+          dark: "#0e0e0e",
         },
       },
       backgroundImage: {

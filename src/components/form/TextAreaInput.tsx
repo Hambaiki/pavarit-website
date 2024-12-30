@@ -32,15 +32,14 @@ const TextAreaInput = ({
         id={name}
         name={name}
         disabled={disabled}
-        className={`w-full px-3 py-2 border rounded-md text-left text-sm outline-none transition-colors
-          placeholder:text-sm placeholder:text-gray-400
-          ${error ? "border-red" : "border-primary-gray-border"} 
+        className={`w-full px-3 py-3 rounded-md text-left text-sm outline-none transition-colors
+          placeholder:text-sm placeholder:text-gray-400 bg-gray-800 ring-0
           ${
             error
               ? "focus:border-red"
-              : "focus:border-blue_primary focus:ring-1 focus:ring-suzuha-teal-500"
+              : "focus:ring-1 focus:ring-transparent"
           }
-          ${disabled ? "bg-gray-700 cursor-not-allowed" : "bg-gray-800"}
+          ${disabled ? "text-gray-400 cursor-not-allowed" : ""}
           ${className}
         `}
         {...props}

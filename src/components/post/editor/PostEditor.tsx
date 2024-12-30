@@ -374,7 +374,7 @@ function PostEditor({
           </div>
 
           <div className="mt-8">
-            <h2 className="mb-4">Post Details</h2>
+            <h2 className="mb-4">Post Content</h2>
             {/* Editor Toolbar */}
             <div
               className="flex flex-wrap gap-2 p-2 mt-4 
@@ -454,7 +454,7 @@ function PostEditor({
               </ToolbarButton>
             </div>
 
-            <div className="flex flex-row gap-2 hidden">
+            <div className="flex-row gap-2 hidden">
               <button
                 type="button"
                 onClick={() =>
@@ -576,11 +576,11 @@ function PostEditor({
             </div>
 
             {/* Editor Content */}
-            <div className="min-h-[20rem] bg-gray-900 rounded-b-md border border-t-0 border-gray-border">
-              <EditorContent
-                editor={editor}
-                className="prose"
-              />
+            <div
+              className="min-h-[20rem] max-h-[30rem] bg-gray-900 rounded-b-md 
+              border border-t-0 border-gray-border overflow-y-auto scrollbar-thin"
+            >
+              <EditorContent editor={editor} className="prose" />
             </div>
           </div>
 

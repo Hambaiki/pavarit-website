@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -10,8 +9,6 @@ import {
   SearchPostResponse,
 } from "@/types/api/post";
 import { fetchFromApi } from "@/lib/api";
-
-import { FaCalendar, FaUser } from "react-icons/fa";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
