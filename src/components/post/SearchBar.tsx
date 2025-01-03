@@ -1,22 +1,16 @@
 "use client";
 
+import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import {
-  FaArrowDown,
   FaArrowRight,
-  FaArrowUp,
-  FaBook,
-  FaBusinessTime,
-  FaCalendar,
-  FaEye,
+  FaClock,
   FaMagnifyingGlass,
-  FaPen,
+  FaStar,
 } from "react-icons/fa6";
 
 import Button from "../Button";
-import Select from "../form/Select";
-import { useCallback } from "react";
 
 interface SearchBarProps {
   showSortKey?: boolean;
@@ -36,12 +30,12 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
     {
       value: "MOST_RECENT",
       label: "Newest",
-      icon: FaCalendar,
+      icon: FaClock,
     },
     {
       value: "MOST_VIEWED",
-      label: "Most viewed",
-      icon: FaBook,
+      label: "Popular",
+      icon: FaStar,
     },
   ];
 
@@ -98,9 +92,7 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
       </div>
 
       {showSortOptions && (
-        <div
-          className="flex items-center gap-4 rounded-l-lg mt-4 rounded-lg"
-        >
+        <div className="flex items-center gap-4 rounded-l-lg mt-4 rounded-lg">
           {/* <span>Sort by</span> */}
 
           <div className="flex items-center gap-2">

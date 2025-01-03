@@ -12,7 +12,6 @@ export const navItems = [
       { label: "Projects", href: "/about/projects" },
     ],
   },
-  // { label: "Projects", href: "/projects" },
   {
     label: "Contact",
     href: "/contact",
@@ -36,7 +35,6 @@ export const dashboardNavItems = [
     subItems: [
       { label: "All Posts", href: "/dashboard/posts" },
       { label: "Create Post", href: "/dashboard/posts/create" },
-      // { label: "Post Settings", href: "/dashboard/posts/settings" },
     ],
   },
   { label: "Online Inquiries", href: "/dashboard/online-inquiries" },

@@ -73,7 +73,7 @@ export function FeaturedPostsHeader() {
         <h2>Featured Articles</h2>
       </div>
 
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <Button
           href="/blog/all"
           variant="secondary"
@@ -81,7 +81,7 @@ export function FeaturedPostsHeader() {
         >
           View More Posts
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

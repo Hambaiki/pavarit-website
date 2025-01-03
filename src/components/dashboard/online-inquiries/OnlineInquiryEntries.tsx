@@ -71,7 +71,7 @@ function OnlineInquiryEntries({ className }: OnlineInquiryEntriesProps) {
       <div className="mt-4 rounded-xl overflow-x-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-850">
         <table className="w-full rounded-xl overflow-hidden bg-gray-850">
           <thead>
-            <tr className="text-center text-gray-300 text-sm bg-gray-900">
+            <tr className="text-center text-gray-300 text-sm bg-gray-800">
               <th className="px-4 py-2 min-w-[8rem]">Created At</th>
               <th className="px-4 py-2 min-w-[10rem]">Name</th>
               <th className="px-4 py-2 min-w-[10rem]">Email</th>

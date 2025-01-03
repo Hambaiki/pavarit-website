@@ -123,7 +123,7 @@ export const metadata: Metadata = {
     "I am Pavarit Wiriyakunakorn, and this is a space where I share my journey, ideas, and discoveries.",
   keywords: [
     "Pavarit Wiriyakunakorn",
-    "Guide Wiriyakunakorn",
+    "Guide",
     "Developer Portfolio",
     "Web Developer",
     "Personal Blog",
