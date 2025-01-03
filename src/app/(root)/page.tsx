@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import { FaChevronRight } from "react-icons/fa";
+import { FaFlag, FaChevronRight } from "react-icons/fa6";
 
 import { introItems } from "@/constants/home";
 
@@ -57,7 +57,10 @@ async function HomePage() {
       </section>
 
       <section className="mt-14">
-        <h2>Get Started</h2>
+        <div className="flex items-center space-x-2">
+          <FaFlag className="h-6 w-6 text-suzuha-teal-500" />
+          <h2>Get Started</h2>
+        </div>
         <p className="mt-4">
           {`Explore my website to learn more about me and my journey. You can
             find my personal blog, projects, and more.`}

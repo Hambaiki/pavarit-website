@@ -190,7 +190,7 @@ function About() {
 }
 
 export const metadata: Metadata = {
-  title: "About Pavarit (Guide) Wiriyakunakorn's. Learn more about me.",
+  title: "About Pavarit Wiriyakunakorn - Pavarit's Website",
   description:
     "Learn more about Pavarit Wiriyakunakorn, a frontend developer with a passion for creating web applications.",
   keywords: [
@@ -210,7 +210,7 @@ export const metadata: Metadata = {
     "Bangkok",
   ],
   openGraph: {
-    title: "About Pavarit (Guide) Wiriyakunakorn",
+    title: "About Pavarit (Guide) Wiriyakunakorn - Pavarit's Website",
     description: "Learn more about Pavarit",
   },
   alternates: {

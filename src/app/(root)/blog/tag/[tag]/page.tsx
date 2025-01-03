@@ -93,7 +93,7 @@ export async function generateMetadata({
   const tag = (await params).tag;
 
   return {
-    title: `Articles tagged with ${tag} on Pavarit Wiriyakunakorn's website`,
+    title: `Articles tagged with ${tag} on this website - Pavarit's Website`,
     description: `Explore articles tagged with ${tag} on Pavarit Wiriyakunakorn's website.`,
     keywords: `Tag: ${tag}`,
     authors: [

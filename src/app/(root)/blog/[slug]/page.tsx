@@ -176,7 +176,7 @@ export async function generateMetadata({
   const metadata = response?.metadata;
 
   return {
-    title: metadata?.title || "Blog",
+    title: metadata?.title || "Blog - Pavarit's Website",
     description: metadata?.description || "Blog",
     keywords: metadata?.keywords || "Blog",
     authors: [
@@ -187,7 +187,7 @@ export async function generateMetadata({
     ],
     openGraph: {
       type: "article",
-      title: metadata?.title || "Blog",
+      title: metadata?.title || "Blog - Pavarit's Website",
       description: metadata?.description || "Blog",
       siteName: "Pavarit's Website",
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${metadata?.slug}`,

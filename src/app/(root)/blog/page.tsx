@@ -122,7 +122,7 @@ export async function generateMetadata() {
   const posts = postData?.posts || [];
 
   return {
-    title: `Discover variety of articles on Pavarit Wiriyakunakorn's website`,
+    title: `Discover variety of articles on Pavarit Wiriyakunakorn's website - Pavarit's Website`,
     description: `Explore article about various topics such as ${posts
       .map((post) => post.title)
       .slice(0, 2)

@@ -65,4 +65,17 @@ function Contact() {
   );
 }
 
+export async function generateMetadata() {
+  return {
+    title: "Contact Pavarit Wiriyakunakorn - Pavarit's Website",
+    description:
+      "Contact Pavarit Wiriyakunakorn through the form below, or by using the contact information provided.",
+    keywords: ["Contact", "Pavarit", "Wiriyakunakorn"],
+    robots: "index, follow",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/contact`,
+    },
+  };
+}
+
 export default Contact;

@@ -2,13 +2,13 @@
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 
+import { FaWrench } from "react-icons/fa6";
+
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import UserInfo from "@/components/profile/UserInfo";
-
 import Loading from "@/components/navigation/Loading";
 import Button from "@/components/Button";
-import { FaWaveSquare, FaWrench } from "react-icons/fa6";
 
 function Profile() {
   const { user, isLoading } = useUser();
@@ -104,5 +104,17 @@ function Profile() {
     </MainContainer>
   );
 }
+
+// export async function generateMetadata() {
+//   return {
+//     title: "Profile - Pavarit's Website",
+//     description: "View your profile on Pavarit's Website.",
+//     keywords: ["Profile", "Pavarit", "Wiriyakunakorn"],
+//     robots: "index, follow",
+//     alternates: {
+//       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/profile`,
+//     },
+//   };
+// }
 
 export default Profile;

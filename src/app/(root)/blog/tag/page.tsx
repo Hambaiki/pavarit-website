@@ -12,6 +12,7 @@ async function TagPage() {
   const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
 
   const tags = response?.tags || [];
+  const filteredTags = tags.filter((tag) => !tag.includes("_"));
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -28,7 +29,7 @@ async function TagPage() {
           <h1>Tags</h1>
           <p>
             {`Explore all the tags on this website, including
-          ${tags.slice(0, 5).join(", ")}, and more.`}
+          ${filteredTags.slice(0, 5).join(", ")}, and more.`}
           </p>
         </div>
       </header>
@@ -37,22 +38,20 @@ async function TagPage() {
         <h2>
           All Tags{" "}
           <span className="font-normal text-suzuha-teal-500">
-            ({tags.length})
+            ({filteredTags.length})
           </span>
         </h2>
         <ul className="flex flex-wrap gap-2 mt-4">
-          {tags
-            .filter((tag) => !tag.includes("_"))
-            .map((tag, index) => (
-              <Link key={index} href={`/blog/tag/${tag}`}>
-                <li
-                  className="text-base font-medium text-white px-4 py-1 rounded-full
+          {filteredTags.map((tag, index) => (
+            <Link key={index} href={`/blog/tag/${tag}`}>
+              <li
+                className="text-base font-medium text-white px-4 py-1 rounded-full
                 bg-gray-800 hover:bg-gray-700 transition-colors"
-                >
-                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
-                </li>
-              </Link>
-            ))}
+              >
+                {tag.charAt(0).toUpperCase() + tag.slice(1)}
+              </li>
+            </Link>
+          ))}
         </ul>
       </section>
 
@@ -69,13 +68,14 @@ export async function generateMetadata() {
   const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
 
   const tags = response?.tags || [];
+  const filteredTags = tags.filter((tag) => !tag.includes("_"));
 
   return {
-    title: `View all article tags on Pavarit Wiriyakunakorn's website`,
-    description: `Explore article tags on Pavarit Wiriyakunakorn's website, including ${tags
+    title: `View all article tags on this website - Pavarit's Website`,
+    description: `Explore article tags on Pavarit Wiriyakunakorn's website, including ${filteredTags
       .slice(0, 5)
       .join(", ")}, and more.`,
-    keywords: [tags.map((tag) => tag)],
+    keywords: [filteredTags.map((tag) => tag)],
     robots: "index, follow",
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/tag`,
