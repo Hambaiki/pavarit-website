@@ -8,7 +8,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://pavarit.net";
 
   // Static routes
-  const routes = ["", "/about", "/blog", "/contact"].map((route) => ({
+  const routes = [
+    "",
+    "/about",
+    "/contact",
+    "/blog",
+    "/blog/tag",
+    "/blog/all",
+    "/contact",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
