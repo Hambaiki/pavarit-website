@@ -69,7 +69,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <div className="space-y-4 mt-8">
           <h1>{post.title}</h1>
-          <ul className="flex flex-row flex-wrap space-x-2">
+          <ul className="flex flex-row flex-wrap gap-2">
             {post.tags
               .filter((tag) => !tag.includes("_"))
               .map((tag, index) => (
