@@ -9,7 +9,7 @@ export const navItems = [
     href: "/about",
     subItems: [
       { label: "About Me", href: "/about" },
-      { label: "Work Experience", href: "/about/experience" },
+      { label: "Experience", href: "/about/experience" },
       { label: "Education", href: "/about/education" },
       // { label: "Projects", href: "/about/projects" },
     ],
