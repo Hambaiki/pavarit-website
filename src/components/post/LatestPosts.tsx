@@ -14,11 +14,7 @@ interface LatestPostsProps {
   count?: number;
 }
 
-async function LatestPosts({
-  delay = 6000,
-  className,
-  count = 4,
-}: LatestPostsProps) {
+async function LatestPosts({ className, count = 4 }: LatestPostsProps) {
   // await new Promise((resolve) => setTimeout(resolve, delay)); // Delay for testing
 
   const latestPostsResponse = await fetchFromApi<SearchPostResponse>(

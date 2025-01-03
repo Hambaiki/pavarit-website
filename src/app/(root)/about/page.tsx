@@ -1,10 +1,13 @@
-import Image from "next/image";
 import { Metadata } from "next";
 
-import { education, experiences, tableOfContents } from "@/constants/about";
+import { FaImages, FaMagnifyingGlass } from "react-icons/fa6";
+
+import { aboutItems } from "@/constants/about";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import PhotosCarousal from "@/components/about/PhotosCarousal";
+import OptionMenuGrid from "@/components/common/OptionMenuGrid";
 
 function About() {
   const breadcrumbs = [
@@ -12,28 +15,43 @@ function About() {
     { label: "About", href: "/about" },
   ];
 
-  return (
-    <MainContainer>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
+  const featuredImages = [
+    {
+      src: "/assets/images/photos/pavarit.jpg",
+      alt: "Me in my graduation day",
+      description:
+        "This is the photo of me in my graduation day after receiving my Bachelor's degree in Information and Communication Engineering from Chulalongkorn University.",
+    },
+    {
+      src: "/assets/images/photos/friends-at-maneki.jpg",
+      alt: "Me and my friends at Manekineko, a karaoke in Bangkok",
+      description:
+        "Me and my friends at Manekineko, a karaoke in Bangkok. I'm the one in the middle-left! Occasionaly, I go to karaoke with my friends.",
+    },
+  ];
 
-      <div className="flex flex-col space-y-4 mt-8 p-4 md:p-8 bg-gray-850 rounded-xl">
-        <div className="flex flex-col sm:flex-row items-center space-y-4 space-x-0 sm:space-x-8 sm:space-y-0">
-          <Image
-            src="/images/profile/pavarit.jpg"
-            alt="About"
-            width={500}
-            height={500}
-            className="w-48 h-48 object-cover rounded-full border-4 border-suzuha-teal-500"
-          />
-          <div className="flex flex-col space-y-4">
-            <h1>Pavarit Wiriyakunakorn</h1>
-            <p>
-              Frontend Developer | Information and Communication Engineering
-              Graduate
-            </p>
-          </div>
+  return (
+    <MainContainer className="space-y-10">
+      <header>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+
+        <div className="flex flex-col space-y-4 mt-8">
+          <h1>About Me</h1>
+          <p>
+            {`I'm Pavarit Wiriyakunakorn, a frontend developer with a passion for creating web applications.
+            I'm a graduate of Information and Communication Engineering from Chulalongkorn University. Currently, I'm working as a frontend developer at a startup company.`}
+          </p>
         </div>
-      </div>
+      </header>
+
+      <section>
+        <div className="flex items-center space-x-2 mb-4">
+          <FaImages className="h-6 w-6 text-suzuha-teal-500" />
+          <h2>Featured Photos</h2>
+        </div>
+
+        <PhotosCarousal images={featuredImages} />
+      </section>
 
       {/* <div className="mt-8 p-4 bg-gray-850 rounded-xl">
         <h2>Quickly Jumps To:</h2>
@@ -52,139 +70,18 @@ function About() {
         </ul>
       </div> */}
 
-      <div id="experience" className="mt-12 rounded-xl">
-        <h2>Work Experience</h2>
-
-        <p className="mt-4">
-          Throughout my journey, I have gained hands-on experience in both
-          professional and academic settings, contributing to my growth as a
-          Frontend Developer and beyond. I am currently working as a Junior
-          Frontend Developer at Agnos Health Co., Ltd., where I focus on
-          developing and maintaining modern web applications using tools like
-          ReactJS, NextJS, and TypeScript.
-        </p>
-
-        <div className="flex-1 flex flex-row overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-850 pb-4 mt-8">
-          {experiences.map((experience, index) => (
-            <div key={index} className="flex flex-col ">
-              <div className="flex flex-col items-center mr-4">
-                <div className="flex flex-col space-y-2 w-[20rem] p-4 rounded-xl bg-gray-850">
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-bold">{experience.title}</h3>
-                    <p>
-                      {experience.type}&nbsp;|&nbsp;{experience.duration}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-row items-center space-x-4 p-2 bg-gray-800 rounded-lg">
-                    {experience.company.logo && (
-                      <Image
-                        src={experience.company.logo}
-                        alt={experience.company.name}
-                        width={100}
-                        height={100}
-                        className="w-12 h-12 object-cover rounded-full"
-                      />
-                    )}
-                    <div className="flex flex-col">
-                      <p>{experience.company.name}</p>
-                      <p>{experience.location}</p>
-                    </div>
-                  </div>
-
-                  <p>{experience.description}</p>
-
-                  <div className="flex flex-row flex-wrap items-center gap-2">
-                    {experience.skills.map((skill, index) => (
-                      <p
-                        key={index}
-                        className="text-sm bg-gray-800 text-white px-3 py-1 rounded-full"
-                      >
-                        {skill}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-gray-850 rotate-180" />
-              </div>
-
-              <div className="flex flex-row items-center mt-2">
-                <div
-                  className={`h-1 w-[9.45rem] ${
-                    index !== 0 ? "bg-suzuha-teal-700" : "bg-transparent"
-                  }`}
-                />
-                <div
-                  className={`w-5 h-5 rounded-full ${
-                    index === 0 ? "bg-suzuha-teal-500" : "bg-suzuha-teal-800"
-                  }`}
-                />
-                {index !== experiences.length - 1 && (
-                  <div className="flex-1 h-1 bg-suzuha-teal-700" />
-                )}
-              </div>
-            </div>
-          ))}
+      <section>
+        <div className="flex items-center space-x-2">
+          <FaMagnifyingGlass className="h-6 w-6 text-suzuha-teal-500" />
+          <h2>Learn More About Me</h2>
         </div>
-
-        <p className="mt-8">
-          Previously, I honed my technical and teamwork skills as a Frontend
-          Developer Intern at the same company, handling key projects and
-          gaining expertise in Web application development. My passion for
-          technology and communication led me to serve as a Teaching Assistant
-          for Chulalongkorn University, where I supported students in mastering
-          Principles of Telecommunication, including concepts like networking
-          and encryption.
-        </p>
-
         <p className="mt-4">
-          These diverse experiences have strengthened my technical abilities,
-          problem-solving mindset, and collaborative approach, allowing me to
-          take on challenging projects and deliver results.
-        </p>
-      </div>
-
-      <div id="education" className="mt-12">
-        <h2>Education</h2>
-
-        <p className="mt-4">
-          {`My academic path has been shaped by experiences across various institutions, 
-            each contributing to my growth and knowledge, each step of my educational journey has shaped who I am today`}
+          {`I have devided information about me into these sections. You can
+          start learning more about me by clicking on the links below.`}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-          {education.map((educationLevel, index) => (
-            <div key={index} className="p-4 space-y-4 bg-gray-850 rounded-xl">
-              <h3>{educationLevel.level}</h3>
-
-              {educationLevel.educations.map((education, index) => (
-                <div key={index} className="flex flex-col space-y-2">
-                  <div>
-                    <h4>{education.title}</h4>
-                  </div>
-
-                  <div className="flex flex-row items-center space-x-4 p-2 bg-gray-800 rounded-lg">
-                    {education.image && (
-                      <Image
-                        src={education.image}
-                        alt={education.location}
-                        width={100}
-                        height={100}
-                        className="w-12 h-12 p-1 shrink-0 bg-gray-600 rounded-full"
-                      />
-                    )}
-                    <div className="flex flex-col">
-                      <p>{education.location}</p>
-                      <p>{education.duration}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+        <OptionMenuGrid items={aboutItems} />
+      </section>
     </MainContainer>
   );
 }

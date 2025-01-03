@@ -9,7 +9,9 @@ export const navItems = [
     href: "/about",
     subItems: [
       { label: "About Me", href: "/about" },
-      { label: "Projects", href: "/about/projects" },
+      { label: "Work Experience", href: "/about/experience" },
+      { label: "Education", href: "/about/education" },
+      // { label: "Projects", href: "/about/projects" },
     ],
   },
   {

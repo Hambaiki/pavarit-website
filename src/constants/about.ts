@@ -1,3 +1,26 @@
+import { FaBook, FaBriefcase, FaGraduationCap } from "react-icons/fa6";
+
+export const aboutItems = [
+  {
+    title: "Experience",
+    description: "My work experiences and projects.",
+    href: "/about/experience",
+    icon: FaBriefcase,
+  },
+  {
+    title: "Education",
+    description: "About my education and experiences.",
+    href: "/about/education",
+    icon: FaGraduationCap,
+  },
+  // {
+  //   title: "Projects",
+  //   description: "My projects and experiences.",
+  //   href: "/about/projects",
+  //   icon: FaBook,
+  // },
+];
+
 export const tableOfContents = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },

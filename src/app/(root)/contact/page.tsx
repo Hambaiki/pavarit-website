@@ -1,5 +1,7 @@
 import { contactItems } from "@/constants/common";
 
+import { FaGlobe, FaPhone } from "react-icons/fa6";
+
 import ContactForm from "@/components/contact/ContactForm";
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
@@ -11,7 +13,7 @@ function Contact() {
   ];
 
   return (
-    <MainContainer>
+    <MainContainer className="space-y-14">
       <header>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
@@ -24,15 +26,21 @@ function Contact() {
         </div>
       </header>
 
-      <section className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
         <div className="col-span-1 lg:col-span-2">
-          <h2 className="mb-4">Online Inquiry</h2>
+          <div className="flex items-center space-x-2 mb-4">
+            <FaGlobe className="h-6 w-6 text-suzuha-teal-500" />
+            <h2>Online Inquiry</h2>
+          </div>
 
           <ContactForm />
         </div>
 
         <div className="col-span-1">
-          <h2 className="mb-4">Information</h2>
+          <div className="flex items-center space-x-2 mb-4">
+            <FaPhone className="h-6 w-6 text-suzuha-teal-500" />
+            <h2>Information</h2>
+          </div>
 
           <div className="bg-gray-850 p-4 rounded-xl space-y-4 text-center">
             <p className="text-lg">

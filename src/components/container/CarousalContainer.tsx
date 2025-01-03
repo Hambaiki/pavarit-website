@@ -6,14 +6,20 @@ interface CarousalContainerProps {
   className?: string;
   autoScroll?: boolean;
   autoScrollInterval?: number;
+  showIndicator?: boolean;
+  orientation?: "horizontal" | "vertical";
   children: React.ReactNode[];
+  onIndexChange?: (index: number) => void;
 }
 
 function CarousalContainer({
   className,
   children,
   autoScroll = false,
+  showIndicator = true,
+  orientation = "horizontal",
   autoScrollInterval = 3000,
+  onIndexChange,
 }: CarousalContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -29,6 +35,10 @@ function CarousalContainer({
       return () => clearInterval(interval);
     }
   }, [autoScroll, autoScrollInterval, currentIndex, children.length]);
+
+  useEffect(() => {
+    onIndexChange?.(currentIndex);
+  }, [currentIndex]);
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const container = event.target as HTMLElement;
@@ -55,17 +65,27 @@ function CarousalContainer({
     <div className={className}>
       <div
         id="carousal-container"
-        className="flex flex-row space-x-8 overflow-x-scroll scrollbar-none snap-x snap-mandatory"
+        className={`flex 
+          ${
+            orientation === "vertical"
+              ? "flex-col overflow-y-scroll snap-y"
+              : "flex-row overflow-x-scroll snap-x"
+          }  scrollbar-none snap-mandatory`}
         onScroll={handleScroll}
       >
         {children.map((child, index) => (
-          <div className="min-w-full snap-center" key={index}>
+          <div
+            className={`${
+              orientation === "vertical" ? "min-h-full" : "min-w-full"
+            } snap-center`}
+            key={index}
+          >
             {child}
           </div>
         ))}
       </div>
 
-      {children.length > 1 && (
+      {children.length > 1 && showIndicator && (
         <div className="flex justify-center space-x-3 mt-4 overflow-y-auto scrollbar-hide">
           {children.map((_, index) => (
             <button

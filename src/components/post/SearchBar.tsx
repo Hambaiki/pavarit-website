@@ -61,7 +61,7 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
 
   return (
     <form className="flex flex-col p-4 bg-gray-850 rounded-xl">
-      <div className="flex items-center h-12 rounded-l-lg">
+      <div className="flex items-center h-12">
         <label className="relative w-full">
           <span className="sr-only">Search posts</span>
 
@@ -72,9 +72,9 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
             id="search"
             autoComplete="off"
             placeholder="Search posts"
-            className="w-full px-4 py-3 pl-12 rounded-lg
-            bg-gray-800 text-gray-300
-            focus:outline-none focus:ring-0 focus:border-gray-300"
+            className="w-full px-4 py-3 pl-12 rounded-l-lg
+              bg-gray-800 text-gray-300
+              focus:outline-none focus:ring-0 focus:border-gray-300"
           />
 
           <div className="absolute left-4 top-1/2 -translate-y-1/2">

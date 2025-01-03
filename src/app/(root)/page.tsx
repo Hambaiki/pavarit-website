@@ -1,9 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import { FaFlag, FaChevronRight } from "react-icons/fa6";
+import { FaFlag } from "react-icons/fa6";
 
 import { introItems } from "@/constants/home";
 
@@ -14,10 +13,11 @@ import FeaturedPosts, {
   FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
 import MorePostBanner from "@/components/post/MorePostBanner";
+import OptionMenuGrid from "@/components/common/OptionMenuGrid";
 
 async function HomePage() {
   return (
-    <MainContainer>
+    <MainContainer className="space-y-14">
       <section className="flex flex-col-reverse sm:flex-row justify-between items-center gap-6 md:gap-8 rounded-xl p-8 md:p-12 bg-gray-850">
         <div className="p-0">
           <h1>{"Hi! I'm Pavarit"}</h1>
@@ -56,7 +56,7 @@ async function HomePage() {
         />
       </section>
 
-      <section className="mt-14">
+      <section>
         <div className="flex items-center space-x-2">
           <FaFlag className="h-6 w-6 text-suzuha-teal-500" />
           <h2>Get Started</h2>
@@ -66,25 +66,7 @@ async function HomePage() {
             find my personal blog, projects, and more.`}
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-          {introItems.map((item, index) => (
-            <Link
-              href={item.href}
-              key={index}
-              className="flex flex-row items-center space-x-4 p-4 rounded-lg
-                bg-gray-850 hover:bg-gray-800 transition-colors"
-            >
-              <item.icon className="text-suzuha-teal-500 w-5 h-5" />
-
-              <div className="flex-1 flex flex-col">
-                <h2 className="text-lg font-semibold">{item.title}</h2>
-                <p className="text-base">{item.description}</p>
-              </div>
-
-              <FaChevronRight className="text-suzuha-teal-500" />
-            </Link>
-          ))}
-        </div>
+        <OptionMenuGrid items={introItems} />
 
         <div className="flex md:flex-row flex-col justify-between items-center gap-4 p-4 mt-4 bg-gray-900 rounded-xl">
           <p className="text-center">
@@ -96,7 +78,7 @@ async function HomePage() {
         </div>
       </section>
 
-      <section className="mt-14">
+      <section>
         <FeaturedPostsHeader />
 
         <p className="mt-4">
