@@ -1,6 +1,8 @@
 # Pavarit Personal Website  
 
-This repository houses the source code for my personal website, [www.pavarit.net](https://www.pavarit.net). It is a modern, CMS-enabled platform designed to manage and showcase posts, projects, and updates dynamically.  
+This repository houses the source code for my personal website, [www.pavarit.net](https://www.pavarit.net). It is a modern, CMS-enabled platform designed to manage and showcase posts, projects, and updates dynamically.
+
+To check out the development preview of the website, head to [dev.pavarit.net](https://dev.pavarit.net).
 
 ## 🌟 Features  
 
