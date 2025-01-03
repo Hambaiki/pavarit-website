@@ -11,7 +11,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostItemAlt from "@/components/post/PostItemAlt";
 
 async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
-  const tag = (await params).tag;
+  const tag = decodeURIComponent((await params).tag);
   const response = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search`,
     "POST",
