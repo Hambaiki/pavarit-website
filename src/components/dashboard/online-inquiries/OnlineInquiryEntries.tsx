@@ -57,7 +57,7 @@ function OnlineInquiryEntries({ className }: OnlineInquiryEntriesProps) {
   return (
     <div className={`${className} w-full`}>
       <div className="flex flex-row items-center justify-between">
-        <h2>Inquiries</h2>
+        <h3>Inquiries</h3>
         <Button
           variant="secondary"
           onClick={() => fetchAllMaintenanceStatuses(page)}

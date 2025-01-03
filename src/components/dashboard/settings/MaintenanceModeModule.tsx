@@ -143,7 +143,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
 
   return (
     <div className={`${className}`}>
-      <h2>Maintenance Mode</h2>
+      <h3>Maintenance Mode</h3>
       <p className="text-gray-300 mt-2">
         Maintenance mode is a feature that allows you to put your website in
         maintenance mode. This will disable the website for all users.
@@ -202,7 +202,8 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 value={settings.message || ""}
                 name="message"
                 onChange={handleChange}
-                className="w-full mt-2 p-4 min-h-[10rem] bg-gray-800 placeholder:text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-suzuha-teal-500"
+                className="w-full mt-2 p-4 min-h-[10rem] bg-gray-800 placeholder:text-gray-500 rounded-lg 
+                  focus:outline-none focus:ring-2 focus:ring-suzuha-teal-500"
               />
             </label>
           </div>
@@ -215,7 +216,8 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 value={settings.allowedIPs}
                 onChange={handleChange}
                 name="allowedIPs"
-                className="w-full mt-2 p-2 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-suzuha-teal-500"
+                className="w-full mt-2 p-2 rounded bg-gray-800 focus:outline-none 
+                  focus:ring-2 focus:ring-suzuha-teal-500"
                 placeholder="127.0.0.1, 192.168.1.1,..."
               />
             </label>

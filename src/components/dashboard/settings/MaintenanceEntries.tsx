@@ -60,7 +60,7 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
   return (
     <div className={`${className} w-full`}>
       <div className="flex flex-row items-center justify-between">
-        <h2>Maintenance Entry</h2>
+        <h3>Maintenance Entry</h3>
         <Button
           variant="secondary"
           onClick={() => fetchAllMaintenanceStatuses(page)}
