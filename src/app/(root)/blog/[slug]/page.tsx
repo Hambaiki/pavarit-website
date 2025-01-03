@@ -124,7 +124,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        <div className="lg:sticky lg:top-24 lg:h-full lg:w-80 lg:py-8">
+        <div className="lg:sticky lg:top-20 lg:h-full lg:w-80 lg:py-8">
           <div className="hidden lg:block mb-4">
             <AuthorItem author={post.author} createdAt={post.created_at} />
 
