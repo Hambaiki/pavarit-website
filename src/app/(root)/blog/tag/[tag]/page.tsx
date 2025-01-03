@@ -1,7 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
-import { FaBookOpen, FaCalendar, FaUser } from "react-icons/fa6";
-import { format } from "date-fns";
+
+import { FaBookOpen } from "react-icons/fa6";
 
 import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
