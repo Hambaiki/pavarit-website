@@ -44,6 +44,10 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
 
   if (!post) {
     return notFound();
+  } else {
+    await fetchFromApi(`/api/v1/posts/analytics/views`, "POST", {
+      body: JSON.stringify({ id: post.id }),
+    });
   }
 
   const relatedPosts = relatedPostData?.posts.filter(

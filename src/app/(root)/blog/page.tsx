@@ -10,7 +10,6 @@ import { blogItems } from "@/constants/blog";
 
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/container/MainContainer";
-import Button from "@/components/Button";
 import LatestPosts, {
   LatestPostsHeader,
   LatestPostsSkeleton,
@@ -19,6 +18,7 @@ import FeaturedPosts, {
   FeaturedPostsHeader,
   FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
+import MorePostBanner from "@/components/post/MorePostBanner";
 
 async function page() {
   const breadcrumbs = [
@@ -98,21 +98,9 @@ async function page() {
         <Suspense fallback={<LatestPostsSkeleton />}>
           <LatestPosts />
         </Suspense>
-      </section>
 
-      <section className="mt-10 lg:mt-20">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-gray-850 rounded-xl">
-          <p className="text-center md:text-left">
-            Interested in my other posts?
-            <strong> Check out other posts here!</strong>
-          </p>
-          <Button
-            href="/blog/all"
-            variant="primary"
-            className="px-4 py-2 rounded-full"
-          >
-            View More Posts
-          </Button>
+        <div className="mt-8">
+          <MorePostBanner />
         </div>
       </section>
     </MainContainer>

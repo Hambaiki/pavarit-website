@@ -44,9 +44,21 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { search = "", page = 1, limit = 10, tags = [] } = body;
+    const {
+      search = "",
+      page = 1,
+      limit = 10,
+      tags = [],
+      sort = "MOST_RECENT",
+    } = body;
 
-    const posts = await getPosts({ search, page, tags, limit });
+    const posts = await getPosts({
+      search,
+      tags,
+      page,
+      limit,
+      sort,
+    });
     const total = await getPostTotal({ search, tags });
 
     return NextResponse.json({

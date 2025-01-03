@@ -13,18 +13,28 @@ import { fetchFromApi } from "@/lib/api";
 async function page({
   searchParams,
 }: {
-  searchParams: { page?: string; search?: string };
+  searchParams: {
+    page?: string;
+    search?: string;
+    sort?: string;
+  };
 }) {
   const limit = 4;
 
   const page = parseInt(searchParams.page || "1", 10);
   const search = searchParams.search || "";
+  const sort = searchParams.sort || "MOST_RECENT";
 
   const response = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search/`,
     "POST",
     {
-      body: JSON.stringify({ page, limit: limit, search }),
+      body: JSON.stringify({
+        page: page,
+        limit: limit,
+        search: search,
+        sort: sort,
+      }),
     }
   );
 
@@ -51,7 +61,7 @@ async function page({
       </header>
 
       <div className="mt-8">
-        <SearchBar />
+        <SearchBar showSortOptions />
       </div>
 
       <Suspense>

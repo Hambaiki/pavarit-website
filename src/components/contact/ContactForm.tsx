@@ -40,7 +40,7 @@ function ContactForm() {
       }
 
       const response = await fetch("/api/v1/inquiries", {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,

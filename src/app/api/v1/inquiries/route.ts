@@ -14,10 +14,10 @@ import {
   GetInquiriesResponse,
 } from "@/types/api/inquiries";
 
-export async function POST(req: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
     try {
-      const ip = req.headers.get("x-forwarded-for") || "";
+      const ip = request.headers.get("x-forwarded-for") || "";
       await rateLimiter.consume(ip);
     } catch (error) {
       return NextResponse.json(
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const inquiry: CreateInquiryRequest = await req.json();
+    const inquiry: CreateInquiryRequest = await request.json();
     await createInquiry({
       name: inquiry.name,
       email: inquiry.email,
@@ -50,13 +50,20 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(_: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const inquiries = await getInquiries();
+    const { page, limit } = await request.json();
+
+    const inquiries = await getInquiries({
+      page: page || 1,
+      limit: limit || 10,
+    });
     return NextResponse.json({
       success: true,
       message: "Inquiries fetched",
-      inquiries,
+      inquiries: inquiries.inquiries,
+      total: inquiries.total,
+      page: inquiries.page,
     } as GetInquiriesResponse);
   } catch (error) {
     console.error("Error getting inquiries:", error);

@@ -50,7 +50,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
             <span className="text-suzuha-teal-500">
               {tag.charAt(0).toUpperCase() + tag.slice(1)}
             </span>
-            &nbsp; on this website.
+            &nbsp;on this website.
           </p>
         </div>
       </header>

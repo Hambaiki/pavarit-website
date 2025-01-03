@@ -5,29 +5,51 @@ export async function getPosts({
   tags,
   page,
   limit,
+  sort = "MOST_RECENT",
 }: {
   search: string;
   tags: string[];
   page: number;
   limit: number;
+  sort:
+    | "MOST_VIEWED"
+    | "MOST_VIEWED_LAST_30_DAYS"
+    | "MOST_VIEWED_LAST_7_DAYS"
+    | "MOST_RECENT";
 }) {
   try {
     const offset = (page - 1) * limit;
 
     const result = await sql`
-      SELECT *
+    SELECT *
+    FROM (
+      SELECT 
+        posts.*, 
+        COALESCE(SUM(post_views.view_count), 0) AS total_view_count
       FROM posts
+      LEFT JOIN post_views 
+        ON posts.id = post_views.post_id
       WHERE 
-      (title ILIKE ${"%" + search + "%"} OR
-      description ILIKE ${"%" + search + "%"} OR
-      category ILIKE ${"%" + search + "%"} OR
-      author ILIKE ${"%" + search + "%"} OR
-      ARRAY_TO_STRING(tags, ',') ILIKE ${"%" + search + "%"} OR
-      ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
-      AND (${tags.length === 0} OR tags && ${tags})
-        ORDER BY created_at DESC
-        LIMIT ${limit} OFFSET ${offset};
-      `;
+        (title ILIKE ${"%" + search + "%"} OR
+        description ILIKE ${"%" + search + "%"} OR
+        category ILIKE ${"%" + search + "%"} OR
+        author ILIKE ${"%" + search + "%"} OR
+        ARRAY_TO_STRING(tags, ',') ILIKE ${"%" + search + "%"} OR
+        ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
+        AND (${tags.length === 0} OR tags && ${tags})
+      GROUP BY posts.id
+    ) subquery
+    ORDER BY
+      CASE 
+        WHEN ${sort === "MOST_RECENT"} THEN created_at 
+        ELSE NULL 
+      END DESC,
+      CASE 
+        WHEN ${sort === "MOST_VIEWED"} THEN total_view_count 
+        ELSE NULL 
+      END DESC
+    LIMIT ${limit} OFFSET ${offset};
+  `;
 
     return result;
   } catch (error) {
@@ -254,5 +276,23 @@ export async function checkSlugUnique(slug: string) {
   } catch (error) {
     console.error("Error checking slug uniqueness:", error);
     return false;
+  }
+}
+
+export async function updatePostViews(id: string) {
+  try {
+    const result = await sql`
+      INSERT INTO post_views (post_id, view_date, view_count)
+      VALUES (
+        (SELECT id FROM posts WHERE id = ${id}),
+        NOW(),
+        1
+      )
+    `;
+
+    return result;
+  } catch (error) {
+    console.error("Error updating post views:", error);
+    return null;
   }
 }

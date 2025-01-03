@@ -152,9 +152,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
       <div className="mt-4 p-4 bg-gray-850 rounded-xl">
         <div className="flex flex-row justify-between space-x-2">
           <div className="flex flex-col">
-            <h3 className="text-suzuha-teal-500">
-              Enabled Maintenance Mode
-            </h3>
+            <h3 className="text-suzuha-teal-500">Enabled Maintenance Mode</h3>
             <p className="text-gray-300 mt-2">
               Toggle the maintenance mode on or off.
             </p>
@@ -204,7 +202,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 value={settings.message || ""}
                 name="message"
                 onChange={handleChange}
-                className="w-full mt-2 p-4 min-h-[10rem] bg-gray-800 placeholder:text-gray-500 rounded-lg"
+                className="w-full mt-2 p-4 min-h-[10rem] bg-gray-800 placeholder:text-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-suzuha-teal-500"
               />
             </label>
           </div>
@@ -217,7 +215,7 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
                 value={settings.allowedIPs}
                 onChange={handleChange}
                 name="allowedIPs"
-                className="w-full mt-2 p-2 rounded bg-gray-800"
+                className="w-full mt-2 p-2 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-suzuha-teal-500"
                 placeholder="127.0.0.1, 192.168.1.1,..."
               />
             </label>

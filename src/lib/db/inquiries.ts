@@ -1,4 +1,5 @@
 import { sql } from "@/lib/db/neon";
+import { InquiryData } from "@/types/api/inquiries";
 
 import { Inquiry } from "@/types/inquiries";
 
@@ -19,11 +20,30 @@ export async function createInquiry(inquiry: Inquiry) {
   }
 }
 
-export async function getInquiries() {
+export async function getInquiries({
+  page,
+  limit,
+}: {
+  page?: number;
+  limit?: number;
+}): Promise<{
+  inquiries: InquiryData[];
+  total: number;
+  page: number;
+}> {
+  const offset = ((page || 1) - 1) * (limit || 10);
   try {
-    const inquiries = await sql("SELECT * FROM online_inquiries");
-    return inquiries;
+    const result =
+      await sql`SELECT * FROM online_inquiries ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`;
+    const total = await sql`SELECT COUNT(*) FROM online_inquiries`;
+
+    return {
+      inquiries: result as InquiryData[],
+      total: total[0].count,
+      page: page || 1,
+    };
   } catch (error) {
     console.error("Error getting inquiries:", error);
+    throw error;
   }
 }

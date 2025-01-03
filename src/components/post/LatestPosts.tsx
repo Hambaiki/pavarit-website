@@ -50,7 +50,7 @@ async function LatestPosts({
               createDate={post.created_at}
               tags={post.tags}
               description={post.description}
-              className="md:h-80"
+              className="h-full md:h-80"
             />
           </Link>
         ))}

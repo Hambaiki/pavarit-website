@@ -20,6 +20,7 @@ export interface CreateInquiryRequest {
   phone: string;
   subject: string;
   message: string;
+  created_at: string;
 }
 
 export interface GetInquiriesResponse extends CommonResponse {

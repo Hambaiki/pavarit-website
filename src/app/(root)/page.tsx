@@ -10,8 +10,10 @@ import { introItems } from "@/constants/home";
 import Button from "@/components/Button";
 import MainContainer from "@/components/container/MainContainer";
 import FeaturedPosts, {
+  FeaturedPostsHeader,
   FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
+import MorePostBanner from "@/components/post/MorePostBanner";
 
 async function HomePage() {
   return (
@@ -92,7 +94,8 @@ async function HomePage() {
       </section>
 
       <section className="mt-14">
-        <h2>Featured Articles</h2>
+        <FeaturedPostsHeader />
+
         <p className="mt-4">
           {`Discover more about myself with a collection of topics ranging from
             personal growth and creative projects to technical tutorials and
@@ -104,6 +107,10 @@ async function HomePage() {
           <Suspense fallback={<FeaturedPostsSkeleton />}>
             <FeaturedPosts />
           </Suspense>
+        </div>
+
+        <div className="mt-8">
+          <MorePostBanner />
         </div>
       </section>
     </MainContainer>

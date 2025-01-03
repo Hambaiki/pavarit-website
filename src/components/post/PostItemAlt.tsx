@@ -22,9 +22,7 @@ function PostItemAlt({
   author = "Unknown",
   createDate = "",
   tags = [],
-  disableHover = false,
   className,
-  loading = false,
 }: PostItemAltProps) {
   const filteredTags = tags.filter((tag) => !tag.includes("_"));
 
@@ -56,13 +54,11 @@ function PostItemAlt({
           </address>
 
           <ul className="flex flex-row flex-wrap gap-2">
-            {tags
-              .filter((tag) => !tag.startsWith("_"))
-              .map((tag, index) => (
-                <li key={index} className="rounded-full px-3 py-1 bg-gray-800">
-                  {tag}
-                </li>
-              ))}
+            {filteredTags.map((tag, index) => (
+              <li key={index} className="rounded-full px-3 py-1 bg-gray-800">
+                {tag}
+              </li>
+            ))}
           </ul>
         </div>
       </div>

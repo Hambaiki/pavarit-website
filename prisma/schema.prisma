@@ -11,9 +11,9 @@ model comments {
   id         Int       @id @default(autoincrement())
   user_id    Int
   post_id    Int
-  content    String
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
+  content    String
 }
 
 model users {
@@ -47,22 +47,35 @@ model online_inquiries {
 }
 
 model posts {
-  id          Int       @id @default(autoincrement())
-  slug        String    @unique
+  id          Int          @id @default(autoincrement())
+  slug        String       @unique
   title       String
   description String
   category    String
-  tags        String[]  @default([])
-  keywords    String[]  @default([])
+  tags        String[]     @default([])
+  keywords    String[]     @default([])
   author      String
   image       String
   alt_text    String
-  created_at  DateTime? @default(now()) @db.Timestamp(6)
-  updated_at  DateTime? @default(now()) @db.Timestamp(6)
+  created_at  DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?    @default(now()) @db.Timestamp(6)
   content     String
+  post_views  post_views[]
 
   @@index([category], map: "idx_posts_category")
   @@index([slug], map: "idx_posts_slug")
   @@index([tags], map: "idx_posts_tags", type: Gin)
   @@index([title], map: "idx_posts_title")
+}
+
+model post_views {
+  id         Int       @id @default(autoincrement())
+  post_id    Int
+  view_date  DateTime  @db.Date
+  view_count Int?      @default(1)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  posts      posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_views_post_id")
+
+  @@index([post_id, view_date], map: "idx_post_views_post_id_view_date")
 }

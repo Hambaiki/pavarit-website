@@ -7,6 +7,7 @@ import { SearchPostResponse } from "@/types/api/post";
 
 import CarousalContainer from "../container/CarousalContainer";
 import PostItem from "./PostItem";
+import Button from "../Button";
 
 interface FeaturedPostsProps {
   className?: string;
@@ -66,9 +67,21 @@ async function FeaturedPosts({
 
 export function FeaturedPostsHeader() {
   return (
-    <div className="flex items-center space-x-2">
-      <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
-      <h2>Featured Posts</h2>
+    <div className="flex flex-row justify-between items-center space-x-4">
+      <div className="flex items-center space-x-2">
+        <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
+        <h2>Featured Articles</h2>
+      </div>
+
+      <div className="flex justify-center">
+        <Button
+          href="/blog/all"
+          variant="secondary"
+          className="px-3 py-2 rounded-full text-sm"
+        >
+          View More Posts
+        </Button>
+      </div>
     </div>
   );
 }

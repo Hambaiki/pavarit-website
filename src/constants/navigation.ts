@@ -39,6 +39,7 @@ export const dashboardNavItems = [
       // { label: "Post Settings", href: "/dashboard/posts/settings" },
     ],
   },
+  { label: "Online Inquiries", href: "/dashboard/online-inquiries" },
   { label: "Settings", href: "/dashboard/settings" },
   {
     label: "Other",
