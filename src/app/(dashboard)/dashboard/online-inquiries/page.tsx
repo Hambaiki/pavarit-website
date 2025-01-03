@@ -13,10 +13,10 @@ export default function MaintenanceSettings() {
       <header className="flex flex-col">
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-        {/* <div className="space-y-4 mt-8">
+        <div className="space-y-4 mt-8">
           <h1>Online Inquiries</h1>
           <p>View all inquiries.</p>
-        </div> */}
+        </div>
       </header>
 
       <div className="mt-8">

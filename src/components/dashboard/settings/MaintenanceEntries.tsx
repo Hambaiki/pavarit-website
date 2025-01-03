@@ -206,7 +206,11 @@ function MaintenanceEntries({ className }: MaintenanceEntriesProps) {
       </div>
 
       <div className="flex justify-center mt-4">
-        <Paginator currentPage={page} maxPage={Math.ceil(total / limit) || 1} />
+        <Paginator
+          currentPage={page}
+          maxPage={Math.ceil(total / limit) || 1}
+          shallow
+        />
       </div>
     </div>
   );

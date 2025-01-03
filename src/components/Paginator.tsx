@@ -8,9 +8,10 @@ import { FaChevronLeft } from "react-icons/fa6";
 interface PaginatorProps {
   currentPage: number;
   maxPage: number;
+  shallow?: boolean;
 }
 
-function Paginator({ currentPage, maxPage }: PaginatorProps) {
+function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -27,9 +28,15 @@ function Paginator({ currentPage, maxPage }: PaginatorProps) {
 
   const handleClick = (pageNumber: number) => {
     // Update URL search params
-    router.push(
-      pathname + "?" + createQueryString("page", pageNumber.toString())
-    );
+    if (shallow) {
+      router.replace(
+        pathname + "?" + createQueryString("page", pageNumber.toString())
+      );
+    } else {
+      router.push(
+        pathname + "?" + createQueryString("page", pageNumber.toString())
+      );
+    }
   };
 
   const getPageNumbers = () => {

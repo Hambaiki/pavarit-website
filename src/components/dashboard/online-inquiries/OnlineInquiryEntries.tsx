@@ -57,7 +57,7 @@ function OnlineInquiryEntries({ className }: OnlineInquiryEntriesProps) {
   return (
     <div className={`${className} w-full`}>
       <div className="flex flex-row items-center justify-between">
-        <h2>Online Inquiries</h2>
+        <h2>Inquiries</h2>
         <Button
           variant="secondary"
           onClick={() => fetchAllMaintenanceStatuses(page)}
@@ -111,17 +111,17 @@ function OnlineInquiryEntries({ className }: OnlineInquiryEntriesProps) {
                           "N/A"
                         )}
                       </td>
-                      <th className="px-4 py-2">{inquiry.name}</th>
-                      <th className="px-4 py-2">{inquiry.email}</th>
-                      <th className="px-4 py-2 min-w-[8rem]">
+                      <td className="px-4 py-2">{inquiry.name}</td>
+                      <td className="px-4 py-2">{inquiry.email}</td>
+                      <td className="px-4 py-2 min-w-[8rem]">
                         {inquiry.phone}
-                      </th>
-                      <th className="px-4 py-2 min-w-[8rem]">
+                      </td>
+                      <td className="px-4 py-2 min-w-[8rem]">
                         {inquiry.subject}
-                      </th>
-                      <th className="px-4 py-2 min-w-[20rem]">
+                      </td>
+                      <td className="px-4 py-2 min-w-[20rem]">
                         {inquiry.message}
-                      </th>
+                      </td>
                     </>
                   )}
                 </tr>
@@ -159,7 +159,11 @@ function OnlineInquiryEntries({ className }: OnlineInquiryEntriesProps) {
       </div>
 
       <div className="flex justify-center mt-4">
-        <Paginator currentPage={page} maxPage={Math.ceil(total / limit) || 1} />
+        <Paginator
+          currentPage={page}
+          maxPage={Math.ceil(total / limit) || 1}
+          shallow
+        />
       </div>
     </div>
   );
