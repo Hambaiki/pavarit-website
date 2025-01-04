@@ -1,12 +1,13 @@
-import React from "react";
 import Link from "next/link";
 
-import MainContainer from "@/components/container/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
-import RecentPosts from "@/components/post/RecentPosts";
+import * as changeCase from "change-case";
 
 import { fetchFromApi } from "@/lib/api";
 import { TagResponse } from "@/types/api/post";
+
+import MainContainer from "@/components/container/MainContainer";
+import RecentPosts from "@/components/post/RecentPosts";
+import MainHeader from "@/components/common/MainHeader";
 
 async function TagPage() {
   const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
@@ -22,21 +23,16 @@ async function TagPage() {
 
   return (
     <MainContainer>
-      <header>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="flex flex-col space-y-4 mt-8">
-          <h1>Tags</h1>
-          <p>
-            {`Explore all the tags on this website, including
+      <MainHeader
+        title="Tags"
+        description={`Explore all the tags on this website, including
           ${filteredTags.slice(0, 5).join(", ")}, and more.`}
-          </p>
-        </div>
-      </header>
+        breadcrumbs={breadcrumbs}
+      />
 
       <section className="mt-10">
         <h2>
-          All Tags{" "}
+          All Tags&nbsp;
           <span className="font-normal text-suzuha-teal-500">
             ({filteredTags.length})
           </span>
@@ -48,7 +44,7 @@ async function TagPage() {
                 className="text-base font-medium text-white px-4 py-1 rounded-full
                 bg-gray-800 hover:bg-gray-700 transition-colors"
               >
-                {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                {changeCase.capitalCase(tag)}
               </li>
             </Link>
           ))}

@@ -141,11 +141,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
   },
-  // twitter: {
-  //   card: "summary_large_image",
-  //   site: "@yourTwitterHandle",
-  //   creator: "@yourTwitterHandle",
-  // },
 };
 
 export default HomePage;

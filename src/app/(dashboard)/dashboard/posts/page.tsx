@@ -10,11 +10,11 @@ import { FaPlus } from "react-icons/fa6";
 
 import SearchBar from "@/components/post/SearchBar";
 import Button from "@/components/Button";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/dashboard/common/MainContainer";
 import Paginator from "@/components/Paginator";
 import Loading from "@/components/navigation/Loading";
 import PostItem from "@/components/dashboard/PostItem";
+import MainHeader from "@/components/common/MainHeader";
 
 function PostsPage({
   searchParams,
@@ -95,16 +95,11 @@ function PostsPage({
 
   return (
     <MainContainer>
-      <header className="flex flex-col">
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="space-y-4 mt-8">
-          <h1>Manage Posts</h1>
-          <p>
-            Manage your posts and their content.
-          </p>
-        </div>
-      </header>
+      <MainHeader
+        title="Manage Posts"
+        description="Manage your posts and their content."
+        breadcrumbs={breadcrumbs}
+      />
 
       <div className="mt-8">
         <SearchBar />

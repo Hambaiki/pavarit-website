@@ -7,6 +7,7 @@ import { SearchPostResponse } from "@/types/api/post";
 
 import PostItem from "./PostItem";
 import Button from "../Button";
+import PostItemAlt from "./PostItemAlt";
 
 interface LatestPostsProps {
   delay?: number;
@@ -36,17 +37,17 @@ async function LatestPosts({ className, count = 4 }: LatestPostsProps) {
 
   return (
     <div className={`${className}`}>
-      <div className="flex flex-col space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {latestPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <PostItem
+            <PostItemAlt
               image={post.image}
               title={post.title}
               author={post.author}
               createDate={post.created_at}
               tags={post.tags}
-              description={post.description}
-              className="h-full md:h-80"
+              // description={post.description}
+              // className="h-full md:h-80"
             />
           </Link>
         ))}

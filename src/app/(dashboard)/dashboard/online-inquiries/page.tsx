@@ -1,6 +1,6 @@
+import MainHeader from "@/components/common/MainHeader";
 import MainContainer from "@/components/dashboard/common/MainContainer";
 import OnlineInquiryEntries from "@/components/dashboard/online-inquiries/OnlineInquiryEntries";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 
 export default function MaintenanceSettings() {
   const breadcrumbs = [
@@ -10,14 +10,11 @@ export default function MaintenanceSettings() {
 
   return (
     <MainContainer>
-      <header className="flex flex-col">
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="space-y-4 mt-8">
-          <h1>Online Inquiries</h1>
-          <p>View all inquiries.</p>
-        </div>
-      </header>
+      <MainHeader
+        title="Online Inquiries"
+        description="View all inquiries."
+        breadcrumbs={breadcrumbs}
+      />
 
       <div className="mt-8">
         <OnlineInquiryEntries />

@@ -7,7 +7,6 @@ import { SearchPostResponse } from "@/types/api/post";
 
 import { blogItems } from "@/constants/blog";
 
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MainContainer from "@/components/container/MainContainer";
 import LatestPosts, {
   LatestPostsHeader,
@@ -19,6 +18,8 @@ import FeaturedPosts, {
 } from "@/components/post/FeaturedPosts";
 import MorePostBanner from "@/components/post/MorePostBanner";
 import OptionMenuGrid from "@/components/common/OptionMenuGrid";
+import MainHeader from "@/components/common/MainHeader";
+import SectionHeader from "@/components/common/SectionHeader";
 
 async function page() {
   const breadcrumbs = [
@@ -36,22 +37,17 @@ async function page() {
   // }
 
   return (
-    <MainContainer>
-      <header>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <MainContainer className="space-y-10 lg:space-y-16">
+      <MainHeader
+        title={`Blog`}
+        description={`Discover more about myself with a collection of topics ranging from
+          personal growth and creative projects to technical tutorials and
+          deep thoughts about life. This is a place where I share my journey
+          and experiences for exploration and connection.`}
+        breadcrumbs={breadcrumbs}
+      />
 
-        <div className="flex flex-col space-y-4 mt-8">
-          <h1>Blog</h1>
-          <p className="mt-4">
-            {`Discover more about myself with a collection of topics ranging from
-            personal growth and creative projects to technical tutorials and
-            deep thoughts about life. This is a place where I share my journey
-            and experiences for exploration and connection.`}
-          </p>
-        </div>
-      </header>
-
-      <section className="mt-10">
+      <section>
         <FeaturedPostsHeader />
 
         <div className="mt-8">
@@ -61,27 +57,25 @@ async function page() {
         </div>
       </section>
 
-      <section className="mt-10 lg:mt-20">
-        <div className="flex items-center space-x-2">
-          <FaList className="h-6 w-6 text-suzuha-teal-500" />
-          <h2>Categories</h2>
-        </div>
-        <p className="mt-4">
-          {`Explore a wide range of topics and categories on my blog. Each category
+      <section>
+        <SectionHeader
+          title={`Categories`}
+          icon={FaList}
+          description={`Explore a wide range of topics and categories on my blog. Each category
             represents a different aspect of my interests and experiences.`}
-        </p>
+        />
 
         <OptionMenuGrid items={blogItems} />
       </section>
 
-      <section className="mt-10 lg:mt-20 space-y-8">
+      <section>
         <LatestPostsHeader />
 
         <Suspense fallback={<LatestPostsSkeleton />}>
           <LatestPosts />
         </Suspense>
 
-        <div className="mt-8">
+        <div className="mt-4">
           <MorePostBanner />
         </div>
       </section>
@@ -101,6 +95,7 @@ export async function generateMetadata() {
       }),
     }
   );
+
   const posts = postData?.posts || [];
 
   return {

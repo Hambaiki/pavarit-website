@@ -7,9 +7,9 @@ import { PostMetadata } from "@/types/posts";
 import { createPost } from "@/lib/api/posts";
 
 import MainContainer from "@/components/dashboard/common/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostEditor from "@/components/post/editor/PostEditor";
 import GeneralModal from "@/components/common/GeneralModal";
+import MainHeader from "@/components/common/MainHeader";
 
 function CreatePage() {
   const router = useRouter();
@@ -53,14 +53,11 @@ function CreatePage() {
   return (
     <>
       <MainContainer>
-        <header className="flex flex-col">
-          <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-          <div className="space-y-4 mt-8">
-            <h1>Create Post</h1>
-            <p>Create a new post.</p>
-          </div>
-        </header>
+        <MainHeader
+          title="Create Post"
+          description="Create a new post."
+          breadcrumbs={breadcrumbs}
+        />
 
         <Suspense fallback={<div>Loading...</div>}>
           <div className="mt-8">

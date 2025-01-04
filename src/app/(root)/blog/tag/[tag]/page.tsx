@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import * as changeCase from "change-case";
+
 import { FaBookOpen } from "react-icons/fa6";
 
 import { fetchFromApi } from "@/lib/api";
@@ -11,6 +13,8 @@ import PostItemAlt from "@/components/post/PostItemAlt";
 
 async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const tag = decodeURIComponent((await params).tag);
+  const tagCapitalized = changeCase.capitalCase(tag);
+
   const response = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search`,
     "POST",
@@ -29,7 +33,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
     { label: "Tag", href: "/blog/tag" },
-    { label: tag, href: `/blog/tag/${tag}` },
+    { label: tagCapitalized, href: `/blog/tag/${tag}` },
   ];
 
   return (
@@ -40,14 +44,12 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
         <div className="flex flex-col space-y-4 mt-8">
           <h1>
             Tag:&nbsp;
-            <span className="text-suzuha-teal-500">
-              {tag.charAt(0).toUpperCase() + tag.slice(1)}
-            </span>
+            <span className="text-suzuha-teal-500">{tagCapitalized}</span>
           </h1>
           <p className="text-lg text-neutral-400">
             Explore articles tagged with&nbsp;
             <span className="text-suzuha-teal-500">
-              {tag.charAt(0).toUpperCase() + tag.slice(1)}
+              {changeCase.capitalCase(tag)}
             </span>
             &nbsp;on this website.
           </p>

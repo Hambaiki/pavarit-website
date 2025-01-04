@@ -4,12 +4,13 @@ import { Suspense, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 
 import { PostMetadata } from "@/types/posts";
+import { slugify } from "@/utils/slugify";
 
 import MainContainer from "@/components/dashboard/common/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostEditor from "@/components/post/editor/PostEditor";
 import Loading from "@/components/navigation/Loading";
 import GeneralModal from "@/components/common/GeneralModal";
+import MainHeader from "@/components/common/MainHeader";
 
 function CreatePage({ searchParams }: { searchParams: { id: string } }) {
   if (!searchParams.id) {
@@ -25,16 +26,11 @@ function CreatePage({ searchParams }: { searchParams: { id: string } }) {
   return (
     <>
       <MainContainer>
-        <header className="flex flex-col">
-          <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-          <div className="space-y-4 mt-8">
-            <h1>Edit Post</h1>
-            <p>
-              Edit post information and content.
-            </p>
-          </div>
-        </header>
+        <MainHeader
+          title="Edit Post"
+          description="Edit post information and content."
+          breadcrumbs={breadcrumbs}
+        />
 
         <Suspense fallback={<Loading />}>
           <Editor postId={searchParams.id} />
@@ -98,10 +94,7 @@ function Editor({ postId }: { postId: string }) {
     content: string;
   }) {
     try {
-      const processedSlug = metadata.slug
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/--+/g, "-");
+      const processedSlug = slugify(metadata.slug);
 
       const response = await fetch("/api/v1/posts/update", {
         method: "POST",
@@ -116,12 +109,14 @@ function Editor({ postId }: { postId: string }) {
                 .split(",")
                 .map((tag) => tag.trim())
                 .filter((tag) => tag !== "")
+                .map((tag) => slugify(tag))
             : [],
           keywords: metadata.keywords
             ? metadata.keywords
                 .split(",")
                 .map((keyword) => keyword.trim())
                 .filter((keyword) => keyword !== "")
+                .map((keyword) => slugify(keyword))
             : [],
           author: metadata.author,
           image: metadata.image,

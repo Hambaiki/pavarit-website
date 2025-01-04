@@ -1,7 +1,7 @@
 import MainContainer from "@/components/dashboard/common/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import MaintenanceModeModule from "@/components/dashboard/settings/MaintenanceModeModule";
 import MaintenanceEntries from "@/components/dashboard/settings/MaintenanceEntries";
+import MainHeader from "@/components/common/MainHeader";
 
 export default function MaintenanceSettings() {
   const breadcrumbs = [
@@ -11,14 +11,11 @@ export default function MaintenanceSettings() {
 
   return (
     <MainContainer>
-      <header className="flex flex-col">
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="space-y-4 mt-8">
-          <h1>Settings</h1>
-          <p>Manage website settings.</p>
-        </div>
-      </header>
+      <MainHeader
+        title="Settings"
+        description="Manage website settings."
+        breadcrumbs={breadcrumbs}
+      />
 
       <MaintenanceModeModule className="mt-8" />
 

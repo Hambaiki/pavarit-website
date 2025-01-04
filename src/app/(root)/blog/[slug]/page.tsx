@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import * as changeCase from "change-case";
+
 import {
   GetPostMetadataResponse,
   GetPostResponse,
@@ -79,7 +81,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
                     className="px-3 py-1 rounded-full 
                       bg-gray-800 hover:bg-gray-700 transition-colors"
                   >
-                    {tag}
+                    {changeCase.capitalCase(tag)}
                   </li>
                 </Link>
               ))}

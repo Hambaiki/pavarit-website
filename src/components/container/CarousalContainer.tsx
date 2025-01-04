@@ -68,8 +68,8 @@ function CarousalContainer({
         className={`flex 
           ${
             orientation === "vertical"
-              ? "flex-col overflow-y-scroll snap-y"
-              : "flex-row overflow-x-scroll snap-x"
+              ? "flex-col overflow-y-scroll snap-y space-y-4"
+              : "flex-row overflow-x-scroll snap-x space-x-4"
           }  scrollbar-none snap-mandatory`}
         onScroll={handleScroll}
       >

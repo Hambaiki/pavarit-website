@@ -5,9 +5,9 @@ import { FaImages, FaMagnifyingGlass } from "react-icons/fa6";
 import { aboutItems } from "@/constants/about";
 
 import MainContainer from "@/components/container/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PhotosCarousal from "@/components/about/PhotosCarousal";
 import OptionMenuGrid from "@/components/common/OptionMenuGrid";
+import MainHeader from "@/components/common/MainHeader";
 
 function About() {
   const breadcrumbs = [
@@ -32,17 +32,12 @@ function About() {
 
   return (
     <MainContainer className="space-y-10">
-      <header>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="flex flex-col space-y-4 mt-8">
-          <h1>About Me</h1>
-          <p>
-            {`I'm Pavarit Wiriyakunakorn, a frontend developer with a passion for creating web applications.
+      <MainHeader
+        title="About Me"
+        description={`I'm Pavarit Wiriyakunakorn, a frontend developer with a passion for creating web applications.
             I'm a graduate of Information and Communication Engineering from Chulalongkorn University. Currently, I'm working as a frontend developer at a startup company.`}
-          </p>
-        </div>
-      </header>
+        breadcrumbs={breadcrumbs}
+      />
 
       <section>
         <div className="flex items-center space-x-2 mb-4">

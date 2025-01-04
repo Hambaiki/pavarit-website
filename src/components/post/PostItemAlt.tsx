@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { format } from "date-fns";
+import * as changeCase from "change-case";
 
 import { FaCalendar } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
@@ -56,7 +57,7 @@ function PostItemAlt({
           <ul className="flex flex-row flex-wrap gap-2">
             {filteredTags.map((tag, index) => (
               <li key={index} className="rounded-full px-3 py-1 bg-gray-800">
-                {tag}
+                {changeCase.capitalCase(tag)}
               </li>
             ))}
           </ul>

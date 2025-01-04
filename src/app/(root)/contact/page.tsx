@@ -4,7 +4,7 @@ import { FaGlobe, FaPhone } from "react-icons/fa6";
 
 import ContactForm from "@/components/contact/ContactForm";
 import MainContainer from "@/components/container/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import MainHeader from "@/components/common/MainHeader";
 
 function Contact() {
   const breadcrumbs = [
@@ -14,17 +14,12 @@ function Contact() {
 
   return (
     <MainContainer className="space-y-14">
-      <header>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="flex flex-col space-y-4 mt-8">
-          <h1>Contact</h1>
-          <p>
-            Get in touch with me through the form below or by using the contact
-            information provided.
-          </p>
-        </div>
-      </header>
+      <MainHeader
+        title="Contact"
+        description="Get in touch with me through the form below or by using the contact
+          information provided."
+        breadcrumbs={breadcrumbs}
+      />
 
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
         <div className="col-span-1 lg:col-span-2">
