@@ -71,9 +71,11 @@ async function page() {
       <section>
         <LatestPostsHeader />
 
-        <Suspense fallback={<LatestPostsSkeleton />}>
-          <LatestPosts />
-        </Suspense>
+        <div className="mt-8">
+          <Suspense fallback={<LatestPostsSkeleton />}>
+            <LatestPosts />
+          </Suspense>
+        </div>
 
         <div className="mt-4">
           <MorePostBanner />
