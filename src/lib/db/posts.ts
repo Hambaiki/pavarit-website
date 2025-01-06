@@ -1,5 +1,15 @@
 import { sql } from "./neon";
 
+export async function getAllPosts() {
+  try {
+    const posts = await sql`SELECT * FROM posts`;
+    return posts;
+  } catch (error) {
+    console.error("Error getting all posts:", error);
+    return [];
+  }
+}
+
 export async function getPosts({
   search,
   tags,

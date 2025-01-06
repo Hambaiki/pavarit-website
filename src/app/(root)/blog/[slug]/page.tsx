@@ -42,14 +42,24 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
     }
   );
 
+  const handleUpdateViews = async (postId: number) => {
+    "use server";
+
+    if (process.env.NODE_ENV !== "development") {
+      await fetchFromApi(`/api/v1/posts/analytics/views`, "POST", {
+        body: JSON.stringify({ id: postId }),
+      });
+    } else {
+      console.log("DEV: Updating views for post", postId);
+    }
+  };
+
   const post = postData?.post;
 
   if (!post) {
     return notFound();
   } else {
-    await fetchFromApi(`/api/v1/posts/analytics/views`, "POST", {
-      body: JSON.stringify({ id: post.id }),
-    });
+    await handleUpdateViews(post.id);
   }
 
   const relatedPosts = relatedPostData?.posts.filter(

@@ -24,6 +24,7 @@ export const navItems = [
     href: "/blog",
     subItems: [
       { label: "Posts", href: "/blog" },
+      { label: "All Posts", href: "/blog/all" },
       { label: "Tags", href: "/blog/tag" },
     ],
   },

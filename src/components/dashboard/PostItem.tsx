@@ -23,6 +23,7 @@ import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import { FaRedoAlt } from "react-icons/fa";
 import GeneralModal from "@/components/common/GeneralModal";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import Link from "next/link";
 
 interface PostItemProps {
   id?: number;
@@ -139,7 +140,7 @@ function PostItem({
       </div>
 
       <CollapsibleContainer collapsed={menuCollapsed}>
-        <div className="flex flex-row justify-end space-x-2 p-2 mt-3 bg-gray-900 rounded-lg">
+        <div className="flex flex-row justify-end space-x-2 p-2 mt-3 bg-gray-800 rounded-lg">
           <button
             className="flex flex-row items-center space-x-2 px-4 py-2 rounded-lg 
               border border-red-500 hover:bg-red-500/20 transition-colors"
@@ -149,25 +150,27 @@ function PostItem({
             <span className="hidden md:block text-sm text-red-500">Delete</span>
           </button>
 
-          <button
+          <Link
+            href={`/dashboard/posts/edit?id=${id}`}
+            prefetch={false}
             className="flex flex-row items-center space-x-2 px-4 py-2 rounded-lg 
               border border-suzuha-teal-500 hover:bg-suzuha-teal-500/20 transition-colors"
-            onClick={() => router.push(`/dashboard/posts/edit?id=${id}`)}
           >
             <FaPencil className="text-suzuha-teal-500" />
             <span className="hidden md:block text-sm text-suzuha-teal-500">
               Edit
             </span>
-          </button>
+          </Link>
 
-          <button
+          <Link
+            href={`/blog/${slug}`}
+            target="_blank"
             className="flex flex-row items-center space-x-2 px-4 py-2 rounded-lg 
               border border-white hover:bg-white/20 transition-colors"
-            onClick={() => router.push(`/blog/${slug}`)}
           >
             <FaEye className="text-white" />
             <span className="hidden md:block text-sm text-white">View</span>
-          </button>
+          </Link>
         </div>
       </CollapsibleContainer>
 

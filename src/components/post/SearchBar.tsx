@@ -32,10 +32,20 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
       label: "Newest",
       icon: FaClock,
     },
+  ];
+
+  const recentSortKeyOptions = [
     {
       value: "MOST_VIEWED",
-      label: "Popular",
-      icon: FaStar,
+      label: "All Time",
+    },
+    {
+      value: "MOST_VIEWED_LAST_7_DAYS",
+      label: "This Week",
+    },
+    {
+      value: "MOST_VIEWED_LAST_30_DAYS",
+      label: "This Month",
     },
   ];
 
@@ -60,7 +70,7 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
   }
 
   return (
-    <form className="flex flex-col p-4 bg-gray-850 rounded-xl">
+    <form className="flex flex-col  rounded-xl">
       <div className="flex items-center h-12">
         <label className="relative w-full">
           <span className="sr-only">Search posts</span>
@@ -95,13 +105,36 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
         <div className="flex items-center gap-4 rounded-l-lg mt-4 rounded-lg">
           {/* <span>Sort by</span> */}
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap ">
+            <div className="flex items-center rounded-lg bg-gray-850 overflow-hidden shrink-0">
+              <div className="flex items-center space-x-2 px-3 py-2">
+                <FaStar className="h-4 w-4" />
+                <span className="hidden sm:block">Popular</span>
+              </div>
+
+              {recentSortKeyOptions.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handleSort(option.value)}
+                  className={`flex items-center space-x-2 px-3 py-2 transition-colors 
+              ${
+                sort === option.value
+                  ? "bg-suzuha-teal-500 hover:bg-suzuha-teal-600"
+                  : "bg-gray-800 hover:bg-gray-700"
+              }`}
+                >
+                  <span>{option.label}</span>
+                </button>
+              ))}
+            </div>
+
             {sortKeyOptions.map((option) => (
               <button
                 key={option.value}
                 type="button"
                 onClick={() => handleSort(option.value)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors 
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors 
               ${
                 sort === option.value
                   ? "bg-suzuha-teal-500 hover:bg-suzuha-teal-600"

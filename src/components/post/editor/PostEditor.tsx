@@ -13,6 +13,7 @@ import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
+import Youtube from "@tiptap/extension-youtube";
 
 import {
   FaBold,
@@ -27,6 +28,7 @@ import {
   FaQuoteLeft,
   FaQuoteRight,
   FaTable,
+  FaYoutube,
 } from "react-icons/fa6";
 
 import { PostMetadata } from "@/types/posts";
@@ -74,6 +76,9 @@ function PostEditor({
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [discarding, setDiscarding] = useState(false);
 
+  const [height, setHeight] = useState(480);
+  const [width, setWidth] = useState(640);
+
   const [metadata, setMetadata] = useState({
     title: "",
     slug: "",
@@ -100,6 +105,10 @@ function PostEditor({
       TableRow,
       TableCell,
       TableHeader,
+      Youtube.configure({
+        controls: false,
+        nocookie: true,
+      }),
     ],
     content: postContent,
     editorProps: {
@@ -258,6 +267,18 @@ function PostEditor({
     return <Loading />;
   }
 
+  const addYoutubeVideo = () => {
+    const url = prompt("Enter YouTube URL");
+
+    if (url) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+        width: Math.max(320, width) || 640,
+        height: Math.max(180, height) || 480,
+      });
+    }
+  };
+
   return (
     <>
       <div className="space-y-6">
@@ -375,10 +396,11 @@ function PostEditor({
 
           <div className="mt-8">
             <h2 className="mb-4">Post Content</h2>
+
             {/* Editor Toolbar */}
             <div
               className="flex flex-wrap gap-2 p-2 mt-4 
-              bg-gray-900 rounded-t-md border border-gray-border"
+              bg-gray-900 rounded-t-md"
             >
               <ToolbarButton
                 onClick={() => editor.chain().focus().toggleBold().run()}
@@ -452,6 +474,37 @@ function PostEditor({
               <ToolbarButton onClick={() => setIsUrlModalOpen(true)}>
                 <FaLink />
               </ToolbarButton>
+            </div>
+
+            {/* Youtube Video */}
+            <div className="flex flex-row gap-2 p-4 bg-gray-850">
+              <TextInput
+                id="width"
+                type="number"
+                min="320"
+                max="1024"
+                placeholder="width"
+                value={width}
+                onChange={(event) => setWidth(parseInt(event.target.value))}
+              />
+              <TextInput
+                id="height"
+                type="number"
+                min="180"
+                max="720"
+                placeholder="height"
+                value={height}
+                onChange={(event) => setHeight(parseInt(event.target.value))}
+              />
+              <button
+                type="button"
+                id="add"
+                onClick={addYoutubeVideo}
+                className="flex flex-row items-center gap-2 bg-gray-800 text-gray-200 hover:bg-gray-700 transition-colors px-4 py-2 rounded-md"
+              >
+                <FaYoutube className="w-4 h-4" />
+                Add YouTube video
+              </button>
             </div>
 
             <div className="flex-row gap-2 hidden">
@@ -578,7 +631,7 @@ function PostEditor({
             {/* Editor Content */}
             <div
               className="min-h-[20rem] max-h-[30rem] bg-gray-900 rounded-b-md 
-              border border-t-0 border-gray-border overflow-y-auto scrollbar-thin"
+              overflow-y-auto scrollbar-thin"
             >
               <EditorContent editor={editor} className="prose" />
             </div>
