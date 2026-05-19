@@ -1,20 +1,23 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
 import NextImage from "next/image";
-import imageCompression from "browser-image-compression";
+import { useRouter } from "next/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Heading } from "@tiptap/extension-heading";
-import { useEditor, EditorContent, Editor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Table from "@tiptap/extension-table";
-import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 import Youtube from "@tiptap/extension-youtube";
-
+import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import imageCompression from "browser-image-compression";
+import { useForm, useWatch } from "react-hook-form";
 import {
   FaBold,
   FaCode,
@@ -30,16 +33,30 @@ import {
   FaTable,
   FaYoutube,
 } from "react-icons/fa6";
-
-import { PostMetadata } from "@/types/posts";
-import { slugify } from "@/utils/slugify";
+import { z } from "zod";
 
 import Button from "@/components/Button";
-import ToolbarButton from "@/components/post/editor/ToolbarButton";
-import TextInput from "@/components/form/TextInput";
-import TextAreaInput from "@/components/form/TextAreaInput";
 import GeneralModal from "@/components/common/GeneralModal";
+import TextAreaInput from "@/components/form/v1/TextAreaInput";
+import TextInput from "@/components/form/v1/TextInput";
 import Loading from "@/components/navigation/Loading";
+import ToolbarButton from "@/components/post/editor/ToolbarButton";
+import { slugify } from "@/lib/string";
+import { PostMetadata } from "@/types/posts";
+
+const postSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  slug: z.string().min(1, "Slug is required"),
+  description: z.string().optional(),
+  tags: z.string().optional(),
+  keywords: z.string().optional(),
+  category: z.string().optional(),
+  author: z.string().optional(),
+  image: z.string().optional(),
+  altText: z.string().optional(),
+});
+
+type PostFormValues = z.infer<typeof postSchema>;
 
 interface PostEditorProps {
   postMetadata?: PostMetadata;
@@ -55,20 +72,14 @@ interface PostEditorProps {
   onError?: () => void;
 }
 
-function PostEditor({
-  postMetadata,
-  postContent,
-  onSubmit,
-  onSuccess,
-  onError,
-}: PostEditorProps) {
+function PostEditor({ postMetadata, postContent, onSubmit }: PostEditorProps) {
   const router = useRouter();
 
   const [url, setUrl] = useState("");
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
 
   const [altText, setAltText] = useState("");
-  const [imageFile, setImageFile] = useState<File | undefined>(undefined);
+  const [imageFile, setImageFile] = useState<File>();
   const [isUploadPostImage, setIsUploadPostImage] = useState(false);
   const [isUploadFeaturedImage, setIsUploadFeaturedImage] = useState(false);
   const [isUploadingImageError, setIsUploadingImageError] = useState(false);
@@ -79,21 +90,34 @@ function PostEditor({
   const [height, setHeight] = useState(480);
   const [width, setWidth] = useState(640);
 
-  const [metadata, setMetadata] = useState({
-    title: "",
-    slug: "",
-    description: "",
-    category: "",
-    tags: "",
-    keywords: "",
-    author: "",
-    image: "",
-    altText: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<PostFormValues>({
+    resolver: zodResolver(postSchema),
+    defaultValues: {
+      title: "",
+      slug: "",
+      description: "",
+      category: "",
+      tags: "",
+      keywords: "",
+      author: "",
+      image: "",
+      altText: "",
+    },
   });
+
+  const featuredImage = useWatch({ control, name: "image" });
+  const featuredAltText = useWatch({ control, name: "altText" });
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ heading: false }), // disable default heading
+      StarterKit.configure({ heading: false }),
       HeadingWithId.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       Image,
       Link.configure({
@@ -113,15 +137,14 @@ function PostEditor({
     content: postContent,
     editorProps: {
       attributes: {
-        class:
-          "prose prose-invert max-w-none min-h-[200px] p-4 focus:outline-none",
+        class: "prose max-w-none min-h-[200px] p-4 focus:outline-none",
       },
     },
     immediatelyRender: false,
   });
 
   useEffect(() => {
-    setMetadata({
+    reset({
       title: postMetadata?.title || "",
       slug: postMetadata?.slug || "",
       description: postMetadata?.description || "",
@@ -132,7 +155,7 @@ function PostEditor({
       image: postMetadata?.image || "",
       altText: postMetadata?.altText || "",
     });
-  }, [postMetadata]);
+  }, [postMetadata, reset]);
 
   useEffect(() => {
     if (editor) {
@@ -140,24 +163,14 @@ function PostEditor({
     }
   }, [postContent, editor]);
 
-  const handleMetadataChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setMetadata((prev) => ({ ...prev, [name]: value }));
-  };
-
   const handleStartUploadFeaturedImage = async () => {
     if (!imageFile) return;
 
     const imageData = await handleStartUploadImage(imageFile);
 
     if (imageData) {
-      setMetadata((prev) => ({
-        ...prev,
-        image: imageData.image,
-        altText: imageData.altText,
-      }));
+      setValue("image", imageData.image);
+      setValue("altText", imageData.altText);
     }
   };
 
@@ -199,19 +212,17 @@ function PostEditor({
 
     try {
       const options = {
-        maxSizeMB: 1, // Maximum size in MB
-        maxWidthOrHeight: 1024, // Maximum width or height in pixels
-        useWebWorker: true, // Enable web worker for performance
-        fileType: "image/jpeg", // Convert all images to JPEG format
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+        fileType: "image/jpeg",
       };
 
       const compressedFile = await imageCompression(imageFile, options);
 
-      // Create form data with compressed image
       const formData = new FormData();
       formData.append("file", new File([compressedFile], `${Date.now()}.jpeg`));
 
-      // Upload the compressed image
       const response = await fetch("/api/v1/image", {
         method: "POST",
         body: formData,
@@ -244,21 +255,9 @@ function PostEditor({
       .run();
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onFormSubmit = (data: PostFormValues) => {
     onSubmit?.({
-      metadata: {
-        title: metadata.title,
-        slug: metadata.slug,
-        description: metadata.description,
-        category: metadata.category,
-        tags: metadata.tags,
-        keywords: metadata.keywords,
-        author: metadata.author,
-        image: metadata.image,
-        altText: metadata.altText,
-      },
+      metadata: data as PostMetadata,
       content: editor?.getHTML() || "",
     });
   };
@@ -282,69 +281,64 @@ function PostEditor({
   return (
     <>
       <div className="space-y-6">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onFormSubmit)}>
           {/* Metadata Fields */}
           <div className="mt-8">
             <h2 className="mb-4">Post Details</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-900 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 card rounded-xl">
               <TextInput
                 label="Title"
                 type="text"
-                name="title"
                 placeholder="Title of the post"
-                value={metadata.title}
-                onChange={handleMetadataChange}
+                error={errors.title?.message}
+                required
+                {...register("title")}
               />
               <TextInput
                 label="Slug"
                 type="text"
-                name="slug"
                 placeholder="Slug of the post"
-                value={metadata.slug}
-                onChange={handleMetadataChange}
+                error={errors.slug?.message}
+                required
+                {...register("slug")}
               />
               <div className="md:col-span-2">
                 <TextAreaInput
                   label="Description"
-                  name="description"
                   placeholder="Enter a short description for your post"
-                  value={metadata.description}
-                  onChange={handleMetadataChange}
-                  className="min-h-[6rem]"
+                  className="min-h-24"
+                  error={errors.description?.message}
+                  {...register("description")}
                 />
               </div>
               <TextInput
                 label="Tags (comma separated)"
                 type="text"
-                name="tags"
                 placeholder="tag-1, tag-2,..."
-                value={metadata.tags}
-                onChange={handleMetadataChange}
+                error={errors.tags?.message}
+                {...register("tags")}
               />
               <TextInput
                 label="Keywords (comma separated)"
                 type="text"
-                name="keywords"
                 placeholder="keyword-1, keyword-2,..."
-                value={metadata.keywords}
-                onChange={handleMetadataChange}
+                error={errors.keywords?.message}
+                {...register("keywords")}
               />
               <TextInput
                 label="Category"
                 type="text"
-                name="category"
                 placeholder="Category of the post"
-                value={metadata.category}
-                onChange={handleMetadataChange}
+                error={errors.category?.message}
+                {...register("category")}
               />
               <TextInput
                 label="Author"
                 type="text"
-                name="author"
                 placeholder="Author of the post"
-                value={metadata.author}
-                onChange={handleMetadataChange}
+                error={errors.author?.message}
+                {...register("author")}
               />
             </div>
           </div>
@@ -352,19 +346,19 @@ function PostEditor({
           <div className="mt-8">
             <h2 className="mb-4">Featured Image</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-900 rounded-xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 card rounded-xl">
               <div className="w-full h-72 rounded-lg overflow-hidden">
-                {metadata.image ? (
+                {featuredImage ? (
                   <NextImage
-                    src={metadata.image}
-                    alt={metadata.altText}
+                    src={featuredImage}
+                    alt={featuredAltText || ""}
                     width={1024}
                     height={1024}
                     className="w-full h-full object-cover"
                     priority
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                     <FaImage className="text-gray-400 w-10 h-10" />
                   </div>
                 )}
@@ -375,10 +369,9 @@ function PostEditor({
                   <TextInput
                     label="Image Alt Text"
                     type="text"
-                    name="altText"
                     placeholder="Image Alt Text"
-                    value={metadata.altText}
-                    onChange={handleMetadataChange}
+                    error={errors.altText?.message}
+                    {...register("altText")}
                   />
                 </div>
 
@@ -398,10 +391,7 @@ function PostEditor({
             <h2 className="mb-4">Post Content</h2>
 
             {/* Editor Toolbar */}
-            <div
-              className="flex flex-wrap gap-2 p-2 mt-4 
-              bg-gray-900 rounded-t-md"
-            >
+            <div className="flex flex-wrap items-center gap-2 p-2 mt-4 card rounded-t-md">
               <ToolbarButton
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 active={editor.isActive("bold")}
@@ -474,37 +464,36 @@ function PostEditor({
               <ToolbarButton onClick={() => setIsUrlModalOpen(true)}>
                 <FaLink />
               </ToolbarButton>
-            </div>
 
-            {/* Youtube Video */}
-            <div className="flex flex-row gap-2 p-4 bg-gray-850">
-              <TextInput
-                id="width"
-                type="number"
-                min="320"
-                max="1024"
-                placeholder="width"
-                value={width}
-                onChange={(event) => setWidth(parseInt(event.target.value))}
-              />
-              <TextInput
-                id="height"
-                type="number"
-                min="180"
-                max="720"
-                placeholder="height"
-                value={height}
-                onChange={(event) => setHeight(parseInt(event.target.value))}
-              />
-              <button
-                type="button"
-                id="add"
-                onClick={addYoutubeVideo}
-                className="flex flex-row items-center gap-2 bg-gray-800 text-gray-200 hover:bg-gray-700 transition-colors px-4 py-2 rounded-md"
-              >
-                <FaYoutube className="w-4 h-4" />
-                Add YouTube video
-              </button>
+              <div className="flex flex-row card rounded-lg p-1 gap-2">
+                <TextInput
+                  id="width"
+                  type="number"
+                  min="320"
+                  max="1024"
+                  placeholder="width"
+                  value={width}
+                  onChange={(event) => setWidth(parseInt(event.target.value))}
+                />
+                <TextInput
+                  id="height"
+                  type="number"
+                  min="180"
+                  max="720"
+                  placeholder="height"
+                  value={height}
+                  onChange={(event) => setHeight(parseInt(event.target.value))}
+                />
+                <button
+                  type="button"
+                  id="add"
+                  onClick={addYoutubeVideo}
+                  className="flex flex-row items-center gap-2 bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors px-4 py-2 rounded-md"
+                >
+                  <FaYoutube className="w-4 h-4" />
+                  Add YouTube video
+                </button>
+              </div>
             </div>
 
             <div className="flex-row gap-2 hidden">
@@ -630,7 +619,7 @@ function PostEditor({
 
             {/* Editor Content */}
             <div
-              className="min-h-[20rem] max-h-[30rem] bg-gray-900 rounded-b-md 
+              className="min-h-80 max-h-120 card rounded-b-md
               overflow-y-auto scrollbar-thin"
             >
               <EditorContent editor={editor} className="prose" />
@@ -646,7 +635,11 @@ function PostEditor({
             >
               Discard Changes
             </Button>
-            <Button type="submit" className="flex-1 p-3 rounded-full">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 p-3 rounded-full"
+            >
               Save Post
             </Button>
           </div>

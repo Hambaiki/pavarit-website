@@ -1,5 +1,10 @@
+"use client";
+
 import { ReactNode } from "react";
+
 import { AnimatePresence, motion } from "framer-motion";
+
+import { cn } from "@/lib/cn";
 
 interface CollapsibleContainerProps {
   collapsed: boolean;
@@ -41,7 +46,7 @@ const CollapsibleContainer = ({
           transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{ overflow: "hidden", willChange: "auto" }} // Prevents phantom space (┛◉Д◉)┛彡┻━┻
           {...props}
-          className={`${className}`}
+          className={cn(className)}
         >
           {children}
         </motion.div>

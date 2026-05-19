@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getPostById, getPosts, getPostTotal } from "@/lib/db/posts";
+import { getPostById, getPostTotal, getPosts } from "@/lib/db/posts";
 import {
   CommonResponse,
   GetPostResponse,

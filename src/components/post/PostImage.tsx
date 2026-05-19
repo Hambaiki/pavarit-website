@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+
 import Image from "next/image";
+
+import { cn } from "@/lib/cn";
 
 interface PostImageProps {
   image: string;
@@ -21,11 +24,13 @@ const PostImage = ({
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className={`relative overflow-hidden`}>
+    <div className={cn(`relative overflow-hidden`, className)}>
       {/* Loading State */}
       {isLoading && (
         <div
-          className={`absolute inset-0 flex items-center justify-center bg-gray-950 animate-pulse`}
+          className={cn(
+            `absolute inset-0 flex items-center justify-center bg-gray-100 animate-pulse`
+          )}
         />
       )}
 
@@ -36,7 +41,7 @@ const PostImage = ({
         width={width}
         height={height}
         layout="intrinsic"
-        className={`${isLoading ? "opacity-0" : "opacity-100"}`}
+        className={cn(`${isLoading ? "opacity-0" : "opacity-100"}`)}
         onLoad={() => setIsLoading(false)}
       />
     </div>

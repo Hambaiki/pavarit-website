@@ -11,9 +11,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <Navbar />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-72 overflow-x-auto">
+      <div className="flex-1 flex flex-col mt-28 md:mt-0 md:ml-60 overflow-x-auto">
         {/* Page content */}
-        <main className="flex-1">{children}</main>
+        <div className="flex-1">{children}</div>
       </div>
     </div>
   );

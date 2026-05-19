@@ -1,9 +1,11 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { cn } from "@/lib/cn";
 
 interface ModalContainerProps {
   children: React.ReactNode;
@@ -73,14 +75,17 @@ const ModalContainer = ({
     <AnimatePresence>
       {visible && (
         <motion.div
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/25 ${className}`}
+          className={cn(
+            `fixed inset-0 z-50 flex items-center justify-center bg-black/25`,
+            className
+          )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.1, ease: "easeInOut" }}
         >
           {onClickOutside ? (
-            <div ref={ref} className={`${className}`}>
+            <div ref={ref} className={cn(className)}>
               {children}
             </div>
           ) : (

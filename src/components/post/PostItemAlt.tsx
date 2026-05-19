@@ -1,10 +1,11 @@
 import Image from "next/image";
 
-import { format } from "date-fns";
 import * as changeCase from "change-case";
-
+import { format } from "date-fns";
 import { FaCalendar } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
+
+import { cn } from "@/lib/cn";
 
 interface PostItemAltProps {
   image?: string;
@@ -29,7 +30,7 @@ function PostItemAlt({
 
   return (
     <article
-      className={`flex flex-col w-full h-full justify-between ${className}`}
+      className={cn(`flex flex-col w-full h-full justify-between`, className)}
     >
       <Image
         src={image || "/images/placeholder/placeholder-image.jpg"}
@@ -37,9 +38,10 @@ function PostItemAlt({
         width={500}
         height={500}
         className="w-full h-48 object-cover rounded-t-xl"
+        loading="eager"
       />
 
-      <div className="flex-1 p-4 rounded-b-xl space-y-2 bg-gray-850">
+      <div className="flex-1 p-4 card rounded-b-xl space-y-2">
         <h3>{title}</h3>
 
         <div className="flex flex-col space-y-3 text-sm">
@@ -56,7 +58,7 @@ function PostItemAlt({
 
           <ul className="flex flex-row flex-wrap gap-2">
             {filteredTags.map((tag, index) => (
-              <li key={index} className="rounded-full px-3 py-1 bg-gray-800">
+              <li key={index} className="rounded-full px-3 py-1 bg-gray-200">
                 {changeCase.capitalCase(tag)}
               </li>
             ))}

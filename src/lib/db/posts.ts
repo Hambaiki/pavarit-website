@@ -1,9 +1,11 @@
-import { sql } from "./neon";
+import { and, count, desc, eq, ilike, or, sql } from "drizzle-orm";
+
+import { db } from "./index";
+import { postViews, posts } from "./schema";
 
 export async function getAllPosts() {
   try {
-    const posts = await sql`SELECT * FROM posts`;
-    return posts;
+    return await db.select().from(posts);
   } catch (error) {
     console.error("Error getting all posts:", error);
     return [];
@@ -30,38 +32,60 @@ export async function getPosts({
   try {
     const offset = (page - 1) * limit;
 
-    const result = await sql`
-    SELECT *
-    FROM (
-      SELECT 
-        posts.*, 
-        COALESCE(SUM(post_views.view_count), 0) AS total_view_count
-      FROM posts
-      LEFT JOIN post_views 
-        ON posts.id = post_views.post_id
-      WHERE 
-        (title ILIKE ${"%" + search + "%"} OR
-        description ILIKE ${"%" + search + "%"} OR
-        category ILIKE ${"%" + search + "%"} OR
-        author ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(tags, ',') ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
-        AND (${tags.length === 0} OR tags && ${tags})
-      GROUP BY posts.id
-    ) subquery
-    ORDER BY
-      CASE 
-        WHEN ${sort === "MOST_RECENT"} THEN created_at 
-        ELSE NULL 
-      END DESC,
-      CASE 
-        WHEN ${sort === "MOST_VIEWED"} THEN total_view_count 
-        ELSE NULL 
-      END DESC
-    LIMIT ${limit} OFFSET ${offset};
-  `;
+    const searchFilter = or(
+      ilike(posts.title, `%${search}%`),
+      ilike(posts.description, `%${search}%`),
+      ilike(posts.category, `%${search}%`),
+      ilike(posts.author, `%${search}%`),
+      sql`ARRAY_TO_STRING(${posts.tags}, ',') ILIKE ${`%${search}%`}`,
+      sql`ARRAY_TO_STRING(${posts.keywords}, ',') ILIKE ${`%${search}%`}`
+    );
 
-    return result;
+    const tagsFilter =
+      tags.length === 0
+        ? undefined
+        : sql`${posts.tags} && ARRAY[${sql.join(
+            tags.map((tag) => sql`${tag}`),
+            sql`, `
+          )}]`;
+
+    const subquery = db
+      .select({
+        id: posts.id,
+        slug: posts.slug,
+        title: posts.title,
+        description: posts.description,
+        category: posts.category,
+        tags: posts.tags,
+        keywords: posts.keywords,
+        author: posts.author,
+        image: posts.image,
+        alt_text: posts.alt_text,
+        created_at: posts.created_at,
+        updated_at: posts.updated_at,
+        content: posts.content,
+        total_view_count:
+          sql<number>`COALESCE(SUM(${postViews.view_count}), 0)`.as(
+            "total_view_count"
+          ),
+      })
+      .from(posts)
+      .leftJoin(postViews, eq(posts.id, postViews.post_id))
+      .where(and(searchFilter, tagsFilter))
+      .groupBy(posts.id)
+      .as("subquery");
+
+    const orderByClause =
+      sort === "MOST_RECENT"
+        ? desc(subquery.created_at)
+        : desc(subquery.total_view_count);
+
+    return await db
+      .select()
+      .from(subquery)
+      .orderBy(orderByClause)
+      .limit(limit)
+      .offset(offset);
   } catch (error) {
     console.error("Error getting posts:", error);
     return [];
@@ -76,20 +100,29 @@ export async function getPostTotal({
   tags: string[];
 }) {
   try {
-    const total = await sql`
-      SELECT COUNT(*)::int AS count
-      FROM posts
-      WHERE
-        (title ILIKE ${"%" + search + "%"} OR
-        description ILIKE ${"%" + search + "%"} OR
-        category ILIKE ${"%" + search + "%"} OR
-        author ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(tags, ',') ILIKE ${"%" + search + "%"} OR
-        ARRAY_TO_STRING(keywords, ',') ILIKE ${"%" + search + "%"})
-        AND (${tags.length === 0} OR tags && ${tags})
-    `;
+    const searchFilter = or(
+      ilike(posts.title, `%${search}%`),
+      ilike(posts.description, `%${search}%`),
+      ilike(posts.category, `%${search}%`),
+      ilike(posts.author, `%${search}%`),
+      sql`ARRAY_TO_STRING(${posts.tags}, ',') ILIKE ${`%${search}%`}`,
+      sql`ARRAY_TO_STRING(${posts.keywords}, ',') ILIKE ${`%${search}%`}`
+    );
 
-    return total[0].count || 0;
+    const tagsFilter =
+      tags.length === 0
+        ? undefined
+        : sql`${posts.tags} && ARRAY[${sql.join(
+            tags.map((tag) => sql`${tag}`),
+            sql`, `
+          )}]`;
+
+    const result = await db
+      .select({ count: count() })
+      .from(posts)
+      .where(and(searchFilter, tagsFilter));
+
+    return result[0].count ?? 0;
   } catch (error) {
     console.error("Error getting post total:", error);
     return 0;
@@ -98,9 +131,11 @@ export async function getPostTotal({
 
 export async function getPostById(id: string) {
   try {
-    const post = await sql`SELECT * FROM posts WHERE id = ${id}`;
-
-    return post[0];
+    const result = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.id, Number(id)));
+    return result[0] ?? null;
   } catch (error) {
     console.error("Error getting post by id:", error);
     return null;
@@ -109,10 +144,8 @@ export async function getPostById(id: string) {
 
 export async function getPostBySlug(slug: string) {
   try {
-    // const post = await sql`SELECT * FROM posts WHERE deleted_at IS NULL AND slug = ${slug}`;
-    const post = await sql`SELECT * FROM posts WHERE slug = ${slug}`;
-
-    return post[0];
+    const result = await db.select().from(posts).where(eq(posts.slug, slug));
+    return result[0] ?? null;
   } catch (error) {
     console.error("Error getting post by slug:", error);
     return null;
@@ -121,12 +154,10 @@ export async function getPostBySlug(slug: string) {
 
 export async function getPostTags() {
   try {
-    const tags =
-      await sql`SELECT DISTINCT UNNEST(tags) as tag FROM posts ORDER BY tag`;
-
-    const flatTags = tags.map((r) => r.tag);
-
-    return flatTags;
+    const result = await db.execute(
+      sql`SELECT DISTINCT UNNEST(tags) AS tag FROM posts ORDER BY tag`
+    );
+    return result.rows.map((r) => r.tag as string);
   } catch (error) {
     console.error("Error getting post tags:", error);
     return [];
@@ -160,24 +191,23 @@ export async function updatePost(
   }
 ) {
   try {
-    const result = await sql`
-      UPDATE posts 
-      SET
-        slug = ${slug},
-        title = ${title},
-        description = ${description},
-        category = ${category},
-        tags = ${tags},
-        keywords = ${keywords},
-        author = ${author},
-        image = ${image},
-        alt_text = ${alt_text},
-        content = ${content},
-        updated_at = NOW()
-      WHERE id = ${id}
-      RETURNING *
-    `;
-
+    const result = await db
+      .update(posts)
+      .set({
+        slug,
+        title,
+        description,
+        category,
+        tags,
+        keywords,
+        author,
+        image,
+        alt_text,
+        content,
+        updated_at: sql`NOW()`,
+      })
+      .where(eq(posts.id, Number(id)))
+      .returning();
     return result;
   } catch (error) {
     console.error("Error updating post:", error);
@@ -209,17 +239,18 @@ export async function createPost({
   content: string;
 }) {
   try {
-    // Check if slug already exists
-    const existingPost = await sql`
-      SELECT slug FROM posts WHERE slug = ${slug}
-    `;
+    const existing = await db
+      .select({ slug: posts.slug })
+      .from(posts)
+      .where(eq(posts.slug, slug));
 
-    if (existingPost.length > 0) {
+    if (existing.length > 0) {
       throw new Error("Slug must be unique");
     }
 
-    const result = await sql`
-      INSERT INTO posts (
+    const result = await db
+      .insert(posts)
+      .values({
         slug,
         title,
         description,
@@ -230,25 +261,8 @@ export async function createPost({
         image,
         alt_text,
         content,
-        created_at,
-        updated_at
-      ) VALUES (
-        ${slug},
-        ${title},
-        ${description},
-        ${category},
-        ${tags},
-        ${keywords},
-        ${author},
-        ${image},
-        ${alt_text},
-        ${content},
-        NOW(),
-        NOW()
-      )
-      RETURNING *
-    `;
-
+      })
+      .returning();
     return result;
   } catch (error) {
     console.error("Error creating post:", error);
@@ -258,9 +272,7 @@ export async function createPost({
 
 export async function deletePost(id: string) {
   try {
-    const result = await sql`DELETE FROM posts WHERE id = ${id}`;
-
-    return result;
+    return await db.delete(posts).where(eq(posts.id, Number(id)));
   } catch (error) {
     console.error("Error deleting post:", error);
     return null;
@@ -269,9 +281,8 @@ export async function deletePost(id: string) {
 
 export async function getPostMetadata(slug: string) {
   try {
-    const post = await sql`SELECT * FROM posts WHERE slug = ${slug}`;
-
-    return post[0];
+    const result = await db.select().from(posts).where(eq(posts.slug, slug));
+    return result[0] ?? null;
   } catch (error) {
     console.error("Error getting post metadata:", error);
     return null;
@@ -280,9 +291,11 @@ export async function getPostMetadata(slug: string) {
 
 export async function checkSlugUnique(slug: string) {
   try {
-    const result = await sql`SELECT COUNT(*) FROM posts WHERE slug = ${slug}`;
-
-    return result[0].count === "0";
+    const result = await db
+      .select({ count: count() })
+      .from(posts)
+      .where(eq(posts.slug, slug));
+    return result[0].count === 0;
   } catch (error) {
     console.error("Error checking slug uniqueness:", error);
     return false;
@@ -291,16 +304,11 @@ export async function checkSlugUnique(slug: string) {
 
 export async function updatePostViews(id: string) {
   try {
-    const result = await sql`
-      INSERT INTO post_views (post_id, view_date, view_count)
-      VALUES (
-        (SELECT id FROM posts WHERE id = ${id}),
-        NOW(),
-        1
-      )
-    `;
-
-    return result;
+    return await db.insert(postViews).values({
+      post_id: Number(id),
+      view_date: sql`CURRENT_DATE`,
+      view_count: 1,
+    });
   } catch (error) {
     console.error("Error updating post views:", error);
     return null;

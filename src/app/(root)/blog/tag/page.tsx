@@ -2,12 +2,11 @@ import Link from "next/link";
 
 import * as changeCase from "change-case";
 
-import { fetchFromApi } from "@/lib/api";
-import { TagResponse } from "@/types/api/post";
-
+import MainHeader from "@/components/common/MainHeader";
 import MainContainer from "@/components/container/MainContainer";
 import RecentPosts from "@/components/post/RecentPosts";
-import MainHeader from "@/components/common/MainHeader";
+import { fetchFromApi } from "@/lib/api";
+import { TagResponse } from "@/types/api/post";
 
 async function TagPage() {
   const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
@@ -33,7 +32,7 @@ async function TagPage() {
       <section className="mt-10">
         <h2>
           All Tags&nbsp;
-          <span className="font-normal text-suzuha-teal-500">
+          <span className="font-normal text-primary-500">
             ({filteredTags.length})
           </span>
         </h2>
@@ -41,8 +40,8 @@ async function TagPage() {
           {filteredTags.map((tag, index) => (
             <Link key={index} href={`/blog/tag/${tag}`}>
               <li
-                className="text-base font-medium text-white px-4 py-1 rounded-full
-                bg-gray-800 hover:bg-gray-700 transition-colors"
+                className="text-base font-medium text-gray-800 px-4 py-1 rounded-full
+                bg-gray-200 hover:bg-gray-300 transition-colors"
               >
                 {changeCase.capitalCase(tag)}
               </li>

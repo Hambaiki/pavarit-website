@@ -1,19 +1,25 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
+
 import { notFound } from "next/navigation";
 
-import { PostMetadata } from "@/types/posts";
-import { slugify } from "@/utils/slugify";
-
-import MainContainer from "@/components/dashboard/common/MainContainer";
-import PostEditor from "@/components/post/editor/PostEditor";
-import Loading from "@/components/navigation/Loading";
 import GeneralModal from "@/components/common/GeneralModal";
 import MainHeader from "@/components/common/MainHeader";
+import MainContainer from "@/components/dashboard/common/MainContainer";
+import Loading from "@/components/navigation/Loading";
+import PostEditor from "@/components/post/editor/PostEditor";
+import { slugify } from "@/lib/string";
+import { PostMetadata } from "@/types/posts";
 
-function CreatePage({ searchParams }: { searchParams: { id: string } }) {
-  if (!searchParams.id) {
+function CreatePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ id: string }>;
+}) {
+  const { id } = use(searchParams);
+
+  if (!id) {
     return notFound();
   }
 
@@ -33,7 +39,7 @@ function CreatePage({ searchParams }: { searchParams: { id: string } }) {
         />
 
         <Suspense fallback={<Loading />}>
-          <Editor postId={searchParams.id} />
+          <Editor postId={id} />
         </Suspense>
       </MainContainer>
     </>
@@ -41,10 +47,8 @@ function CreatePage({ searchParams }: { searchParams: { id: string } }) {
 }
 
 function Editor({ postId }: { postId: string }) {
-  const [postContent, setPostContent] = useState<string | undefined>(undefined);
-  const [postMetadata, setPostMetadata] = useState<PostMetadata | undefined>(
-    undefined
-  );
+  const [postContent, setPostContent] = useState<string>();
+  const [postMetadata, setPostMetadata] = useState<PostMetadata>();
 
   const [loadingPost, setLoadingPost] = useState(false);
   const [createPostError, setCreatePostError] = useState(false);

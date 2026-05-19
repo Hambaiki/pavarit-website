@@ -2,9 +2,25 @@
 
 import { useEffect, useState } from "react";
 
-import Switch from "@/components/form/Switch";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useWatch } from "react-hook-form";
+import { z } from "zod";
+
 import Button from "@/components/Button";
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
+import Switch from "@/components/form/v1/Switch";
+import Card from "@/components/ui/Card";
+import { cn } from "@/lib/cn";
+
+const maintenanceSchema = z.object({
+  scheduled: z.boolean(),
+  startTime: z.string().nullable().optional(),
+  endTime: z.string().nullable().optional(),
+  message: z.string().optional(),
+  allowedIPs: z.string().optional(),
+});
+
+type MaintenanceFormValues = z.infer<typeof maintenanceSchema>;
 
 interface MaintenanceModeModuleProps {
   className?: string;
@@ -12,52 +28,40 @@ interface MaintenanceModeModuleProps {
 
 function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
   const [loading, setLoading] = useState(true);
-  const [updating, setUpdating] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
-  const [settingsChanged, setSettingsChanged] = useState(false);
-  const [initialSettings, setInitialSettings] = useState({
-    enabled: false,
-    scheduled: false,
-    startTime: null,
-    endTime: null,
-    message: "",
-    allowedIPs: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    control,
+    formState: { isDirty, isSubmitting },
+  } = useForm<MaintenanceFormValues>({
+    resolver: zodResolver(maintenanceSchema),
+    defaultValues: {
+      scheduled: false,
+      startTime: null,
+      endTime: null,
+      message: "",
+      allowedIPs: "",
+    },
   });
 
-  const [settings, setSettings] = useState({
-    enabled: false,
-    scheduled: false,
-    startTime: null,
-    endTime: null,
-    message: "",
-    allowedIPs: "",
-  });
-
-  useEffect(init, []);
+  const scheduled = useWatch({ control, name: "scheduled" });
+  const startTime = useWatch({ control, name: "startTime" });
+  const endTime = useWatch({ control, name: "endTime" });
 
   useEffect(() => {
-    if (!settings.scheduled) {
-      setSettings({ ...settings, startTime: null, endTime: null });
-    }
-  }, [settings.scheduled]);
+    fetchSettings();
+  }, []);
 
   useEffect(() => {
-    if (JSON.stringify(initialSettings) !== JSON.stringify(settings)) {
-      setSettingsChanged(true);
-    } else {
-      setSettingsChanged(false);
+    if (!scheduled) {
+      setValue("startTime", null);
+      setValue("endTime", null);
     }
-  }, [initialSettings, settings]);
-
-  function init() {
-    setLoading(true);
-
-    const promiseAll = Promise.all([fetchSettings()]);
-
-    promiseAll.finally(() => {
-      setLoading(false);
-    });
-  }
+  }, [scheduled, setValue]);
 
   async function fetchSettings() {
     setLoading(true);
@@ -68,17 +72,16 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
       });
       const data = await response.json();
 
-      const settings = {
-        enabled: data.enabled,
-        scheduled: data.start_time && data.end_time,
-        startTime: data.start_time,
-        endTime: data.end_time,
+      const values: MaintenanceFormValues = {
+        scheduled: !!(data.start_time && data.end_time),
+        startTime: data.start_time ?? null,
+        endTime: data.end_time ?? null,
         message: data.message || "",
         allowedIPs: data.allowed_ips ? data.allowed_ips.join(",") : "",
       };
 
-      setInitialSettings(settings);
-      setSettings(settings);
+      setEnabled(data.enabled);
+      reset(values);
     } catch (error) {
       console.error("Error fetching maintenance settings:", error);
     } finally {
@@ -86,110 +89,90 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
     }
   }
 
-  async function handleToggleMaintenanceMode(enabled: boolean) {
+  async function handleToggleMaintenanceMode(on: boolean) {
     const response = await fetch("/api/v1/settings/maintenance", {
       method: "PATCH",
-      body: JSON.stringify({ enabled }),
+      body: JSON.stringify({ enabled: on }),
     });
 
-    // const data = await response.json();
-
     if (response.ok) {
-      fetchSettings();
+      setEnabled(on);
     } else {
       throw new Error("Failed to toggle maintenance mode");
     }
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function onSubmit(data: MaintenanceFormValues) {
+    const allowedIPs = String(data.allowedIPs || "")
+      .split(",")
+      .filter((ip) => ip !== "")
+      .map((ip) => ip.trim());
 
-    try {
-      const allowedIPs = String(settings.allowedIPs)
-        .split(",")
-        .filter((ip) => ip !== "")
-        .map((ip) => ip.trim());
+    const response = await fetch("/api/maintenance", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        enabled,
+        startTime: data.scheduled ? data.startTime : null,
+        endTime: data.scheduled ? data.endTime : null,
+        message: data.message,
+        allowedIPs,
+      }),
+    });
 
-      const response = await fetch("/api/maintenance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          enabled: settings.enabled,
-          startTime: settings.scheduled ? settings.startTime : null,
-          endTime: settings.scheduled ? settings.endTime : null,
-          message: settings.message,
-          allowedIPs: allowedIPs,
-        }),
-      });
-
-      if (response.ok) {
-        fetchSettings();
-      } else {
-        throw new Error("Failed to update maintenance settings");
-      }
-    } catch (error) {
-      console.error("Error updating maintenance settings:", error);
-    } finally {
-      setUpdating(false);
+    if (response.ok) {
+      await fetchSettings();
+    } else {
+      console.error("Failed to update maintenance settings");
     }
   }
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const { name, value } = e.target;
-    setSettings((prev) => ({ ...prev, [name]: value }));
-  }
-
   return (
-    <div className={`${className}`}>
+    <div className={cn("w-full", className)}>
       <h3>Maintenance Mode</h3>
-      <p className="text-gray-300 mt-2">
+      <p className="text-gray-600 mt-2">
         Maintenance mode is a feature that allows you to put your website in
         maintenance mode. This will disable the website for all users.
       </p>
 
-      <div className="mt-4 p-4 bg-gray-850 rounded-xl">
+      <Card className="mt-4 p-4">
         <div className="flex flex-row justify-between space-x-2">
           <div className="flex flex-col">
-            <h3 className="text-suzuha-teal-500">Enabled Maintenance Mode</h3>
-            <p className="text-gray-300 mt-2">
+            <h3 className="text-primary-500">Enabled Maintenance Mode</h3>
+            <p className="text-gray-600 mt-2">
               Toggle the maintenance mode on or off.
             </p>
           </div>
 
-          <Switch
-            on={settings.enabled}
-            onChange={(on) => handleToggleMaintenanceMode(on)}
-          />
+          <Switch on={enabled} onChange={handleToggleMaintenanceMode} />
         </div>
-      </div>
+      </Card>
 
-      <div className="mt-4 p-4 bg-gray-850 rounded-xl">
-        <form onSubmit={handleSubmit}>
+      <Card className="mt-4 p-4">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-row justify-between space-x-2">
             <span className="text-base">Schedule Maintenance</span>
             <Switch
-              on={settings.scheduled}
-              onChange={(on) => setSettings({ ...settings, scheduled: on })}
+              on={scheduled}
+              onChange={(on) =>
+                setValue("scheduled", on, { shouldDirty: true })
+              }
             />
           </div>
 
-          <CollapsibleContainer collapsed={!settings.scheduled}>
+          <CollapsibleContainer collapsed={!scheduled}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <input
                 type="datetime-local"
-                name="startTime"
-                value={settings.startTime || ""}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded bg-gray-800"
+                className="w-full px-4 py-2 rounded bg-white/80 border border-gray-200"
+                {...register("startTime")}
+                value={startTime ?? ""}
               />
               <input
                 type="datetime-local"
-                name="endTime"
-                value={settings.endTime || ""}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded bg-gray-800"
+                className="w-full px-4 py-2 rounded bg-white/80 border border-gray-200"
+                {...register("endTime")}
+                value={endTime ?? ""}
               />
             </div>
           </CollapsibleContainer>
@@ -199,11 +182,9 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
               <span className="text-base">Maintenance Message</span>
               <textarea
                 placeholder="Enter your message here..."
-                value={settings.message || ""}
-                name="message"
-                onChange={handleChange}
-                className="w-full mt-2 p-4 min-h-[10rem] bg-gray-800 placeholder:text-gray-500 rounded-lg 
-                  focus:outline-none focus:ring-2 focus:ring-suzuha-teal-500"
+                className="w-full mt-2 p-4 min-h-40 bg-white/80 border border-gray-200 placeholder:text-gray-500 rounded-lg
+                  focus:outline-none focus:ring-2 focus:ring-primary-500"
+                {...register("message")}
               />
             </label>
           </div>
@@ -213,35 +194,34 @@ function MaintenanceModeModule({ className }: MaintenanceModeModuleProps) {
               <span className="text-base">Allowed IPs</span>
               <input
                 type="text"
-                value={settings.allowedIPs}
-                onChange={handleChange}
-                name="allowedIPs"
-                className="w-full mt-2 p-2 rounded bg-gray-800 focus:outline-none 
-                  focus:ring-2 focus:ring-suzuha-teal-500"
+                className="w-full mt-2 p-2 rounded bg-white/80 border border-gray-200 focus:outline-none
+                  focus:ring-2 focus:ring-primary-500"
                 placeholder="127.0.0.1, 192.168.1.1,..."
+                {...register("allowedIPs")}
               />
             </label>
           </div>
 
-          <CollapsibleContainer collapsed={!settingsChanged}>
+          <CollapsibleContainer collapsed={!isDirty}>
             <div className="flex flex-row justify-end space-x-4 mt-6">
               <button
                 type="button"
-                onClick={() => setSettings(initialSettings)}
-                className="px-4 py-2 rounded-lg text-red-500 border border-red-500  hover:bg-red-500/10 transition-colors"
+                onClick={() => reset()}
+                className="px-4 py-2 rounded-lg text-red-500 border border-red-500 hover:bg-red-500/10 transition-colors"
               >
                 Discard Changes
               </button>
               <Button
                 type="submit"
-                className="px-4 py-2 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 rounded-lg"
+                disabled={isSubmitting}
+                className="px-4 py-2 bg-primary-500 hover:bg-primary-600 rounded-lg"
               >
                 Save Settings
               </Button>
             </div>
           </CollapsibleContainer>
         </form>
-      </div>
+      </Card>
     </div>
   );
 }

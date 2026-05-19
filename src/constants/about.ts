@@ -1,24 +1,16 @@
-import { FaBook, FaBriefcase, FaGraduationCap } from "react-icons/fa6";
-
-export const aboutItems = [
+export const featuredImages = [
   {
-    title: "Experience",
-    description: "My work experiences and projects.",
-    href: "/about/experience",
-    icon: FaBriefcase,
+    src: "/assets/images/photos/pavarit.jpg",
+    alt: "Me in my graduation day",
+    description:
+      "This is the photo of me in my graduation day after receiving my Bachelor's degree in Information and Communication Engineering from Chulalongkorn University.",
   },
   {
-    title: "Education",
-    description: "About my education and experiences.",
-    href: "/about/education",
-    icon: FaGraduationCap,
+    src: "/assets/images/photos/friends-at-maneki.jpg",
+    alt: "Me and my friends at Manekineko, a karaoke in Bangkok",
+    description:
+      "Me and my friends at Manekineko, a karaoke in Bangkok. I'm the one in the middle-left! Occasionaly, I go to karaoke with my friends.",
   },
-  // {
-  //   title: "Projects",
-  //   description: "My projects and experiences.",
-  //   href: "/about/projects",
-  //   icon: FaBook,
-  // },
 ];
 
 export const tableOfContents = [
@@ -36,7 +28,7 @@ export const experiences = [
       logo: "/images/logo/agnos-health-logo.jpg",
     },
     description: "Developed and maintained web applications.",
-    duration: "2024 - Ongoing",
+    duration: "2024 - 2025",
     location: "Bangkok, Thailand",
     skills: ["ReactJS", "NextJS", "TypeScript", "NodeJS", "AWS"],
   },

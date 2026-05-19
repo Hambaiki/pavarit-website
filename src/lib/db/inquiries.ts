@@ -1,20 +1,20 @@
-import { sql } from "@/lib/db/neon";
-import { InquiryData } from "@/types/api/inquiries";
+import { count, desc } from "drizzle-orm";
 
+import { InquiryData } from "@/types/api/inquiries";
 import { Inquiry } from "@/types/inquiries";
+
+import { db } from "./index";
+import { onlineInquiries } from "./schema";
 
 export async function createInquiry(inquiry: Inquiry) {
   try {
-    await sql(
-      "INSERT INTO online_inquiries (name, email, phone, subject, message) VALUES ($1, $2, $3, $4, $5)",
-      [
-        inquiry.name,
-        inquiry.email,
-        inquiry.phone,
-        inquiry.subject,
-        inquiry.message,
-      ]
-    );
+    await db.insert(onlineInquiries).values({
+      name: inquiry.name,
+      email: inquiry.email,
+      phone: inquiry.phone,
+      subject: inquiry.subject,
+      message: inquiry.message,
+    });
   } catch (error) {
     console.error("Error creating inquiry:", error);
   }
@@ -31,16 +31,33 @@ export async function getInquiries({
   total: number;
   page: number;
 }> {
-  const offset = ((page || 1) - 1) * (limit || 10);
+  const currentPage = page ?? 1;
+  const currentLimit = limit ?? 10;
+  const offset = (currentPage - 1) * currentLimit;
+
   try {
-    const result =
-      await sql`SELECT * FROM online_inquiries ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`;
-    const total = await sql`SELECT COUNT(*) FROM online_inquiries`;
+    const [rows, totalResult] = await Promise.all([
+      db
+        .select()
+        .from(onlineInquiries)
+        .orderBy(desc(onlineInquiries.created_at))
+        .limit(currentLimit)
+        .offset(offset),
+      db.select({ count: count() }).from(onlineInquiries),
+    ]);
 
     return {
-      inquiries: result as InquiryData[],
-      total: total[0].count,
-      page: page || 1,
+      inquiries: rows.map((r) => ({
+        id: String(r.id),
+        name: r.name ?? "",
+        email: r.email ?? "",
+        phone: r.phone ?? "",
+        subject: r.subject ?? "",
+        message: r.message ?? "",
+        created_at: r.created_at ?? null,
+      })) satisfies InquiryData[],
+      total: totalResult[0].count,
+      page: currentPage,
     };
   } catch (error) {
     console.error("Error getting inquiries:", error);

@@ -3,11 +3,12 @@ import Link from "next/link";
 import { FaThumbtack } from "react-icons/fa";
 
 import { fetchFromApi } from "@/lib/api";
+import { cn } from "@/lib/cn";
 import { SearchPostResponse } from "@/types/api/post";
 
+import Button from "../Button";
 import CarousalContainer from "../container/CarousalContainer";
 import PostItem from "./PostItem";
-import Button from "../Button";
 
 interface FeaturedPostsProps {
   className?: string;
@@ -41,7 +42,7 @@ async function FeaturedPosts({
   }
 
   return (
-    <div className={`${className}`}>
+    <div className={cn(className)}>
       <CarousalContainer autoScroll autoScrollInterval={5000}>
         {featuredPosts.map((post) => (
           <Link
@@ -69,7 +70,7 @@ export function FeaturedPostsHeader() {
   return (
     <div className="flex flex-row justify-between items-center space-x-4">
       <div className="flex items-center space-x-2">
-        <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
+        <FaThumbtack className="h-6 w-6 text-primary-500" />
         <h2>Featured Articles</h2>
       </div>
 
@@ -91,7 +92,7 @@ export function FeaturedPostsSkeleton({
   count = 4,
 }: FeaturedPostsProps) {
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={cn(`space-y-6`, className)}>
       <CarousalContainer>
         {[...Array(count)].map((_, index) => (
           <PostItem className="h-full md:h-80" loading key={index} />

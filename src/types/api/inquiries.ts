@@ -10,6 +10,7 @@ export interface InquiryData {
   phone: string;
   subject: string;
   message: string;
+  created_at: string | null;
 }
 
 export interface CreateInquiryResponse extends CommonResponse {}

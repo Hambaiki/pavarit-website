@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import {
@@ -9,6 +10,8 @@ import {
   FaMagnifyingGlass,
   FaStar,
 } from "react-icons/fa6";
+
+import { cn } from "@/lib/cn";
 
 import Button from "../Button";
 
@@ -82,13 +85,15 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
             id="search"
             autoComplete="off"
             placeholder="Search posts"
-            className="w-full px-4 py-3 pl-12 rounded-l-lg
-              bg-gray-800 text-gray-300
-              focus:outline-none focus:ring-0 focus:border-gray-300"
+            className={cn(
+              "w-full px-4 py-3 pl-12 rounded-l-lg",
+              "bg-white/80 border border-gray-200 text-gray-700",
+              "focus:outline-none focus:ring-0 focus:border-primary-400"
+            )}
           />
 
           <div className="absolute left-4 top-1/2 -translate-y-1/2">
-            <FaMagnifyingGlass className="h-4 w-4 text-gray-300" />
+            <FaMagnifyingGlass className="h-4 w-4 text-gray-600" />
           </div>
         </label>
 
@@ -105,8 +110,8 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
         <div className="flex items-center gap-4 rounded-l-lg mt-4 rounded-lg">
           {/* <span>Sort by</span> */}
 
-          <div className="flex items-center gap-2 flex-wrap ">
-            <div className="flex items-center rounded-lg bg-gray-850 overflow-hidden shrink-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center rounded-lg border border-gray-200 bg-gray-100 overflow-hidden shrink-0">
               <div className="flex items-center space-x-2 px-3 py-2">
                 <FaStar className="h-4 w-4" />
                 <span className="hidden sm:block">Popular</span>
@@ -117,12 +122,12 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
                   key={option.value}
                   type="button"
                   onClick={() => handleSort(option.value)}
-                  className={`flex items-center space-x-2 px-3 py-2 transition-colors 
-              ${
-                sort === option.value
-                  ? "bg-suzuha-teal-500 hover:bg-suzuha-teal-600"
-                  : "bg-gray-800 hover:bg-gray-700"
-              }`}
+                  className={cn(
+                    "flex items-center space-x-2 px-3 py-2 transition-colors",
+                    sort === option.value
+                      ? "bg-primary-500 hover:bg-primary-600 text-white"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  )}
                 >
                   <span>{option.label}</span>
                 </button>
@@ -134,12 +139,12 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
                 key={option.value}
                 type="button"
                 onClick={() => handleSort(option.value)}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors 
-              ${
-                sort === option.value
-                  ? "bg-suzuha-teal-500 hover:bg-suzuha-teal-600"
-                  : "bg-gray-800 hover:bg-gray-700"
-              }`}
+                className={cn(
+                  "flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors",
+                  sort === option.value
+                    ? "bg-primary-500 hover:bg-primary-600 text-white"
+                    : "bg-gray-200 hover:bg-gray-300"
+                )}
               >
                 <option.icon className="h-4 w-4" />
                 <span>{option.label}</span>

@@ -1,6 +1,5 @@
-import { BreadcrumbItem } from "@/types/common";
-
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import { BreadcrumbItem } from "@/types/common";
 
 interface MainHeaderProps {
   title: string;

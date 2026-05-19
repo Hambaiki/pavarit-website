@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { uploadFileToR2 } from "@/utils/r2client";
+
+import { uploadFileToR2 } from "@/lib/r2/r2client";
 
 export async function POST(request: Request) {
   try {

@@ -30,7 +30,7 @@ function PostRenderer({ contentHtml }: PostRendererProps) {
     //     prose-th:text-white prose-th:font-bold prose-th:p-2 prose-th:text-left
     //     prose-td:text-white prose-td:p-2 prose-td:text-left
     //     prose-img:rounded-xl prose-img:mb-4 prose-img:w-full prose-img:max-w-lg prose-img:h-auto prose-img:mx-auto
-    //     prose-a:underline prose-a:text-suzuha-teal-500 prose-a:decoration-suzuha-teal-500 prose-a:underline-offset-4 prose-a:decoration-2 prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-a:hover:text-suzuha-teal-600"
+    //     prose-a:underline prose-a:text-primary-500 prose-a:decoration-primary-500 prose-a:underline-offset-4 prose-a:decoration-2 prose-a:transition-all prose-a:duration-300 prose-a:ease-in-out prose-a:hover:text-primary-600"
     //
     // />
     <article

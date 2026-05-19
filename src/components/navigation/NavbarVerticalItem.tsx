@@ -1,8 +1,9 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 import { FaChevronDown } from "react-icons/fa6";
 
@@ -52,22 +53,14 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
         ref={ref}
         className={`flex-1 w-full
           transition-colors rounded-xl overflow-hidden
-          ${current ? "bg-gray-850" : "hover:bg-gray-800"}
-          ${
-            dropdownOpen && !current
-              ? "bg-gray-850"
-              : ""
-          }`}
+          ${current ? "bg-gray-100" : "hover:bg-gray-200"}
+          ${dropdownOpen && !current ? "bg-gray-100" : ""}`}
       >
         <button
           onClick={handleClick}
           className="flex flex-row items-center justify-between h-12 w-full px-6 py-2"
         >
-          <span
-            className={`${
-              current ? "text-suzuha-teal-500" : ""
-            }`}
-          >
+          <span className={`${current ? "text-primary-500" : ""}`}>
             {item.label}
           </span>
 
@@ -89,7 +82,7 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
                 <div
                   className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
                   transition-colors
-                  ${current ? "hover:bg-gray-800" : "hover:bg-gray-850"}`}
+                  ${current ? "hover:bg-gray-200" : "hover:bg-gray-100"}`}
                 >
                   {subItem.label}
                 </div>

@@ -1,30 +1,34 @@
-import Link from "next/link";
 import { Suspense } from "react";
 
-import { SearchPostResponse } from "@/types/api/post";
-import { fetchFromApi } from "@/lib/api";
+import Link from "next/link";
 
-import MainContainer from "@/components/container/MainContainer";
 import Paginator from "@/components/Paginator";
-import PostItem from "@/components/post/PostItem";
-import SearchBar from "@/components/post/SearchBar";
 import MainHeader from "@/components/common/MainHeader";
+import MainContainer from "@/components/container/MainContainer";
 import PostItemAlt from "@/components/post/PostItemAlt";
+import SearchBar from "@/components/post/SearchBar";
+import { fetchFromApi } from "@/lib/api";
+import { SearchPostResponse } from "@/types/api/post";
 
 async function page({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     search?: string;
     sort?: string;
-  };
+  }>;
 }) {
   const limit = 4;
 
-  const page = parseInt(searchParams.page || "1", 10);
-  const search = searchParams.search || "";
-  const sort = searchParams.sort || "MOST_RECENT";
+  const {
+    page: pageParam,
+    search: searchParam,
+    sort: sortParam,
+  } = await searchParams;
+  const page = parseInt(pageParam || "1", 10);
+  const search = searchParam || "";
+  const sort = sortParam || "MOST_RECENT";
 
   const response = await fetchFromApi<SearchPostResponse>(
     `/api/v1/posts/search/`,

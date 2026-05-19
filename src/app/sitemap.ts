@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
 
+import { navItems } from "@/constants/navigation";
 import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse, TagResponse } from "@/types/api/post";
-import { navItems } from "@/constants/navigation";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Base URL from environment variable or hardcoded
@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       item.href,
       ...item.subItems.map((subItem) => subItem.href),
     ])
+    .filter((value, index, self) => self.indexOf(value) === index) // Remove duplicates
     .map((route) => ({
       url: `${baseUrl}${route}`,
       lastModified: new Date(),

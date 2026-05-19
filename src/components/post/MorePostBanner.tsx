@@ -1,8 +1,10 @@
+import Card from "@/components/ui/Card";
+
 import Button from "../Button";
 
 function MorePostBanner() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-gray-850 rounded-xl">
+    <Card className="flex flex-col md:flex-row items-center justify-between gap-4 p-4">
       <p className="text-center md:text-left">
         Interested in my other posts?
         <strong> Check out other posts here!</strong>
@@ -14,7 +16,7 @@ function MorePostBanner() {
       >
         View More Posts
       </Button>
-    </div>
+    </Card>
   );
 }
 
