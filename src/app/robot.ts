@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Disallowed paths
-      disallow: ["/profile/", "/dashboard/"],
+      disallow: ["/dashboard/"],
     },
     sitemap: `${process.env.NEXT_PUBLIC_BASE_URL}/sitemap.xml`,
   };

@@ -7,16 +7,6 @@ export const navItems = [
   {
     label: "About",
     href: "/about",
-    subItems: [
-      { label: "About Me", href: "/about" },
-      { label: "Experience", href: "/about/experience" },
-      { label: "Education", href: "/about/education" },
-      // { label: "Projects", href: "/about/projects" },
-    ],
-  },
-  {
-    label: "Contact",
-    href: "/contact",
     subItems: [],
   },
   {
@@ -27,6 +17,11 @@ export const navItems = [
       { label: "All Posts", href: "/blog/all" },
       { label: "Tags", href: "/blog/tag" },
     ],
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+    subItems: [],
   },
 ];
 

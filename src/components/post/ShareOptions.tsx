@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
-import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from "react-icons/fa6";
+import { FaFacebook, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa6";
+
+import Card from "@/components/ui/Card";
 
 function ShareOptions() {
   const options = [
@@ -10,7 +11,7 @@ function ShareOptions() {
       icon: FaFacebook,
       onShare: () => {
         window.open(
-          `https://www.facebook.com/sharer/sharer.php?display=page&u=${window.location.href}`,
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
           "_blank"
         );
       },
@@ -20,7 +21,7 @@ function ShareOptions() {
       icon: FaTwitter,
       onShare: () => {
         window.open(
-          `https://twitter.com/intent/tweet?url=${window.location.href}`,
+          `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`,
           "_blank"
         );
       },
@@ -30,7 +31,7 @@ function ShareOptions() {
       icon: FaLinkedin,
       onShare: () => {
         window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
+          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
           "_blank"
         );
       },
@@ -43,20 +44,21 @@ function ShareOptions() {
       },
     },
   ];
+
   return (
-    <div className="space-y-3 bg-gray-850 rounded-xl p-4">
+    <Card className="space-y-3 p-4">
       <p className="text-sm">Like this post?</p>
       {options.map((option) => (
         <button
           key={option.title}
-          className="flex flex-row items-center space-x-2 hover:text-suzuha-teal-500 transition-colors"
+          className="flex flex-row items-center space-x-2 hover:text-primary-500 transition-colors"
           onClick={option.onShare}
         >
           <option.icon className="w-4 h-4" />
           <span className="text-sm">{option.title}</span>
         </button>
       ))}
-    </div>
+    </Card>
   );
 }
 

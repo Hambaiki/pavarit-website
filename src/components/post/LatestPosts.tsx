@@ -3,10 +3,11 @@ import Link from "next/link";
 import { FaList } from "react-icons/fa";
 
 import { fetchFromApi } from "@/lib/api";
+import { cn } from "@/lib/cn";
 import { SearchPostResponse } from "@/types/api/post";
 
-import PostItem from "./PostItem";
 import Button from "../Button";
+import PostItem from "./PostItem";
 import PostItemAlt from "./PostItemAlt";
 
 interface LatestPostsProps {
@@ -36,7 +37,7 @@ async function LatestPosts({ className, count = 4 }: LatestPostsProps) {
   }
 
   return (
-    <div className={`${className}`}>
+    <div className={cn(className)}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {latestPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
@@ -60,7 +61,7 @@ export function LatestPostsHeader() {
   return (
     <div className="flex flex-row justify-between items-center space-x-4">
       <div className="flex items-center space-x-2">
-        <FaList className="h-6 w-6 text-suzuha-teal-500" />
+        <FaList className="h-6 w-6 text-primary-500" />
         <h2>Latest Posts</h2>
       </div>
 
@@ -82,7 +83,7 @@ export function LatestPostsSkeleton({
   count = 4,
 }: LatestPostsProps) {
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className={cn(`space-y-6`, className)}>
       <div className="flex flex-col space-y-4 mt-6">
         {[...Array(count)].map((_, index) => (
           <PostItem className="h-full md:h-80" loading key={index} />

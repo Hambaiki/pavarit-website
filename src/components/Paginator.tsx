@@ -1,7 +1,9 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { FaChevronRight } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
 
@@ -82,8 +84,8 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
         className={`flex justify-center items-center h-10 w-10 rounded-lg transition-colors 
                   ${
                     currentPage == 1
-                      ? "bg-gray-700 text-gray-300"
-                      : "bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+                      ? "bg-gray-200 text-gray-500"
+                      : "bg-primary-500 hover:bg-primary-600 text-white"
                   }`}
         onClick={() => handleClick(currentPage - 1)}
       >
@@ -106,8 +108,8 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
               font-semibold text-xl 
               ${
                 currentPage == page
-                  ? "text-white hover:text-white"
-                  : "text-gray-300 hover:text-white"
+                  ? "text-gray-900 hover:text-gray-900"
+                  : "text-gray-500 hover:text-gray-900"
               }`}
             onClick={() => handleClick(Number(page))}
           >
@@ -121,8 +123,8 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
         className={`flex justify-center items-center h-10 w-10 rounded-lg transition-colors 
                   ${
                     currentPage == maxPage
-                      ? "bg-gray-700 text-gray-300"
-                      : "bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+                      ? "bg-gray-200 text-gray-500"
+                      : "bg-primary-500 hover:bg-primary-600 text-white"
                   }`}
         onClick={() => handleClick(currentPage + 1)}
       >

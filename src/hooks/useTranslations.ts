@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import { useRouter } from "next/router";
 
 interface TranslationResponse {
@@ -44,12 +44,18 @@ export const getTranslations = async (
   sheetName: string
 ): Promise<TranslationResponse> => {
   try {
-    const response = await axios.post(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_THONBURI_BASE_URL}/api/v1/appointment/get_translation`,
-      { sheet_name: sheetName }
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sheet_name: sheetName }),
+      }
     );
 
-    return response.data;
+    return await response.json();
   } catch (error) {
     console.error(error);
     return {

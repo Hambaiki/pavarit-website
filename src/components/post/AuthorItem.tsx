@@ -1,6 +1,7 @@
 import { format } from "date-fns";
+import { FaCalendar, FaUser } from "react-icons/fa";
 
-import { FaUser, FaCalendar } from "react-icons/fa";
+import Card from "@/components/ui/Card";
 
 interface AuthorItemProps {
   author: string;
@@ -9,7 +10,10 @@ interface AuthorItemProps {
 
 function AuthorItem({ author, createdAt }: AuthorItemProps) {
   return (
-    <address className="flex flex-row items-center space-x-4 rounded-xl p-4 bg-gray-850 mb-4">
+    <Card
+      as="address"
+      className="flex flex-row items-center space-x-4 p-4 mb-4"
+    >
       <div className="text-sm space-y-2">
         <p className="flex flex-row items-center not-italic">
           <FaUser className="mr-2" />
@@ -20,7 +24,7 @@ function AuthorItem({ author, createdAt }: AuthorItemProps) {
           {format(new Date(createdAt), "yyyy/MM/dd")}
         </p>
       </div>
-    </address>
+    </Card>
   );
 }
 

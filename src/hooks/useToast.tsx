@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Import framer-motion
+import { useCallback, useState } from "react";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { FaCheck, FaXmark } from "react-icons/fa6";
 
 interface Toast {
@@ -46,8 +46,8 @@ export const useToast = () => {
                   toast.type === "success"
                     ? "border border-green text-green"
                     : toast.type === "error"
-                    ? "border border-red text-red"
-                    : "border border-blue_primary text-blue_primary"
+                      ? "border border-red text-red"
+                      : "border border-blue_primary text-blue_primary"
                 }`}
               onClick={() => removeToast(toast.id)}
             >

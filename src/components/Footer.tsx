@@ -8,19 +8,11 @@ function Footer() {
           space-y-4 space-x-0 md:space-y-0 md:space-x-8"
       >
         <div className="flex flex-col w-full md:flex-row gap-6 justify-between items-center">
-          {/* <Image
-              src="/images/logo/pw/pw-light.svg"
-              alt="PAVARIT W."
-              width={100}
-              height={100}
-              className="w-24 h-24"
-            /> */}
-          {/* <h3>PAVARIT</h3> */}
           <div className="flex flex-col space-y-1 text-center md:text-left">
-            <p className="font-bold text-lg text-gray-200">
+            <p className="font-bold text-lg text-gray-700">
               Developed by Pavarit W.
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-500">
               Built with Next.js, Tailwind CSS, Vercel, and Neon.
             </p>
           </div>
@@ -34,17 +26,12 @@ function Footer() {
                   href={item.value}
                   target="_blank"
                   className="group flex flex-row items-center justify-center 
-                      w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
+                      w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
                 >
-                  <item.icon className="w-5 h-5 group-hover:text-suzuha-teal-500 transition-colors" />
+                  <item.icon className="w-5 h-5 group-hover:text-primary-500 transition-colors" />
                 </a>
               ))}
           </div>
-
-          {/* <p>
-              This website is under development. If you have any questions,
-              please contact me.
-            </p> */}
         </div>
       </div>
     </div>

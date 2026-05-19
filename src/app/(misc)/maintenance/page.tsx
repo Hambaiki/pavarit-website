@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import { getMaintenanceStatus } from "@/lib/db/maintenance";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,10 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MaintenancePage({
   searchParams,
 }: {
-  searchParams: { message?: string };
+  searchParams: Promise<{ message?: string }>;
 }) {
   const maintenance = await getMaintenanceStatus();
-  const message = searchParams.message || maintenance.message;
+  const { message: messageParam } = await searchParams;
+  const message = messageParam || maintenance.message;
 
   const estimatedDowntime = maintenance.end_time
     ? new Date(maintenance.end_time).getTime() - Date.now()
@@ -38,7 +40,7 @@ export default async function MaintenancePage({
           </p>
 
           {estimatedDowntime && estimatedDowntime > 0 && (
-            <p className="text-suzuha-teal-500">
+            <p className="text-primary-500">
               Estimated completion in:{" "}
               {Math.ceil(estimatedDowntime / (1000 * 60))} minutes
             </p>

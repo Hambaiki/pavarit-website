@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import { RateLimiterMemory } from "rate-limiter-flexible";
 
 import { createInquiry, getInquiries } from "@/lib/db/inquiries";
-
-const rateLimiter = new RateLimiterMemory({
-  points: 5, // 5 requests
-  duration: 60, // Per 60 seconds
-});
-
 import {
   CreateInquiryRequest,
   CreateInquiryResponse,
   GetInquiriesResponse,
 } from "@/types/api/inquiries";
+
+const rateLimiter = new RateLimiterMemory({
+  points: 5, // 5 requests
+  duration: 60, // Per 60 seconds
+});
 
 export async function PUT(request: NextRequest) {
   try {

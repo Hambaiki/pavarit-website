@@ -91,7 +91,7 @@ function CarousalContainer({
             <button
               key={index}
               className={`h-4 w-4 rounded-full shrink-0 ${
-                index === currentIndex ? "bg-suzuha-teal-500" : "bg-gray-500"
+                index === currentIndex ? "bg-primary-500" : "bg-gray-500"
               }`}
               onClick={() => scrollToProfile(index)}
             />

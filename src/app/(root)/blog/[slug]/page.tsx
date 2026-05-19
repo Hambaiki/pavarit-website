@@ -1,28 +1,26 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import * as changeCase from "change-case";
 
+import MainContainer from "@/components/container/MainContainer";
+import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import AuthorItem from "@/components/post/AuthorItem";
+import PostItemAlt from "@/components/post/PostItemAlt";
+import PostRenderer from "@/components/post/PostRenderer";
+import PostTopicList from "@/components/post/PostTopicList";
+import ShareOptions from "@/components/post/ShareOptions";
+import { fetchFromApi } from "@/lib/api";
 import {
   GetPostMetadataResponse,
   GetPostResponse,
   SearchPostResponse,
 } from "@/types/api/post";
-import { fetchFromApi } from "@/lib/api";
 
-import MainContainer from "@/components/container/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
-import PostRenderer from "@/components/post/PostRenderer";
-import ShareOptions from "@/components/post/ShareOptions";
-import PostItemAlt from "@/components/post/PostItemAlt";
-import PostTopicList from "@/components/post/PostTopicList";
-import CommentSection from "@/components/post/comment/CommentSection";
-import AuthorItem from "@/components/post/AuthorItem";
-
-async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const slug = await params.slug;
+async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   // Fetch the post data using the reusable function
   const postData = await fetchFromApi<GetPostResponse>(
@@ -49,8 +47,6 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
       await fetchFromApi(`/api/v1/posts/analytics/views`, "POST", {
         body: JSON.stringify({ id: postId }),
       });
-    } else {
-      console.log("DEV: Updating views for post", postId);
     }
   };
 
@@ -88,8 +84,8 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
                 <Link href={`/blog/tag/${tag}`} key={index}>
                   <li
                     key={index}
-                    className="px-3 py-1 rounded-full 
-                      bg-gray-800 hover:bg-gray-700 transition-colors"
+                    className="px-3 py-1 rounded-full
+                      bg-gray-200 hover:bg-gray-300 transition-colors"
                   >
                     {changeCase.capitalCase(tag)}
                   </li>
@@ -117,7 +113,7 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
                   alt={post.title}
                   width={1000}
                   height={1000}
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full blur-sm -z-10"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full brightness-50 -z-10"
                 />
               </div>
             )}
@@ -130,10 +126,6 @@ async function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
 
           <PostRenderer contentHtml={contentHtml} />
-
-          <div className="mt-8">
-            <CommentSection postId={post.id} />
-          </div>
         </div>
 
         <div className="lg:sticky lg:top-20 lg:h-full lg:w-80 lg:py-8">

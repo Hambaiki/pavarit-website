@@ -1,10 +1,11 @@
 import Image from "next/image";
 
-import { format } from "date-fns";
 import * as changeCase from "change-case";
-
+import { format } from "date-fns";
 import { FaCalendar } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
+
+import { cn } from "@/lib/cn";
 
 interface PostItemProps {
   image?: string;
@@ -33,11 +34,11 @@ function PostItem({
   const filteredTags = tags.filter((tag) => !tag.includes("_"));
 
   return (
-    <div className={`rounded-xl transition-colors ${className}`}>
+    <div className={cn(`rounded-xl transition-colors`, className)}>
       <article className="flex flex-col md:grid md:grid-cols-2 h-full">
         <div className="overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-tr-none">
           {loading ? (
-            <div className="w-full h-48 md:h-full bg-gray-850 rounded-md animate-pulse" />
+            <div className="w-full h-48 md:h-full bg-gray-100 rounded-md animate-pulse" />
           ) : (
             <Image
               src={image || "/images/placeholder/placeholder-image.jpg"}
@@ -49,7 +50,7 @@ function PostItem({
           )}
         </div>
 
-        <div className="flex-1 flex flex-col justify-between p-4 bg-gray-850 rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
+        <div className="flex-1 flex flex-col justify-between p-4 card rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
           {!loading ? (
             <div className="flex-1 flex flex-col space-y-3">
               <h3 className="line-clamp-3">{title || "-"}</h3>
@@ -72,13 +73,13 @@ function PostItem({
                   {filteredTags.slice(0, tagsLimit).map((tag, index) => (
                     <li
                       key={index}
-                      className="text-sm rounded-full px-3 py-1 bg-gray-800"
+                      className="text-sm rounded-full px-3 py-1 bg-gray-200"
                     >
                       {changeCase.capitalCase(tag)}
                     </li>
                   ))}
                   {filteredTags.length > tagsLimit && (
-                    <li className="text-sm rounded-full px-3 py-1 bg-gray-800">
+                    <li className="text-sm rounded-full px-3 py-1 bg-gray-200">
                       +{filteredTags.length - tagsLimit}
                     </li>
                   )}
@@ -94,8 +95,8 @@ function PostItem({
             </div>
           ) : (
             <div className="flex-1 flex flex-col space-y-3">
-              <div className="h-8 w-full rounded-full animate-pulse bg-gray-850" />
-              <div className="h-8 w-1/2 rounded-full animate-pulse bg-gray-850" />
+              <div className="h-8 w-full rounded-full animate-pulse bg-gray-100" />
+              <div className="h-8 w-1/2 rounded-full animate-pulse bg-gray-100" />
             </div>
           )}
         </div>

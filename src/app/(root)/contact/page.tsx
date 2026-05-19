@@ -1,10 +1,10 @@
-import { contactItems } from "@/constants/common";
-
 import { FaGlobe, FaPhone } from "react-icons/fa6";
 
+import MainHeader from "@/components/common/MainHeader";
 import ContactForm from "@/components/contact/ContactForm";
 import MainContainer from "@/components/container/MainContainer";
-import MainHeader from "@/components/common/MainHeader";
+import Card from "@/components/ui/Card";
+import { contactItems } from "@/constants/common";
 
 function Contact() {
   const breadcrumbs = [
@@ -24,7 +24,7 @@ function Contact() {
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
         <div className="col-span-1 lg:col-span-2">
           <div className="flex items-center space-x-2 mb-4">
-            <FaGlobe className="h-6 w-6 text-suzuha-teal-500" />
+            <FaGlobe className="h-6 w-6 text-primary-500" />
             <h2>Online Inquiry</h2>
           </div>
 
@@ -33,11 +33,11 @@ function Contact() {
 
         <div className="col-span-1">
           <div className="flex items-center space-x-2 mb-4">
-            <FaPhone className="h-6 w-6 text-suzuha-teal-500" />
+            <FaPhone className="h-6 w-6 text-primary-500" />
             <h2>Information</h2>
           </div>
 
-          <div className="bg-gray-850 p-4 rounded-xl space-y-4 text-center">
+          <Card className="p-4 space-y-4 text-center">
             <p className="text-lg">
               pavarit.wir@gmail.com
               <br />
@@ -55,13 +55,13 @@ function Contact() {
                     href={item.value}
                     target="_blank"
                     className="group flex flex-row items-center justify-center 
-                      w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
+                      w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
                   >
-                    <item.icon className="w-5 h-5 group-hover:text-suzuha-teal-500 transition-colors" />
+                    <item.icon className="w-5 h-5 group-hover:text-primary-500 transition-colors" />
                   </a>
                 ))}
             </div>
-          </div>
+          </Card>
         </div>
       </section>
     </MainContainer>

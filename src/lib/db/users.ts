@@ -1,14 +1,16 @@
-import { sql } from "@/lib/db/neon";
+import { eq } from "drizzle-orm";
 
-import { UserData } from "@/types/api/users";
+import { db } from "./index";
+import { type NewUser, type User, users } from "./schema";
 
-export async function createUser(user: Partial<UserData>) {
+export type { User };
+
+export async function createUser(
+  user: Pick<NewUser, "auth0_sub" | "email" | "name">
+) {
   try {
-    const newUser = await sql(
-      "INSERT INTO users (auth0_sub, email, name) VALUES ($1, $2, $3)",
-      [user.auth0_sub, user.email, user.name]
-    );
-    return newUser[0];
+    const result = await db.insert(users).values(user).returning();
+    return result[0];
   } catch (error) {
     console.error("Error creating user:", error);
   }
@@ -16,8 +18,10 @@ export async function createUser(user: Partial<UserData>) {
 
 export async function getUser(id: string) {
   try {
-    const user = await sql("SELECT * FROM users WHERE id = $1", [id]);
-    return user;
+    return await db
+      .select()
+      .from(users)
+      .where(eq(users.id, Number(id)));
   } catch (error) {
     console.error("Error getting user:", error);
   }
@@ -25,10 +29,7 @@ export async function getUser(id: string) {
 
 export async function getUserByAuth0Sub(auth0Sub: string) {
   try {
-    const user = await sql("SELECT * FROM users WHERE auth0_sub = $1", [
-      auth0Sub,
-    ]);
-    return user;
+    return await db.select().from(users).where(eq(users.auth0_sub, auth0Sub));
   } catch (error) {
     console.error("Error getting user:", error);
   }
@@ -36,8 +37,7 @@ export async function getUserByAuth0Sub(auth0Sub: string) {
 
 export async function getUsers() {
   try {
-    const users = await sql("SELECT * FROM users");
-    return users;
+    return await db.select().from(users);
   } catch (error) {
     console.error("Error getting users:", error);
   }

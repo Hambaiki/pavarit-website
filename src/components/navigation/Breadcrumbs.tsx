@@ -8,18 +8,18 @@ interface BreadcrumbsProps {
 
 function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
-    <div className="flex flex-row flex-wrap bg-gray-850 rounded-xl px-4 py-2">
+    <div className="flex flex-row flex-wrap bg-white/60 backdrop-blur-sm border border-gray-200 rounded-xl px-4 py-2">
       {breadcrumbs.map((breadcrumb, index) => (
         <Link
           key={breadcrumb.href}
           href={breadcrumb.href}
           className={`transition-colors mr-2 ${
-            index !== breadcrumbs.length - 1 ? "" : "text-suzuha-teal-500"
+            index !== breadcrumbs.length - 1 ? "" : "text-primary-500"
           }`}
         >
           {breadcrumb.label}
           {index !== breadcrumbs.length - 1 && (
-            <FaChevronRight className="text-gray-300 inline ml-2" />
+            <FaChevronRight className="text-gray-500 inline ml-2" />
           )}
         </Link>
       ))}

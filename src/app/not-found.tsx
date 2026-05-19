@@ -9,7 +9,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="text-center text-lg lg:text-2xl text-suzuha-teal-500 hover:underline"
+        className="text-center text-lg lg:text-2xl text-primary-500 hover:underline"
       >
         Go back home
       </Link>

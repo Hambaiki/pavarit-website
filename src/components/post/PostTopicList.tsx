@@ -1,10 +1,16 @@
+import { useMemo } from "react";
+
 import Link from "next/link";
+
+import { cn } from "@/lib/cn";
 
 type PostTopicListProps = {
   htmlContent: string;
 };
 
 const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
+  // This function extracts <h2> and <h3> headings with their id attributes from the given HTML string
+  // and returns an array of objects containing the content, id, level, and parentId (for <h3>).
   const extractTopics = (
     htmlString: string
   ): { content: string; id: string; level: number; parentId?: string }[] => {
@@ -46,13 +52,11 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
     return headingData;
   };
 
-  const topics = extractTopics(contentHtml);
+  const topics = useMemo(() => extractTopics(contentHtml), [contentHtml]);
 
   return (
     <div
-      className={`${
-        !(topics.length > 0) && "hidden"
-      } rounded-xl p-4 bg-gray-850`}
+      className={cn("card rounded-xl p-4", !(topics.length > 0) && "hidden")}
     >
       <p className="font-semibold mb-4">Topics</p>
 
@@ -65,7 +69,7 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
                 <Link href={`#${topic.id}`}>
                   <p>
                     &#8226;
-                    <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-500">
+                    <span className="ml-2 underline underline-offset-4 text-sm text-primary-500">
                       {topic.content}
                     </span>
                   </p>
@@ -77,7 +81,7 @@ const PostTopicList = ({ htmlContent: contentHtml }: PostTopicListProps) => {
                         <Link href={`#${subTopic.id}`}>
                           <p>
                             &#8226;
-                            <span className="ml-2 underline underline-offset-4 text-sm text-suzuha-teal-600">
+                            <span className="ml-2 underline underline-offset-4 text-sm text-primary-600">
                               {subTopic.content}
                             </span>
                           </p>

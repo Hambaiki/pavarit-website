@@ -1,10 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
-import { useClickOutside } from "@/hooks/useClickOutside";
-// import ExternalImage from "@/components/common/ExternalImage";
+
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+
 import ModalContainer from "@/components/container/ModalContainer";
+import { useClickOutside } from "@/hooks/useClickOutside";
+
+import { ImageRender } from "../ui";
 
 type PostImageViewerProps = {
   htmlContent: string;
@@ -13,7 +16,7 @@ type PostImageViewerProps = {
 const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const [index, setIndex] = useState<number | undefined>(undefined);
+  const [index, setIndex] = useState<number>();
 
   const handleClose = () => {
     setIndex(undefined);
@@ -50,7 +53,9 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
           images.length > 0 ? "block" : "hidden"
         }`}
       >
-        <p className="font-semibold text-lg">ภาพทั้งหมด ({images.length})</p>
+        <p className="font-semibold text-lg">
+          Total Image(s) ({images.length})
+        </p>
 
         <div className="grid grid-cols-2 tablet:grid-cols-4 gap-2 mt-2">
           {/* To update to proper src */}
@@ -60,14 +65,13 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
               key={index}
               onClick={() => setIndex(index)}
             >
-              {/* <ExternalImage
+              <ImageRender
                 src={image.src}
-                fallbackSrc="/assets/images/image-placeholder.jpg"
                 alt={image.alt}
                 width={64}
                 height={64}
                 className="h-32 w-full object-cover hover:brightness-[.9] transition"
-              /> */}
+              />
             </button>
           ))}
 
@@ -76,14 +80,13 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
               onClick={() => setIndex(3)}
               className="relative rounded-lg border border-primary_blue-100 overflow-hidden"
             >
-              {/* <ExternalImage
+              <ImageRender
                 src={images[3].src}
-                fallbackSrc="/assets/images/image-placeholder.jpg"
                 alt={images[3].alt + "-overflow"}
                 width={64}
                 height={64}
                 className="h-32 w-full object-cover brightness-[.5] hover:brightness-[.4] transition"
-              /> */}
+              />
 
               <p
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
@@ -105,47 +108,34 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
         {index !== undefined && (
           <div className="flex flex-row justify-center">
             <button
-              className="flex flex-shrink-0 items-center justify-center w-12"
+              className="flex shrink-0 items-center justify-center w-12"
               onClick={() => setIndex(index - 1)}
               disabled={index == 0}
             >
-              <Image
-                src={
-                  index == 0
-                    ? "/assets/icons/chevron/chevron-left-gray.svg"
-                    : "/assets/icons/chevron/chevron-left-white.svg"
-                }
-                alt="chevron-left"
-                width={14}
-                height={14}
+              <FaChevronLeft
+                className="w-3 h-3"
+                color={index == 0 ? "gray" : "white"}
               />
             </button>
 
             <div>
-              {/* <ExternalImage
+              <ImageRender
                 src={images[index].src}
-                fallbackSrc="/assets/images/image-placeholder.jpg"
                 alt={images[index].alt}
                 width={512}
                 height={512}
                 className="w-auto h-auto rounded-2xl"
-              /> */}
+              />
             </div>
 
             <button
-              className="flex flex-shrink-0 items-center justify-center w-12"
+              className="flex shrink-0 items-center justify-center w-12"
               onClick={() => setIndex(index + 1)}
               disabled={index == images.length - 1}
             >
-              <Image
-                src={
-                  index == images.length - 1
-                    ? "/assets/icons/chevron/chevron-right-gray.svg"
-                    : "/assets/icons/chevron/chevron-right-white.svg"
-                }
-                alt="chevron-right"
-                width={14}
-                height={14}
+              <FaChevronRight
+                className="w-3 h-3"
+                color={index == images.length - 1 ? "gray" : "white"}
               />
             </button>
           </div>

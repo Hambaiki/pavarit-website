@@ -1,30 +1,29 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
-import { useState } from "react";
-
-import { Post } from "@/types/posts";
-import { PostData } from "@/types/api/post";
+import { Suspense, use, useEffect, useState } from "react";
 
 import { FaPlus } from "react-icons/fa6";
 
-import SearchBar from "@/components/post/SearchBar";
 import Button from "@/components/Button";
-import MainContainer from "@/components/dashboard/common/MainContainer";
 import Paginator from "@/components/Paginator";
-import Loading from "@/components/navigation/Loading";
-import PostItem from "@/components/dashboard/PostItem";
 import MainHeader from "@/components/common/MainHeader";
+import PostItem from "@/components/dashboard/PostItem";
+import MainContainer from "@/components/dashboard/common/MainContainer";
+import Loading from "@/components/navigation/Loading";
+import SearchBar from "@/components/post/SearchBar";
+import { PostData } from "@/types/api/post";
+import { Post } from "@/types/posts";
 
 function PostsPage({
   searchParams,
 }: {
-  searchParams: { page?: string; search?: string };
+  searchParams: Promise<{ page?: string; search?: string }>;
 }) {
   const limit = 8;
+  const { page: pageParam, search: searchParam } = use(searchParams);
 
-  const page = parseInt(searchParams.page || "1", 10);
-  const search = searchParams.search || "";
+  const page = parseInt(pageParam || "1", 10);
+  const search = searchParam || "";
 
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
 

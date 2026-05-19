@@ -1,7 +1,7 @@
-import MainContainer from "@/components/dashboard/common/MainContainer";
-import MaintenanceModeModule from "@/components/dashboard/settings/MaintenanceModeModule";
-import MaintenanceEntries from "@/components/dashboard/settings/MaintenanceEntries";
 import MainHeader from "@/components/common/MainHeader";
+import MainContainer from "@/components/dashboard/common/MainContainer";
+import MaintenanceEntries from "@/components/dashboard/settings/MaintenanceEntries";
+import MaintenanceModeModule from "@/components/dashboard/settings/MaintenanceModeModule";
 
 export default function MaintenanceSettings() {
   const breadcrumbs = [

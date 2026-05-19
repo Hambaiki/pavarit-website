@@ -7,13 +7,13 @@ export const revalidate = 0;
 
 export async function GET(
   _: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   const headers = {
     "Cache-Control": "no-store, max-age=0",
   };
 
-  const { slug } = params;
+  const { slug } = await params;
 
   try {
     // Fetch the updated post data

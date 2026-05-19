@@ -9,7 +9,7 @@ export default function NotFound() {
       </p>
       <button
         onClick={() => window.location.reload()}
-        className="text-center text-lg lg:text-2xl text-suzuha-teal-500"
+        className="text-center text-lg lg:text-2xl text-primary-500"
       >
         Refresh
       </button>

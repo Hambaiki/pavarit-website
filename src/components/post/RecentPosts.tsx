@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { PostData, SearchPostResponse } from "@/types/api/post";
 import { fetchFromApi } from "@/lib/api";
+import { PostData, SearchPostResponse } from "@/types/api/post";
 
 import PostItemAlt from "./PostItemAlt";
 

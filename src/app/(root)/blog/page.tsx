@@ -2,39 +2,28 @@ import { Suspense } from "react";
 
 import { FaList } from "react-icons/fa6";
 
-import { fetchFromApi } from "@/lib/api";
-import { SearchPostResponse } from "@/types/api/post";
-
-import { blogItems } from "@/constants/blog";
-
+import MainHeader from "@/components/common/MainHeader";
+import OptionMenuGrid from "@/components/common/OptionMenuGrid";
+import SectionHeader from "@/components/common/SectionHeader";
 import MainContainer from "@/components/container/MainContainer";
-import LatestPosts, {
-  LatestPostsHeader,
-  LatestPostsSkeleton,
-} from "@/components/post/LatestPosts";
 import FeaturedPosts, {
   FeaturedPostsHeader,
   FeaturedPostsSkeleton,
 } from "@/components/post/FeaturedPosts";
+import LatestPosts, {
+  LatestPostsHeader,
+  LatestPostsSkeleton,
+} from "@/components/post/LatestPosts";
 import MorePostBanner from "@/components/post/MorePostBanner";
-import OptionMenuGrid from "@/components/common/OptionMenuGrid";
-import MainHeader from "@/components/common/MainHeader";
-import SectionHeader from "@/components/common/SectionHeader";
+import { blogItems } from "@/constants/blog";
+import { fetchFromApi } from "@/lib/api";
+import { SearchPostResponse } from "@/types/api/post";
 
 async function page() {
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
   ];
-
-  // async function create(formData: FormData) {
-  //   "use server";
-  //   // Connect to the Neon database
-  //   const sql = neon(`${process.env.DATABASE_URL}`);
-  //   const comment = formData.get("comment");
-  //   // Insert the comment from the form into the Postgres database
-  //   await sql("INSERT INTO comments (comment) VALUES ($1)", [comment]);
-  // }
 
   return (
     <MainContainer className="space-y-10 lg:space-y-16">
@@ -55,17 +44,6 @@ async function page() {
             <FeaturedPosts />
           </Suspense>
         </div>
-      </section>
-
-      <section>
-        <SectionHeader
-          title={`Categories`}
-          icon={FaList}
-          description={`Explore a wide range of topics and categories on my blog. Each category
-            represents a different aspect of my interests and experiences.`}
-        />
-
-        <OptionMenuGrid items={blogItems} />
       </section>
 
       <section>

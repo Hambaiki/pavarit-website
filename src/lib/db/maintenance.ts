@@ -1,24 +1,21 @@
-import { sql } from "./neon";
+import { count, desc, eq } from "drizzle-orm";
 
-export interface MaintenanceSettingsData {
-  id: number;
-  enabled: boolean;
-  start_time?: string | null;
-  end_time?: string | null;
-  message?: string | null;
-  allowed_ips?: string[];
-  created_at: string;
-}
+import { db } from "./index";
+import { type MaintenanceSetting, maintenanceSettings } from "./schema";
 
-export async function getMaintenanceStatus(): Promise<MaintenanceSettingsData> {
+export type { MaintenanceSetting };
+/** @deprecated Use MaintenanceSetting from schema instead */
+export type MaintenanceSettingsData = MaintenanceSetting;
+
+export async function getMaintenanceStatus(): Promise<MaintenanceSetting> {
   try {
-    const result = await sql`
-      SELECT * FROM maintenance_settings 
-      ORDER BY created_at DESC 
-      LIMIT 1
-  `;
+    const result = await db
+      .select()
+      .from(maintenanceSettings)
+      .orderBy(desc(maintenanceSettings.created_at))
+      .limit(1);
 
-    return (result[0] as MaintenanceSettingsData) || { enabled: false };
+    return result[0] ?? ({ enabled: false } as MaintenanceSetting);
   } catch (error) {
     console.error("Error fetching maintenance status:", error);
     throw error;
@@ -26,15 +23,19 @@ export async function getMaintenanceStatus(): Promise<MaintenanceSettingsData> {
 }
 
 export async function updateMaintenanceStatus(
-  settings: Partial<MaintenanceSettingsData>
+  settings: Partial<MaintenanceSetting>
 ) {
   try {
-    const result = await sql`
-      INSERT INTO maintenance_settings (enabled, start_time, end_time, message, allowed_ips)
-      VALUES (${settings.enabled}, ${settings.start_time}, ${settings.end_time}, ${settings.message}, ${settings.allowed_ips})
-      RETURNING *
-  `;
-
+    const result = await db
+      .insert(maintenanceSettings)
+      .values({
+        enabled: settings.enabled ?? false,
+        start_time: settings.start_time,
+        end_time: settings.end_time,
+        message: settings.message,
+        allowed_ips: settings.allowed_ips ?? [],
+      })
+      .returning();
     return result[0];
   } catch (error) {
     console.error("Error updating maintenance status:", error);
@@ -43,10 +44,12 @@ export async function updateMaintenanceStatus(
 }
 
 export async function deleteMaintenanceStatus(
-  settings: Partial<MaintenanceSettingsData>
+  settings: Pick<MaintenanceSetting, "id">
 ) {
   try {
-    await sql`DELETE FROM maintenance_settings WHERE id = ${settings.id}`;
+    await db
+      .delete(maintenanceSettings)
+      .where(eq(maintenanceSettings.id, settings.id));
   } catch (error) {
     console.error("Error deleting maintenance status:", error);
     throw error;
@@ -60,20 +63,29 @@ export async function getAllMaintenanceStatuses({
   page?: number;
   limit?: number;
 }): Promise<{
-  statuses: MaintenanceSettingsData[];
+  statuses: MaintenanceSetting[];
   total: number;
   page: number;
 }> {
-  const offset = ((page || 1) - 1) * (limit || 10);
+  const currentPage = page ?? 1;
+  const currentLimit = limit ?? 10;
+  const offset = (currentPage - 1) * currentLimit;
+
   try {
-    const result =
-      await sql`SELECT * FROM maintenance_settings ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`;
-    const total = await sql`SELECT COUNT(*) FROM maintenance_settings`;
+    const [rows, totalResult] = await Promise.all([
+      db
+        .select()
+        .from(maintenanceSettings)
+        .orderBy(desc(maintenanceSettings.created_at))
+        .limit(currentLimit)
+        .offset(offset),
+      db.select({ count: count() }).from(maintenanceSettings),
+    ]);
 
     return {
-      statuses: result as MaintenanceSettingsData[],
-      total: total[0].count,
-      page: page || 1,
+      statuses: rows,
+      total: totalResult[0].count,
+      page: currentPage,
     };
   } catch (error) {
     console.error("Error fetching all maintenance statuses:", error);

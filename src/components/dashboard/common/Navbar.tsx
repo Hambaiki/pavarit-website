@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
 import { usePathname } from "next/navigation";
 
-import { dashboardNavItems } from "@/constants/navigation";
-
-import { useClickOutside } from "@/hooks/useClickOutside";
-
+import StackButton from "@/components/common/StackButton";
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
-import StackButton from "@/components/common/StackButton";
+import { dashboardNavItems } from "@/constants/navigation";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 function Navbar() {
   const [stackOpen, setStackOpen] = useState(false);
@@ -34,27 +33,27 @@ function Navbar() {
   return (
     <div
       ref={ref}
-      className="fixed top-0 md:left-0 w-full md:w-72 h-24 md:h-full z-10 md:border-r border-gray-850 bg-background-dark/90 backdrop-blur"
+      className="fixed top-0 md:left-0 w-full md:w-60 h-24 md:h-full z-10 md:border-r border-white/60 bg-white/70 backdrop-blur-md shadow-sm"
     >
-      <div className="flex flex-row items-center py-4 px-8 h-full md:h-auto">
+      <div className="flex flex-row items-center p-4 h-full md:h-auto">
         <div className="md:hidden mr-4 md:mr-0">
           <StackButton onClick={() => setStackOpen(!stackOpen)} />
         </div>
 
         <div className="px-2 lg:p-4">
           <h1 className="text-3xl font-bold">PAVARIT</h1>
-          <hr className="border-2 border-suzuha-teal-500" />
+          <hr className="border-2 border-primary-500" />
           <span className="text-lg font-extralight">Dashboard</span>
         </div>
       </div>
 
-      <nav className="hidden md:flex flex-col gap-2 px-8 rounded-2xl">
+      <nav className="hidden md:flex flex-col gap-2 p-4 rounded-2xl">
         {dashboardNavItems.map((item, index) => (
           <NavbarVerticalItem key={index} item={item} />
         ))}
       </nav>
 
-      <div className="md:hidden max-w-4xl mx-auto bg-gray-950">
+      <div className="md:hidden max-w-4xl mx-auto bg-gray-50">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 p-4">
             {dashboardNavItems.map((item, index) => (

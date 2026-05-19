@@ -1,15 +1,13 @@
 import Link from "next/link";
 
 import * as changeCase from "change-case";
-
 import { FaBookOpen } from "react-icons/fa6";
-
-import { fetchFromApi } from "@/lib/api";
-import { SearchPostResponse } from "@/types/api/post";
 
 import MainContainer from "@/components/container/MainContainer";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import PostItemAlt from "@/components/post/PostItemAlt";
+import { fetchFromApi } from "@/lib/api";
+import { SearchPostResponse } from "@/types/api/post";
 
 async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const tag = decodeURIComponent((await params).tag);
@@ -44,11 +42,11 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
         <div className="flex flex-col space-y-4 mt-8">
           <h1>
             Tag:&nbsp;
-            <span className="text-suzuha-teal-500">{tagCapitalized}</span>
+            <span className="text-primary-500">{tagCapitalized}</span>
           </h1>
-          <p className="text-lg text-neutral-400">
+          <p className="text-lg">
             Explore articles tagged with&nbsp;
-            <span className="text-suzuha-teal-500">
+            <span className="text-primary-500">
               {changeCase.capitalCase(tag)}
             </span>
             &nbsp;on this website.
@@ -60,7 +58,7 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
         <h2 className="mb-4">All Articles</h2>
 
         {posts.length === 0 && (
-          <div className="flex flex-col justify-center items-center h-[20rem]">
+          <div className="flex flex-col justify-center items-center h-80">
             <FaBookOpen className="text-neutral-500 text-5xl mb-4" />
             <p className="text-center text-xl text-neutral-500">
               No articles found.

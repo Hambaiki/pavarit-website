@@ -1,15 +1,15 @@
 "use client";
 
 import { Suspense, useState } from "react";
+
 import { useRouter } from "next/navigation";
 
-import { PostMetadata } from "@/types/posts";
-import { createPost } from "@/lib/api/posts";
-
-import MainContainer from "@/components/dashboard/common/MainContainer";
-import PostEditor from "@/components/post/editor/PostEditor";
 import GeneralModal from "@/components/common/GeneralModal";
 import MainHeader from "@/components/common/MainHeader";
+import MainContainer from "@/components/dashboard/common/MainContainer";
+import PostEditor from "@/components/post/editor/PostEditor";
+import { createPost } from "@/lib/api/posts";
+import { PostMetadata } from "@/types/posts";
 
 function CreatePage() {
   const router = useRouter();
@@ -20,12 +20,8 @@ function CreatePage() {
     { label: "Create", href: "/dashboard/posts/create" },
   ];
 
-  const [createPostError, setCreatePostError] = useState<string | undefined>(
-    undefined
-  );
-  const [createPostSuccess, setCreatePostSuccess] = useState<
-    string | undefined
-  >(undefined);
+  const [createPostError, setCreatePostError] = useState<string>();
+  const [createPostSuccess, setCreatePostSuccess] = useState<string>();
 
   function handlePostCreationSuccess(message?: string) {
     setCreatePostSuccess(message || "Post created successfully");
