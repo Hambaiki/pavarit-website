@@ -6,10 +6,12 @@ import {
   useEffect,
   useId,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
 
+import { createPortal } from "react-dom";
 import { FaCheck, FaChevronUp } from "react-icons/fa6";
 
 import {
@@ -46,9 +48,20 @@ export interface SelectProps {
   disabled?: boolean;
   placeholder?: string;
   options?: SelectOption[];
+  maxDropdownHeight?: number;
   onChange?: (value: string) => void;
   onBlur?: () => void;
 }
+
+interface DropdownPos {
+  top: number;
+  left: number;
+  width: number;
+  placement: "bottom" | "top";
+}
+
+const DROPDOWN_MAX_HEIGHT = 320;
+const DROPDOWN_GAP = 8;
 
 export const Select = forwardRef<HTMLButtonElement, SelectProps>(
   (
@@ -65,6 +78,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       disabled,
       placeholder = "Select…",
       options = [],
+      maxDropdownHeight = DROPDOWN_MAX_HEIGHT,
       className,
       wrapperClassName,
     },
@@ -84,24 +98,22 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     // ---------------------------------------------------------------------------------------
 
     // NOTE: open state is always internal (uncontrolled)
-    // since we don't expose any onOpenChange callback or similar to allow controlling it from outside
-    // but we could easily change this in the future if we want to
     const [open, setOpen] = useState(false);
     const close = useCallback(() => setOpen(false), []);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const listRef = useRef<HTMLUListElement>(null);
+
+    // Portal position state
+    const [dropdownPos, setDropdownPos] = useState<DropdownPos | null>(null);
 
     useImperativeHandle(ref, () => buttonRef.current!);
     // ---------------------------------------------------------------------------------------
 
     // NOTE: activeIndex is only relevant when dropdown is open
-    // so we reset it to -1 when closing the dropdown to avoid confusion. W
-    // hen opening the dropdown, we set it to the selected option (or first non-disabled option)
-    // so that keyboard navigation starts from there.
     const [activeIndex, setActiveIndex] = useState<number>(-1);
 
-    // NOTE: reset activeIndex when opening/closing dropdown or when options/selectedValue change
     useEffect(() => {
       if (!open) {
         setActiveIndex(-1);
@@ -116,12 +128,58 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     }, [open, selectedValue, options]);
     // ---------------------------------------------------------------------------------------
 
-    // NOTE: close dropdown on outside click
+    // Calculate and update portal position whenever open or window changes
+    const updatePosition = useCallback(() => {
+      if (!open || !buttonRef.current) return;
+
+      const rect = buttonRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      const placement: "bottom" | "top" =
+        spaceBelow >= maxDropdownHeight || spaceBelow >= spaceAbove
+          ? "bottom"
+          : "top";
+
+      const top =
+        placement === "bottom"
+          ? rect.bottom + DROPDOWN_GAP + window.scrollY
+          : rect.top - DROPDOWN_GAP + window.scrollY;
+
+      setDropdownPos({
+        top,
+        left: rect.left + window.scrollX,
+        width: rect.width,
+        placement,
+      });
+    }, [open, maxDropdownHeight]);
+
+    useLayoutEffect(() => {
+      updatePosition();
+    }, [updatePosition]);
+
+    useEffect(() => {
+      if (!open) return;
+
+      window.addEventListener("resize", updatePosition);
+      window.addEventListener("scroll", updatePosition, true);
+      return () => {
+        window.removeEventListener("resize", updatePosition);
+        window.removeEventListener("scroll", updatePosition, true);
+      };
+    }, [open, updatePosition]);
+    // ---------------------------------------------------------------------------------------
+
+    // NOTE: close dropdown on outside click — check both the trigger container and portal list
     useEffect(() => {
       if (!open) return;
 
       const handler = (e: MouseEvent) => {
-        if (!containerRef.current?.contains(e.target as Node)) {
+        const target = e.target as Node;
+        if (
+          !containerRef.current?.contains(target) &&
+          !listRef.current?.contains(target)
+        ) {
           close();
         }
       };
@@ -130,23 +188,22 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       return () => document.removeEventListener("mousedown", handler);
     }, [open, close]);
 
-    // NOTE: close dropdown on focus out (e.g. when tabbing away)
+    // NOTE: close dropdown on focus out
     useEffect(() => {
       if (!open) return;
 
       const handleFocusOut = (e: FocusEvent) => {
+        const related = e.relatedTarget as Node | null;
         if (
-          containerRef.current &&
-          !containerRef.current.contains(e.relatedTarget as Node)
+          !containerRef.current?.contains(related) &&
+          !listRef.current?.contains(related)
         ) {
           close();
         }
       };
 
-      containerRef.current?.addEventListener("focusout", handleFocusOut);
-
-      return () =>
-        containerRef.current?.removeEventListener("focusout", handleFocusOut);
+      document.addEventListener("focusout", handleFocusOut);
+      return () => document.removeEventListener("focusout", handleFocusOut);
     }, [open, close]);
 
     // NOTE: handle option selection (both click and keyboard)
@@ -163,7 +220,6 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     };
 
     // NOTE: handle keyboard events on the trigger button
-    // to open the dropdown and navigate options
     const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
       if (disabled) return;
 
@@ -181,7 +237,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
     };
 
-    // NOTE: handle keyboard events on the dropdown for navigation and selection
+    // NOTE: handle keyboard events on the dropdown
     const handleDropdownKeyDown = (e: React.KeyboardEvent) => {
       if (!open) return;
 
@@ -212,10 +268,72 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     const state = getInputState(disabled, error);
 
+    const dropdown =
+      open && dropdownPos
+        ? createPortal(
+            <ul
+              ref={listRef}
+              role="listbox"
+              aria-label={label}
+              onKeyDown={handleDropdownKeyDown}
+              style={{
+                position: "absolute",
+                top:
+                  dropdownPos.placement === "bottom"
+                    ? dropdownPos.top
+                    : undefined,
+                bottom:
+                  dropdownPos.placement === "top"
+                    ? window.innerHeight + window.scrollY - dropdownPos.top
+                    : undefined,
+                left: dropdownPos.left,
+                width: dropdownPos.width,
+                maxHeight: maxDropdownHeight,
+              }}
+              className={cn(
+                selectMenuVariants({ state }),
+                "overflow-y-auto",
+                // override the cva absolute/w-full since we use inline style positioning
+                "mt-0! w-auto!"
+              )}
+            >
+              {options.map((opt, index) => {
+                const isSelected = opt.value === selectedValue;
+                const isActive = index === activeIndex;
+
+                return (
+                  <li
+                    key={opt.value}
+                    role="option"
+                    aria-selected={isSelected}
+                    aria-disabled={opt.disabled}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => select(opt)}
+                    className={cn(
+                      selectOptionVariants({
+                        active: isActive,
+                        selected: isSelected,
+                        disabled: !!opt.disabled,
+                      })
+                    )}
+                  >
+                    <span className="w-4 h-4 flex items-center justify-center">
+                      {isSelected && <FaCheck size={16} />}
+                    </span>
+
+                    {opt.label}
+                  </li>
+                );
+              })}
+            </ul>,
+            document.body
+          )
+        : null;
+
     return (
       <div
         ref={containerRef}
-        onKeyDown={handleDropdownKeyDown}
         className={cn("w-full flex flex-col", wrapperClassName)}
       >
         {label && (
@@ -264,55 +382,20 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
           {/* Chevron */}
           <div className={cn(selectChevronVariants({ state, open }))}>
-            <FaChevronUp className="w-6 h-6" />
+            <FaChevronUp size={16} />
           </div>
-
-          {/* Dropdown */}
-          {open && (
-            <ul
-              role="listbox"
-              aria-label={label}
-              className={cn(selectMenuVariants({ state }))}
-            >
-              {options.map((opt, index) => {
-                const isSelected = opt.value === selectedValue;
-                const isActive = index === activeIndex;
-
-                return (
-                  <li
-                    key={opt.value}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={opt.disabled}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => select(opt)}
-                    className={cn(
-                      selectOptionVariants({
-                        active: isActive,
-                        selected: isSelected,
-                        disabled: !!opt.disabled,
-                      })
-                    )}
-                  >
-                    <span className="w-4 h-4 flex items-center justify-center">
-                      {isSelected && <FaCheck className="w-6 h-6" />}
-                    </span>
-
-                    {opt.label}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
         </div>
 
-        <HelperText
-          id={`${inputId}-helper`}
-          error={error}
-          hint={hint}
-          disabled={disabled}
-        />
+        {error || hint ? (
+          <HelperText
+            id={`${inputId}-helper`}
+            error={error}
+            hint={hint}
+            disabled={disabled}
+          />
+        ) : null}
+
+        {dropdown}
       </div>
     );
   }

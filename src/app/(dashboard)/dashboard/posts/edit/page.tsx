@@ -4,61 +4,40 @@ import { Suspense, use, useEffect, useState } from "react";
 
 import { notFound } from "next/navigation";
 
-import GeneralModal from "@/components/common/GeneralModal";
-import MainHeader from "@/components/common/MainHeader";
-import MainContainer from "@/components/dashboard/common/MainContainer";
+import Button from "@/components/Button";
 import Loading from "@/components/navigation/Loading";
 import PostEditor from "@/components/post/editor/PostEditor";
+import {
+  Modal,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/ui/Modal";
 import { slugify } from "@/lib/string";
 import { PostMetadata } from "@/types/posts";
 
-function CreatePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ id: string }>;
-}) {
+function EditPage({ searchParams }: { searchParams: Promise<{ id: string }> }) {
   const { id } = use(searchParams);
 
   if (!id) {
     return notFound();
   }
 
-  const breadcrumbs = [
-    { label: "Home", href: "/dashboard" },
-    { label: "Posts", href: "/dashboard/posts" },
-    { label: "Edit", href: "/dashboard/posts/edit" },
-  ];
-
-  return (
-    <>
-      <MainContainer>
-        <MainHeader
-          title="Edit Post"
-          description="Edit post information and content."
-          breadcrumbs={breadcrumbs}
-        />
-
-        <Suspense fallback={<Loading />}>
-          <Editor postId={id} />
-        </Suspense>
-      </MainContainer>
-    </>
-  );
-}
-
-function Editor({ postId }: { postId: string }) {
   const [postContent, setPostContent] = useState<string>();
   const [postMetadata, setPostMetadata] = useState<PostMetadata>();
 
   const [loadingPost, setLoadingPost] = useState(false);
-  const [createPostError, setCreatePostError] = useState(false);
-  const [createPostSuccess, setCreatePostSuccess] = useState(false);
+  const [editPostError, setEditPostError] = useState(false);
+  const [editPostSuccess, setEditPostSuccess] = useState(false);
 
   useEffect(() => {
-    if (postId) {
-      fetchPost(postId);
+    if (id) {
+      fetchPost(id);
     }
-  }, [postId]);
+  }, [id]);
 
   async function fetchPost(id: string) {
     setLoadingPost(true);
@@ -103,7 +82,7 @@ function Editor({ postId }: { postId: string }) {
       const response = await fetch("/api/v1/posts/update", {
         method: "POST",
         body: JSON.stringify({
-          id: postId,
+          id: id,
           title: metadata.title,
           slug: processedSlug,
           description: metadata.description,
@@ -130,47 +109,81 @@ function Editor({ postId }: { postId: string }) {
       });
 
       if (response.ok) {
-        setCreatePostSuccess(true);
+        setEditPostSuccess(true);
       } else {
-        setCreatePostError(true);
+        setEditPostError(true);
       }
     } catch (error) {
-      console.error("Error creating post:", error);
-      setCreatePostError(true);
+      console.error("Error updating post:", error);
+      setEditPostError(true);
     }
   }
 
   return (
-    <>
-      {loadingPost ? (
-        <Loading />
-      ) : (
-        <div className="mt-8">
-          <PostEditor
-            postMetadata={postMetadata}
-            postContent={postContent}
-            onSubmit={updatePost}
-          />
-        </div>
-      )}
+    <div className="flex flex-col h-[calc(100dvh-7rem)] md:h-dvh overflow-hidden">
+      <div className="flex-1 min-h-0">
+        <Suspense fallback={<Loading />}>
+          <>
+            {loadingPost ? (
+              <Loading />
+            ) : (
+              <PostEditor
+                postMetadata={postMetadata}
+                postContent={postContent}
+                onSubmit={updatePost}
+              />
+            )}
 
-      <GeneralModal
-        visible={createPostSuccess}
-        title="Post Updated"
-        message="Your post has been updated successfully."
-        primaryButtonText="Understood"
-        onClickPrimary={() => setCreatePostSuccess(false)}
-      />
+            <Modal
+              open={editPostSuccess}
+              onOpenChange={(open) => {
+                if (!open) setEditPostSuccess(false);
+              }}
+            >
+              <ModalContent>
+                <ModalHeader>
+                  <ModalTitle>Post Updated</ModalTitle>
+                  <ModalDescription>
+                    Your post has been updated successfully.
+                  </ModalDescription>
+                </ModalHeader>
+                <ModalFooter>
+                  <ModalClose asChild>
+                    <Button className="px-4 py-2 rounded-lg text-sm">
+                      Understood
+                    </Button>
+                  </ModalClose>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
 
-      <GeneralModal
-        visible={createPostError}
-        title="Error"
-        message="There was an error updating your post."
-        primaryButtonText="Understood"
-        onClickPrimary={() => setCreatePostError(false)}
-      />
-    </>
+            <Modal
+              open={editPostError}
+              onOpenChange={(open) => {
+                if (!open) setEditPostError(false);
+              }}
+            >
+              <ModalContent>
+                <ModalHeader>
+                  <ModalTitle>Error</ModalTitle>
+                  <ModalDescription>
+                    There was an error updating your post.
+                  </ModalDescription>
+                </ModalHeader>
+                <ModalFooter>
+                  <ModalClose asChild>
+                    <Button className="px-4 py-2 rounded-lg text-sm">
+                      Understood
+                    </Button>
+                  </ModalClose>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </>
+        </Suspense>
+      </div>
+    </div>
   );
 }
 
-export default CreatePage;
+export default EditPage;

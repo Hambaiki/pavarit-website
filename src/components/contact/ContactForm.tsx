@@ -7,10 +7,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import Button from "@/components/Button";
-import GeneralModal from "@/components/common/GeneralModal";
-import TextAreaInput from "@/components/form/v1/TextAreaInput";
-import TextInput from "@/components/form/v1/TextInput";
+import { TextInput, Textarea } from "@/components/form/v2";
 import Card from "@/components/ui/Card";
+import {
+  Modal,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/ui/Modal";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -99,7 +106,7 @@ function ContactForm() {
             />
           </div>
 
-          <TextAreaInput
+          <Textarea
             label="Message"
             placeholder="Your Message"
             autoComplete="off"
@@ -121,23 +128,50 @@ function ContactForm() {
         </Card>
       </form>
 
-      <GeneralModal
-        visible={error !== undefined}
-        title="Error"
-        message={error}
-        primaryButtonText="Understood"
-        onClickOutside={() => setError(undefined)}
-        onClickPrimary={() => setError(undefined)}
-      />
+      <Modal
+        open={error !== undefined}
+        onOpenChange={(open) => {
+          if (!open) setError(undefined);
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Error</ModalTitle>
+            <ModalDescription>{error}</ModalDescription>
+          </ModalHeader>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button className="px-4 py-2 rounded-lg text-sm">
+                Understood
+              </Button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
-      <GeneralModal
-        visible={success}
-        title="Message Sent"
-        message="Your message has been sent successfully. Thank you for your interest."
-        primaryButtonText="Understood"
-        onClickOutside={() => setSuccess(false)}
-        onClickPrimary={() => setSuccess(false)}
-      />
+      <Modal
+        open={success}
+        onOpenChange={(open) => {
+          if (!open) setSuccess(false);
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Message Sent</ModalTitle>
+            <ModalDescription>
+              Your message has been sent successfully. Thank you for your
+              interest.
+            </ModalDescription>
+          </ModalHeader>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button className="px-4 py-2 rounded-lg text-sm">
+                Understood
+              </Button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

@@ -78,14 +78,14 @@ function NavbarVerticalItem({ item }: NavbarVerticalItemProps) {
         >
           {item.subItems &&
             item.subItems.map((subItem, index) => (
-              <Link key={index} href={subItem.href}>
-                <div
-                  className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
+              <Link
+                key={index}
+                href={subItem.href}
+                className={`flex flex-row items-center justify-between h-12 w-full px-6 py-2
                   transition-colors
                   ${current ? "hover:bg-gray-200" : "hover:bg-gray-100"}`}
-                >
-                  {subItem.label}
-                </div>
+              >
+                {subItem.label}
               </Link>
             ))}
         </CollapsibleContainer>

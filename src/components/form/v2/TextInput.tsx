@@ -62,12 +62,14 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           {...props}
         />
 
-        <HelperText
-          id={`${inputId}-helper`}
-          error={error}
-          hint={hint}
-          disabled={disabled}
-        />
+        {(error || hint) && (
+          <HelperText
+            id={`${inputId}-helper`}
+            error={error}
+            hint={hint}
+            disabled={disabled}
+          />
+        )}
       </div>
     );
   }

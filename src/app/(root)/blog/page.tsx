@@ -1,11 +1,7 @@
 import { Suspense } from "react";
 
-import { FaList } from "react-icons/fa6";
-
-import MainHeader from "@/components/common/MainHeader";
-import OptionMenuGrid from "@/components/common/OptionMenuGrid";
-import SectionHeader from "@/components/common/SectionHeader";
-import MainContainer from "@/components/container/MainContainer";
+import { Section } from "@/components/content";
+import Header from "@/components/content/Header";
 import FeaturedPosts, {
   FeaturedPostsHeader,
   FeaturedPostsSkeleton,
@@ -15,19 +11,18 @@ import LatestPosts, {
   LatestPostsSkeleton,
 } from "@/components/post/LatestPosts";
 import MorePostBanner from "@/components/post/MorePostBanner";
-import { blogItems } from "@/constants/blog";
 import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
 
-async function page() {
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-  ];
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+];
 
+async function page() {
   return (
-    <MainContainer className="space-y-10 lg:space-y-16">
-      <MainHeader
+    <>
+      <Header
         title={`Blog`}
         description={`Discover more about myself with a collection of topics ranging from
           personal growth and creative projects to technical tutorials and
@@ -36,7 +31,7 @@ async function page() {
         breadcrumbs={breadcrumbs}
       />
 
-      <section>
+      <Section>
         <FeaturedPostsHeader />
 
         <div className="mt-8">
@@ -44,9 +39,9 @@ async function page() {
             <FeaturedPosts />
           </Suspense>
         </div>
-      </section>
+      </Section>
 
-      <section>
+      <Section>
         <LatestPostsHeader />
 
         <div className="mt-8">
@@ -58,8 +53,8 @@ async function page() {
         <div className="mt-4">
           <MorePostBanner />
         </div>
-      </section>
-    </MainContainer>
+      </Section>
+    </>
   );
 }
 

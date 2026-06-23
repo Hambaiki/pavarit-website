@@ -9,8 +9,11 @@ import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
 import { dashboardNavItems } from "@/constants/navigation";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { cn } from "@/lib/cn";
 
-function Navbar() {
+interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default function Navbar({ className, ...props }: NavbarProps) {
   const [stackOpen, setStackOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,29 +36,33 @@ function Navbar() {
   return (
     <div
       ref={ref}
-      className="fixed top-0 md:left-0 w-full md:w-60 h-24 md:h-full z-10 md:border-r border-white/60 bg-white/70 backdrop-blur-md shadow-sm"
+      className={cn(
+        "transition-colors md:border-b",
+        stackOpen ? "bg-white border-gray-200" : "border-transparent",
+        className
+      )}
     >
-      <div className="flex flex-row items-center p-4 h-full md:h-auto">
+      <div className="flex flex-row items-center h-full md:h-auto">
         <div className="md:hidden mr-4 md:mr-0">
           <StackButton onClick={() => setStackOpen(!stackOpen)} />
         </div>
 
-        <div className="px-2 lg:p-4">
+        <div className="p-2 lg:p-4">
           <h1 className="text-3xl font-bold">PAVARIT</h1>
           <hr className="border-2 border-primary-500" />
           <span className="text-lg font-extralight">Dashboard</span>
         </div>
       </div>
 
-      <nav className="hidden md:flex flex-col gap-2 p-4 rounded-2xl">
+      <nav className="hidden md:flex flex-col gap-2 rounded-2xl">
         {dashboardNavItems.map((item, index) => (
           <NavbarVerticalItem key={index} item={item} />
         ))}
       </nav>
 
-      <div className="md:hidden max-w-4xl mx-auto bg-gray-50">
+      <div className="md:hidden max-w-4xl mx-auto">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
-          <div className="flex flex-col justify-center items-center space-y-2 p-4">
+          <div className="flex flex-col justify-center items-center space-y-2 pt-4">
             {dashboardNavItems.map((item, index) => (
               <NavbarVerticalItem key={index} item={item} />
             ))}
@@ -65,5 +72,3 @@ function Navbar() {
     </div>
   );
 }
-
-export default Navbar;

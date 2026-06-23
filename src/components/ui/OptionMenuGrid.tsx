@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { IconType } from "react-icons";
+
 import Button from "@/components/Button";
 import { cn } from "@/lib/cn";
 
@@ -9,7 +11,7 @@ export interface OptionMenuItem {
   action: string;
   href?: string;
   onClick?: () => void;
-  icon?: ReactNode;
+  icon?: IconType | ReactNode;
 }
 
 interface OptionMenuGridProps {
@@ -31,7 +33,9 @@ function OptionMenuGrid({ items, className }: OptionMenuGridProps) {
           className="card rounded-xl flex flex-col gap-4 p-5 backdrop-blur-md"
         >
           {item.icon && (
-            <div className="text-primary-500 text-2xl">{item.icon}</div>
+            <div className="text-primary-500 text-2xl">
+              {typeof item.icon === "function" ? <item.icon /> : item.icon}
+            </div>
           )}
 
           <div className="flex-1 flex flex-col gap-1">

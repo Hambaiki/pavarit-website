@@ -3,12 +3,18 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import Paginator from "@/components/Paginator";
-import MainHeader from "@/components/common/MainHeader";
-import MainContainer from "@/components/container/MainContainer";
+import { Section } from "@/components/content";
+import Header from "@/components/content/Header";
+import Loading from "@/components/navigation/Loading";
 import PostItemAlt from "@/components/post/PostItemAlt";
 import SearchBar from "@/components/post/SearchBar";
 import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+];
 
 async function page({
   searchParams,
@@ -46,26 +52,19 @@ async function page({
   const maxPage = Math.ceil((response?.total || 0) / limit);
   const posts = response?.posts || [];
 
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-  ];
-
   return (
-    <MainContainer>
-      <MainHeader
+    <>
+      <Header
         title="All Posts"
         description="Here are all of my posts. I write about my experiences and thoughts
             about technology, life, and other things."
         breadcrumbs={breadcrumbs}
       />
 
-      <div className="mt-8">
+      <Section className="space-y-8">
         <SearchBar showSortOptions />
-      </div>
 
-      <Suspense>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <PostItemAlt
@@ -81,13 +80,11 @@ async function page({
           ))}
         </div>
 
-        {maxPage > 1 && (
-          <div className="mt-8">
-            <Paginator currentPage={page} maxPage={maxPage} />
-          </div>
-        )}
-      </Suspense>
-    </MainContainer>
+        <Suspense fallback={<Loading />}>
+          {maxPage > 1 && <Paginator currentPage={page} maxPage={maxPage} />}
+        </Suspense>
+      </Section>
+    </>
   );
 }
 
