@@ -3,8 +3,8 @@ import Link from "next/link";
 import * as changeCase from "change-case";
 import { FaBookOpen } from "react-icons/fa6";
 
-import MainContainer from "@/components/container/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import { Section } from "@/components/content";
+import Header from "@/components/content/Header";
 import PostItemAlt from "@/components/post/PostItemAlt";
 import { fetchFromApi } from "@/lib/api";
 import { SearchPostResponse } from "@/types/api/post";
@@ -35,26 +35,27 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   ];
 
   return (
-    <MainContainer>
-      <header>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="flex flex-col space-y-4 mt-8">
-          <h1>
+    <>
+      <Header
+        title={
+          <>
             Tag:&nbsp;
             <span className="text-primary-500">{tagCapitalized}</span>
-          </h1>
-          <p className="text-lg">
+          </>
+        }
+        description={
+          <>
             Explore articles tagged with&nbsp;
             <span className="text-primary-500">
               {changeCase.capitalCase(tag)}
             </span>
             &nbsp;on this website.
-          </p>
-        </div>
-      </header>
+          </>
+        }
+        breadcrumbs={breadcrumbs}
+      />
 
-      <section className="mt-10">
+      <Section>
         <h2 className="mb-4">All Articles</h2>
 
         {posts.length === 0 && (
@@ -80,8 +81,8 @@ async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
             </Link>
           ))}
         </div>
-      </section>
-    </MainContainer>
+      </Section>
+    </>
   );
 }
 

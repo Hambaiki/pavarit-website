@@ -2,11 +2,17 @@ import Link from "next/link";
 
 import * as changeCase from "change-case";
 
-import MainHeader from "@/components/common/MainHeader";
-import MainContainer from "@/components/container/MainContainer";
+import { Section } from "@/components/content";
+import Header from "@/components/content/Header";
 import RecentPosts from "@/components/post/RecentPosts";
 import { fetchFromApi } from "@/lib/api";
 import { TagResponse } from "@/types/api/post";
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+  { label: "Tag", href: "/blog/tag" },
+];
 
 async function TagPage() {
   const response = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
@@ -14,22 +20,16 @@ async function TagPage() {
   const tags = response?.tags || [];
   const filteredTags = tags.filter((tag) => !tag.includes("_"));
 
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-    { label: "Tag", href: "/blog/tag" },
-  ];
-
   return (
-    <MainContainer>
-      <MainHeader
+    <>
+      <Header
         title="Tags"
         description={`Explore all the tags on this website, including
           ${filteredTags.slice(0, 5).join(", ")}, and more.`}
         breadcrumbs={breadcrumbs}
       />
 
-      <section className="mt-10">
+      <Section>
         <h2>
           All Tags&nbsp;
           <span className="font-normal text-primary-500">
@@ -48,14 +48,14 @@ async function TagPage() {
             </Link>
           ))}
         </ul>
-      </section>
+      </Section>
 
-      <section className="mt-10">
+      <Section>
         <h2 className="mb-4">Latest Articles</h2>
 
         <RecentPosts />
-      </section>
-    </MainContainer>
+      </Section>
+    </>
   );
 }
 

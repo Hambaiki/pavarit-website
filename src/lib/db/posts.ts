@@ -1,7 +1,7 @@
 import { and, count, desc, eq, ilike, or, sql } from "drizzle-orm";
 
 import { db } from "./index";
-import { postViews, posts } from "./schema";
+import { posts } from "./schema";
 
 export async function getAllPosts() {
   try {
@@ -23,11 +23,7 @@ export async function getPosts({
   tags: string[];
   page: number;
   limit: number;
-  sort:
-    | "MOST_VIEWED"
-    | "MOST_VIEWED_LAST_30_DAYS"
-    | "MOST_VIEWED_LAST_7_DAYS"
-    | "MOST_RECENT";
+  sort: "MOST_RECENT";
 }) {
   try {
     const offset = (page - 1) * limit;
@@ -49,7 +45,11 @@ export async function getPosts({
             sql`, `
           )}]`;
 
-    const subquery = db
+    const whereClause = tagsFilter
+      ? and(searchFilter, tagsFilter)
+      : searchFilter;
+
+    return await db
       .select({
         id: posts.id,
         slug: posts.slug,
@@ -64,26 +64,10 @@ export async function getPosts({
         created_at: posts.created_at,
         updated_at: posts.updated_at,
         content: posts.content,
-        total_view_count:
-          sql<number>`COALESCE(SUM(${postViews.view_count}), 0)`.as(
-            "total_view_count"
-          ),
       })
       .from(posts)
-      .leftJoin(postViews, eq(posts.id, postViews.post_id))
-      .where(and(searchFilter, tagsFilter))
-      .groupBy(posts.id)
-      .as("subquery");
-
-    const orderByClause =
-      sort === "MOST_RECENT"
-        ? desc(subquery.created_at)
-        : desc(subquery.total_view_count);
-
-    return await db
-      .select()
-      .from(subquery)
-      .orderBy(orderByClause)
+      .where(whereClause)
+      .orderBy(desc(posts.created_at))
       .limit(limit)
       .offset(offset);
   } catch (error) {
@@ -302,15 +286,3 @@ export async function checkSlugUnique(slug: string) {
   }
 }
 
-export async function updatePostViews(id: string) {
-  try {
-    return await db.insert(postViews).values({
-      post_id: Number(id),
-      view_date: sql`CURRENT_DATE`,
-      view_count: 1,
-    });
-  } catch (error) {
-    console.error("Error updating post views:", error);
-    return null;
-  }
-}

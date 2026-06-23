@@ -8,7 +8,6 @@ import {
   FaArrowRight,
   FaClock,
   FaMagnifyingGlass,
-  FaStar,
 } from "react-icons/fa6";
 
 import { cn } from "@/lib/cn";
@@ -34,21 +33,6 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
       value: "MOST_RECENT",
       label: "Newest",
       icon: FaClock,
-    },
-  ];
-
-  const recentSortKeyOptions = [
-    {
-      value: "MOST_VIEWED",
-      label: "All Time",
-    },
-    {
-      value: "MOST_VIEWED_LAST_7_DAYS",
-      label: "This Week",
-    },
-    {
-      value: "MOST_VIEWED_LAST_30_DAYS",
-      label: "This Month",
     },
   ];
 
@@ -108,32 +92,7 @@ function SearchBar({ showSortOptions = false }: SearchBarProps) {
 
       {showSortOptions && (
         <div className="flex items-center gap-4 rounded-l-lg mt-4 rounded-lg">
-          {/* <span>Sort by</span> */}
-
           <div className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center rounded-lg border border-gray-200 bg-gray-100 overflow-hidden shrink-0">
-              <div className="flex items-center space-x-2 px-3 py-2">
-                <FaStar className="h-4 w-4" />
-                <span className="hidden sm:block">Popular</span>
-              </div>
-
-              {recentSortKeyOptions.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => handleSort(option.value)}
-                  className={cn(
-                    "flex items-center space-x-2 px-3 py-2 transition-colors",
-                    sort === option.value
-                      ? "bg-primary-500 hover:bg-primary-600 text-white"
-                      : "bg-gray-200 hover:bg-gray-300"
-                  )}
-                >
-                  <span>{option.label}</span>
-                </button>
-              ))}
-            </div>
-
             {sortKeyOptions.map((option) => (
               <button
                 key={option.value}

@@ -1,25 +1,26 @@
-import MainHeader from "@/components/common/MainHeader";
-import MainContainer from "@/components/dashboard/common/MainContainer";
+import { Suspense } from "react";
+
+import Header from "@/components/content/Header";
+import Section from "@/components/content/Section";
 import MaintenanceEntries from "@/components/dashboard/settings/MaintenanceEntries";
 import MaintenanceModeModule from "@/components/dashboard/settings/MaintenanceModeModule";
 
 export default function MaintenanceSettings() {
-  const breadcrumbs = [
-    { label: "Home", href: "/dashboard" },
-    { label: "Settings", href: "/dashboard/settings" },
-  ];
-
   return (
-    <MainContainer>
-      <MainHeader
-        title="Settings"
-        description="Manage website settings."
-        breadcrumbs={breadcrumbs}
-      />
+    <>
+      <Header title="Settings" description="Manage website settings." />
 
-      <MaintenanceModeModule className="mt-8" />
+      <Section>
+        <Suspense>
+          <MaintenanceModeModule className="mt-8" />
+        </Suspense>
+      </Section>
 
-      <MaintenanceEntries className="mt-8" />
-    </MainContainer>
+      <Section>
+        <Suspense>
+          <MaintenanceEntries className="mt-8" />
+        </Suspense>
+      </Section>
+    </>
   );
 }

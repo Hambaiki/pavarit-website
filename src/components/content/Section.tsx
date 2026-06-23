@@ -1,24 +1,22 @@
+import { VariantProps } from "class-variance-authority";
+
+import { layoutVariants } from "@/constants/varaints/layoutVariants";
 import { cn } from "@/lib/cn";
 
-const sectionVariants = {
-  default: "py-10 px-4 md:px-10 lg:py-16 lg:px-16 max-w-[1480px]",
-  wide: "p-8 max-w-none",
-  edge: "py-8 max-w-none",
-};
-
-interface SectionProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: keyof typeof sectionVariants;
-}
+interface SectionProps
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof layoutVariants> {}
 
 export default function Section({
   children,
   className,
-  variant = "default",
+  variant,
   ...props
 }: SectionProps) {
   return (
     <section
-      className={cn("mx-auto", sectionVariants[variant], className)}
+      className={cn("mx-auto", layoutVariants({ variant }), className)}
       {...props}
     >
       {children}

@@ -217,9 +217,9 @@ const sizeClasses: Record<ModalSize, string> = {
 };
 
 const variantClasses: Record<ModalVariant, string> = {
-  default: "border-border",
+  default: "border-gray-300",
   destructive: "border-destructive/40",
-  form: "border-border",
+  form: "border-gray-300",
   fullscreen: "border-none rounded-none w-screen h-screen max-w-none",
 };
 
@@ -320,7 +320,7 @@ function ModalContent({
         aria-hidden="true"
         onClick={closeOnBackdropClick ? onClose : undefined}
         className={cn(
-          "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-250",
+          "absolute inset-0 bg-black/60 transition-opacity duration-250",
           visible ? "opacity-100" : "opacity-0"
         )}
         style={{
@@ -334,7 +334,7 @@ function ModalContent({
         className={cn(
           // Base
           "relative z-10 w-full flex flex-col",
-          "bg-background text-foreground",
+          "bg-white text-black",
           "border shadow-2xl",
           // Shape
           isFullscreen ? "rounded-none" : "rounded-2xl",
@@ -344,9 +344,7 @@ function ModalContent({
           !isFullscreen && sizeClasses[size],
           // Animation
           "transition-all duration-250",
-          visible
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-4 scale-[0.97]",
+          visible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]",
           className
         )}
         style={{
@@ -356,7 +354,7 @@ function ModalContent({
       >
         {/* Destructive accent line */}
         {variant === "destructive" && (
-          <div className="absolute top-0 inset-x-0 h-[3px] bg-destructive rounded-t-xl" />
+          <div className="absolute top-0 inset-x-0 h-1 bg-red-500 rounded-t-xl" />
         )}
 
         {/* Close button - always rendered in top-right */}
@@ -369,7 +367,7 @@ function ModalContent({
             "inline-flex items-center justify-center",
             "w-7 h-7 rounded-md",
             "text-gray-500 hover:text-white",
-            "hover:bg-accent transition-colors duration-150",
+            "hover:bg-primary-500 transition-colors duration-150",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             "cursor-pointer"
           )}
@@ -401,7 +399,7 @@ function ModalHeader({
 }: ComponentPropsWithoutRef<"div">) {
   return (
     <div
-      className={cn("flex flex-col gap-1 px-6 pt-6 pb-4 pr-12", className)}
+      className={cn("flex flex-col gap-1 px-4 pt-6 pb-4 pr-12", className)}
       {...props}
     >
       {children}
@@ -450,9 +448,9 @@ function ModalBody({
   return (
     <div
       className={cn(
-        "flex-1 overflow-y-auto px-6 py-2",
+        "flex-1 overflow-y-auto px-4 py-2",
         // Subtle scroll fade at top/bottom
-        "[mask-image:linear-gradient(to_bottom,transparent_0,black_1rem,black_calc(100%-1rem),transparent_100%)]",
+        "[linear-gradient(to_bottom,transparent_0,black_1rem,black_calc(100%-1rem),transparent_100%)]",
         className
       )}
       {...props}
@@ -471,8 +469,8 @@ function ModalFooter({
     <div
       className={cn(
         "flex items-center justify-end gap-2",
-        "px-6 pt-4 pb-6",
-        "border-t border-border/60",
+        "p-4",
+        "border-t border-gray-300/60",
         className
       )}
       {...props}
@@ -486,7 +484,7 @@ function ModalSeparator({
   className,
   ...props
 }: ComponentPropsWithoutRef<"hr">) {
-  return <hr className={cn("border-border/60 mx-6", className)} {...props} />;
+  return <hr className={cn("border-gray-300/60 mx-6", className)} {...props} />;
 }
 
 export {

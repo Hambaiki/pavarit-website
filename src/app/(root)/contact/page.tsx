@@ -1,27 +1,27 @@
 import { FaGlobe, FaPhone } from "react-icons/fa6";
 
-import MainHeader from "@/components/common/MainHeader";
 import ContactForm from "@/components/contact/ContactForm";
-import MainContainer from "@/components/container/MainContainer";
+import { Section } from "@/components/content";
+import Header from "@/components/content/Header";
 import Card from "@/components/ui/Card";
 import { contactItems } from "@/constants/common";
 
-function Contact() {
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Contact", href: "/contact" },
-  ];
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Contact", href: "/contact" },
+];
 
+function Contact() {
   return (
-    <MainContainer className="space-y-14">
-      <MainHeader
+    <>
+      <Header
         title="Contact"
         description="Get in touch with me through the form below or by using the contact
           information provided."
         breadcrumbs={breadcrumbs}
       />
 
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
+      <Section className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-4">
         <div className="col-span-1 lg:col-span-2">
           <div className="flex items-center space-x-2 mb-4">
             <FaGlobe className="h-6 w-6 text-primary-500" />
@@ -63,8 +63,8 @@ function Contact() {
             </div>
           </Card>
         </div>
-      </section>
-    </MainContainer>
+      </Section>
+    </>
   );
 }
 

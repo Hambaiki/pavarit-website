@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 
 import * as changeCase from "change-case";
 
-import MainContainer from "@/components/container/MainContainer";
-import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import { Section } from "@/components/content";
+import Header from "@/components/content/Header";
 import AuthorItem from "@/components/post/AuthorItem";
 import PostItemAlt from "@/components/post/PostItemAlt";
 import PostRenderer from "@/components/post/PostRenderer";
@@ -40,22 +40,10 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     }
   );
 
-  const handleUpdateViews = async (postId: number) => {
-    "use server";
-
-    if (process.env.NODE_ENV !== "development") {
-      await fetchFromApi(`/api/v1/posts/analytics/views`, "POST", {
-        body: JSON.stringify({ id: postId }),
-      });
-    }
-  };
-
   const post = postData?.post;
 
   if (!post) {
     return notFound();
-  } else {
-    await handleUpdateViews(post.id);
   }
 
   const relatedPosts = relatedPostData?.posts.filter(
@@ -71,32 +59,27 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   ];
 
   return (
-    <MainContainer>
-      <header className="flex flex-col">
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
-
-        <div className="space-y-4 mt-8">
-          <h1>{post.title}</h1>
-          <ul className="flex flex-row flex-wrap gap-2">
-            {post.tags
-              .filter((tag) => !tag.includes("_"))
-              .map((tag, index) => (
-                <Link href={`/blog/tag/${tag}`} key={index}>
-                  <li
-                    key={index}
-                    className="px-3 py-1 rounded-full
+    <>
+      <Header title={post.title} breadcrumbs={breadcrumbs}>
+        <ul className="flex flex-row flex-wrap gap-2 mt-4">
+          {post.tags
+            .filter((tag) => !tag.includes("_"))
+            .map((tag, index) => (
+              <Link href={`/blog/tag/${tag}`} key={index}>
+                <li
+                  key={index}
+                  className="px-3 py-1 rounded-full
                       bg-gray-200 hover:bg-gray-300 transition-colors"
-                  >
-                    {changeCase.capitalCase(tag)}
-                  </li>
-                </Link>
-              ))}
-          </ul>
-        </div>
-      </header>
+                >
+                  {changeCase.capitalCase(tag)}
+                </li>
+              </Link>
+            ))}
+        </ul>
+      </Header>
 
-      <div className="flex flex-col lg:flex-row space-y-8 space-x-0 lg:space-y-0 lg:space-x-4">
-        <div className="flex-1 mt-8 lg:my-8">
+      <Section className="flex flex-col lg:flex-row space-y-8 space-x-0 lg:space-y-0 lg:space-x-4">
+        <div className="flex-1">
           <div className="mb-8">
             {post.image && (
               <div className="relative flex justify-center items-center h-64 sm:h-80 md:h-96 mb-6 rounded-xl overflow-hidden">
@@ -113,7 +96,7 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
                   alt={post.title}
                   width={1000}
                   height={1000}
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full brightness-50 -z-10"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full brightness-50 -z-10 blur object-cover"
                 />
               </div>
             )}
@@ -128,19 +111,21 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
           <PostRenderer contentHtml={contentHtml} />
         </div>
 
-        <div className="lg:sticky lg:top-20 lg:h-full lg:w-80 lg:py-8">
-          <div className="hidden lg:block mb-4">
-            <AuthorItem author={post.author} createdAt={post.created_at} />
+        <aside>
+          <div className="sticky top-8">
+            <div className="hidden lg:block mb-4">
+              <AuthorItem author={post.author} createdAt={post.created_at} />
 
-            <PostTopicList htmlContent={contentHtml} />
+              <PostTopicList htmlContent={contentHtml} />
+            </div>
+
+            <ShareOptions />
           </div>
-
-          <ShareOptions />
-        </div>
-      </div>
+        </aside>
+      </Section>
 
       {relatedPosts && relatedPosts.length > 0 && (
-        <div className="space-y-4 mt-8">
+        <Section className="space-y-4 mt-8">
           <h2>Related Posts</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -157,9 +142,9 @@ async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
               </Link>
             ))}
           </div>
-        </div>
+        </Section>
       )}
-    </MainContainer>
+    </>
   );
 }
 

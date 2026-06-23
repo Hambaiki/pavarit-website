@@ -22,8 +22,16 @@ import {
 } from "react-icons/fa6";
 
 import Button from "@/components/Button";
-import GeneralModal from "@/components/common/GeneralModal";
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
+import {
+  Modal,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/ui/Modal";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { cn } from "@/lib/cn";
 
@@ -37,7 +45,6 @@ interface PostItemProps {
   updatedAt?: string;
   tags?: string[];
   description?: string;
-  views?: number;
   hideDescription?: boolean;
   className?: string;
   onDelete?: (id: number) => void;
@@ -53,7 +60,6 @@ function PostItem({
   updatedAt = "",
   tags = [],
   description = "No description",
-  views = 0,
   hideDescription = false,
   className,
   onDelete,
@@ -72,7 +78,7 @@ function PostItem({
       ref={ref}
       onClick={() => setMenuCollapsed(!menuCollapsed)}
       className={cn(
-        `p-3 card rounded-xl transition-all cursor-pointer hover:shadow-md`,
+        `p-3 card rounded-xl transition-all cursor-pointer`,
         className
       )}
     >
@@ -103,10 +109,6 @@ function PostItem({
               <p className="flex flex-row items-center text-gray-700 not-italic">
                 <FaRedoAlt className="mr-2" />
                 {updatedAt ? format(new Date(updatedAt), "yyyy/MM/dd") : "-"}
-              </p>
-              <p className="flex flex-row items-center text-gray-700 not-italic">
-                <FaEye className="mr-2" />
-                {views}
               </p>
             </address>
           </div>
@@ -179,14 +181,37 @@ function PostItem({
         </div>
       </CollapsibleContainer>
 
-      <GeneralModal
-        title="Delete Post"
-        message="Are you sure you want to delete this post?"
-        onClickPrimary={() => id && onDelete?.(id)}
-        onClickSecondary={() => setConfirmDelete(false)}
-        onClickOutside={() => setConfirmDelete(false)}
-        visible={confirmDelete}
-      />
+      <Modal
+        open={confirmDelete}
+        onOpenChange={(open) => {
+          if (!open) setConfirmDelete(false);
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Delete Post</ModalTitle>
+            <ModalDescription>
+              Are you sure you want to delete this post?
+            </ModalDescription>
+          </ModalHeader>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button
+                variant="secondary"
+                className="px-4 py-2 rounded-lg text-sm"
+              >
+                Cancel
+              </Button>
+            </ModalClose>
+            <Button
+              className="px-4 py-2 rounded-lg text-sm"
+              onClick={() => id && onDelete?.(id)}
+            >
+              OK
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

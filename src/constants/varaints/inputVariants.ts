@@ -4,12 +4,11 @@ export type InputState = "default" | "error" | "disabled";
 
 export const inputVariants = cva(
   [
-    "w-full rounded-lg border-2 bg-form-field-bg px-3 py-2.5 text-sm text-form-text-value",
+    "w-full rounded-lg border bg-form-field-bg px-3 py-2.5 text-sm text-form-text-value",
     "placeholder:text-form-text-placeholder transition-all duration-150 ease-in-out outline-none",
   ],
   {
     variants: {
-      // NOTE: border + focus ring + bg
       state: {
         default:
           "border-form-field-border focus:border-form-field-focus focus:ring-2 focus:ring-form-field-focus-ring",

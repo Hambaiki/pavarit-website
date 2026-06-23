@@ -3,8 +3,14 @@
 import { FaFacebook, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa6";
 
 import Card from "@/components/ui/Card";
+import { cn } from "@/lib/cn";
 
-function ShareOptions() {
+interface ShareOptionsProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default function ShareOptions({
+  className,
+  ...props
+}: ShareOptionsProps) {
   const options = [
     {
       title: "Share on Facebook",
@@ -46,7 +52,7 @@ function ShareOptions() {
   ];
 
   return (
-    <Card className="space-y-3 p-4">
+    <Card className={cn("space-y-3 p-4", className)} {...props}>
       <p className="text-sm">Like this post?</p>
       {options.map((option) => (
         <button
@@ -61,5 +67,3 @@ function ShareOptions() {
     </Card>
   );
 }
-
-export default ShareOptions;

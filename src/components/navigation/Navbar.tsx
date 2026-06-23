@@ -16,7 +16,7 @@ import NavbarVerticalItem from "./NavbarVerticalItem";
 
 interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function Navbar({ className }: NavbarProps) {
+export default function Navbar({ className, ...props }: NavbarProps) {
   const pathname = usePathname();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,11 +39,13 @@ export default function Navbar({ className }: NavbarProps) {
     <div
       ref={ref}
       className={cn(
-        `fixed top-0 bg-white/80 border-b border-white/60 shadow-sm z-10 w-full`,
+        "w-full transition-colors md:border-b",
+        stackOpen ? "bg-white border-gray-200" : "border-transparent",
         className
       )}
+      {...props}
     >
-      <div className="flex flex-row items-center justify-between max-w-6xl mx-auto px-4 md:px-8 space-x-8 h-20 md:h-24">
+      <div className="flex flex-row items-center justify-between">
         <div className="flex flex-row items-center">
           <div className="md:hidden mr-4 md:mr-0">
             <StackButton onClick={() => setStackOpen(!stackOpen)} />
@@ -66,7 +68,7 @@ export default function Navbar({ className }: NavbarProps) {
 
       <div className="md:hidden max-w-4xl mx-auto">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
-          <div className="flex flex-col justify-center items-center space-y-2 p-4">
+          <div className="flex flex-col justify-center items-center space-y-2 pt-4">
             {navItems.map((item, index) => (
               <NavbarVerticalItem key={index} item={item} />
             ))}

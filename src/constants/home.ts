@@ -14,9 +14,9 @@ export const introItems = [
     icon: FaBook,
   },
   {
-    title: "My Projects",
-    description: "See my projects and what I have done.",
-    href: "/about/projects",
+    title: "Tool Collection",
+    description: "Share the tools I use and have built.",
+    href: "/tools",
     icon: FaCode,
   },
   {

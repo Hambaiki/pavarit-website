@@ -1,24 +1,19 @@
-import MainHeader from "@/components/common/MainHeader";
-import MainContainer from "@/components/dashboard/common/MainContainer";
+import { Suspense } from "react";
+
+import Header from "@/components/content/Header";
+import Section from "@/components/content/Section";
 import OnlineInquiryEntries from "@/components/dashboard/online-inquiries/OnlineInquiryEntries";
 
 export default function MaintenanceSettings() {
-  const breadcrumbs = [
-    { label: "Home", href: "/dashboard" },
-    { label: "Online Inquiries", href: "/dashboard/online-inquiries" },
-  ];
-
   return (
-    <MainContainer>
-      <MainHeader
-        title="Online Inquiries"
-        description="View all inquiries."
-        breadcrumbs={breadcrumbs}
-      />
+    <>
+      <Header title="Online Inquiries" description="View all inquiries." />
 
-      <div className="mt-8">
-        <OnlineInquiryEntries />
-      </div>
-    </MainContainer>
+      <Section>
+        <Suspense>
+          <OnlineInquiryEntries />
+        </Suspense>
+      </Section>
+    </>
   );
 }

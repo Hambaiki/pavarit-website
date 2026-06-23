@@ -4,21 +4,24 @@ import { Suspense, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import GeneralModal from "@/components/common/GeneralModal";
-import MainHeader from "@/components/common/MainHeader";
-import MainContainer from "@/components/dashboard/common/MainContainer";
+import Button from "@/components/Button";
+import Header from "@/components/content/Header";
+import Loading from "@/components/navigation/Loading";
 import PostEditor from "@/components/post/editor/PostEditor";
+import {
+  Modal,
+  ModalClose,
+  ModalContent,
+  ModalDescription,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/ui/Modal";
 import { createPost } from "@/lib/api/posts";
 import { PostMetadata } from "@/types/posts";
 
 function CreatePage() {
   const router = useRouter();
-
-  const breadcrumbs = [
-    { label: "Home", href: "/dashboard" },
-    { label: "Posts", href: "/dashboard/posts" },
-    { label: "Create", href: "/dashboard/posts/create" },
-  ];
 
   const [createPostError, setCreatePostError] = useState<string>();
   const [createPostSuccess, setCreatePostSuccess] = useState<string>();
@@ -48,39 +51,63 @@ function CreatePage() {
 
   return (
     <>
-      <MainContainer>
-        <MainHeader
-          title="Create Post"
-          description="Create a new post."
-          breadcrumbs={breadcrumbs}
-        />
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <div className="mt-8">
+      <div className="flex flex-col h-[calc(100dvh-7rem)] md:h-dvh overflow-hidden">
+        <div className="flex-1 min-h-0">
+          <Suspense fallback={<Loading />}>
             <PostEditor
               onSubmit={handlePostCreation}
               onSuccess={handlePostCreationSuccess}
               onError={handlePostCreationError}
             />
-          </div>
-        </Suspense>
-      </MainContainer>
+          </Suspense>
+        </div>
+      </div>
 
-      <GeneralModal
-        visible={createPostSuccess !== undefined}
-        title="Post Created"
-        message={createPostSuccess || "Post created successfully"}
-        primaryButtonText="Understood"
-        onClickPrimary={() => router.push(`/dashboard/posts`)}
-      />
+      <Modal
+        open={createPostSuccess !== undefined}
+        onOpenChange={(open) => {
+          if (!open) router.push(`/dashboard/posts`);
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Post Created</ModalTitle>
+            <ModalDescription>
+              {createPostSuccess || "Post created successfully"}
+            </ModalDescription>
+          </ModalHeader>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button className="px-4 py-2 rounded-lg text-sm">
+                Understood
+              </Button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
-      <GeneralModal
-        visible={createPostError !== undefined}
-        title="Error"
-        message={createPostError || "Error creating post"}
-        primaryButtonText="Understood"
-        onClickPrimary={() => setCreatePostError(undefined)}
-      />
+      <Modal
+        open={createPostError !== undefined}
+        onOpenChange={(open) => {
+          if (!open) setCreatePostError(undefined);
+        }}
+      >
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Error</ModalTitle>
+            <ModalDescription>
+              {createPostError || "Error creating post"}
+            </ModalDescription>
+          </ModalHeader>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button className="px-4 py-2 rounded-lg text-sm">
+                Understood
+              </Button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
