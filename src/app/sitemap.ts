@@ -1,15 +1,14 @@
 import { MetadataRoute } from "next";
 
-import { navItems } from "@/constants/navigation";
-import { fetchFromApi } from "@/lib/api";
-import { SearchPostResponse, TagResponse } from "@/types/api/post";
+import { NAV_ITEMS } from "@/constants/navigation";
+import { serverGetAllPosts, serverGetPostTags } from "@/features/blog/actions";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Base URL from environment variable or hardcoded
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://pavarit.net";
 
   // Static routes
-  const routes = navItems
+  const routes = NAV_ITEMS
     .flatMap((item) => [
       item.href,
       ...item.subItems.map((subItem) => subItem.href),
@@ -23,24 +22,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   // Dynamic blog posts routes
-  const blogResponse = await fetchFromApi<SearchPostResponse>(
-    `/api/v1/posts/all`,
-    "GET"
-  );
+  const posts = await serverGetAllPosts();
 
-  const blogRoutes = blogResponse
-    ? blogResponse?.posts.map((post) => ({
+  const blogRoutes = posts
+    ? posts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.updated_at),
+        lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
         changeFrequency: "weekly" as const,
         priority: 0.6,
       }))
     : [];
 
-  const tagResponse = await fetchFromApi<TagResponse>("/api/v1/posts/tag");
+  const tagResult = await serverGetPostTags();
+  const tags = tagResult?.tags || [];
 
-  const tagRoutes = tagResponse
-    ? tagResponse?.tags.map((tag) => ({
+  const tagRoutes = tags
+    ? tags.map((tag) => ({
         url: `${baseUrl}/blog/tag/${tag}`,
         lastModified: new Date(),
         changeFrequency: "weekly" as const,

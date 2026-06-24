@@ -6,12 +6,12 @@ import { FaPlus } from "react-icons/fa6";
 
 import Button from "@/components/Button";
 import Paginator from "@/components/Paginator";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Section from "@/components/content/Section";
-import PostItem from "@/components/dashboard/PostItem";
 import Loading from "@/components/navigation/Loading";
-import SearchBar from "@/components/post/SearchBar";
-import { PostData } from "@/types/api/post";
+import { serverDeletePost, serverGetPosts } from "@/features/blog/actions";
+import SearchBar from "@/features/blog/components/post/SearchBar";
+import PostItem from "@/features/dashboard/components/PostItem";
 import { Post } from "@/types/posts";
 
 function PostsPage({
@@ -34,52 +34,31 @@ function PostsPage({
     initPost(page, search);
   }, [page, search]);
 
-  async function initPost(page: number, search: string) {
+  async function initPost(pageNum: number, searchStr: string) {
     setIsLoadingPosts(true);
 
-    fetchPosts(page, search)
-      .then((data) => {
-        setPosts(data.posts);
-        setMaxPage(data.maxPage);
-      })
-      .finally(() => {
-        setIsLoadingPosts(false);
-      });
-  }
-
-  async function fetchPosts(page: number, search: string) {
-    const response = await fetch(`/api/v1/posts/search`, {
-      method: "POST",
-      body: JSON.stringify({
-        search: search,
-        page: page,
-        limit: limit,
-      }),
+    const data = await serverGetPosts({
+      search: searchStr,
+      page: pageNum,
+      limit: limit,
     });
 
-    const data = await response.json();
+    if (data.success) {
+      const maxPageNum = Math.ceil(data.total / limit);
+      setPosts(data.posts as Post[]);
+      setMaxPage(maxPageNum);
+    } else {
+      setPosts([]);
+      setMaxPage(0);
+    }
 
-    const maxPage = Math.ceil(data.total / limit);
-    const posts = data.posts;
-
-    return {
-      maxPage,
-      posts: posts.map((post: PostData) => ({
-        ...post,
-        createdAt: post.created_at,
-        updatedAt: post.updated_at,
-      })),
-    };
+    setIsLoadingPosts(false);
   }
 
   async function deletePost(id: number) {
     try {
-      const response = await fetch(`/api/v1/posts/delete`, {
-        method: "POST",
-        body: JSON.stringify({ id }),
-      });
-
-      if (response.ok) {
+      const result = await serverDeletePost(String(id));
+      if (result.success) {
         initPost(1, search);
       }
     } catch (error) {

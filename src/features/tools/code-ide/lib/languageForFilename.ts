@@ -1,0 +1,40 @@
+const EXT_TO_LANG: Record<string, string> = {
+  js: "javascript",
+  jsx: "javascript",
+  mjs: "javascript",
+  cjs: "javascript",
+  ts: "typescript",
+  tsx: "typescript",
+  html: "xml",
+  htm: "xml",
+  xml: "xml",
+  svg: "xml",
+  css: "css",
+  scss: "scss",
+  less: "less",
+  py: "python",
+  sh: "bash",
+  bash: "bash",
+  zsh: "bash",
+  json: "json",
+  sql: "sql",
+  md: "markdown",
+  markdown: "markdown",
+  go: "go",
+  rs: "rust",
+  java: "java",
+  c: "cpp",
+  h: "cpp",
+  cpp: "cpp",
+  hpp: "cpp",
+  yml: "yaml",
+  yaml: "yaml",
+  toml: "ini",
+  ini: "ini",
+  txt: "plaintext",
+};
+
+export function languageForFilename(filename: string): string {
+  const ext = filename.split(".").pop()?.toLowerCase() ?? "";
+  return EXT_TO_LANG[ext] ?? "plaintext";
+}

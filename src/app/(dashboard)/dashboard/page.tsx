@@ -1,7 +1,7 @@
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Section from "@/components/content/Section";
 import OptionMenuGrid from "@/components/ui/OptionMenuGrid";
-import { menuItems } from "@/constants/dashboard";
+import { menuItems } from "@/features/dashboard/constants";
 
 export default function Dashboard() {
   return (

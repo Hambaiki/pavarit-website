@@ -15,7 +15,7 @@ interface GeneralModalProps {
   onClickOutside?: () => void;
 }
 
-function GeneralModal({
+export default function GeneralModal({
   visible,
   title,
   message,
@@ -70,5 +70,3 @@ function GeneralModal({
     </ModalContainer>
   );
 }
-
-export default GeneralModal;

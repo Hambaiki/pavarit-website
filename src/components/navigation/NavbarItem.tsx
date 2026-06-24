@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import FadeInOutContainer from "@/components/container/FadeInOutContainer";
 import { cn } from "@/lib/cn";
 
 interface NavbarItemProps {

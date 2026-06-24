@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 
 import Button from "@/components/Button";
 import Loading from "@/components/navigation/Loading";
-import PostEditor from "@/components/post/editor/PostEditor";
 import {
   Modal,
   ModalClose,
@@ -16,6 +15,8 @@ import {
   ModalHeader,
   ModalTitle,
 } from "@/components/ui/Modal";
+import { serverGetPostById, serverUpdatePost } from "@/features/blog/actions";
+import PostEditor from "@/features/blog/components/post/editor/PostEditor";
 import { slugify } from "@/lib/string";
 import { PostMetadata } from "@/types/posts";
 
@@ -39,28 +40,26 @@ function EditPage({ searchParams }: { searchParams: Promise<{ id: string }> }) {
     }
   }, [id]);
 
-  async function fetchPost(id: string) {
+  async function fetchPost(postId: string) {
     setLoadingPost(true);
 
     try {
-      const response = await fetch(`/api/v1/posts/search?id=${id}`);
+      const result = await serverGetPostById(postId);
 
-      if (response.ok) {
-        const data = await response.json();
-
+      if (result.success && result.post) {
         setPostMetadata({
-          title: data.post.title,
-          slug: data.post.slug,
-          description: data.post.description,
-          category: data.post.category,
-          tags: data.post.tags.join(","),
-          keywords: data.post.keywords.join(","),
-          author: data.post.author,
-          image: data.post.image,
-          altText: data.post.alt_text,
+          title: result.post.title,
+          slug: result.post.slug,
+          description: result.post.description,
+          category: result.post.category,
+          tags: result.post.tags.join(","),
+          keywords: result.post.keywords.join(","),
+          author: result.post.author,
+          image: result.post.image,
+          altText: result.post.altText,
         });
 
-        setPostContent(data.post.content);
+        setPostContent(result.post.content);
       }
     } catch (error) {
       console.error("Error fetching post:", error);
@@ -79,36 +78,32 @@ function EditPage({ searchParams }: { searchParams: Promise<{ id: string }> }) {
     try {
       const processedSlug = slugify(metadata.slug);
 
-      const response = await fetch("/api/v1/posts/update", {
-        method: "POST",
-        body: JSON.stringify({
-          id: id,
-          title: metadata.title,
-          slug: processedSlug,
-          description: metadata.description,
-          category: metadata.category,
-          tags: metadata.tags
-            ? metadata.tags
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter((tag) => tag !== "")
-                .map((tag) => slugify(tag))
-            : [],
-          keywords: metadata.keywords
-            ? metadata.keywords
-                .split(",")
-                .map((keyword) => keyword.trim())
-                .filter((keyword) => keyword !== "")
-                .map((keyword) => slugify(keyword))
-            : [],
-          author: metadata.author,
-          image: metadata.image,
-          alt_text: metadata.altText,
-          content: content,
-        }),
+      const result = await serverUpdatePost(id, {
+        title: metadata.title,
+        slug: processedSlug,
+        description: metadata.description,
+        category: metadata.category,
+        tags: metadata.tags
+          ? metadata.tags
+              .split(",")
+              .map((tag) => tag.trim())
+              .filter((tag) => tag !== "")
+              .map((tag) => slugify(tag))
+          : [],
+        keywords: metadata.keywords
+          ? metadata.keywords
+              .split(",")
+              .map((keyword) => keyword.trim())
+              .filter((keyword) => keyword !== "")
+              .map((keyword) => slugify(keyword))
+          : [],
+        author: metadata.author,
+        image: metadata.image,
+        altText: metadata.altText,
+        content: content,
       });
 
-      if (response.ok) {
+      if (result.success) {
         setEditPostSuccess(true);
       } else {
         setEditPostError(true);

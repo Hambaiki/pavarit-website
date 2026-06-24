@@ -1,6 +1,6 @@
 {
   "name": "pavarit-website",
-  "version": "0.2.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -43,6 +43,7 @@
     "drizzle-orm": "^0.45.2",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "fflate": "^0.8.3",
     "framer-motion": "^11.11.17",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",

@@ -1,4 +1,6 @@
-export const navItems = [
+import { FEATURED_TOOLS } from "@/features/tools/constants";
+
+export const NAV_ITEMS = [
   {
     label: "Home",
     href: "/",
@@ -21,19 +23,7 @@ export const navItems = [
   {
     label: "Tools",
     href: "/tools",
-    subItems: [
-      {
-        label: "Image Compressor & Converter",
-        href: "/tools/image-compressor-and-converter",
-      },
-      { label: "HTML Editor", href: "/tools/html-editor" },
-      { label: "Scratchpad", href: "/tools/scratchpad" },
-      { label: "Markdown Converter", href: "/tools/markdown" },
-      { label: "Case Converter", href: "/tools/case-converter" },
-      { label: "Slug Generator", href: "/tools/slug-generator" },
-      { label: "UUID Generator", href: "/tools/uuid-generator" },
-      { label: "Code Highlighter", href: "/tools/code-highlighter" },
-    ],
+    subItems: FEATURED_TOOLS,
   },
   {
     label: "Contact",
@@ -42,7 +32,7 @@ export const navItems = [
   },
 ];
 
-export const dashboardNavItems = [
+export const DASHBOARD_NAV_ITEMS = [
   { label: "Home", href: "/dashboard" },
   {
     label: "Posts",
@@ -52,14 +42,14 @@ export const dashboardNavItems = [
       { label: "Create Post", href: "/dashboard/posts/create" },
     ],
   },
-  { label: "Online Inquiries", href: "/dashboard/online-inquiries" },
+  { label: "Inquiries", href: "/dashboard/inquiries" },
   { label: "Settings", href: "/dashboard/settings" },
   {
     label: "Other",
     href: "",
     subItems: [
       { label: "Back to Website", href: "/" },
-      { label: "Logout", href: "/api/auth/logout" },
+      { label: "Logout", href: "/logout" },
     ],
   },
 ];
