@@ -5,9 +5,7 @@ import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/Button";
-import Header from "@/components/content/Header";
 import Loading from "@/components/navigation/Loading";
-import PostEditor from "@/components/post/editor/PostEditor";
 import {
   Modal,
   ModalClose,
@@ -17,7 +15,8 @@ import {
   ModalHeader,
   ModalTitle,
 } from "@/components/ui/Modal";
-import { createPost } from "@/lib/api/posts";
+import PostEditor from "@/features/blog/components/post/editor/PostEditor";
+import { createPost } from "@/features/blog/libs";
 import { PostMetadata } from "@/types/posts";
 
 function CreatePage() {
