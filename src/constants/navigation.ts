@@ -52,14 +52,14 @@ export const dashboardNavItems = [
       { label: "Create Post", href: "/dashboard/posts/create" },
     ],
   },
-  { label: "Online Inquiries", href: "/dashboard/online-inquiries" },
+  { label: "Inquiries", href: "/dashboard/inquiries" },
   { label: "Settings", href: "/dashboard/settings" },
   {
     label: "Other",
     href: "",
     subItems: [
       { label: "Back to Website", href: "/" },
-      { label: "Logout", href: "/api/auth/logout" },
+      { label: "Logout", href: "/logout" },
     ],
   },
 ];

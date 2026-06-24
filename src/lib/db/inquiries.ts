@@ -1,14 +1,13 @@
 import { count, desc } from "drizzle-orm";
 
-import { InquiryData } from "@/types/api/inquiries";
-import { Inquiry } from "@/types/inquiries";
-
 import { db } from "./index";
-import { onlineInquiries } from "./schema";
+import { Inquiry, inquiries } from "./schema";
 
-export async function createInquiry(inquiry: Inquiry) {
+export async function createInquiry(
+  inquiry: Omit<Inquiry, "id" | "createdAt" | "updatedAt">
+) {
   try {
-    await db.insert(onlineInquiries).values({
+    await db.insert(inquiries).values({
       name: inquiry.name,
       email: inquiry.email,
       phone: inquiry.phone,
@@ -27,7 +26,7 @@ export async function getInquiries({
   page?: number;
   limit?: number;
 }): Promise<{
-  inquiries: InquiryData[];
+  data: Inquiry[];
   total: number;
   page: number;
 }> {
@@ -39,23 +38,15 @@ export async function getInquiries({
     const [rows, totalResult] = await Promise.all([
       db
         .select()
-        .from(onlineInquiries)
-        .orderBy(desc(onlineInquiries.created_at))
+        .from(inquiries)
+        .orderBy(desc(inquiries.createdAt))
         .limit(currentLimit)
         .offset(offset),
-      db.select({ count: count() }).from(onlineInquiries),
+      db.select({ count: count() }).from(inquiries),
     ]);
 
     return {
-      inquiries: rows.map((r) => ({
-        id: String(r.id),
-        name: r.name ?? "",
-        email: r.email ?? "",
-        phone: r.phone ?? "",
-        subject: r.subject ?? "",
-        message: r.message ?? "",
-        created_at: r.created_at ?? null,
-      })) satisfies InquiryData[],
+      data: rows as Inquiry[],
       total: totalResult[0].count,
       page: currentPage,
     };

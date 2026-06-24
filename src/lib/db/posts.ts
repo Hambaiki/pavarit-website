@@ -50,24 +50,10 @@ export async function getPosts({
       : searchFilter;
 
     return await db
-      .select({
-        id: posts.id,
-        slug: posts.slug,
-        title: posts.title,
-        description: posts.description,
-        category: posts.category,
-        tags: posts.tags,
-        keywords: posts.keywords,
-        author: posts.author,
-        image: posts.image,
-        alt_text: posts.alt_text,
-        created_at: posts.created_at,
-        updated_at: posts.updated_at,
-        content: posts.content,
-      })
+      .select()
       .from(posts)
       .where(whereClause)
-      .orderBy(desc(posts.created_at))
+      .orderBy(desc(posts.createdAt))
       .limit(limit)
       .offset(offset);
   } catch (error) {
@@ -104,7 +90,7 @@ export async function getPostTotal({
     const result = await db
       .select({ count: count() })
       .from(posts)
-      .where(and(searchFilter, tagsFilter));
+      .where(tagsFilter ? and(searchFilter, tagsFilter) : searchFilter);
 
     return result[0].count ?? 0;
   } catch (error) {
@@ -159,7 +145,7 @@ export async function updatePost(
     keywords,
     author,
     image,
-    alt_text,
+    altText,
     content,
   }: {
     slug: string;
@@ -170,7 +156,7 @@ export async function updatePost(
     keywords: string[];
     author: string;
     image: string;
-    alt_text: string;
+    altText: string;
     content: string;
   }
 ) {
@@ -186,9 +172,9 @@ export async function updatePost(
         keywords,
         author,
         image,
-        alt_text,
+        altText,
         content,
-        updated_at: sql`NOW()`,
+        updatedAt: sql`NOW()`,
       })
       .where(eq(posts.id, Number(id)))
       .returning();
@@ -208,7 +194,7 @@ export async function createPost({
   keywords,
   author,
   image,
-  alt_text,
+  altText,
   content,
 }: {
   slug: string;
@@ -219,7 +205,7 @@ export async function createPost({
   keywords: string[];
   author: string;
   image: string;
-  alt_text: string;
+  altText: string;
   content: string;
 }) {
   try {
@@ -243,7 +229,7 @@ export async function createPost({
         keywords,
         author,
         image,
-        alt_text,
+        altText,
         content,
       })
       .returning();
@@ -285,4 +271,3 @@ export async function checkSlugUnique(slug: string) {
     return false;
   }
 }
-
