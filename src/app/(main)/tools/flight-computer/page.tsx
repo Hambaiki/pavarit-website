@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import { cn } from "@/lib/cn";
 
 const breadcrumbs = [

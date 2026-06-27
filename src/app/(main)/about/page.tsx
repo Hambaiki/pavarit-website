@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { FaImages, FaMagnifyingGlass } from "react-icons/fa6";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import EducationGrid from "@/features/about/components/EducationGrid";
 import ExperienceTimeline from "@/features/about/components/ExperienceTimeline";
 import PhotosGallery from "@/features/about/components/PhotosGallery";

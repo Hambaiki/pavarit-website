@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 import { contactItems } from "@/constants/common";
-import { navItems } from "@/constants/navigation";
+import { NAV_ITEMS } from "@/constants/navigation";
 
-function Footer() {
+export default function Footer() {
   return (
     <div className="w-full">
       <div
@@ -41,7 +41,7 @@ function Footer() {
           {/* Pages without subItems grouped into one column */}
           <div className="flex flex-col gap-1">
             <p className="font-semibold text-sm text-gray-700 mb-1">Pages</p>
-            {navItems
+            {NAV_ITEMS
               .filter((item) => !item.subItems || item.subItems.length === 0)
               .map((item, index) => (
                 <Link
@@ -55,7 +55,7 @@ function Footer() {
           </div>
 
           {/* Items with subItems each get their own column */}
-          {navItems
+          {NAV_ITEMS
             .filter((item) => item.subItems && item.subItems.length > 0)
             .map((item, index) => (
               <div key={index} className="flex flex-col gap-1">
@@ -84,5 +84,3 @@ function Footer() {
     </div>
   );
 }
-
-export default Footer;

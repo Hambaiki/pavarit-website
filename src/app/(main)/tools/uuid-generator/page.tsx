@@ -6,7 +6,7 @@ import { FaCheck, FaCopy, FaRotate } from "react-icons/fa6";
 import { v4 as uuidv4 } from "uuid";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 
 const breadcrumbs = [
   { label: "Home", href: "/" },

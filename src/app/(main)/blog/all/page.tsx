@@ -6,7 +6,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 
 import Paginator from "@/components/Paginator";
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Loading from "@/components/navigation/Loading";
 import { serverGetPosts } from "@/features/blog/actions";
 import NoPost from "@/features/blog/components/post/NoPost";

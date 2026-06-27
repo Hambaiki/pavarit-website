@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import StackButton from "@/components/common/StackButton";
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
 import NavbarVerticalItem from "@/components/navigation/NavbarVerticalItem";
-import { dashboardNavItems } from "@/constants/navigation";
+import { DASHBOARD_NAV_ITEMS } from "@/constants/navigation";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { cn } from "@/lib/cn";
 
@@ -59,7 +59,7 @@ export default function DashboardNavbar({
       </div>
 
       <nav className="hidden md:flex flex-col gap-2 rounded-2xl">
-        {dashboardNavItems.map((item, index) => (
+        {DASHBOARD_NAV_ITEMS.map((item, index) => (
           <NavbarVerticalItem key={index} item={item} />
         ))}
       </nav>
@@ -67,7 +67,7 @@ export default function DashboardNavbar({
       <div className="md:hidden max-w-4xl mx-auto">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 pt-4">
-            {dashboardNavItems.map((item, index) => (
+            {DASHBOARD_NAV_ITEMS.map((item, index) => (
               <NavbarVerticalItem key={index} item={item} />
             ))}
           </div>

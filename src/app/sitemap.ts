@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { navItems } from "@/constants/navigation";
+import { NAV_ITEMS } from "@/constants/navigation";
 import { serverGetAllPosts, serverGetPostTags } from "@/features/blog/actions";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://pavarit.net";
 
   // Static routes
-  const routes = navItems
+  const routes = NAV_ITEMS
     .flatMap((item) => [
       item.href,
       ...item.subItems.map((subItem) => subItem.href),

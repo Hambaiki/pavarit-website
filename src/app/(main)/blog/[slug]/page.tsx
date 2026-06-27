@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import * as changeCase from "change-case";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import {
   serverGetPostBySlug,
   serverGetPostMetadata,

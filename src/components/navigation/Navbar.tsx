@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import CollapsibleContainer from "@/components/container/CollapsibleContainer";
-import { navItems } from "@/constants/navigation";
+import { NAV_ITEMS } from "@/constants/navigation";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { cn } from "@/lib/cn";
 
@@ -59,7 +59,7 @@ export default function Navbar({ className, ...props }: NavbarProps) {
 
         <div className="flex flex-row items-center space-x-4">
           <nav className="hidden md:flex flex-row justify-end items-center space-x-2">
-            {navItems.map((item, index) => (
+            {NAV_ITEMS.map((item, index) => (
               <NavbarItem key={index} item={item} />
             ))}
           </nav>
@@ -69,7 +69,7 @@ export default function Navbar({ className, ...props }: NavbarProps) {
       <div className="md:hidden max-w-4xl mx-auto">
         <CollapsibleContainer startCollapsed collapsed={!stackOpen}>
           <div className="flex flex-col justify-center items-center space-y-2 pt-4">
-            {navItems.map((item, index) => (
+            {NAV_ITEMS.map((item, index) => (
               <NavbarVerticalItem key={index} item={item} />
             ))}
           </div>

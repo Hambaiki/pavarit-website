@@ -14,7 +14,7 @@ import {
 import Button from "@/components/Button";
 import OptionMenuGrid from "@/components/common/OptionMenuGrid";
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Card from "@/components/ui/Card";
 
 const breadcrumbs = [

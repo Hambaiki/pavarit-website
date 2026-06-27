@@ -6,7 +6,7 @@ import { FaTrash } from "react-icons/fa6";
 
 import Button from "@/components/Button";
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import {
   Modal,
   ModalClose,

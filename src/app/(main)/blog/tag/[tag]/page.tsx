@@ -4,7 +4,7 @@ import * as changeCase from "change-case";
 import { FaBookOpen } from "react-icons/fa6";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import { serverGetPosts } from "@/features/blog/actions";
 import PostItemAlt from "@/features/blog/components/post/PostItemAlt";
 

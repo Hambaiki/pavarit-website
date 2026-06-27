@@ -1,7 +1,7 @@
 import { FaGlobe, FaPhone } from "react-icons/fa6";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Card from "@/components/ui/Card";
 import { contactItems } from "@/constants/common";
 import ContactForm from "@/features/contact/components/ContactForm";

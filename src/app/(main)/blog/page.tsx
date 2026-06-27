@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import { Section } from "@/components/content";
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import { serverGetPosts } from "@/features/blog/actions";
 import FeaturedPosts, {
   FeaturedPostsHeader,

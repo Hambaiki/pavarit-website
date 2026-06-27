@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Section from "@/components/content/Section";
 import { cn } from "@/lib/cn";
 

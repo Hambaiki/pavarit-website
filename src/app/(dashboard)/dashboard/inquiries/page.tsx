@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import Header from "@/components/content/Header";
+import { Header } from "@/components/content";
 import Section from "@/components/content/Section";
 import InquiryEntries from "@/features/dashboard/components/inquiries/InquiryEntries";
 
