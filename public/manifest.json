@@ -1,17 +1,17 @@
 {
-    "name": "Pavarit's Website",
-    "short_name": "Pavarit",
-    "theme_color": "#0f0f0f",
-    "background_color": "#0f0f0f",
-    "display": "standalone",
-    "scope": "/",
-    "start_url": "/",
-    "description": "Pavarit Wiriyakunakorn's Website",
-    "icons": [
-        {
-            "src": "images/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
+  "name": "Pavarit's Website",
+  "short_name": "Pavarit",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "description": "Pavarit Wiriyakunakorn's Website",
+  "icons": [
+    {
+      "src": "images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

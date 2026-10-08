@@ -1,16 +1,58 @@
 import { FaBook, FaBriefcase, FaGraduationCap } from "react-icons/fa6";
 
+export const featuredImages = [
+  {
+    src: "/images/photos/featured/graduation-day.jpg",
+    alt: "Me on my graduation day",
+    description:
+      "Celebrating my graduation with a Bachelor's degree in Information and Communication Engineering from Chulalongkorn University.",
+  },
+  {
+    src: "/images/photos/featured/friends-at-maneki.jpg",
+    alt: "Me and my friends at Manekineko",
+    description:
+      "A karaoke outing with friends at Manekineko in Bangkok. I'm the one in the middle-left!",
+  },
+];
+
+export const trainingImages = [
+  {
+    src: "/images/photos/batc/airside-day/c172s-hs-ptb-1.JPG",
+    alt: "BATC C172S aircraft on the apron",
+    description:
+      "My first look at the training aircraft at BATC, before I had started real flight training.",
+  },
+  {
+    src: "/images/photos/batc/airside-day/da42ng-hs-pts-1.JPG",
+    alt: "BATC DA42NG during aircraft familiarization",
+    description:
+      "The DA42NG I got to see and learn about during an early exposure phase, before actual multi-engine flight training began.",
+  },
+  {
+    src: "/images/photos/batc/fod-day/me-on-da42ng-1.JPG",
+    alt: "Me with the DA42NG during a FOD day",
+    description:
+      "A memorable BATC day where I got to take photos with the DA42NG that will be used for real multi-engine training later on, not yet actual flight training.",
+  },
+];
+
 export const aboutItems = [
   {
     title: "Experience",
     description: "My work experiences and projects.",
-    href: "/about/experience",
+    href: "#experience",
     icon: FaBriefcase,
   },
   {
+    title: "Pilot Training",
+    description: "My aviation journey and current student pilot training.",
+    href: "#training",
+    icon: FaBook,
+  },
+  {
     title: "Education",
-    description: "About my education and experiences.",
-    href: "/about/education",
+    description: "About my education journey.",
+    href: "#education",
     icon: FaGraduationCap,
   },
   // {
@@ -24,6 +66,7 @@ export const aboutItems = [
 export const tableOfContents = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
+  { label: "Pilot Training", href: "#training" },
   { label: "Education", href: "#education" },
 ];
 
@@ -33,7 +76,7 @@ export const experiences = [
     type: "Full-time",
     company: {
       name: "Agnos Health Co., Ltd.",
-      logo: "/images/logo/agnos-health-logo.jpg",
+      logo: "/images/logo/company/agnos-health-logo.jpg",
     },
     description: "Developed and maintained web applications.",
     duration: "2024 - Ongoing",
@@ -58,7 +101,7 @@ export const experiences = [
     type: "Part-time",
     company: {
       name: "Agnos Health Co., Ltd.",
-      logo: "/images/logo/agnos-health-logo.jpg",
+      logo: "/images/logo/company/agnos-health-logo.jpg",
     },
     description: "Developed and maintained web applications.",
     duration: "2023",
@@ -70,7 +113,7 @@ export const experiences = [
     type: "Full-time",
     company: {
       name: "Agnos Health Co., Ltd.",
-      logo: "/images/logo/agnos-health-logo.jpg",
+      logo: "/images/logo/company/agnos-health-logo.jpg",
     },
     description: "Developed and maintained web applications.",
     duration: "2023",

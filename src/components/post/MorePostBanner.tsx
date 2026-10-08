@@ -2,13 +2,13 @@ import Button from "../Button";
 
 function MorePostBanner() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-gray-850 rounded-xl">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-surface rounded-xl">
       <p className="text-center md:text-left">
         Interested in my other posts?
         <strong> Check out other posts here!</strong>
       </p>
       <Button
-        href="/blog/all"
+        href="/posts/all"
         variant="primary"
         className="px-4 py-2 rounded-full"
       >

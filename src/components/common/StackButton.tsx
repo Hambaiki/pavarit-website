@@ -10,7 +10,7 @@ function StackButton({ onClick }: StackButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+      className="p-2 rounded-lg bg-surface-raised hover:bg-surface-muted transition-colors"
     >
       <FaBars className="w-6 h-6" />
     </button>

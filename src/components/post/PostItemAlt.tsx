@@ -12,6 +12,8 @@ interface PostItemAltProps {
   author?: string;
   createDate?: string;
   tags?: string[];
+  sizes?: string;
+  eager?: boolean;
   disableHover?: boolean;
   className?: string;
   loading?: boolean;
@@ -23,6 +25,8 @@ function PostItemAlt({
   author = "Unknown",
   createDate = "",
   tags = [],
+  sizes = "(max-width: 640px) 100vw, 50vw",
+  eager = false,
   className,
 }: PostItemAltProps) {
   const filteredTags = tags.filter((tag) => !tag.includes("_"));
@@ -36,10 +40,12 @@ function PostItemAlt({
         alt={title || "no-title"}
         width={500}
         height={500}
+        sizes={sizes}
+        loading={eager ? "eager" : "lazy"}
         className="w-full h-48 object-cover rounded-t-xl"
       />
 
-      <div className="flex-1 p-4 rounded-b-xl space-y-2 bg-gray-850">
+      <div className="flex-1 p-4 rounded-b-xl space-y-2 bg-surface">
         <h3>{title}</h3>
 
         <div className="flex flex-col space-y-3 text-sm">
@@ -56,7 +62,10 @@ function PostItemAlt({
 
           <ul className="flex flex-row flex-wrap gap-2">
             {filteredTags.map((tag, index) => (
-              <li key={index} className="rounded-full px-3 py-1 bg-gray-800">
+              <li
+                key={index}
+                className="rounded-full px-3 py-1 bg-surface-raised"
+              >
                 {changeCase.capitalCase(tag)}
               </li>
             ))}

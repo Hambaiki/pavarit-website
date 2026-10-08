@@ -16,6 +16,7 @@ interface PostItemProps {
   hideDescription?: boolean;
   className?: string;
   loading?: boolean;
+  eager?: boolean;
 }
 
 function PostItem({
@@ -28,6 +29,7 @@ function PostItem({
   hideDescription = false,
   className,
   loading = false,
+  eager = false,
 }: PostItemProps) {
   const tagsLimit = 3;
   const filteredTags = tags.filter((tag) => !tag.includes("_"));
@@ -37,19 +39,21 @@ function PostItem({
       <article className="flex flex-col md:grid md:grid-cols-2 h-full">
         <div className="overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-tr-none">
           {loading ? (
-            <div className="w-full h-48 md:h-full bg-gray-850 rounded-md animate-pulse" />
+            <div className="w-full h-48 md:h-full bg-surface-raised rounded-md animate-pulse" />
           ) : (
             <Image
               src={image || "/images/placeholder/placeholder-image.jpg"}
               alt={title || "placeholder"}
               width={500}
               height={500}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading={eager ? "eager" : "lazy"}
               className="w-full h-48 md:h-full object-cover"
             />
           )}
         </div>
 
-        <div className="flex-1 flex flex-col justify-between p-4 bg-gray-850 rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
+        <div className="flex-1 flex flex-col justify-between p-4 bg-surface rounded-b-xl md:rounded-r-xl md:rounded-bl-none">
           {!loading ? (
             <div className="flex-1 flex flex-col space-y-3">
               <h3 className="line-clamp-3">{title || "-"}</h3>
@@ -72,13 +76,13 @@ function PostItem({
                   {filteredTags.slice(0, tagsLimit).map((tag, index) => (
                     <li
                       key={index}
-                      className="text-sm rounded-full px-3 py-1 bg-gray-800"
+                      className="text-sm rounded-full px-3 py-1 bg-surface-raised"
                     >
                       {changeCase.capitalCase(tag)}
                     </li>
                   ))}
                   {filteredTags.length > tagsLimit && (
-                    <li className="text-sm rounded-full px-3 py-1 bg-gray-800">
+                    <li className="text-sm rounded-full px-3 py-1 bg-surface-raised">
                       +{filteredTags.length - tagsLimit}
                     </li>
                   )}
@@ -94,8 +98,8 @@ function PostItem({
             </div>
           ) : (
             <div className="flex-1 flex flex-col space-y-3">
-              <div className="h-8 w-full rounded-full animate-pulse bg-gray-850" />
-              <div className="h-8 w-1/2 rounded-full animate-pulse bg-gray-850" />
+              <div className="h-8 w-full rounded-full animate-pulse bg-surface-raised" />
+              <div className="h-8 w-1/2 rounded-full animate-pulse bg-surface-raised" />
             </div>
           )}
         </div>

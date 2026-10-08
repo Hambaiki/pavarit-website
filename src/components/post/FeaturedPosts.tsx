@@ -2,51 +2,33 @@ import Link from "next/link";
 
 import { FaThumbtack } from "react-icons/fa";
 
-import { fetchFromApi } from "@/lib/api";
-import { SearchPostResponse } from "@/types/api/post";
+import type { Post } from "@/lib/posts";
 
 import CarousalContainer from "../container/CarousalContainer";
 import PostItem from "./PostItem";
-import Button from "../Button";
 
 interface FeaturedPostsProps {
+  posts: Post[];
   className?: string;
-  delay?: number;
-  count?: number;
+  eagerFirstImage?: boolean;
 }
 
-async function FeaturedPosts({
-  delay = 6000,
+function FeaturedPosts({
+  posts,
   className,
-  count = 4,
+  eagerFirstImage = false,
 }: FeaturedPostsProps) {
-  // await new Promise((resolve) => setTimeout(resolve, delay)); // Delay for testing
-
-  const featuredPostsResponse = await fetchFromApi<SearchPostResponse>(
-    `/api/v1/posts/search`,
-    "POST",
-    {
-      body: JSON.stringify({
-        page: 1,
-        limit: count,
-        tags: ["_featured"],
-      }),
-    }
-  );
-
-  const featuredPosts = featuredPostsResponse?.posts || [];
-
-  if (featuredPosts.length === 0) {
+  if (posts.length === 0) {
     return null;
   }
 
   return (
     <div className={`${className}`}>
       <CarousalContainer autoScroll autoScrollInterval={5000}>
-        {featuredPosts.map((post) => (
+        {posts.map((post, index) => (
           <Link
             key={post.slug}
-            href={`/blog/${post.slug}`}
+            href={`/posts/${post.slug}`}
             className="w-full h-full"
           >
             <PostItem
@@ -57,6 +39,7 @@ async function FeaturedPosts({
               tags={post.tags}
               description={post.description}
               className="h-full md:h-80"
+              eager={eagerFirstImage && index === 0}
             />
           </Link>
         ))}
@@ -69,34 +52,9 @@ export function FeaturedPostsHeader() {
   return (
     <div className="flex flex-row justify-between items-center space-x-4">
       <div className="flex items-center space-x-2">
-        <FaThumbtack className="h-6 w-6 text-suzuha-teal-500" />
-        <h2>Featured Articles</h2>
+        <FaThumbtack className="h-6 w-6 text-accent" />
+        <h2>Featured Posts</h2>
       </div>
-
-      {/* <div className="flex justify-center">
-        <Button
-          href="/blog/all"
-          variant="secondary"
-          className="px-3 py-2 rounded-full text-sm"
-        >
-          View More Posts
-        </Button>
-      </div> */}
-    </div>
-  );
-}
-
-export function FeaturedPostsSkeleton({
-  className,
-  count = 4,
-}: FeaturedPostsProps) {
-  return (
-    <div className={`space-y-6 ${className}`}>
-      <CarousalContainer>
-        {[...Array(count)].map((_, index) => (
-          <PostItem className="h-full md:h-80" loading key={index} />
-        ))}
-      </CarousalContainer>
     </div>
   );
 }

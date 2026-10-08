@@ -62,7 +62,7 @@ const Select = ({
       {label && (
         <p className="text-sm font-medium">
           {label}
-          {required && <span className="text-red">*</span>}
+          {required && <span className="text-danger">*</span>}
         </p>
       )}
 
@@ -78,16 +78,16 @@ const Select = ({
             w-full h-full px-3 py-2 rounded-md 
             text-left text-sm 
             outline-none transition-colors
-            ${error ? "border border-red-500" : ""} 
+            ${error ? "border border-danger" : ""}
             ${
               error
-                ? "focus:border-red-500"
-                : "focus:border-suzuha-teal-500 focus:ring-1 focus:ring-suzuha-teal-500"
+                ? "focus:border-danger"
+                : "focus:border-accent focus:ring-1 focus:ring-accent"
             }
             ${
               disabled
-                ? "bg-gray-700 cursor-not-allowed"
-                : "bg-gray-800 cursor-pointer"
+                ? "bg-surface-muted cursor-not-allowed"
+                : "bg-canvas cursor-pointer"
             }
           `}
         />
@@ -105,8 +105,8 @@ const Select = ({
               ? "bottom-[calc(100%+0.25rem)]"
               : "top-[calc(100%+0.25rem)]"
           } right-0 z-10 flex flex-col max-h-48 w-full
-              overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800
-              divide-y divide-gray-700 bg-gray-800 
+              overflow-y-auto scrollbar-thin scrollbar-thumb-border-strong scrollbar-track-surface-raised
+              divide-y divide-border-strong bg-canvas
               shadow-md rounded-md`}
         >
           {options.map((option) => (
@@ -115,7 +115,7 @@ const Select = ({
               disabled={disabled}
               key={option.value}
               onClick={(e) => handleOptionChange(e, option.value)}
-              className="flex items-center px-4 py-3 space-x-2 hover:bg-gray-900 transition-colors"
+              className="flex items-center px-4 py-3 space-x-2 hover:bg-surface transition-colors"
             >
               <span className="text-sm">{option.label}</span>
             </button>
@@ -123,9 +123,9 @@ const Select = ({
         </FadeInOutContainer>
       </div>
 
-      {error && <p className="text-sm text-red">{error}</p>}
+      {error && <p className="text-sm text-danger">{error}</p>}
       {helperText && !error && (
-        <p className="text-sm text-gray-500">{helperText}</p>
+        <p className="text-sm text-content-muted">{helperText}</p>
       )}
     </div>
   );

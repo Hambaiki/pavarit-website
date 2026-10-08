@@ -1,9 +1,10 @@
-import { RefObject, useEffect } from "react";
+import { useEffect } from "react";
+import type { RefObject } from "react";
 
 // Custom hook for handling click outside of the referenced element
-export const useClickOutside = (
-  ref: RefObject<HTMLElement>,
-  callback: () => void
+export const useClickOutside = <T extends HTMLElement>(
+  ref: RefObject<T | null>,
+  callback: () => void,
 ) => {
   useEffect(() => {
     // Event handler for click events

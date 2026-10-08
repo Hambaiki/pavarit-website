@@ -20,7 +20,7 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
   };
 
   const extractImageUrlsAndAlts = (
-    htmlString: string
+    htmlString: string,
   ): { src: string; alt: string }[] => {
     // This regex captures <img> tags, finding src and optionally alt in any order
     const imgTagRegex =
@@ -46,7 +46,7 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
   return (
     <>
       <div
-        className={`p-4 bg-white rounded-lg drop-shadow-2xl drop-shadow-primary_blue-100 ${
+        className={`p-4 bg-canvas rounded-lg drop-shadow-2xl ${
           images.length > 0 ? "block" : "hidden"
         }`}
       >
@@ -56,7 +56,7 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
           {/* To update to proper src */}
           {images.slice(0, 3).map((image, index) => (
             <button
-              className="grow rounded-lg border border-primary_blue-100 overflow-hidden"
+              className="grow rounded-lg border border-border overflow-hidden"
               key={index}
               onClick={() => setIndex(index)}
             >
@@ -74,7 +74,7 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
           {images.length > 3 && (
             <button
               onClick={() => setIndex(3)}
-              className="relative rounded-lg border border-primary_blue-100 overflow-hidden"
+              className="relative rounded-lg border border-border overflow-hidden"
             >
               {/* <ExternalImage
                 src={images[3].src}
@@ -87,7 +87,7 @@ const PostImageViewer = ({ htmlContent }: PostImageViewerProps) => {
 
               <p
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-                          font-bold text-2xl text-white"
+                          font-bold text-2xl text-content"
               >
                 + {images.length - 3}
               </p>

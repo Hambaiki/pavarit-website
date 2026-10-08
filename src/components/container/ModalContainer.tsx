@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
@@ -24,17 +23,11 @@ const ModalContainer = ({
 
   useClickOutside(ref, onClickOutside ?? (() => {}));
 
-  // Implemented a state to check if it's a browser (and not SSR)
-  // Render nothing if not in a browser, and set to true when component mounts.
-  // Now ReactDOM.createPortal @ document can be implemneted safely
-
-  // ^ This solves the hydration error btw.
-
-  const [isBrowser, setIsBrowser] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsBrowser(true);
-  }, []);
+  const isBrowser = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   // useEffect(() => {
   //   if (visible) {
@@ -73,7 +66,7 @@ const ModalContainer = ({
     <AnimatePresence>
       {visible && (
         <motion.div
-          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/25 ${className}`}
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-overlay ${className}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -89,7 +82,7 @@ const ModalContainer = ({
         </motion.div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 };
 

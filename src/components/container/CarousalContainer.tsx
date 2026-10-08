@@ -23,6 +23,17 @@ function CarousalContainer({
 }: CarousalContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const scrollToProfile = (index: number) => {
+    const container = document.getElementById("carousal-container");
+
+    if (container) {
+      container.scrollTo({
+        left: index * container.offsetWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
   useEffect(() => {
     if (autoScroll) {
       const interval = setInterval(() => {
@@ -38,7 +49,7 @@ function CarousalContainer({
 
   useEffect(() => {
     onIndexChange?.(currentIndex);
-  }, [currentIndex]);
+  }, [currentIndex, onIndexChange]);
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const container = event.target as HTMLElement;
@@ -48,17 +59,6 @@ function CarousalContainer({
     const newIndex = Math.round(scrollPosition / itemWidth);
 
     setCurrentIndex(newIndex);
-  };
-
-  const scrollToProfile = (index: number) => {
-    const container = document.getElementById("carousal-container");
-
-    if (container) {
-      container.scrollTo({
-        left: index * container.offsetWidth,
-        behavior: "smooth",
-      });
-    }
   };
 
   return (
@@ -91,7 +91,7 @@ function CarousalContainer({
             <button
               key={index}
               className={`h-4 w-4 rounded-full shrink-0 ${
-                index === currentIndex ? "bg-suzuha-teal-500" : "bg-gray-500"
+                index === currentIndex ? "bg-accent" : "bg-content-subtle"
               }`}
               onClick={() => scrollToProfile(index)}
             />

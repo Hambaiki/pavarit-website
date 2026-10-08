@@ -23,7 +23,7 @@ function SectionHeader({
     <div className="space-y-4">
       <div className="flex flex-row justify-between items-center space-x-4">
         <div className="flex items-center space-x-2">
-          {icon && icon({ className: "h-6 w-6 text-suzuha-teal-500" })}
+          {icon && icon({ className: "h-6 w-6 text-accent" })}
           <h2>{title}</h2>
         </div>
 

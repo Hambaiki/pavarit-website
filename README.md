@@ -1,116 +1,73 @@
-# Pavarit Personal Website  
+# Pavarit Personal Website
 
-This repository houses the source code for my personal website, [www.pavarit.net](https://www.pavarit.net). It is a modern, CMS-enabled platform designed to manage and showcase posts, projects, and updates dynamically.
+The source for [www.pavarit.net](https://www.pavarit.net), built with Next.js,
+React, and Tailwind CSS. Posts are written in Markdown and versioned with the
+site source; no CMS, database, or environment-specific content service is
+required.
 
-To check out the development preview of the website, head to [dev.pavarit.net](https://dev.pavarit.net).
+## Getting Started
 
-## 🌟 Features  
+Requirements: Node.js 18 or later and npm.
 
-- **Modern Tech Stack**: Built with **React** and **Next.js** for performance and scalability.  
-- **CMS Integration**: Dynamic content management system for creating, updating, and managing posts.  
-- **Database Support**: Powered by **Neon PostgreSQL** for data storage and management.  
-- **Tailwind CSS**: Responsive and customizable UI components.  
-- **Post Tracking**: Track views, likes, and comments for each post.  
+```bash
+npm install
+npm run dev
+```
 
-## 🚀 Tech Stack  
+Open [http://localhost:3000](http://localhost:3000).
 
-- **Frontend**:  
-  - React  
-  - Next.js  
-  - Tailwind CSS  
+## Writing Posts
 
-- **Backend**:  
-  - API routes with Next.js  
+1. Add a `.md` file under `content/posts/`.
+2. Add images and other public files under `public/` and refer to them from
+   Markdown with site-root paths such as `/images/posts/my-post/cover.jpg`.
+3. Set the post metadata in YAML frontmatter. For example:
 
-- **Database**:  
-  - PostgreSQL (Neon DB)  
-
-## 🔧 Getting Started  
-
-### Prerequisites  
-
-Ensure you have the following installed:  
-- Node.js (v16 or later)  
-- npm or yarn package manager  
-- PostgreSQL  
-
-### Installation  
-
-1. Clone this repository:  
-   ```bash
-   git clone https://github.com/yourusername/pavarit-website.git
-   cd pavarit-website
-   ```  
-
-2. Install dependencies:  
-   ```bash
-   npm install
+   ```yaml
+   ---
+   title: "A Post Title"
+   slug: "a-post-title"
+   description: "A short summary for listings and search engines."
+   category: "Travel"
+   tags:
+     - travel
+     - japan
+   keywords:
+     - Japan travel
+   author: "Pavarit Wiriyakunakorn"
+   createDate: "2026-10-08"
+   modifiedDate: "2026-10-08"
+   image: "/images/posts/a-post-title/cover.jpg"
+   altText: "A description of the cover image"
+   ---
+   Write the post body in Markdown.
    ```
 
-3. Set up your environment variables:
-Create a .env.local file in the root of your project and add:
-   ```bash
-   DATABASE_URL=your-neon-db-connection-string
-   ```
+4. To include a post in the featured carousel, add `_featured` to its tags.
+5. Commit the file and deploy the site to publish it.
 
-4. Run database migrations:
-   ```bash
-   npx prisma migrate dev
-   ```
-   
-5. Start the development server:  
-   ```bash
-   npm run dev
-   ```  
+The `slug` field determines the post URL (`/posts/<slug>`). Tag pages are
+generated from the tags in the Markdown frontmatter.
 
-6. Open your browser and visit: [http://localhost:3000](http://localhost:3000).  
+## Styling and Colors
 
-## 📂 File Structure  
+Use semantic Tailwind color utilities for UI colors instead of raw gray or
+brand shades. Available roles include `bg-canvas`, `bg-surface`,
+`bg-surface-raised`, `text-content`, `text-content-secondary`,
+`text-content-muted`, `border-border`, and `text-accent`.
 
-```plaintext
-pavarit-website/
-├── public/               # Static assets  
-├── src/
-│   ├── app/              # Next.js pages
-│   │   ├── (dashboard)/
-│   │   ├── (root)/
-│   │   ├── (misc)/
-│   │   ├── api/
-│   │   ├── layout.tsx
-│   │   └── globals.css
-│   ├── components/
-│   ├── lib/
-│   │   ├── api/
-│   │   ├── db/2
-│   ├── constants/
-│   ├── types/
-│   ├── utils/               
-│   └── middleware.ts
-├── .env.local            # Environment variables  
-├── next.config.js        # Next.js configuration  
-├── tailwind.config.js    # Tailwind configuration  
-└── package.json          # Project dependencies  
-```  
+The semantic values are defined in `src/app/globals.css` in the `:root` block
+and mapped to Tailwind utilities in `@theme inline`. Update those variables to
+change the site theme consistently. Brand palettes remain available there for
+specific brand graphics and accents.
 
-## 🛠️ Deployment  
+## Validation and Deployment
 
-1. Build the application:  
-   ```bash
-   npm run build
-   ```  
+```bash
+npm run lint
+npm run format
+npm run format:check
+npm run build
+```
 
-2. Deploy to your preferred platform:  
-   - **Vercel** (Recommended for Next.js apps)  
-   - **Self-hosted**  
-
-## 🤝 Contributions  
-
-Feedback and suggestions are always welcome!  
-
-## 📧 Contact  
-
-For inquiries, feel free to reach out through the contact form on [www.pavarit.net](https://www.pavarit.net) or directly via email.  
-
-## 📜 License  
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Deploy the Next.js application to Vercel or another compatible host.

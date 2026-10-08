@@ -59,7 +59,7 @@ const Calendar: React.FC<CalendarProps> = ({
   const [currentMonth, setCurrentMonth] = useState(initialMonth);
   const [currentDate, setCurrentDate] = useState<Date | null>(selectedDate);
   const [calendarMode, setCalendarMode] = useState<CalendarMode>(
-    CalendarMode.DATE
+    CalendarMode.DATE,
   );
 
   const [range, setRange] = useState<[Date | null, Date | null]>(selectedRange);
@@ -173,14 +173,14 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg text-sm w-80">
+    <div className="bg-canvas rounded-lg shadow-lg text-sm w-80">
       {calendarMode === CalendarMode.DATE && (
         <div className="p-4">
           <header className="flex items-center justify-between">
             <button
               onClick={() => setCalendarMode(CalendarMode.MONTH)}
               className="flex items-center space-x-1 
-              hover:text-grey_normal transition-colors"
+              hover:text-content-strong transition-colors"
             >
               <span className="font-semibold">
                 {format(currentMonth, "MMMM")}
@@ -210,7 +210,7 @@ const Calendar: React.FC<CalendarProps> = ({
                   currentMonth.getFullYear() === yearRange[0] &&
                   currentMonth.getMonth() === 0
                 }
-                className="w-5 h-5 hover:text-grey_normal disabled:text-grey_light transition-colors"
+                className="w-5 h-5 hover:text-content-strong disabled:text-content-subtle transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +233,7 @@ const Calendar: React.FC<CalendarProps> = ({
                   currentMonth.getFullYear() === yearRange[1] &&
                   currentMonth.getMonth() === 11
                 }
-                className="w-5 h-5 hover:text-grey_normal disabled:text-grey_light transition-colors"
+                className="w-5 h-5 hover:text-content-strong disabled:text-content-subtle transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,10 @@ const Calendar: React.FC<CalendarProps> = ({
           </header>
           <div className="grid grid-cols-7 mt-4">
             {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
-              <div key={day} className="text-center text-grey_normal mb-2">
+              <div
+                key={day}
+                className="text-center text-content-secondary mb-2"
+              >
                 {day}
               </div>
             ))}
@@ -274,7 +277,7 @@ const Calendar: React.FC<CalendarProps> = ({
                     <div
                       key={`${index}-${day.toString()}-${day.getMonth()}`}
                       className={`flex justify-center p-1 mt-1 transition-colors ${
-                        isInDateRange ? "bg-[#D9ECFF]" : ""
+                        isInDateRange ? "bg-accent/10" : ""
                       } ${
                         isStartOfRange || isSunday(day) ? "rounded-l-full" : ""
                       } ${
@@ -286,14 +289,16 @@ const Calendar: React.FC<CalendarProps> = ({
                         disabled={isDisabled(day)}
                         className={`shrink-0 w-8 h-8 rounded-full transition-colors ${
                           isSelectedDay || isStartOfRange || isEndOfRange
-                            ? "bg-[#0080FF] text-white"
+                            ? "bg-accent text-on-accent"
                             : isCurrentMonth
-                            ? "hover:bg-grey_faded"
-                            : "text-grey_light"
+                              ? "hover:bg-surface-muted"
+                              : "text-content-subtle"
                         } ${
-                          isToday && isCurrentMonth ? "text-blue_vibrant" : ""
+                          isToday && isCurrentMonth ? "text-accent-strong" : ""
                         } ${
-                          isWeekend && isCurrentMonth ? "text-grey_normal" : ""
+                          isWeekend && isCurrentMonth
+                            ? "text-content-secondary"
+                            : ""
                         }`}
                       >
                         {format(day, "d")}
@@ -321,14 +326,16 @@ const Calendar: React.FC<CalendarProps> = ({
                         disabled={isDisabled(day)}
                         className={`shrink-0 w-8 h-8 rounded-full transition-colors ${
                           isSelectedDay
-                            ? "bg-[#0080FF] text-white"
+                            ? "bg-accent text-on-accent"
                             : isCurrentMonth
-                            ? "hover:bg-grey_faded"
-                            : "text-grey_light hover:bg-grey_faded/50"
+                              ? "hover:bg-surface-muted"
+                              : "text-content-subtle hover:bg-surface-muted/50"
                         } ${
-                          isToday && isCurrentMonth ? "text-blue_vibrant" : ""
+                          isToday && isCurrentMonth ? "text-accent-strong" : ""
                         } ${
-                          isWeekend && isCurrentMonth ? "text-grey_normal" : ""
+                          isWeekend && isCurrentMonth
+                            ? "text-content-secondary"
+                            : ""
                         }`}
                       >
                         {format(day, "d")}
@@ -342,7 +349,7 @@ const Calendar: React.FC<CalendarProps> = ({
           {applyButton && (
             <div className="flex justify-end mt-2">
               <button
-                className="px-8 py-2 bg-blue_primary hover:bg-blue_dark transition-colors text-white rounded-xl"
+                className="px-8 py-2 bg-accent hover:bg-accent-hover transition-colors text-on-accent rounded-xl"
                 onClick={handleApply}
               >
                 Apply
@@ -357,7 +364,7 @@ const Calendar: React.FC<CalendarProps> = ({
           <header>
             <button
               onClick={() => setCalendarMode(CalendarMode.YEAR)}
-              className="flex items-center space-x-1 hover:text-grey_normal transition-colors"
+              className="flex items-center space-x-1 hover:text-content-strong transition-colors"
             >
               <span className="font-semibold">
                 {format(currentMonth, "yyyy")}
@@ -384,8 +391,8 @@ const Calendar: React.FC<CalendarProps> = ({
                 onClick={() => handleMonthChange(index)}
                 className={`py-3 px-5 w-20 rounded-full transition-colors ${
                   getMonth(currentMonth) === index
-                    ? "bg-[#7DB4E7] text-white"
-                    : "hover:bg-grey_faded"
+                    ? "bg-accent-hover text-on-accent"
+                    : "hover:bg-surface-muted"
                 }`}
               >
                 {format(new Date(2020, index, 1), "MMM")}
@@ -410,14 +417,14 @@ const Calendar: React.FC<CalendarProps> = ({
                     onClick={() => handleYearChange(year)}
                     className={`py-3 px-5 w-20 rounded-full transition-colors ${
                       getYear(currentMonth) === year
-                        ? "bg-[#7DB4E7] text-white"
-                        : "hover:bg-grey_faded"
+                        ? "bg-accent-hover text-on-accent"
+                        : "hover:bg-surface-muted"
                     }`}
                   >
                     {year}
                   </button>
                 );
-              }
+              },
             )}
           </div>
         </div>

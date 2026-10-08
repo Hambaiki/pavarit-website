@@ -23,18 +23,18 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const handleClick = (pageNumber: number) => {
     // Update URL search params
     if (shallow) {
       router.replace(
-        pathname + "?" + createQueryString("page", pageNumber.toString())
+        pathname + "?" + createQueryString("page", pageNumber.toString()),
       );
     } else {
       router.push(
-        pathname + "?" + createQueryString("page", pageNumber.toString())
+        pathname + "?" + createQueryString("page", pageNumber.toString()),
       );
     }
   };
@@ -82,8 +82,8 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
         className={`flex justify-center items-center h-10 w-10 rounded-lg transition-colors 
                   ${
                     currentPage == 1
-                      ? "bg-gray-700 text-gray-300"
-                      : "bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+                      ? "bg-surface-muted text-content-secondary"
+                      : "bg-accent hover:bg-accent-hover text-on-accent"
                   }`}
         onClick={() => handleClick(currentPage - 1)}
       >
@@ -95,7 +95,7 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
           <span
             key={index}
             className="h-12 w-12 flex justify-center items-center  
-                      font-semibold text-xl text-primary_blue-200"
+                      font-semibold text-xl text-content-subtle"
           >
             ...
           </span>
@@ -106,14 +106,14 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
               font-semibold text-xl 
               ${
                 currentPage == page
-                  ? "text-white hover:text-white"
-                  : "text-gray-300 hover:text-white"
+                  ? "text-accent-strong"
+                  : "text-content-secondary hover:text-accent-strong"
               }`}
             onClick={() => handleClick(Number(page))}
           >
             {page}
           </button>
-        )
+        ),
       )}
 
       <button
@@ -121,8 +121,8 @@ function Paginator({ currentPage, maxPage, shallow = false }: PaginatorProps) {
         className={`flex justify-center items-center h-10 w-10 rounded-lg transition-colors 
                   ${
                     currentPage == maxPage
-                      ? "bg-gray-700 text-gray-300"
-                      : "bg-suzuha-teal-500 hover:bg-suzuha-teal-600 text-white"
+                      ? "bg-surface-muted text-content-secondary"
+                      : "bg-accent hover:bg-accent-hover text-on-accent"
                   }`}
         onClick={() => handleClick(currentPage + 1)}
       >

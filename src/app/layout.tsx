@@ -2,7 +2,7 @@ import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
 import { Bai_Jamjuree } from "next/font/google";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { siteUrl } from "@/lib/site";
 
 const baiJamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -18,6 +18,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Pavarit's Website",
   description: "Discover more about Pavarit Wiriyakunakorn.",
+  metadataBase: siteUrl,
   icons: {
     icon: "/favicon.ico",
   },
@@ -32,11 +33,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-850"
+      data-scroll-behavior="smooth"
+      className="scrollbar scrollbar-thumb-border-strong scrollbar-track-surface-raised"
     >
-      <UserProvider>
-        <body className={`${baiJamjuree.className}`}>{children}</body>
-      </UserProvider>
+      <body className={`${baiJamjuree.className}`}>{children}</body>
     </html>
   );
 }

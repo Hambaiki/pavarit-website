@@ -1,4 +1,4 @@
-import { FaBook, FaCode, FaEnvelope, FaHand, FaPerson } from "react-icons/fa6";
+import { FaBook, FaEnvelope, FaHand } from "react-icons/fa6";
 
 export const introItems = [
   {
@@ -8,16 +8,10 @@ export const introItems = [
     icon: FaHand,
   },
   {
-    title: "My Blog",
+    title: "My Posts",
     description: "Read my thoughts and ideas.",
-    href: "/blog",
+    href: "/posts",
     icon: FaBook,
-  },
-  {
-    title: "My Projects",
-    description: "See my projects and what I have done.",
-    href: "/about/projects",
-    icon: FaCode,
   },
   {
     title: "Contact Me",

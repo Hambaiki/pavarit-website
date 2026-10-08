@@ -1,6 +1,9 @@
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
+
+type ButtonVariant = "primary" | "secondary" | "tertiary";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -8,9 +11,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   href?: string;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: ButtonVariant;
   onClick?: () => void;
 }
+
+const variantClasses: Record<ButtonVariant, string> = {
+  primary:
+    "border border-accent bg-accent hover:bg-accent-hover disabled:bg-surface-muted disabled:text-content-muted disabled:border-border-strong text-on-accent",
+  secondary:
+    "border border-accent bg-transparent hover:bg-accent/10 disabled:text-content-muted disabled:border-border-strong text-accent",
+  tertiary:
+    "underline underline-offset-1 text-accent disabled:text-content-muted",
+};
 
 function Button({
   id,
@@ -22,24 +34,17 @@ function Button({
   href,
   onClick,
 }: ButtonProps) {
+  const variantClassName = variantClasses[variant];
+
   if (href) {
     return (
       <Link
         href={href}
-        className={`${className} flex transition-colors items-center justify-center text-center disabled:cursor-not-allowed
-          ${
-            variant === "primary" &&
-            "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-gray-700 disabled:text-gray-300 disabled:border-gray-700 text-white"
-          }
-          ${
-            variant === "secondary" &&
-            "border border-suzuha-teal-500 bg-transparent hover:bg-suzuha-teal-500/10 disabled:text-gray-300 disabled:border-gray-500 text-suzuha-teal-500"
-          }
-          ${
-            variant === "tertiary" &&
-            "underline underline-offset-1 text-suzuha-teal-500 disabled:text-gray-300"
-          }
-      `}
+        className={clsx(
+          "flex items-center justify-center text-center transition-colors disabled:cursor-not-allowed",
+          variantClassName,
+          className,
+        )}
       >
         {children}
       </Link>
@@ -52,20 +57,11 @@ function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${className} transition-colors disabled:cursor-not-allowed
-        ${
-          variant === "primary" &&
-          "border border-suzuha-teal-500 bg-suzuha-teal-500 hover:bg-suzuha-teal-600 disabled:bg-gray-700 disabled:text-gray-300 disabled:border-gray-700 text-white"
-        }
-        ${
-          variant === "secondary" &&
-          "border border-suzuha-teal-500 bg-transparent hover:bg-suzuha-teal-500/10 disabled:text-gray-300 disabled:border-gray-500 text-suzuha-teal-500"
-        }
-        ${
-          variant === "tertiary" &&
-          "underline underline-offset-1 text-suzuha-teal-500 disabled:text-gray-300"
-        }
-      `}
+      className={clsx(
+        "transition-colors disabled:cursor-not-allowed",
+        variantClassName,
+        className,
+      )}
     >
       {children}
     </button>

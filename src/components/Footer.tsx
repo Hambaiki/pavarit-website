@@ -17,11 +17,11 @@ function Footer() {
             /> */}
           {/* <h3>PAVARIT</h3> */}
           <div className="flex flex-col space-y-1 text-center md:text-left">
-            <p className="font-bold text-lg text-gray-200">
+            <p className="font-bold text-lg text-content">
               Developed by Pavarit W.
             </p>
-            <p className="text-sm text-gray-400">
-              Built with Next.js, Tailwind CSS, Vercel, and Neon.
+            <p className="text-sm text-content-secondary">
+              Built with Next.js, Tailwind CSS, and Markdown.
             </p>
           </div>
 
@@ -34,9 +34,9 @@ function Footer() {
                   href={item.value}
                   target="_blank"
                   className="group flex flex-row items-center justify-center 
-                      w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
+                      w-10 h-10 rounded-full bg-surface-raised hover:bg-surface-muted transition-colors"
                 >
-                  <item.icon className="w-5 h-5 group-hover:text-suzuha-teal-500 transition-colors" />
+                  <item.icon className="w-5 h-5 group-hover:text-accent transition-colors" />
                 </a>
               ))}
           </div>
